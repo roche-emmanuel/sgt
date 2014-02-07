@@ -1,3 +1,4 @@
 == SGT release v1.0.0 - ??? ==
 
 - Initial commit.
+- Added template cmake files.
