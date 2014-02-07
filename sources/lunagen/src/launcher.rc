@@ -1,0 +1,8 @@
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+// 1 24 "winxp.manifest"
+// #include "wx/msw/wx.rc"
+
+wxICON_AA	            ICON                    "logo.ico" // We need this line to ensure that we still use our icon even when including the wx ressource file.
+
+
