@@ -42,18 +42,7 @@ public:
 	
 protected:
 	int doRun();
-	
-	bool fexists(const std::string& filename);
-	bool removeFile(const std::string& filename);
-	bool writeFile(const std::string& filename, void* data, unsigned long long len);
 	std::string getExecutablePath();
-	bool writeRootPath();
-	std::string getVBSConfigFile();
-	std::string getVBSPath();
-	bool installVBSFiles();
-	bool removeVBSFiles();
-	bool findMainVBSWindow();
-	std::string buildVBSCommandLine();
 };
 
 #endif

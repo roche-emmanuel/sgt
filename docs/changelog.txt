@@ -5,3 +5,4 @@
 - Preparing for initial build of Module loader.
 - Successfully built module loader.
 - Compiled template launcher app.
+- Successfully built template launcher with memory module.

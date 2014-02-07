@@ -7,10 +7,15 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/program_options.hpp>
 
-extern const unsigned char buf_simkernel_dll[];
-extern const unsigned long long len_simkernel_dll;
+extern const unsigned char buf_moduleloader_dll[];
 
 namespace po = boost::program_options;
+
+typedef bool (*loadModule_t)(const std::string& name, void* data);
+typedef void* (*getModule_t)(const std::string& name);
+typedef void (*setModuleData_t)(const std::string& name, void* data);
+typedef void (*setModule_t)(const std::string& name, HCUSTOMMODULE handle);
+typedef FARPROC (*getProcedure_t)(const std::string& name, const std::string procname);
 
 int showError(const std::string& text) {
 	return MessageBox(NULL,text.c_str(),"Error",MB_ICONERROR|MB_OK);
@@ -72,30 +77,33 @@ int Launcher::run(int argc, char* argv[])
 	return doRun();
 }
 
+
 int Launcher::doRun()
 {
-	// // First we write the simkernel file to a temp file:
-	// std::string simfile = getenv("TEMP");
-	// simfile += "\\vbssim2_sim_data.tmp";
+	HCUSTOMMODULE handle = MemoryLoadLibrary((void*)buf_moduleloader_dll);
+	CHECK_RET(handle,1,"Invalid ModuleLoader handle");
+	// logINFO("ModuleLoader loaded.")
+
+	// Retrieve the loadModule method:
+	loadModule_t loadModule = (loadModule_t)MemoryGetProcAddress(handle, "loadModule");
+	CHECK_RET(loadModule,1,"Invalid loadModule pointer.");
+	getModule_t getModule = (getModule_t)MemoryGetProcAddress(handle, "getModule");
+	CHECK_RET(getModule,1,"Invalid getModule pointer.");
+	getProcedure_t getProcedure = (getProcedure_t)MemoryGetProcAddress(handle, "getProcedure");
+	CHECK_RET(getProcedure,1,"Invalid getProcedure pointer.");
+	setModuleData_t setModuleData = (setModuleData_t)MemoryGetProcAddress(handle, "setModuleData");
+	CHECK_RET(setModuleData,1,"Invalid setModuleData pointer.");
+	setModule_t setModule = (setModule_t)MemoryGetProcAddress(handle, "setModule");
+	CHECK_RET(setModule,1,"Invalid setModule pointer.");
 	
-	// CHECK_RET(writeFile(simfile,(void*)buf_simkernel_dll,len_simkernel_dll),1,"Could not write SimKernel file.")
+	// bootstrap the reference on the module loader:
+	setModule("ModuleLoader.dll",handle);
 	
-	// // also check if we have a configuration file in the current folder:
-	// if(!fexists("VBSSim2.cfg")) {
-	// 	CHECK_RET(writeFile("VBSSim2.cfg",(void*)buf_default_config,len_default_config),1,"Could not write default configuration file.")
-	// }
+	CHECK_RET(getModule("ModuleLoader.dll")==handle,1,"Invalid Module loader handle retrieved: actual="<<(const void*)handle<<", retrieved="<< (const void*) getModule("ModuleLoader.dll") );
 	
-	// // install the hooks:
-	// HINSTANCE handle = LoadLibrary(simfile.c_str());
-	// // HINSTANCE handle = LoadLibrary("SimKernel.dll");
-	// CHECK_RET(handle,1,"Invalid SimKernel.dll handle");
-	
-	// InstallProc InstallHook = (InstallProc) GetProcAddress(handle, "InstallHook");
-	// CHECK_RET(InstallHook,1,"Invalid InstallHook pointer.")
-	// RemoveProc RemoveHook = (RemoveProc) GetProcAddress(handle, "RemoveHook");
-	// CHECK_RET(RemoveHook,1,"Invalid RemoveHook pointer.")
-	
-	// FreeLibrary(handle); 
+	// showError("Loading successfull !");
+	// should free the modules here:
+	MemoryFreeLibrary(handle);
 
 	std::cout<< "Exiting."<< std::endl;
 	return 0;
