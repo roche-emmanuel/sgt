@@ -9,3 +9,4 @@
 - Added lunagen project.
 - Added lua dependency.
 - Added OSG dependencies to lunagen.
+- Simplified cmake files.
