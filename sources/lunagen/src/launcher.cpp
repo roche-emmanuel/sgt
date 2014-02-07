@@ -8,6 +8,12 @@
 #include <boost/program_options.hpp>
 
 extern const unsigned char buf_moduleloader_dll[];
+extern const unsigned char buf_sgtluna_dll[];
+extern const unsigned char buf_lua51_dll[];
+extern const unsigned char buf_osg97_osg_dll[];
+extern const unsigned char buf_osg97_osgdb_dll[];
+extern const unsigned char buf_osg97_osgutil_dll[];
+extern const unsigned char buf_ot12_openthreads_dll[];
 
 namespace po = boost::program_options;
 
@@ -101,6 +107,13 @@ int Launcher::doRun()
 	
 	CHECK_RET(getModule("ModuleLoader.dll")==handle,1,"Invalid Module loader handle retrieved: actual="<<(const void*)handle<<", retrieved="<< (const void*) getModule("ModuleLoader.dll") );
 	
+	setModuleData("lua51.dll",(void*)buf_lua51_dll);
+	setModuleData("sgtLuna.dll",(void*)buf_sgtluna_dll);
+	setModuleData("osg97-osg.dll",(void*)buf_osg97_osg_dll);
+	setModuleData("osg97-osgDB.dll",(void*)buf_osg97_osgdb_dll);
+	setModuleData("osg97-osgUtil.dll",(void*)buf_osg97_osgutil_dll);
+	setModuleData("ot12-OpenThreads.dll",(void*)buf_ot12_openthreads_dll);
+
 	// showError("Loading successfull !");
 	// should free the modules here:
 	MemoryFreeLibrary(handle);

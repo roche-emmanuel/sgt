@@ -9,9 +9,19 @@ SET(LUA "${TOOLS_DIR}/luajit.exe" CACHE STRING "LUA executable")
 
 # Dependencies paths:
 SET(DEP_BOOST ${DEPS_DIR}/${FLAVOR}/boost-1.53.0 CACHE STRING "boost path")
+SET(DEP_LUA ${DEPS_DIR}/${FLAVOR}/LuaJIT-2.0.1 CACHE STRING "lua path")
+SET(DEP_OSG ${DEPS_DIR}/${FLAVOR}/OpenSceneGraph-3.1.5 CACHE STRING "osg path")
 
 
 # Depdencies definitions:
 SET(BOOST_INC_DIR 	${DEP_BOOST}/include)
 SET(BOOST_LIB_DIR 	${DEP_BOOST}/lib)
 SET(BOOST_LIBS 		)
+
+SET(LUA_INC_DIR 	${DEP_LUA}/include)
+SET(LUA_LIB_DIR 	${DEP_LUA}/lib)
+SET(LUA_LIBS 			lua51)
+
+SET(OSG_INC_DIR 	${DEP_OSG}/include)
+SET(OSG_LIB_DIR 	${DEP_OSG}/lib)
+SET(OSG_LIBS     	OpenThreads osg osgUtil osgDB osgGA osgText osgViewer osgParticle)

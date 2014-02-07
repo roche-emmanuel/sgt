@@ -23,8 +23,13 @@ ADD_MSVC_PRECOMPILED_HEADER("launcher.h" "launcher.cpp" SOURCE_FILES)
 ADD_CUSTOM_TARGET(${TARGET_NAME}_images)
 
 GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll SOURCE_FILES)
+GENERATE_LIBRARY_IMAGE(sgtLuna sgtluna_dll SOURCE_FILES)
 
 GENERATE_EXT_LIBRARY_IMAGE(deps/lua51.dll lua51_dll SOURCE_FILES)
+GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osg.dll osg97_osg_dll SOURCE_FILES)
+GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osgDB.dll osg97_osgdb_dll SOURCE_FILES)
+GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osgUtil.dll osg97_osgutil_dll SOURCE_FILES)
+GENERATE_EXT_LIBRARY_IMAGE(deps/ot12-OpenThreads.dll ot12_openthreads_dll SOURCE_FILES)
 
 # GENERATE_LIBRARY_IMAGE(TurretSim2_encrypted turretsim2_fusion plugins/TurretSim2.fusion SOURCE_FILES)
 

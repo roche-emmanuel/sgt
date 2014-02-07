@@ -8,3 +8,4 @@
 - Successfully built template launcher with memory module.
 - Added lunagen project.
 - Added lua dependency.
+- Added OSG dependencies to lunagen.
