@@ -4,15 +4,31 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(SGT)
 SET(PROJECT_VERSION 1.0)
 
+IF(NOT DEFINED FLAVOR)
+	SET(FLAVOR win32)	
+ENDIF()
+
 # Include the macro definitions:
 INCLUDE(cmake/Macros.cmake)
 
 # Include the config:
 INCLUDE(cmake/Config.cmake)
 
-# Include the dependencies definitions:
-INCLUDE(cmake/Dependencies.cmake)
 
 SET(CMAKE_MODULE_PATH "cmake ${CMAKE_MODULE_PATH}")
 
+# Use the "d" postfix for debug binaries
+SET(CMAKE_DEBUG_POSTFIX "d")
+
+
+STRING(TOUPPER "${FLAVOR}" UPPER_FLAVOR)
+ADD_DEFINITIONS("-D${UPPER_FLAVOR}")
+ADD_DEFINITIONS("-D_FILE_OFFSET_BITS=64")
+
+IF(MSVC)	
+	ADD_DEFINITIONS(-DCXX_ENABLED) # only on MSVC
+ENDIF()
+
 ADD_SUBDIRECTORY(sources)
+
+

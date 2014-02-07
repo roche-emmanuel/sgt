@@ -1,0 +1,12 @@
+SET(DEPS_DIR "W:/Cloud/Dev/Deps" CACHE STRING "Folder containing all the needed dependencies")
+SET(CMAKE_INSTALL_PREFIX "W:/Cloud/Projects/sgt/software" CACHE STRING "Installation folder" FORCE)
+
+
+# Dependencies paths:
+SET(DEP_BOOST ${DEPS_DIR}/${FLAVOR}/boost-1.53.0 CACHE STRING "boost path")
+
+
+# Depdencies definitions:
+SET(BOOST_INC_DIR 	${DEP_BOOST}/include)
+SET(BOOST_LIB_DIR 	${DEP_BOOST}/lib)
+SET(BOOST_LIBS 		)
