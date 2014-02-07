@@ -1,2 +1,5 @@
 # Ignored executable files
 software/*.exe
+
+# Ignore temp folder
+temp

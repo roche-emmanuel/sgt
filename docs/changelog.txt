@@ -7,3 +7,4 @@
 - Compiled template launcher app.
 - Successfully built template launcher with memory module.
 - Added lunagen project.
+- Added lua dependency.

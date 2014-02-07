@@ -22,7 +22,10 @@ ADD_MSVC_PRECOMPILED_HEADER("launcher.h" "launcher.cpp" SOURCE_FILES)
 
 ADD_CUSTOM_TARGET(${TARGET_NAME}_images)
 
-GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll "" SOURCE_FILES)
+GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll SOURCE_FILES)
+
+GENERATE_EXT_LIBRARY_IMAGE(deps/lua51.dll lua51_dll SOURCE_FILES)
+
 # GENERATE_LIBRARY_IMAGE(TurretSim2_encrypted turretsim2_fusion plugins/TurretSim2.fusion SOURCE_FILES)
 
 # just consider the configuration file as a binary file for now.

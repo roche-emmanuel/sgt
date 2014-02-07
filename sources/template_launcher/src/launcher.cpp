@@ -77,7 +77,6 @@ int Launcher::run(int argc, char* argv[])
 	return doRun();
 }
 
-
 int Launcher::doRun()
 {
 	HCUSTOMMODULE handle = MemoryLoadLibrary((void*)buf_moduleloader_dll);
