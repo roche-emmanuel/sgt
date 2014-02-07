@@ -18,3 +18,17 @@ MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar
     LIST(APPEND ${SourcesVar} ${PrecompiledSource})
   ENDIF(MSVC)
 ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
+
+
+MACRO(COMPRESS_BINARY_TARGET)
+  SET(THE_TARGET "${TARGET_NAME}")
+  # MESSAGE("Adding compression for ${THE_TARGET}")
+  
+  ADD_CUSTOM_COMMAND(
+    TARGET ${THE_TARGET}
+    POST_BUILD
+    COMMAND echo "Compressing ${THE_TARGET}..."
+    COMMAND ${UPX} --best "$<TARGET_FILE:${THE_TARGET}>"
+    COMMAND echo "Compression done."
+  )   
+ENDMACRO(COMPRESS_BINARY_TARGET)

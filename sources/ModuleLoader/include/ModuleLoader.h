@@ -31,8 +31,6 @@ int showError(const std::string& text);
 #define CHECK(val,msg) if(!(val)) { logERROR(msg); return; }
 #define CHECK_RET(val,ret,msg) if(!(val)) { logERROR(msg); return ret; }
 
-#define CHECK_RESULT(val,msg) { HRESULT hr = (val); if(FAILED(hr)) { logERROR(msg << ", err=" << DXGetErrorString(hr) << ", desc=" << DXGetErrorDescription(hr)); return; } }
-#define CHECK_RESULT_RET(val,ret,msg) { HRESULT hr = (val); if(FAILED(hr)) { logERROR(msg << ", err=" << DXGetErrorString(hr) << ", desc=" << DXGetErrorDescription(hr)); return ret; } }
 #endif
 
 #ifdef MODULELOADER_LIBRARY
