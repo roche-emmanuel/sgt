@@ -3,3 +3,4 @@
 - Initial commit.
 - Added template cmake files.
 - Preparing for initial build of Module loader.
+- Successfully built module loader.
