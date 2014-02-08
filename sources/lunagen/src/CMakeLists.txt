@@ -20,7 +20,7 @@ FILE(GLOB_RECURSE SOURCE_FILES "*.cpp" )
 
 ADD_MSVC_PRECOMPILED_HEADER("launcher.h" "launcher.cpp" SOURCE_FILES)
 
-# ADD_CUSTOM_TARGET(${TARGET_NAME}_images)
+ADD_CUSTOM_TARGET(${TARGET_NAME}_images)
 
 GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(sgtLuna sgtluna_dll SOURCE_FILES)
@@ -45,7 +45,7 @@ ELSE()
 ADD_EXECUTABLE (${TARGET_NAME} ${PUBLIC_HEADERS} ${SOURCE_FILES} launcher.rc "../../ModuleLoader/src/MemoryModule.c")
 ENDIF()
 
-# ADD_DEPENDENCIES(${TARGET_NAME} ${TARGET_NAME}_images)
+ADD_DEPENDENCIES(${TARGET_NAME} ${TARGET_NAME}_images)
 
 # SimKernel must be constructed to build this executable.
 # ADD_DEPENDENCIES(${TARGET_NAME} SimKernel)

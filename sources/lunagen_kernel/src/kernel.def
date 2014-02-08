@@ -1,0 +1,5 @@
+LIBRARY     "lunagen_kernel"
+
+EXPORTS
+
+	executeMain		@1

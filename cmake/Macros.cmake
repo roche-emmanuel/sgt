@@ -48,7 +48,8 @@ MACRO(GENERATE_LIBRARY_IMAGE dep libName sourceVar)
    
   get_property(libFile TARGET ${dep} PROPERTY LOCATION)
   MESSAGE("Found library file ${libFile}")
-  GENERATE_BINARY_IMAGE(${libName} ${libFile} sourceVar)    
+  GENERATE_BINARY_IMAGE(${libName} ${libFile} sourceVar) 
+  ADD_DEPENDENCIES(${TARGET_NAME}_images ${dep})  
 ENDMACRO(GENERATE_LIBRARY_IMAGE)
 
 MACRO(GENERATE_EXT_LIBRARY_IMAGE libFile libName sourceVar)

@@ -14,6 +14,7 @@ extern const unsigned char buf_osg97_osg_dll[];
 extern const unsigned char buf_osg97_osgdb_dll[];
 extern const unsigned char buf_osg97_osgutil_dll[];
 extern const unsigned char buf_ot12_openthreads_dll[];
+extern const unsigned char buf_lunagen_kernel_dll[];
 
 namespace po = boost::program_options;
 
@@ -22,6 +23,9 @@ typedef void* (*getModule_t)(const std::string& name);
 typedef void (*setModuleData_t)(const std::string& name, void* data);
 typedef void (*setModule_t)(const std::string& name, HCUSTOMMODULE handle);
 typedef FARPROC (*getProcedure_t)(const std::string& name, const std::string procname);
+
+typedef int (*executeMain_t)(const std::string& cmdline);
+
 
 int showError(const std::string& text) {
 	return MessageBox(NULL,text.c_str(),"Error",MB_ICONERROR|MB_OK);
@@ -113,13 +117,21 @@ int Launcher::doRun()
 	setModuleData("osg97-osgDB.dll",(void*)buf_osg97_osgdb_dll);
 	setModuleData("osg97-osgUtil.dll",(void*)buf_osg97_osgutil_dll);
 	setModuleData("ot12-OpenThreads.dll",(void*)buf_ot12_openthreads_dll);
+	
+	CHECK_RET(loadModule("lunagen_kernel.dll",(void*)buf_lunagen_kernel_dll),1,"Cannot load kernel library.");
+
+	executeMain_t executeMain_fn = (executeMain_t) getProcedure("lunagen_kernel.dll", "executeMain");
+	CHECK_RET(executeMain_fn,1,"Invalid executeMain method.");
+
+	// NOw call the execute main method:
+	int res = executeMain_fn("");
 
 	// showError("Loading successfull !");
 	// should free the modules here:
 	MemoryFreeLibrary(handle);
 
-	std::cout<< "Exiting."<< std::endl;
-	return 0;
+	std::cout<< "Exiting with code "<<res<< std::endl;
+	return res;
 }
 
 

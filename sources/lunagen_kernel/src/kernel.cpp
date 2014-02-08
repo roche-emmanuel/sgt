@@ -27,7 +27,7 @@ std::string getExecutablePath()
 
 extern "C" {
 
-int executeMain(std::string& args) {
+int executeMain(const std::string& args) {
 	// Init the log system.
 	LogManager::instance().setDefaultLevelFlags(LogManager::TIME_STAMP);
 	LogManager::instance().setDefaultTraceFlags(LogManager::TIME_STAMP);
