@@ -1,3 +1,4 @@
+#include "kernel.h"
 #include "lunaCommon.h"
 
 #include "log/FileLogger.h"

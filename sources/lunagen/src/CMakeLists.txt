@@ -24,6 +24,7 @@ ADD_MSVC_PRECOMPILED_HEADER("launcher.h" "launcher.cpp" SOURCE_FILES)
 
 GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(sgtLuna sgtluna_dll SOURCE_FILES)
+GENERATE_LIBRARY_IMAGE(lunagen_kernel lunagen_kernel_dll SOURCE_FILES)
 
 GENERATE_EXT_LIBRARY_IMAGE(deps/lua51.dll lua51_dll SOURCE_FILES)
 GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osg.dll osg97_osg_dll SOURCE_FILES)

@@ -11,3 +11,4 @@
 - Added OSG dependencies to lunagen.
 - Simplified cmake files.
 - Added support for lua package generation.
+- Adding initial implementation of lunagen kernel.
