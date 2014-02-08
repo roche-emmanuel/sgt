@@ -122,21 +122,4 @@ int Launcher::doRun()
 	return 0;
 }
 
-std::string Launcher::getExecutablePath()
-{
-	char pBuf[FILENAME_MAX];
-
-	int bytes = GetModuleFileName(NULL, pBuf, FILENAME_MAX);
-	if(bytes == 0) {
-		logERROR("Cannot retrieve executable path.");
-		return std::string();
-	}
-
-	std::string path = pBuf;
-	int index = path.rfind("\\");
-	path = path.substr(0,index);
-	
-	// logINFO("Found VBSSim2 root path: " + path);
-	return path;
-}
 
