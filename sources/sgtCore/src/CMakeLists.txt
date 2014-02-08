@@ -1,4 +1,4 @@
-SET(TARGET_NAME "lunagen_kernel")
+SET(TARGET_NAME "sgtCore")
 
 INCLUDE_DIRECTORIES (../include)
 INCLUDE_DIRECTORIES(../../sgtLuna/include)

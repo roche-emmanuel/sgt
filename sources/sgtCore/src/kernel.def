@@ -1,4 +1,4 @@
-LIBRARY     "lunagen_kernel"
+LIBRARY     "sgtCore"
 
 EXPORTS
 

@@ -14,7 +14,7 @@ extern const unsigned char buf_osg97_osg_dll[];
 extern const unsigned char buf_osg97_osgdb_dll[];
 extern const unsigned char buf_osg97_osgutil_dll[];
 extern const unsigned char buf_ot12_openthreads_dll[];
-extern const unsigned char buf_lunagen_kernel_dll[];
+extern const unsigned char buf_sgtcore_dll[];
 
 namespace po = boost::program_options;
 
@@ -118,9 +118,9 @@ int Launcher::doRun()
 	setModuleData("osg97-osgUtil.dll",(void*)buf_osg97_osgutil_dll);
 	setModuleData("ot12-OpenThreads.dll",(void*)buf_ot12_openthreads_dll);
 	
-	CHECK_RET(loadModule("lunagen_kernel.dll",(void*)buf_lunagen_kernel_dll),1,"Cannot load kernel library.");
+	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");
 
-	executeMain_t executeMain_fn = (executeMain_t) getProcedure("lunagen_kernel.dll", "executeMain");
+	executeMain_t executeMain_fn = (executeMain_t) getProcedure("sgtCore.dll", "executeMain");
 	CHECK_RET(executeMain_fn,1,"Invalid executeMain method.");
 
 	// NOw call the execute main method:

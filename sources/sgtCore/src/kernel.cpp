@@ -45,7 +45,7 @@ int executeMain(const std::string& args) {
 	// 	root_path = path;
 	CHECK_RET(!root_path.empty(),0,"Root path environment variable is not set properly.");
 	
-	LogManager::instance().addSink(new FileLogger(root_path+"\\VBSSim2.log",false,"main_log_file_sink"));
+	LogManager::instance().addSink(new FileLogger(root_path+"\\sgt.log",false,"main_log_file_sink"));
 	
 	logNOTICE("Log system initialized.");
 

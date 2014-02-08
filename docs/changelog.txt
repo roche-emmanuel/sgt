@@ -13,3 +13,4 @@
 - Added support for lua package generation.
 - Adding initial implementation of lunagen kernel.
 - Calling executeMain in lunagen launcher.
+- Renamed lunagen to sgt.
