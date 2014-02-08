@@ -58,3 +58,36 @@ MACRO(GENERATE_EXT_LIBRARY_IMAGE libFile libName sourceVar)
   SET(targetPath "${PROJECT_SOURCE_DIR}/${libFile}")
   GENERATE_BINARY_IMAGE(${libName} ${targetPath} sourceVar)    
 ENDMACRO(GENERATE_EXT_LIBRARY_IMAGE)
+
+MACRO(GENERATE_LUA_PACKAGE sourceVar)
+  # Check if a source path is provided:
+  SET(srcFolder "${ARGV1}")
+  SET(destFolder "${CMAKE_CURRENT_BINARY_DIR}/")
+  SET(destFile "${ARGV2}")
+  
+  IF("${srcFolder}" STREQUAL "")
+    SET(srcFolder "${CMAKE_CURRENT_SOURCE_DIR}/../modules/")
+  ENDIF()
+  IF("${destFile}" STREQUAL "")
+    SET(destFile "bindings.cpp")
+  ENDIF()
+
+  # write the complete file name:
+  SET(destFile "${destFolder}${destFile}")
+  SET(lua_script "${PROJECT_SOURCE_DIR}/cmake/generate_package.lua")
+
+  # Add generated file to source list:
+  LIST(APPEND ${sourceVar} ${destFile})
+  
+  # look for all the dependencies
+  FILE(GLOB_RECURSE DEP_FILES "${srcFolder}*.lua" "${srcFolder}*.ttf" "${srcFolder}*.png" "${srcFolder}*.dll" "${srcFolder}*.hlsl" ) 
+  # MESSAGE("Found dependencies: ${DEP_FILES}")
+  
+  ADD_CUSTOM_COMMAND(OUTPUT ${destFile}
+    COMMAND echo "Generating lua package..."
+    # COMMAND echo "Dep files: ${DEP_FILES}"
+    COMMAND ${LUA} -e "project='${TARGET_NAME}'; src_path='${srcFolder}'; dest_path='${destFolder}';" ${lua_script}
+    # COMMAND ${CMAKE_COMMAND} -E touch ${PROJECT_SOURCE_DIR}/cmake/Macros.cmake # touch the calling file
+    DEPENDS ${DEP_FILES})
+
+ENDMACRO(GENERATE_LUA_PACKAGE)

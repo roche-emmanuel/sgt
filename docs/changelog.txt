@@ -10,3 +10,4 @@
 - Added lua dependency.
 - Added OSG dependencies to lunagen.
 - Simplified cmake files.
+- Added support for lua package generation.
