@@ -2,11 +2,14 @@ SET(DEPS_DIR "W:/Cloud/Dev/Deps" CACHE STRING "Folder containing all the needed 
 SET(CMAKE_INSTALL_PREFIX "W:/Cloud/Projects/sgt/software" CACHE STRING "Installation folder" FORCE)
 SET(TOOLS_DIR "${PROJECT_SOURCE_DIR}/tools" CACHE STRING "Folder containing all the needed dev tools")
 
-
 # Tools path:
 SET(UPX "${TOOLS_DIR}/upx.exe" CACHE STRING "UPX executable")
 SET(LUA "${TOOLS_DIR}/luajit.exe" CACHE STRING "LUA executable")
-SET(DOXYGEN"${TOOLS_DIR}/doxygen.exe" CACHE STRING "Doxygen executable")
+SET(DOXYGEN "${TOOLS_DIR}/doxygen.exe" CACHE STRING "Doxygen executable")
+
+# Temporary hack using external sgt launcher for reflection generation:
+SET(EXT_TOOLS_DIR "W:/Cloud/Dev/Common/Tools/win32" CACHE STRING "Folder containing all the external tools")
+SET(SGTLAUNCHER "${EXT_TOOLS_DIR}/singularity-0.2.0/bin/win32/sgtLauncher.exe" CACHE STRING "Singularity launcher")
 
 # Dependencies paths:
 SET(DEP_BOOST ${DEPS_DIR}/${FLAVOR}/boost-1.53.0 CACHE STRING "boost path")

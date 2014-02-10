@@ -19,3 +19,4 @@
 - execute main module in lua state
 - return exit code from main module execution.
 - Added doxygen tool.
+- Preparing for plug_core reflection generation.

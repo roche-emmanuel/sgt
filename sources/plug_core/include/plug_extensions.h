@@ -9,8 +9,6 @@ std::string getLuaID(lua_Any* dum, lua_State* L);
 /** LUNA_CLASS_EXTENSION LUNA_RENAME __tostring */
 int ptime_tostring(boost::posix_time::ptime* val, lua_State* L);
 
-void setEnv(const std::string& var, const std::string& value);
-
 class BaseClass {
 public:	
 	BaseClass() {};
