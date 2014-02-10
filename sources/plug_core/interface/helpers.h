@@ -1,4 +1,7 @@
 
+// int loadModuleFromMemory(const std::string& data, const std::string& mname, const std::string& entryname, lua_State* L);
+// int loadModuleFromMemory(const std::string& mname, const std::string& entryname, lua_State* L);
+
 struct HWND {
 };
 

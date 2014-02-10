@@ -64,7 +64,7 @@ function conv:init(options)
 	-- add the default source folders:
 	table.insert(src_folders,options.src_folder)
 	local dest_folder = options.dest_folder or options.src_folder .. "/../src/" 
-	self._bindingFile = dest_folder .. "bindings.cpp"
+	self._bindingFile = dest_folder .. (options.dest_file or "bindings") .. ".cpp"
 	
 	self._packageName = options.package;
 
@@ -224,17 +224,17 @@ static Loader_${1} loader_object;
 
 	]];
 	
-	file:write((str1:gsub("%${1}",self._packageName)))
+	file:write((str1:gsub("%${1}",self._packageName.."_"..dest_file)))
 	for _,v in ipairs(self._modules) do
 		local name = "buf_" .. v:gsub("[%.%-:]","_")
 		file:write('\t\tsgtModuleProvider::registerModule("'.. v ..'",std::string((const char*)'.. name ..',sizeof('..name..')));\n')
 	end
-	file:write((str2:gsub("%${1}",self._packageName)))
+	file:write((str2:gsub("%${1}",self._packageName.."_"..dest_file)))
 	
 	file:close()
 end
 
-conv:init{package=project,src_folder=src_path,dest_folder=dest_path}
+conv:init{package=project,src_folder=src_path,dest_folder=dest_path,dest_file=dest_file}
 
 print("Package generation done.")
 

@@ -9,6 +9,25 @@
 
 using namespace sgt;
 
+int loadModuleFromMemory(const std::string& mname, const std::string& entryname, lua_State* L)
+{
+	//Use the module loader to load this library:
+	// ModuleLoader& loader = ModuleLoader::instance();
+	CHECK_RET(loadModule(mname),0,"Cannot load library "<<mname);
+	
+	if(entryname.empty())
+		return 0;
+		
+	// Now call the entry point function:
+	typedef int (* LuaFunc)(lua_State* L);
+	
+	LuaFunc entry = (LuaFunc)getProcedure(mname,entryname);
+	CHECK_RET(entry,0,"Cannot find entry point " << entryname << " in library "<<mname);
+	
+	// call the entry point with this lua state:
+	return entry(L);
+}
+
 int loadModuleFromMemory(void* data, const std::string& mname, const std::string& entryname, lua_State* L)
 {
 	//Use the module loader to load this library:
@@ -28,15 +47,11 @@ int loadModuleFromMemory(void* data, const std::string& mname, const std::string
 	return entry(L);
 }
 
-int loadModuleFromMemory(lua_Any* dum1, lua_Any* dum2, lua_Any* dum3, lua_State* L)
+int loadModuleFromMemory(const std::string& data, const std::string& mname, const std::string& entryname, lua_State* L)
 {
 	// the module data is available as first argument,
 	// The name to use for this module is the second argument,
 	// And the module entry point name is the third argument.
-	std::string data(lua_tostring(L,1),lua_objlen(L,1));
-	std::string mname(lua_tostring(L,2),lua_objlen(L,2));
-	std::string entryname(lua_tostring(L,3),lua_objlen(L,3));
-	
 	return loadModuleFromMemory((void*)data.data(),mname,entryname,L);
 }
 

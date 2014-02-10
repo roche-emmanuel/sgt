@@ -15,6 +15,8 @@ extern const unsigned char buf_osg97_osgdb_dll[];
 extern const unsigned char buf_osg97_osgutil_dll[];
 extern const unsigned char buf_ot12_openthreads_dll[];
 extern const unsigned char buf_sgtcore_dll[];
+extern const unsigned char buf_plug_core_sgp[];
+extern const unsigned char buf_lua_core_pak[];
 
 namespace po = boost::program_options;
 
@@ -117,6 +119,9 @@ int Launcher::doRun()
 	setModuleData("osg97-osgDB.dll",(void*)buf_osg97_osgdb_dll);
 	setModuleData("osg97-osgUtil.dll",(void*)buf_osg97_osgutil_dll);
 	setModuleData("ot12-OpenThreads.dll",(void*)buf_ot12_openthreads_dll);
+	
+	setModuleData("core.lpak",(void*)buf_lua_core_pak);
+	setModuleData("core.sgp",(void*)buf_plug_core_sgp);
 	
 	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");
 

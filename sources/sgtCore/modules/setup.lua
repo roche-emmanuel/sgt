@@ -1,10 +1,12 @@
 root_path = root_path:gsub("\\","/")
 
 -- provide all the common default paths:
-package.cpath = package.cpath..";".. root_path .. "/bin/modules/?.dll;".. root_path .. "/bin/external/?.dll"
+-- package.cpath = package.cpath..";".. root_path .. "/bin/modules/?.dll;".. root_path .. "/bin/external/?.dll"
 
 -- core library should already be loaded from memory at that point (when applicable)
 -- thus we only load it if the core namespace is not registered yet:
+local core = sgt
+
 if not core then
 	require "core"
 elseif not package.loaded["core"] then
@@ -135,17 +137,23 @@ if not _G.requireLua then
 	-- This function can be used to load a lua package easily:
 	_G.requirePackage = function(packName,path)
 		core.doLog(sgt.LogManager.DEBUG2,"Loading lua package '" .. packName .. "'")
-		path = path or root_dir .. "/bin/packages/"
-		local filename = path .. packName .. ".lpak"
-		local f = io.open(filename,"rb")
-		if not f then 
-			core.showMessageBox("ERROR: Could not find package file " .. filename,"loading")
-			return
+		if path then
+			-- path or root_dir .. "/bin/packages/"
+			local filename = path .. packName .. ".lpak"
+			local f = io.open(filename,"rb")
+			if not f then 
+				core.showMessageBox("ERROR: Could not find package file " .. filename,"loading")
+				return
+			end
+			content = f:read("*a")
+			f:close()
+			core.doLog(sgt.LogManager.DEBUG2,"Loading lua package from file '" .. filename .. "'")
+			core.loadModuleFromMemory(content,"lua_".. packName .. "_package","") -- We do not use the "pak" suffix here 
+		else
+			-- load directly from memomry image:
+			core.doLog(sgt.LogManager.DEBUG2,"Loading lua package '" .. packName .. "'")
+			core.loadModuleFromMemory(packName .. ".lpak","")		
 		end
-		content = f:read("*a")
-		f:close()
-		core.doLog(sgt.LogManager.DEBUG2,"Loading lua package from file '" .. filename .. "'")
-		core.loadModuleFromMemory(content,"lua_".. packName .. "_package","") -- We do not use the "pak" suffix here 
 		-- or the result will conflict with auto loaded packages (for the externals for instance).
 		-- sgt.ModuleProvider.loadPackage(filename)
 	end	

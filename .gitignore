@@ -1,5 +1,6 @@
 # Ignored executable files
 software/*.exe
+software/*.log
 
 # Ignore temp folder
 temp

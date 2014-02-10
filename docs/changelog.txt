@@ -21,3 +21,4 @@
 - Added doxygen tool.
 - Preparing for plug_core reflection generation.
 - Generated reflection for plug_core.
+- Built plug_core and lua_core modules.

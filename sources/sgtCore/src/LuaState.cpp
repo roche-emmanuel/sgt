@@ -34,12 +34,13 @@ int init_lua_env (lua_State* L)
 	
 	// once the mxasset package is loaded, the core module should be available in memory,
 	// so we retrieve it:
-	std::string core = sgtModuleProvider::getModule("asset:binaries.core");
-	CHECK_RET(!core.empty(),0,"Invalid core module.");
+	// std::string core = sgtModuleProvider::getModule("asset:binaries.core");
+	// CHECK_RET(!core.empty(),0,"Invalid core module.");
 	
 	// Now load the module in the lua state:
 	// showMessageBox("Loading core module","Loading");
-	int ret = ::loadModuleFromMemory((void*)core.data(),"lua_core","luaopen_core", L);
+	// int ret = ::loadModuleFromMemory((void*)core.data(),"lua_core","luaopen_core", L);
+	int ret = ::loadModuleFromMemory("core.sgp","luaopen_core", L);
 	if (ret > 0) {
 		// pop the results:
 		lua_pop(L,ret);

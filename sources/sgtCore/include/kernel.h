@@ -19,8 +19,13 @@
 
 // common includes:
 struct lua_Any;
+int SGTCORE_EXPORT loadModuleFromMemory(const std::string& mname, const std::string& entryname, lua_State* L);
+
+/** LUNA_IGNORED */
 int SGTCORE_EXPORT loadModuleFromMemory(void* data, const std::string& mname, const std::string& ename, lua_State* L);
-int SGTCORE_EXPORT loadModuleFromMemory(lua_Any* dum1, lua_Any* dum2, lua_Any* dum3, lua_State* L);
+
+int SGTCORE_EXPORT loadModuleFromMemory(const std::string& data, const std::string& mname, const std::string& entryname, lua_State* L);
+
 
 // extern "C" {
 // SGTCORE_EXPORT void RegisterGetMapGeomFnc(void* funcPtr);

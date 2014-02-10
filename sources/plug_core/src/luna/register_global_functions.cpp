@@ -41,17 +41,19 @@ inline static bool _lg_typecheck_doTraceV(lua_State *L) {
 }
 
 inline static bool _lg_typecheck_loadModuleFromMemory_overload_1(lua_State *L) {
-	if( lua_gettop(L)!=3 ) return false;
+	if( lua_gettop(L)!=2 ) return false;
 
-	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3625364)) ) return false;
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
 	if( lua_type(L,2)!=LUA_TSTRING ) return false;
-	if( lua_type(L,3)!=LUA_TSTRING ) return false;
 	return true;
 }
 
 inline static bool _lg_typecheck_loadModuleFromMemory_overload_2(lua_State *L) {
 	if( lua_gettop(L)!=3 ) return false;
 
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	if( lua_type(L,2)!=LUA_TSTRING ) return false;
+	if( lua_type(L,3)!=LUA_TSTRING ) return false;
 	return true;
 }
 
@@ -171,27 +173,29 @@ static int _bind_doTraceV(lua_State *L) {
 	return 0;
 }
 
-// int loadModuleFromMemory(void * data, const std::string & mname, const std::string & ename, lua_State * L)
+// int loadModuleFromMemory(const std::string & mname, const std::string & entryname, lua_State * L)
 static int _bind_loadModuleFromMemory_overload_1(lua_State *L) {
 	if (!_lg_typecheck_loadModuleFromMemory_overload_1(L)) {
-		luaL_error(L, "luna typecheck failed in int loadModuleFromMemory(void * data, const std::string & mname, const std::string & ename, lua_State * L) function, expected prototype:\nint loadModuleFromMemory(void * data, const std::string & mname, const std::string & ename, lua_State * L)\nClass arguments details:\narg 1 ID = 3625364\n\n%s",luna_dumpStack(L).c_str());
+		luaL_error(L, "luna typecheck failed in int loadModuleFromMemory(const std::string & mname, const std::string & entryname, lua_State * L) function, expected prototype:\nint loadModuleFromMemory(const std::string & mname, const std::string & entryname, lua_State * L)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
 	}
 
-	void* data=(Luna< void >::check(L,1));
-	std::string mname(lua_tostring(L,2),lua_objlen(L,2));
-	std::string ename(lua_tostring(L,3),lua_objlen(L,3));
+	std::string mname(lua_tostring(L,1),lua_objlen(L,1));
+	std::string entryname(lua_tostring(L,2),lua_objlen(L,2));
 
-	return ::loadModuleFromMemory(data, mname, ename, L);
+	return ::loadModuleFromMemory(mname, entryname, L);
 }
 
-// int loadModuleFromMemory(lua_Any * dum1, lua_Any * dum2, lua_Any * dum3, lua_State * L)
+// int loadModuleFromMemory(const std::string & data, const std::string & mname, const std::string & entryname, lua_State * L)
 static int _bind_loadModuleFromMemory_overload_2(lua_State *L) {
 	if (!_lg_typecheck_loadModuleFromMemory_overload_2(L)) {
-		luaL_error(L, "luna typecheck failed in int loadModuleFromMemory(lua_Any * dum1, lua_Any * dum2, lua_Any * dum3, lua_State * L) function, expected prototype:\nint loadModuleFromMemory(lua_Any * dum1, lua_Any * dum2, lua_Any * dum3, lua_State * L)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		luaL_error(L, "luna typecheck failed in int loadModuleFromMemory(const std::string & data, const std::string & mname, const std::string & entryname, lua_State * L) function, expected prototype:\nint loadModuleFromMemory(const std::string & data, const std::string & mname, const std::string & entryname, lua_State * L)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
 	}
 
+	std::string data(lua_tostring(L,1),lua_objlen(L,1));
+	std::string mname(lua_tostring(L,2),lua_objlen(L,2));
+	std::string entryname(lua_tostring(L,3),lua_objlen(L,3));
 
-	return ::loadModuleFromMemory(NULL, NULL, NULL, L);
+	return ::loadModuleFromMemory(data, mname, entryname, L);
 }
 
 // Overload binder for loadModuleFromMemory
@@ -199,7 +203,7 @@ static int _bind_loadModuleFromMemory(lua_State *L) {
 	if (_lg_typecheck_loadModuleFromMemory_overload_1(L)) return _bind_loadModuleFromMemory_overload_1(L);
 	if (_lg_typecheck_loadModuleFromMemory_overload_2(L)) return _bind_loadModuleFromMemory_overload_2(L);
 
-	luaL_error(L, "error in function loadModuleFromMemory, cannot match any of the overloads for function loadModuleFromMemory:\n  loadModuleFromMemory(void *, const std::string &, const std::string &, lua_State *)\n  loadModuleFromMemory(lua_Any *, lua_Any *, lua_Any *, lua_State *)\n");
+	luaL_error(L, "error in function loadModuleFromMemory, cannot match any of the overloads for function loadModuleFromMemory:\n  loadModuleFromMemory(const std::string &, const std::string &, lua_State *)\n  loadModuleFromMemory(const std::string &, const std::string &, const std::string &, lua_State *)\n");
 	return 0;
 }
 

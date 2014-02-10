@@ -28,8 +28,8 @@ if mpath then
 	mpath = mpath:gsub(";","/?.lua;")
 	core2.doLog(level,"Adding module paths: '"..mpath.."'");
 	package.path = package.path..";".. mpath
--- elseif needPaks then
--- 	requirePackage "mxcore"
+else
+	requirePackage "core"
 end
 
 -- core2.showMessageBox("Step 3","loading")
@@ -43,5 +43,6 @@ local log = require "tracer" -- use the tracer as default logging system.
 	
 log:info("init","Lua engine initialization completed.")
 
-
+-- exit code:
+return 0
 

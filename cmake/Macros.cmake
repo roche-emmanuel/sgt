@@ -70,24 +70,24 @@ MACRO(GENERATE_LUA_PACKAGE sourceVar)
     SET(srcFolder "${CMAKE_CURRENT_SOURCE_DIR}/../modules/")
   ENDIF()
   IF("${destFile}" STREQUAL "")
-    SET(destFile "bindings.cpp")
+    SET(destFile "bindings")
   ENDIF()
 
   # write the complete file name:
-  SET(destFile "${destFolder}${destFile}")
+  SET(destFileFull "${destFolder}${destFile}.cpp")
   SET(lua_script "${PROJECT_SOURCE_DIR}/cmake/generate_package.lua")
 
   # Add generated file to source list:
-  LIST(APPEND ${sourceVar} ${destFile})
+  LIST(APPEND ${sourceVar} ${destFileFull})
   
   # look for all the dependencies
   FILE(GLOB_RECURSE DEP_FILES "${srcFolder}*.lua" "${srcFolder}*.ttf" "${srcFolder}*.png" "${srcFolder}*.dll" "${srcFolder}*.hlsl" ) 
   # MESSAGE("Found dependencies: ${DEP_FILES}")
   
-  ADD_CUSTOM_COMMAND(OUTPUT ${destFile}
+  ADD_CUSTOM_COMMAND(OUTPUT ${destFileFull}
     COMMAND echo "Generating lua package..."
     # COMMAND echo "Dep files: ${DEP_FILES}"
-    COMMAND ${LUA} -e "project='${TARGET_NAME}'; src_path='${srcFolder}'; dest_path='${destFolder}';" ${lua_script}
+    COMMAND ${LUA} -e "project='${TARGET_NAME}'; src_path='${srcFolder}'; dest_path='${destFolder}'; dest_file='${destFile}';" ${lua_script}
     # COMMAND ${CMAKE_COMMAND} -E touch ${PROJECT_SOURCE_DIR}/cmake/Macros.cmake # touch the calling file
     DEPENDS ${DEP_FILES})
 
@@ -123,7 +123,7 @@ MACRO(GENERATE_REFLECTION STUB_NAME INTERFACE_FILES)
     # COMMAND ${DOXYGEN} ${DOXFILE}
     COMMAND echo "Generating lua reflection..."
     # cd ${SGT_PATH} && 
-    COMMAND echo "project='${TARGET_NAME}'" > ${CFGFILE}
+    COMMAND echo "project='${PLUG_NAME}'" > ${CFGFILE}
     COMMAND echo "sgt_path='${SGT2_DIR}/'" >> ${CFGFILE}
     COMMAND echo "root_project_path='${PROJECT_SOURCE_DIR}/'" >> ${CFGFILE}
     COMMAND echo "xml_path='${CMAKE_CURRENT_BINARY_DIR}/xml/'" >> ${CFGFILE}
