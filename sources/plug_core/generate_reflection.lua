@@ -1,5 +1,3 @@
-dofile(sgt_path .. "scripts/generate_common.lua")
-
 local tm = require "bindings.TypeManager"
 tm:registerDeleter("osg::Referenced","osg::ref_ptr<osg::Referenced> refptr = ${1};")
 
@@ -25,7 +23,6 @@ ReflectionGenerator.generate{
 	ignoreClassDeclarations={"SingletonHolder"},
 	locationPrefixes={
 		sgt_path.."sources/sgtCore/include/",
-		"W:/Cloud/Dev/Deps/ds411/OpenSceneGraph-3.0.1/include/",
 		dest_path.."interface/",
 	}
 }

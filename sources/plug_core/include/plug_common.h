@@ -19,7 +19,7 @@
 #include <iostream> 
 
 // include the SimCore library:
-#include "sgtCommon.h"
+#include "kernel.h"
 #include "log/LogManager.h"
 #include "log/FileLogger.h"
 #include "log/StdLogger.h"

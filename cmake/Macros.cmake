@@ -125,8 +125,9 @@ MACRO(GENERATE_REFLECTION STUB_NAME INTERFACE_FILES)
     # cd ${SGT_PATH} && 
     COMMAND echo "project='${TARGET_NAME}'" > ${CFGFILE}
     COMMAND echo "sgt_path='${SGT2_DIR}/'" >> ${CFGFILE}
-    COMMAND echo "vbssim_path='${PROJECT_SOURCE_DIR}/'" >> ${CFGFILE}
+    COMMAND echo "root_project_path='${PROJECT_SOURCE_DIR}/'" >> ${CFGFILE}
     COMMAND echo "xml_path='${CMAKE_CURRENT_BINARY_DIR}/xml/'" >> ${CFGFILE}
+    COMMAND echo "dofile('${PROJECT_SOURCE_DIR}/cmake/reflection_common.lua');" >> ${CFGFILE}
     COMMAND echo "dofile('${CMAKE_CURRENT_SOURCE_DIR}/../generate_reflection.lua');" >> ${CFGFILE}
     
     COMMAND echo "${SGTLAUNCHER} ${CFGFILE} --log sgt_reflection.log"
@@ -139,3 +140,13 @@ MACRO(GENERATE_REFLECTION STUB_NAME INTERFACE_FILES)
   
   ADD_DEPENDENCIES(${STUB_NAME} ${TARGET_NAME}_gen)
 ENDMACRO(GENERATE_REFLECTION)
+
+MACRO(ADD_FILES file_list regex)
+    FILE(GLOB_RECURSE TEMP_FILES ${regex})
+    LIST(APPEND ${file_list} ${TEMP_FILES})
+ENDMACRO(ADD_FILES)
+
+MACRO(REMOVE_FILES file_list regex)
+    FILE(GLOB_RECURSE TEMP_FILES ${regex})
+    LIST(REMOVE_ITEM ${file_list} ${TEMP_FILES})
+ENDMACRO(REMOVE_FILES)

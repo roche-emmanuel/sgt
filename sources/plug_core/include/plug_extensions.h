@@ -2,7 +2,6 @@
 #define _PLUG_EXTENSION_H_
 
 #include "luna/luna.h"
-#include "base/Container.h"
 
 std::string getLuaID(lua_Any* dum, lua_State* L);
 

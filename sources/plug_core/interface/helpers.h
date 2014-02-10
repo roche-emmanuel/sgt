@@ -372,15 +372,6 @@ std::string to_simple_string(time_period& dp);
 
 namespace sgt {
 
-class TimeManager {
-protected:
-	~TimeManager();
-public:
-	static TimeProvider& instance();
-	static void destroy();
-	static bool isInstanciated();
-};
-
 class ModuleManager {
 protected:
 	~ModuleManager();
@@ -388,11 +379,6 @@ public:
 	static ModuleProvider& instance();
 	static void destroy();
 	static bool isInstanciated();
-};
-
-class AnyVector : public sgt::Object {
-public:
-	AnyVector();
 };
 
 };
