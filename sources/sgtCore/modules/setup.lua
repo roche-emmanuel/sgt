@@ -4,20 +4,15 @@ root_path = root_path:gsub("\\","/")
 package.cpath = package.cpath..";".. root_path .. "/bin/modules/?.dll;".. root_path .. "/bin/external/?.dll"
 
 -- core library should already be loaded from memory at that point (when applicable)
--- thus we only load it if the core2 namespace is not registered yet:
-local needPaks = false
-if not core2 then
-	require "core2"
-	needPaks = true
-elseif not package.loaded["core2"] then
-	-- manually register the just loaded core2 module!
-	package.loaded["core2"] = core2;
+-- thus we only load it if the core namespace is not registered yet:
+if not core then
+	require "core"
+elseif not package.loaded["core"] then
+	-- manually register the just loaded core module!
+	package.loaded["core"] = core;
 end
 
--- core2.showMessageBox("Starting main script!","Loading")
-
-local core = core2 
-
+-- core.showMessageBox("Starting main script!","Loading")
 local level = sgt.LogManager.INFO
 local root_dir = root_path
 
@@ -48,7 +43,7 @@ if not _G.requireLua then
 		local name = modName:gsub("%.","_")
 		local entryname = "luaopen_".. name
 
-		-- now we use the core2 library to access the moduleloader and
+		-- now we use the core library to access the moduleloader and
 		-- ask it to load this module:
 		-- core.showMessageBox("Content size for " ..name ..": "..#content,"loading")
 		-- core.showMessageBox("Loading binary module " ..name ..": "..#content,"loading")

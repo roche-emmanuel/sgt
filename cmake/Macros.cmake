@@ -92,3 +92,50 @@ MACRO(GENERATE_LUA_PACKAGE sourceVar)
     DEPENDS ${DEP_FILES})
 
 ENDMACRO(GENERATE_LUA_PACKAGE)
+
+MACRO(GENERATE_REFLECTION STUB_NAME INTERFACE_FILES)
+  SET(DOXFILE "doxyfile")
+  
+  STRING(REPLACE "/" "\\" DOX_TEMPLATE  "${PROJECT_SOURCE_DIR}/cmake/reflection_Doxyfile")
+  SET(CAT_EXEC type)
+  
+  SET(CFGFILE generate.lua)
+    
+  ADD_CUSTOM_TARGET(
+    ${TARGET_NAME}_gen
+    # PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/../include/luna
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/../src/luna
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/../include/luna/wrappers
+    # COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_SOURCE_DIR}/../src/luna/wrappers
+    COMMAND echo "Generating doxygen wrapper docs..."
+    COMMAND echo INPUT=${${INTERFACE_FILES}} > ${DOXFILE}
+    COMMAND echo FILE_PATTERNS=${FILE_PATTERNS} >> ${DOXFILE}
+    COMMAND echo EXPAND_AS_DEFINED=${EXPAND_AS_DEFINED} >> ${DOXFILE}
+    COMMAND echo PREDEFINED=_DOXYGEN=1 __DOXYGEN__=1 ${DOXY_PREDEFINED} >> ${DOXFILE}
+    COMMAND echo INCLUDE_PATH=${${INTERFACE_FILES}} ${INCLUDE_PATH} >> ${DOXFILE}
+    COMMAND echo INCLUDE_FILE_PATTERNS= >> ${DOXFILE}
+    COMMAND echo EXCLUDE_PATTERNS= >> ${DOXFILE}
+    COMMAND echo DOT_PATH=${DOT_DIR} >> ${DOXFILE}
+    COMMAND ${CAT_EXEC} "${DOX_TEMPLATE}" >> ${DOXFILE}
+    # Call doxygen on this file:
+    COMMAND ${DOXYGEN} ${DOXFILE} > ${CMAKE_CURRENT_BINARY_DIR}/doxygen.log 2>&1
+    # COMMAND ${DOXYGEN} ${DOXFILE}
+    COMMAND echo "Generating lua reflection..."
+    # cd ${SGT_PATH} && 
+    COMMAND echo "project='${TARGET_NAME}'" > ${CFGFILE}
+    COMMAND echo "sgt_path='${SGT2_DIR}/'" >> ${CFGFILE}
+    COMMAND echo "vbssim_path='${PROJECT_SOURCE_DIR}/'" >> ${CFGFILE}
+    COMMAND echo "xml_path='${CMAKE_CURRENT_BINARY_DIR}/xml/'" >> ${CFGFILE}
+    COMMAND echo "dofile('${CMAKE_CURRENT_SOURCE_DIR}/../generate_reflection.lua');" >> ${CFGFILE}
+    
+    COMMAND echo "${SGTLAUNCHER} ${CFGFILE} --log sgt_reflection.log"
+    COMMAND ${SGTLAUNCHER} ${CFGFILE} --log sgt_reflection.log > temp_log_file.log
+    
+    # COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt # touch the calling file.
+    # COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_SOURCE_DIR}/../CMakeLists.txt # touch the calling file.
+    COMMAND echo "Reflection generation done."
+  ) 
+  
+  ADD_DEPENDENCIES(${STUB_NAME} ${TARGET_NAME}_gen)
+ENDMACRO(GENERATE_REFLECTION)

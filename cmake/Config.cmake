@@ -6,6 +6,7 @@ SET(TOOLS_DIR "${PROJECT_SOURCE_DIR}/tools" CACHE STRING "Folder containing all 
 # Tools path:
 SET(UPX "${TOOLS_DIR}/upx.exe" CACHE STRING "UPX executable")
 SET(LUA "${TOOLS_DIR}/luajit.exe" CACHE STRING "LUA executable")
+SET(DOXYGEN"${TOOLS_DIR}/doxygen.exe" CACHE STRING "Doxygen executable")
 
 # Dependencies paths:
 SET(DEP_BOOST ${DEPS_DIR}/${FLAVOR}/boost-1.53.0 CACHE STRING "boost path")

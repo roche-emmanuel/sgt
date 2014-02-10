@@ -14,3 +14,8 @@
 - Adding initial implementation of lunagen kernel.
 - Calling executeMain in lunagen launcher.
 - Renamed lunagen to sgt.
+- build LuaState class in sgt_kernel
+- create/destroy lua state in kernel.cpp, using implementatoin from scLuaState
+- execute main module in lua state
+- return exit code from main module execution.
+- Added doxygen tool.
