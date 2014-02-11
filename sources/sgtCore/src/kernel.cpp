@@ -75,7 +75,7 @@ std::string getExecutablePath()
 
 extern "C" {
 
-int executeMain(const std::string& args) {
+int executeMain(const std::vector<std::string>& args) {
 	// Init the log system.
 	LogManager::instance().setDefaultLevelFlags(LogManager::TIME_STAMP);
 	LogManager::instance().setDefaultTraceFlags(LogManager::TIME_STAMP);
@@ -113,10 +113,12 @@ int executeMain(const std::string& args) {
 	// // load main module:
 	CHECK_RET(!mainModule.empty(),0,"Invalid entry point script.");
 	
+	//logDEBUG("Received " << args.size() << " arguments.");
+
 	// logDEBUG0_V("Executing start module...");	
 	// // showMessageBox("executing main script","Loading");	
 	int ret;
-	bool success = state->executeString(mainModule,"main",ret);
+	bool success = state->executeString(mainModule,"main",args,ret);
 	// // bool initialized = scLuaState::instance().executeFile(root_path+"/modules/main.lua");
 
 	if(!success) {

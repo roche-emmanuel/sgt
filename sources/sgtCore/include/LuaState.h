@@ -52,6 +52,9 @@ public:
 	/** Execute a script from a string. */
 	bool executeString(const std::string& str, const std::string& name, int& ret);
 
+	/** execute a script from a string. */
+	bool executeString(const std::string& str, const std::string& name, const std::vector<std::string>& arg1, int& ret);
+
 	/** Load a binary module from memory.*/
 	void loadModuleFromMemory(void* data, const std::string& mname, const std::string& entryname);
 	

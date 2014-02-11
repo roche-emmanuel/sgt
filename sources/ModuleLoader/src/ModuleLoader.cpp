@@ -230,6 +230,12 @@ void setModuleData(const std::string& name, void* data)
 	ModuleLoader::instance().setModuleData(name,data);
 }
 
+bool hasModuleData(const std::string& name)
+{
+	boost::mutex::scoped_lock lock(gl_guard);
+	return ModuleLoader::instance().hasData(name);
+}
+
 bool loadModule(const std::string& name, void* data)
 {
 	boost::mutex::scoped_lock lock(gl_guard);

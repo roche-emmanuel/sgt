@@ -86,7 +86,7 @@ MACRO(GENERATE_LUA_PACKAGE sourceVar)
   
   ADD_CUSTOM_COMMAND(OUTPUT ${destFileFull}
     COMMAND echo "Generating lua package..."
-    # COMMAND echo "Dep files: ${DEP_FILES}"
+    #COMMAND echo "Dep files: ${DEP_FILES}"
     COMMAND ${LUA} -e "project='${TARGET_NAME}'; src_path='${srcFolder}'; dest_path='${destFolder}'; dest_file='${destFile}';" ${lua_script}
     # COMMAND ${CMAKE_COMMAND} -E touch ${PROJECT_SOURCE_DIR}/cmake/Macros.cmake # touch the calling file
     DEPENDS ${DEP_FILES})

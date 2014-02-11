@@ -8,6 +8,7 @@
 #include <sstream>
 #include <stdio.h> 
 #include <iostream>
+#include <vector>
 
 int showError(const std::string& text);
 
@@ -43,6 +44,7 @@ public:
 protected:
 	int doRun();
 	std::string getExecutablePath();
+	std::vector<std::string> _args;
 };
 
 #endif

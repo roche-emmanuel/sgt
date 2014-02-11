@@ -6,6 +6,13 @@
 #include <osg/Referenced>
 
 // Function checkers:
+inline static bool _lg_typecheck_hasModuleData(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	return true;
+}
+
 inline static bool _lg_typecheck_doLog(lua_State *L) {
 	if( lua_gettop(L)!=2 ) return false;
 
@@ -115,6 +122,20 @@ inline static bool _lg_typecheck_setIntArrayAt(lua_State *L) {
 
 
 // Function binds:
+// bool hasModuleData(const std::string & name)
+static int _bind_hasModuleData(lua_State *L) {
+	if (!_lg_typecheck_hasModuleData(L)) {
+		luaL_error(L, "luna typecheck failed in bool hasModuleData(const std::string & name) function, expected prototype:\nbool hasModuleData(const std::string & name)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	std::string name(lua_tostring(L,1),lua_objlen(L,1));
+
+	bool lret = ::hasModuleData(name);
+	lua_pushboolean(L,lret?1:0);
+
+	return 1;
+}
+
 // void doLog(int level, const std::string & msg)
 static int _bind_doLog(lua_State *L) {
 	if (!_lg_typecheck_doLog(L)) {
@@ -914,6 +935,7 @@ extern "C" {
 
 void register_global_functions(lua_State* L) {
 	luna_pushModule(L,"sgt");
+	lua_pushcfunction(L, _bind_hasModuleData); lua_setfield(L,-2,"hasModuleData");
 	lua_pushcfunction(L, _bind_doLog); lua_setfield(L,-2,"doLog");
 	lua_pushcfunction(L, _bind_doLogV); lua_setfield(L,-2,"doLogV");
 	lua_pushcfunction(L, _bind_doTrace); lua_setfield(L,-2,"doTrace");

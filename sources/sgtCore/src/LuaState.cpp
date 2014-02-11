@@ -184,6 +184,29 @@ bool LuaState::executeString(const std::string& str, const std::string& name, in
 	return true;
 }
 
+bool LuaState::executeString(const std::string& str, const std::string& name, const std::vector<std::string>& args, int& ret) {
+	logINFO("Executing script '" << name << "'");
+	if(luaL_loadbuffer(_L,(const char*)str.data(),str.size(),name.c_str())==0) {
+		// create the table to hold the argument strings:
+		for (unsigned int i = 0; i < args.size(); i++) {
+			lua_pushlstring(_L,args[i].data(),args[i].size());
+		}
+		int res = lua_pcall(_L, args.size(), 1, 0);
+		if(res!=0) {
+			logERROR("Error occurred in mainModule execution:\n" << (res==LUA_ERRRUN ? lua_tostring(_L,-1) : "[no message]"));
+			return false;				
+		}
+	}
+	else {
+		logERROR("Error occurred in mainModule loading:\n" << lua_tostring(_L,-1));
+		return false;
+	}
+	// retrieve the result from the stack:
+	ret = lua_tonumber(_L,-1);
+	lua_pop(_L,1);
+	return true;
+}
+
 void LuaState::loadModuleFromMemory(void* data, const std::string& mname, const std::string& entryname)
 {
 	int ret = ::loadModuleFromMemory(data, mname, entryname, _L);

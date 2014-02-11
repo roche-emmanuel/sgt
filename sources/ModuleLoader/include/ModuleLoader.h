@@ -42,6 +42,7 @@ int showError(const std::string& text);
 extern "C" {
 
 LOADER_EXPORT void setModuleData(const std::string& name, void* data);
+LOADER_EXPORT bool hasModuleData(const std::string& name);
 LOADER_EXPORT bool loadModule(const std::string& name, void* data = NULL);
 LOADER_EXPORT void freeModule(const std::string& name);
 LOADER_EXPORT void setModule(const std::string& name, HCUSTOMMODULE handle);

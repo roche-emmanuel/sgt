@@ -1,0 +1,58 @@
+--[[
+Class: utils.i18n
+
+Internationalization support class, returned as a singleton.
+]]
+
+local registry = { }
+local current_locale
+local fallback_locale
+
+local Class = {}
+
+function Class:setLocale(locale)
+    current_locale = locale
+    if not registry[current_locale] then
+		registry[current_locale] = {}
+    end
+end
+
+function Class:setFallback(locale)
+    fallback_locale = locale
+    if not registry[fallback_locale] then
+      registry[fallback_locale] = {}
+    end
+end
+
+function Class:set(key, value)
+    registry[current_locale][key] = value
+end
+
+local __meta = {
+  __call = function(self, key, vars)
+    vars = vars or {}
+
+    local str = registry[current_locale][key] or registry[fallback_locale][key]
+
+    if str == nil then
+      return nil
+    end
+    str = tostring(str)
+    local strings = {}
+
+    for i,v in ipairs(vars) do
+      table.insert(strings, tostring(v))
+    end
+
+    return #strings > 0 and str:format(unpack(strings)) or str
+  end,
+
+  __index = function(self, key)
+    return registry[key]
+  end
+}
+
+Class:setFallback('en')
+Class:setLocale('en')
+
+return setmetatable(Class, __meta)

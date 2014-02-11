@@ -16,6 +16,7 @@ extern const unsigned char buf_osg97_osgutil_dll[];
 extern const unsigned char buf_ot12_openthreads_dll[];
 extern const unsigned char buf_sgtcore_dll[];
 extern const unsigned char buf_plug_core_sgp[];
+extern const unsigned char buf_plug_lfs_sgp[];
 extern const unsigned char buf_lua_core_pak[];
 
 namespace po = boost::program_options;
@@ -26,7 +27,7 @@ typedef void (*setModuleData_t)(const std::string& name, void* data);
 typedef void (*setModule_t)(const std::string& name, HCUSTOMMODULE handle);
 typedef FARPROC (*getProcedure_t)(const std::string& name, const std::string procname);
 
-typedef int (*executeMain_t)(const std::string& cmdline);
+typedef int (*executeMain_t)(const std::vector<std::string>& cmdline);
 
 
 int showError(const std::string& text) {
@@ -61,18 +62,22 @@ int Launcher::run(int argc, char* argv[])
 	// po::positional_options_description p;
 	// p.add("script", -1);
 
-	po::variables_map vm;
+	// po::variables_map vm;
 
 	try 
     { 
 #ifdef WINDOWS_APP
-		std::vector<std::string> args = po::split_winmain(commandLine);
-		po::store(po::command_line_parser(args).options(desc).run(), vm);
+		_args = po::split_winmain(commandLine);
+		// po::store(po::command_line_parser(_args).options(desc).run(), vm);
 #else
-		po::store(po::command_line_parser(argc, argv).options(desc).run(), vm); // options(desc).positional(p).run(), vm);
+		// build args vector:
+		for(i=0;i<argc;++i) {
+			_args.push_back(std::string(argv[i]));
+		}
+		// po::store(po::command_line_parser(argc, argv).options(desc).run(), vm); // options(desc).positional(p).run(), vm);
 #endif
 
-		po::notify(vm);
+		// po::notify(vm);
 	}
 	catch(po::error& e) 
     { 
@@ -80,10 +85,10 @@ int Launcher::run(int argc, char* argv[])
 		return 1; 
     } 
 	
-	if (vm.count("help")) {
-		logINFO(desc);
-		return 1;
-	}
+	// if (vm.count("help")) {
+	// 	logINFO(desc);
+	// 	return 1;
+	// }
 	
 	// Perform the actual run process:
 	return doRun();
@@ -122,6 +127,7 @@ int Launcher::doRun()
 	
 	setModuleData("core.lpak",(void*)buf_lua_core_pak);
 	setModuleData("core.sgp",(void*)buf_plug_core_sgp);
+	setModuleData("lfs.sgp",(void*)buf_plug_lfs_sgp);
 	
 	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");
 
@@ -129,7 +135,7 @@ int Launcher::doRun()
 	CHECK_RET(executeMain_fn,1,"Invalid executeMain method.");
 
 	// NOw call the execute main method:
-	int res = executeMain_fn("");
+	int res = executeMain_fn(_args);
 
 	// showError("Loading successfull !");
 	// should free the modules here:

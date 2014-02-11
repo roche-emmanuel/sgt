@@ -49,7 +49,14 @@ if not _G.requireLua then
 		-- ask it to load this module:
 		-- core.showMessageBox("Content size for " ..name ..": "..#content,"loading")
 		-- core.showMessageBox("Loading binary module " ..name ..": "..#content,"loading")
-		local res = core.loadModuleFromMemory(content,"lua_".. name,entryname)
+		local res = nil
+		if content then
+			res = core.loadModuleFromMemory(content,"lua_".. name,entryname)
+		else
+			-- the module is available directly in raw memory from the launcher:
+			res = core.loadModuleFromMemory(modName..".sgp",entryname)
+		end
+		
 		-- core.showMessageBox("Loaded binary module " ..name ..": "..#content,"loading")
 		-- core.showMessageBox("Lua Library " .. name .." loaded!","Loading")
 
@@ -92,9 +99,13 @@ if not _G.requireLua then
 		local res;
 		
 		-- check if we have a binary module with this name:
+
 		local content = sgt.ModuleManager.instance().getModule("asset:binaries." .. modName)
 		if content~="" then
-			res = loadBinaryModule(content,modName)		
+			res = loadBinaryModule(content,modName)
+		elseif sgt.hasModuleData(modName..".sgp") then
+			-- load the module from raw memory:
+			res = loadBinaryModule(nil,modName)
 		else
 			local content = sgt.ModuleManager.instance().getModule(modName)
 			if content~="" then

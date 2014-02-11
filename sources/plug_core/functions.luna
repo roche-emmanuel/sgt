@@ -1,4 +1,5 @@
 module=sgt
+hasModuleData
 doLog
 doLogV
 doTrace
