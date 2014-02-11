@@ -48,11 +48,20 @@ local log = require "tracer" -- use the tracer as default logging system.
 log:info("init","Lua engine initialization completed.")
 log:info("init","Called with arguments: ",arg)
 
--- parse the arguments:
-local app = require "utils.app"
+local loader = function(arg)
+	-- parse the arguments:
+	local app = require "utils.app"
 
-local flags, params = app.parse_args(arg,{})
-log:info("init","Received flags: ", flags, " and parameters: ",params)
+	local flags, params = app.parse_args(arg,{})
+	log:info("init","Received flags: ", flags, " and parameters: ",params)
+end
+
+local status,res = pcall(loader,arg)
+if not status then
+	log:error("init","Error occured in protected call, now exiting: ",res)
+	sgt.showError('A fatal error occured, the application will now be closed.\nPlease check the log file "sgt.log" for details.')
+	return 1
+end
 
 -- exit code:
 return 0

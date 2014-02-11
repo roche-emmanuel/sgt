@@ -76,6 +76,13 @@ inline static bool _lg_typecheck_getLuaID(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_showError(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	return true;
+}
+
 inline static bool _lg_typecheck_fromLightUserdata(lua_State *L) {
 	if( lua_gettop(L)!=1 ) return false;
 
@@ -249,6 +256,20 @@ static int _bind_getLuaID(lua_State *L) {
 
 	std::string lret = ::getLuaID(NULL, L);
 	lua_pushlstring(L,lret.data(),lret.size());
+
+	return 1;
+}
+
+// int showError(const std::string & text)
+static int _bind_showError(lua_State *L) {
+	if (!_lg_typecheck_showError(L)) {
+		luaL_error(L, "luna typecheck failed in int showError(const std::string & text) function, expected prototype:\nint showError(const std::string & text)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	std::string text(lua_tostring(L,1),lua_objlen(L,1));
+
+	int lret = ::showError(text);
+	lua_pushnumber(L,lret);
 
 	return 1;
 }
@@ -943,6 +964,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_loadModuleFromMemory); lua_setfield(L,-2,"loadModuleFromMemory");
 	lua_pushcfunction(L, _bind_openLanes); lua_setfield(L,-2,"openLanes");
 	lua_pushcfunction(L, _bind_getLuaID); lua_setfield(L,-2,"getLuaID");
+	lua_pushcfunction(L, _bind_showError); lua_setfield(L,-2,"showError");
 	lua_pushcfunction(L, _bind_fromLightUserdata); lua_setfield(L,-2,"fromLightUserdata");
 	lua_pushcfunction(L, _bind_toLightUserdata); lua_setfield(L,-2,"toLightUserdata");
 	lua_pushcfunction(L, _bind_newIntArray); lua_setfield(L,-2,"newIntArray");

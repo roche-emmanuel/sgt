@@ -23,3 +23,4 @@
 - Generated reflection for plug_core.
 - Built plug_core and lua_core modules.
 - Added additional core modules and lfs lib.
+- Fixed issue with throw method.

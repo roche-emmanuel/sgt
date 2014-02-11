@@ -8,6 +8,10 @@ std::string getLuaID(lua_Any* dum, lua_State* L);
 /** LUNA_CLASS_EXTENSION LUNA_RENAME __tostring */
 int ptime_tostring(boost::posix_time::ptime* val, lua_State* L);
 
+inline int showError(const std::string& text) {
+	return MessageBox(NULL,text.c_str(),"Error",MB_ICONERROR|MB_OK);
+}
+
 class BaseClass {
 public:	
 	BaseClass() {};

@@ -1,1 +1,1 @@
-- parse command line in lua main module.
+- Add support for doxmlparser module.

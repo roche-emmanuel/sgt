@@ -7,6 +7,7 @@ doTraceV
 loadModuleFromMemory
 openLanes
 getLuaID
+showError
 fromLightUserdata
 toLightUserdata
 newIntArray

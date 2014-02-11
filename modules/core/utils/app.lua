@@ -42,8 +42,6 @@ function app.parse_args (args, flags_with_values)
     if not args then throw "Not in a main program: 'arg' not found" end
   end
 
-  -- throw "This is an error."
-
   flags_with_values = flags_with_values or {}
   local _args = {}
   local flags = {}

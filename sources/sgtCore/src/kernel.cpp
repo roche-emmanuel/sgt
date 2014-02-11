@@ -122,7 +122,7 @@ int executeMain(const std::vector<std::string>& args) {
 	// // bool initialized = scLuaState::instance().executeFile(root_path+"/modules/main.lua");
 
 	if(!success) {
-		logERROR("Could not initialize scripting environment. Will now close the software.");
+		logERROR("Error in main script. Will now close the software.");
 		return 1;
 	}
 
