@@ -1,11 +1,11 @@
-local Class = createClass{name="Container",bases="core.DataMap"};
+local Class = createClass{name="Container",bases="utils.DataMap"};
 
 --[[
 Class: gui.Container
 
 Basic container for provider usage.
 
-This class inherits from <core.DataMap>.
+This class inherits from <utils.DataMap>.
 ]]
 
 --[=[
@@ -25,7 +25,7 @@ end
 --[[
 Function: setDataHolder
 
-This method is a facade for the <core.DataMap.setTable> method.
+This method is a facade for the <utils.DataMap.setTable> method.
 ]]
 function Class:setDataHolder(holder)
 	self:setTable(holder)
@@ -34,7 +34,7 @@ end
 --[[
 Function: getDataHolder
 
-This method is a facade for the <core.DataMap.getTable> method.
+This method is a facade for the <utils.DataMap.getTable> method.
 ]]
 function Class:getDataHolder()
 	return self:getTable();

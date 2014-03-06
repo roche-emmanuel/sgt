@@ -1,13 +1,14 @@
 1.52
 Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/RegExSet.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/RegExSet.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/Container.lua	1375104466	1	gui.Container
+/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/Container.lua	1394146344	1	gui.Container
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/atb/Context.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/atb/Context.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/utils/compat.lua	1373311631	1	utils.compat
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/mathgl.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/mathgl.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/osg.lua	1366205260	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/osg.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/base/EventHandler.lua	1380731706	1	base.EventHandler
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/NumericalEntry.lua	1374306040	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/NumericalEntry.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/utils/DataMap.lua	1394146498	1	utils.DataMap
 /cygdrive/w/Cloud/Projects/sgt/modules/core/utils/LuaCConverter.lua	1384528281	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/utils/LuaCConverter.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeCheckerBase.lua	1381692966	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeCheckerBase.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Enum.lua	1356819676	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Enum.lua
@@ -54,7 +55,6 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/base/ThreadManager.lua	1384947384	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/base/ThreadManager.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/StringEntry.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/StringEntry.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ConstructorValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ConstructorValidator.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/core/DataMap.lua	1375170757	1	core.DataMap
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/BasicValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/BasicValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/kinect/TestApp.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/kinect/TestApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/SymbolTable.lua	1346246466	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/SymbolTable.lua
@@ -86,7 +86,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/box2d/TestApp.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/box2d/TestApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ValidWrapperValidator.lua	1355575556	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ValidWrapperValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/spark/SmokeSystem.lua	1357821238	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/spark/SmokeSystem.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/MainLoader.lua	1394144427	1	/cygdrive/w/Cloud/Projects/sgt/modules/core/MainLoader.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/MainLoader.lua	1394145560	1	MainLoader
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/utilities.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/utilities.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/BoolEntry.lua	1380035906	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/BoolEntry.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/helpers/wxValueFinder.lua	1351258680	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/helpers/wxValueFinder.lua
@@ -202,7 +202,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Entity.lua	1358855008	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Entity.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/DataManager.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/DataManager.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/Selector.lua	1375168286	1	gui.Selector
-/cygdrive/w/Cloud/Projects/sgt/modules/core/core/Exception.lua	1375103015	1	base.Exception
+/cygdrive/w/Cloud/Projects/sgt/modules/core/core/Exception.lua	1394146085	1	core.Exception
 /cygdrive/w/Cloud/Projects/sgt/modules/core/utils/assert.lua	1378378526	1	utils.assert
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/PublicValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/PublicValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/ShaderManager.lua	1375485974	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/ShaderManager.lua

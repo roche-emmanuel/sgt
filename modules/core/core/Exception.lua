@@ -1,13 +1,12 @@
-local Class = createClass{name="Exception",bases="core.Object"}
+local Class = createClass{"Exception"}
 
 --[[
-Class: base.Exception
+Class: core.Exception
 
-Base implementation for an Exception class..
+Base implementation for an Exception class.
 
-This class inherits from <core.Object>.
-
-Exception are meant to be thrown with the lua error method.
+Exception are meant to be thrown with the lua error method. The class <__tostring> method
+will then get called to convert the exception to an human readable string.
 ]]
 
 --[=[
@@ -31,6 +30,12 @@ function Class:initialize(options)
 	self._stack = options.stack or debug.traceback("",4)
 end
 
+--[[
+Function: __tostring
+
+Convert the exception to a string. By default this will display the exception
+message, followed by the exception call stack.
+]]
 function Class:__tostring()
 	return self._message .. self._stack
 end

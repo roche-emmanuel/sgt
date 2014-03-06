@@ -55,10 +55,9 @@ Group: Packages  {
 
    Group: Core  {
 
-      File: base.Exception  (core/Exception.lua)
-      File: core.DataMap  (core/DataMap.lua)
-      File: core.Linda  (core/Linda.lua)
-      File: core.Object  (core/Object.lua)
+      File: Exception  (core/Exception.lua)
+      File: Linda  (core/Linda.lua)
+      File: Object  (core/Object.lua)
       }  # Group: Core
 
    Group: Gui  {
@@ -84,9 +83,9 @@ Group: Packages  {
 
       }  # Group: Gui
 
-   File: MainLoader.lua  (MainLoader.lua)
-   File: Manager  (test/Manager.lua)
-   File: Suite  (test/Suite.lua)
+   File: MainLoader  (MainLoader.lua)
+   File: test.Manager  (test/Manager.lua)
+   File: test.Suite  (test/Suite.lua)
 
    Group: Utils  {
 
@@ -95,6 +94,7 @@ Group: Packages  {
       File: base  (utils/base.lua)
       File: buildclass  (utils/buildclass.lua)
       File: compat  (utils/compat.lua)
+      File: DataMap  (utils/DataMap.lua)
       File: dir  (utils/dir.lua)
       File: path  (utils/path.lua)
       File: sgtlog  (utils/sgtlog.lua)
@@ -109,6 +109,5 @@ Group: Index  {
    Class Index: Classes
    Function Index: Functions
    Variable Index: Variables
-   File Index: Files
    }  # Group: Index
 
