@@ -127,6 +127,9 @@ namespace sgt {
 
 	};
 
+	class FileLogger: public sgt::LogSink {
+	};
+
 };
 
 namespace std {

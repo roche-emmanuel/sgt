@@ -2,5 +2,8 @@
 software/*.exe
 software/*.log
 
+# Ignore compiled documentation:
+docs/manual.chm
+
 # Ignore temp folder
 temp

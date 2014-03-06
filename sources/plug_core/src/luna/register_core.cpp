@@ -54,6 +54,7 @@ int PLUG_EXPORT luaopen_core(lua_State* L) {
 	Luna< sgt::LogManager::LogHandler >::Register(L);
 	Luna< sgt::LogSink >::Register(L);
 	Luna< std::set< std::string > >::Register(L);
+	Luna< sgt::FileLogger >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"std");
 	Luna< std::istream >::Register(L);

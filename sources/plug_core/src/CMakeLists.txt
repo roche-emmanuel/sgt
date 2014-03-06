@@ -24,7 +24,7 @@ SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
 	OUTPUT_NAME "${PLUG_NAME}"
 	PREFIX ""
 	SUFFIX ".sgp")
-	
+
 # INSTALL(TARGETS ${TARGET_NAME}
 # 	RUNTIME DESTINATION ${TARGET_DIR}
 # 	LIBRARY DESTINATION ${TARGET_DIR})
@@ -37,6 +37,7 @@ ADD_FILES(INTF_FILES "../../sgtLuna/include/lunaCommon.h")
 ADD_FILES(INTF_FILES "../../sgtLuna/include/lua/ModuleProvider.h")
 ADD_FILES(INTF_FILES "../../sgtLuna/include/log/LogManager.h")
 ADD_FILES(INTF_FILES "../../sgtLuna/include/log/LogSink.h")
+ADD_FILES(INTF_FILES "../../sgtLuna/include/log/FileLogger.h")
 LIST(APPEND INTF_FILES "${OSG_INC_DIR}/osg/Referenced")
 ADD_FILES(INTF_FILES "../../sgtCore/include/kernel.h")
 

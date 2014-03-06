@@ -26,6 +26,8 @@ FileLogger::~FileLogger() {
 bool FileLogger::init(const std::string& filename, bool append) {
 	_filename = filename;
 	_append = append;
+	if(_stream.is_open())
+		_stream.close(); // close previous stream if any.
 	_stream.open(filename.c_str(), append ? (std::ofstream::out | std::ofstream::app) : std::ofstream::out);
 	return true;
 }

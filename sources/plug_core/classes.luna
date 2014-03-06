@@ -35,6 +35,7 @@ std::map< std::string, int > => std::map< std::string, int >
 sgt::LogManager::LogHandler => osg::Referenced
 sgt::LogSink => osg::Referenced
 std::set< std::string > => std::set< std::string >
+sgt::FileLogger => osg::Referenced
 module=std
 std::istream => std::istream
 std::ostream => std::ostream

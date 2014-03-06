@@ -5,9 +5,9 @@ Function: utils.buildclass
 Function used to create new classes using the LOOP class model.
 
 Parameters:
-	options.name - {string} The name of the class to create.
+	options.name - {string} The name of the class to create. Can also be passed as options[1]
 	options.bases - {string|table} The parent classes for this new class. Can be provided as a string,
-an actual class table, or a table containing a mix of those for multiple inheritance.
+an actual class table, or a table containing a mix of those for multiple inheritance. . Can also be passed as options[2]
   
 Returns:
 	The newly created class table. Can then be extended with new methods/variables.
@@ -28,15 +28,18 @@ local createClass = function(options)
 	assert(options,"Invalid options to build class.")
 	
 	-- convert the base list to a table if needed:
-	options.bases = type(options.bases)~="table" and {options.bases} or options.bases or {}
+	local cbases  = options.bases or options[2] or {"core.Object"}
+	cbases = type(cbases)~="table" and {cbases} or cbases
 	
+	local cname = options.name or options[1]
+
 	-- check the name is valid:
-	assert(type(options.name)=="string" and options.name ~= "","Invalid options.name field.")
+	assert(type(cname)=="string" and cname ~= "","Invalid options.name field.")
 	
 	-- Retrieve the actual bases tables:
 	local bases = {}
 	local bases_inv = {}
-	for _,base in ipairs(options.bases) do
+	for _,base in ipairs(cbases) do
 		table.insert(bases,type(base)=="string" and require(base) or base)
 	end
 	for _,base in ipairs(bases) do
@@ -44,10 +47,10 @@ local createClass = function(options)
 	end
 	
 	-- Create the new class table
-	log.debug_v("Generating class for ",options.name)
+	log.debug_v("Generating class for ",cname)
 	local result = oo.class({},unpack(bases_inv))
-	result._CLASSNAME_ = options.name
-	result._TRACE_ = options.name
+	result._CLASSNAME_ = cname
+	result._TRACE_ = cname
 
 	-- default implementations for new and initialize:
 	function result:new(options)
@@ -82,7 +85,7 @@ local createClass = function(options)
 			table.insert(list,base)
 		end
 		
-		local name = options.name or result._CLASSNAME_ .. "_ext"
+		local name = cname or result._CLASSNAME_ .. "_ext"
 		return createClass{name=name,bases=list};
 	end
 

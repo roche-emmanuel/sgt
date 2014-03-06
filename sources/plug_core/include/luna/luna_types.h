@@ -8,6 +8,7 @@
 #include <lua/ModuleProvider.h>
 #include <log/LogManager.h>
 #include <log/LogSink.h>
+#include <log/FileLogger.h>
 #include <lunaCommon.h>
 
 // Class: __int64
@@ -729,6 +730,25 @@ public:
 	static void _bind_dtor(std::set< std::string >* obj);
 	typedef std::set< std::string > parent_t;
 	typedef std::set< std::string > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: sgt::FileLogger
+template<>
+class LunaTraits< sgt::FileLogger > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static sgt::FileLogger* _bind_ctor(lua_State *L);
+	static void _bind_dtor(sgt::FileLogger* obj);
+	typedef osg::Referenced parent_t;
+	typedef sgt::FileLogger base_t;
 	static luna_ConverterType converters[];
 };
 
