@@ -31,3 +31,4 @@
 - Added support for conditional dependency integration.
 - Now using sgt as tool for binding generation.
 - Added support for log level and verbosity specification on command line.
+- Updated documentation.

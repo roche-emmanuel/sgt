@@ -17,9 +17,9 @@ the software will be completely different. Current possible values are:
 will be considered as a file to execute to start the binding generation process.
 
   *--log xxxx* : used to specify the desired target log file for the execution of the software. 
-
-  *--loglevel xxxx* (or -l) : Use to specify the desired log level for this session. Default value is DEBUG0, possible options are:
-"FATAL","ERROR","WARNING","NOTICE","INFO","DEBUG0","DEBUG1","DEBUG2","DEBUG3","DEBUG4","DEBUG5"
+  
+  *--loglevel xxxx* (or -l) : Use to specify the desired log level for this session. Default value is DEBUG0, possible options are : 
+ "FATAL","ERROR","WARNING","NOTICE","INFO","DEBUG0","DEBUG1","DEBUG2","DEBUG3","DEBUG4","DEBUG5"
 
 	*--verbose* (or -v): toggle verbose log output mode ON if specified.
 ]]
