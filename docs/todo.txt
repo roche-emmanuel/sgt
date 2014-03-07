@@ -1,3 +1,1 @@
-- Implement conditional dependency support.
 - Add support for output level command line argument in MainLoader.
-- Use sgt for binding generation

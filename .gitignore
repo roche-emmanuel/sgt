@@ -1,6 +1,7 @@
 # Ignored executable files
 software/*.exe
 software/*.log
+tools/*.log
 
 # Ignore compiled documentation:
 docs/manual.chm

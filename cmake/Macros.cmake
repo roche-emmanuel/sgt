@@ -129,14 +129,15 @@ MACRO(GENERATE_REFLECTION STUB_NAME INTERFACE_FILES)
     COMMAND echo "Generating lua reflection..."
     # cd ${SGT_PATH} && 
     COMMAND echo "project='${PLUG_NAME}'" > ${CFGFILE}
-    COMMAND echo "sgt_path='${SGT2_DIR}/'" >> ${CFGFILE}
+    # COMMAND echo "sgt_path='${SGT2_DIR}/'" >> ${CFGFILE}
     COMMAND echo "root_project_path='${PROJECT_SOURCE_DIR}/'" >> ${CFGFILE}
     COMMAND echo "xml_path='${CMAKE_CURRENT_BINARY_DIR}/xml/'" >> ${CFGFILE}
     COMMAND echo "dofile('${PROJECT_SOURCE_DIR}/cmake/reflection_common.lua');" >> ${CFGFILE}
     COMMAND echo "dofile('${CMAKE_CURRENT_SOURCE_DIR}/../generate_reflection.lua');" >> ${CFGFILE}
     
-    COMMAND echo "${SGTLAUNCHER} ${CFGFILE} --log sgt_reflection.log"
-    COMMAND ${SGTLAUNCHER} ${CFGFILE} --log sgt_reflection.log > temp_log_file.log
+    COMMAND echo "${SGTLAUNCHER} --mode lunagen --log sgt_reflection.log ${CFGFILE}"
+    # COMMAND ${SGTLAUNCHER} --log sgt_reflection.log ${CFGFILE} > temp_log_file.log
+    COMMAND ${SGTLAUNCHER} --mode lunagen --log sgt_reflection.log ${CFGFILE} > temp_log_file.log
     
     # COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt # touch the calling file.
     # COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_SOURCE_DIR}/../CMakeLists.txt # touch the calling file.

@@ -10,8 +10,9 @@ SET(LUA "${TOOLS_DIR}/luajit.exe" CACHE STRING "LUA executable")
 SET(DOXYGEN "${TOOLS_DIR}/doxygen.exe" CACHE STRING "Doxygen executable")
 
 # Temporary hack using external sgt launcher for reflection generation:
-SET(EXT_TOOLS_DIR "W:/Cloud/Dev/Common/Tools/win32" CACHE STRING "Folder containing all the external tools")
-SET(SGTLAUNCHER "${EXT_TOOLS_DIR}/singularity-0.2.0/bin/win32/sgtLauncher.exe" CACHE STRING "Singularity launcher")
+# SET(EXT_TOOLS_DIR "W:/Cloud/Dev/Common/Tools/win32" CACHE STRING "Folder containing all the external tools")
+# SET(SGTLAUNCHER "${EXT_TOOLS_DIR}/singularity-0.2.0/bin/win32/sgtLauncher.exe" CACHE STRING "Singularity launcher")
+SET(SGTLAUNCHER "${TOOLS_DIR}/sgt-0.0.1.exe" CACHE STRING "Singularity launcher")
 
 # Dependencies paths:
 SET(DEP_BOOST ${DEPS_DIR}/${FLAVOR}/boost-1.53.0 CACHE STRING "boost path")

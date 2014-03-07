@@ -21,6 +21,7 @@ extern const unsigned char buf_lua_core_pak[];
 
 #ifdef WITH_LUNAGEN_SUPPORT
 extern const unsigned char buf_plug_doxmlparser_sgp[];
+extern const unsigned char buf_plug_lpeg_sgp[];
 #endif
 
 namespace po = boost::program_options;
@@ -135,6 +136,7 @@ int Launcher::doRun()
 
 #ifdef WITH_LUNAGEN_SUPPORT
 	setModuleData("doxmlparser.sgp",(void*)buf_plug_doxmlparser_sgp);
+	setModuleData("lpeg.sgp",(void*)buf_plug_lpeg_sgp);
 #endif	
 
 	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");

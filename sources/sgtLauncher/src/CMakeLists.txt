@@ -43,6 +43,7 @@ GENERATE_EXT_LIBRARY_IMAGE(deps/ot12-OpenThreads.dll ot12_openthreads_dll SOURCE
 
 IF(LUNAGEN_SUPPORT)
 GENERATE_LIBRARY_IMAGE(plug_doxmlparser plug_doxmlparser_sgp SOURCE_FILES)
+GENERATE_LIBRARY_IMAGE(plug_lpeg plug_lpeg_sgp SOURCE_FILES)
 ENDIF()
 
 

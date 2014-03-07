@@ -13,6 +13,7 @@ ADD_SUBDIRECTORY(lua_core)
 ADD_SUBDIRECTORY(plug_lfs)
 ADD_SUBDIRECTORY(plug_core)
 ADD_SUBDIRECTORY(plug_doxmlparser)
+ADD_SUBDIRECTORY(plug_lpeg)
 ADD_SUBDIRECTORY(sgtCore)
 ADD_SUBDIRECTORY(sgtLauncher)
 

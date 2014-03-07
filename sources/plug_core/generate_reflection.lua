@@ -22,7 +22,7 @@ ReflectionGenerator.generate{
 	ignoreHeaders={"helpers%.h"},
 	ignoreClassDeclarations={"SingletonHolder"},
 	locationPrefixes={
-		sgt_path.."sources/sgtCore/include/",
+		root_project_path.."sources/sgtCore/include/",
 		dest_path.."interface/",
 	}
 }
