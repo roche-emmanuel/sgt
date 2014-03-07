@@ -16,6 +16,7 @@ extern const unsigned char buf_osg97_osgutil_dll[];
 extern const unsigned char buf_ot12_openthreads_dll[];
 extern const unsigned char buf_sgtcore_dll[];
 extern const unsigned char buf_plug_core_sgp[];
+extern const unsigned char buf_plug_doxmlparser_sgp[];
 extern const unsigned char buf_plug_lfs_sgp[];
 extern const unsigned char buf_lua_core_pak[];
 
@@ -127,6 +128,7 @@ int Launcher::doRun()
 	
 	setModuleData("core.lpak",(void*)buf_lua_core_pak);
 	setModuleData("core.sgp",(void*)buf_plug_core_sgp);
+	setModuleData("doxmlparser.sgp",(void*)buf_plug_doxmlparser_sgp);
 	setModuleData("lfs.sgp",(void*)buf_plug_lfs_sgp);
 	
 	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");

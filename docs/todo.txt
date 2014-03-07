@@ -1,1 +1,2 @@
-- Add support for doxmlparser module.
+- Add support for output level command line argument in MainLoader.
+- Implement optional per shared library compression.

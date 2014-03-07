@@ -15,7 +15,8 @@ Arguments:
 
 	*--mode xxxx* : provide the core execution mode of the software, depending on this value the behavior of
 the software will be completely different. Current possible values are:
- 	- "lunagen" : used to perform binding generation for a library.
+ 	- "lunagen" : used to perform binding generation for a library. When is mode is provided, then any parameter received as argument
+will be considered as a file to execute to start the binding generation process.
 
   *--log xxxx* : used to specify the desired target log file for the execution of the software. 
 ]]
@@ -51,7 +52,7 @@ function Class:initialize(options)
 		end
 	end
 
-	self:info("Received flags: ", self._flags, " and parameters: ", self._params)
+	self:debug("Received flags: ", self._flags, " and parameters: ", self._params)
 end
 
 --[[

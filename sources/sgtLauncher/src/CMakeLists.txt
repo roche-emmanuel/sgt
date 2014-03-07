@@ -26,6 +26,7 @@ GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(sgtLuna sgtluna_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(sgtCore sgtcore_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(plug_core plug_core_sgp SOURCE_FILES)
+GENERATE_LIBRARY_IMAGE(plug_doxmlparser plug_doxmlparser_sgp SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(plug_lfs plug_lfs_sgp SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(core_pack lua_core_pak SOURCE_FILES)
 

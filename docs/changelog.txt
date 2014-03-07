@@ -26,3 +26,4 @@
 - Fixed issue with throw method.
 - Added support for documentation generation.
 - Moved DataMap in utils.
+- Added support for doxmlparser module.

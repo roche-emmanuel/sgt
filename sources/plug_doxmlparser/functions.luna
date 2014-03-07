@@ -1,0 +1,10 @@
+module=doxmlparser
+createObjectModel
+toClass
+toFile
+toEnum
+toNamespace
+toLinkText
+toLinkRef
+toDocText
+toDocPara
