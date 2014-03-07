@@ -27,3 +27,4 @@
 - Added support for documentation generation.
 - Moved DataMap in utils.
 - Added support for doxmlparser module.
+- Discarded per library compression support as this seems to brake the internal dll loading process.

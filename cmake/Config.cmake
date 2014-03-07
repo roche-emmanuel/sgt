@@ -2,6 +2,8 @@ SET(DEPS_DIR "W:/Cloud/Dev/Deps" CACHE STRING "Folder containing all the needed 
 SET(CMAKE_INSTALL_PREFIX "W:/Cloud/Projects/sgt/software" CACHE STRING "Installation folder" FORCE)
 SET(TOOLS_DIR "${PROJECT_SOURCE_DIR}/tools" CACHE STRING "Folder containing all the needed dev tools")
 
+SET(USE_GLOBAL_COMPRESSION FALSE)
+
 # Tools path:
 SET(UPX "${TOOLS_DIR}/upx.exe" CACHE STRING "UPX executable")
 SET(LUA "${TOOLS_DIR}/luajit.exe" CACHE STRING "LUA executable")

@@ -1,2 +1,3 @@
+- Implement conditional dependency support.
 - Add support for output level command line argument in MainLoader.
-- Implement optional per shared library compression.
+- Use sgt for binding generation
