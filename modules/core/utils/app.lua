@@ -28,19 +28,21 @@ Multiple short args can be combined like so: ( `-abcd`).
 Parameters:
     args - an array of strings (default is the global `arg`)
     flags_with_values - any flags that take values, e.g. {out=true}
+    alias - optional table containing a mapping between alias for a given flag and the flag itself. alias are keys and flags are values.
 
 Returns:
     a table of flags (flag=value pairs), an array of parameters
 
     An error is returned if args is nil, and the global `args` is not available!
 ]]
-function app.parse_args (args, flags_with_values)
+function app.parse_args (args, flags_with_values,alias)
   
   if not args then
     args = _G.arg
     if not args then throw "Not in a main program: 'arg' not found" end
   end
 
+  alias = alias or {}
   flags_with_values = flags_with_values or {}
   local _args = {}
   local flags = {}
@@ -54,6 +56,13 @@ function app.parse_args (args, flags_with_values)
           is_long = true
           v = v:sub(2)
         end
+        
+        -- check if this tag name is an alias for another tag:
+        if alias[v] then
+          v = alias[v]
+          is_long = #v>1
+        end
+
         if flags_with_values[v] then
           if i == #_args or args[i+1]:find '^-' then
             return throw ("no value for '"..v.."'")
@@ -63,6 +72,8 @@ function app.parse_args (args, flags_with_values)
         else
           -- a value can also be indicated with =
           local var,val =  base.splitv (v,'=')
+          -- log.debug_v("Splitted value v=",v," into var=",var," and val=",val)
+
           var = var or v
           val = val or true
           if not is_long then

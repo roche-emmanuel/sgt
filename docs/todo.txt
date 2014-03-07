@@ -1,1 +1,1 @@
-- Add support for output level command line argument in MainLoader.
+- add the osg plug support.

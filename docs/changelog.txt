@@ -30,3 +30,4 @@
 - Discarded per library compression support as this seems to brake the internal dll loading process.
 - Added support for conditional dependency integration.
 - Now using sgt as tool for binding generation.
+- Added support for log level and verbosity specification on command line.

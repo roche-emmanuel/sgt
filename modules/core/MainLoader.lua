@@ -1,7 +1,5 @@
 local Class = createClass{"MainLoader"}
 
-local Class = require("classBuilder"){name="MainLoader",bases={"core.Object"}};
-
 --[[
 Class: MainLoader
 
@@ -13,12 +11,17 @@ This class inherits from <core.Object>.
 Arguments:
 	The loader will accept the following arguments and flags:
 
-	*--mode xxxx* : provide the core execution mode of the software, depending on this value the behavior of
+	*--mode xxxx* (or -m) : provide the core execution mode of the software, depending on this value the behavior of
 the software will be completely different. Current possible values are:
  	- "lunagen" : used to perform binding generation for a library. When is mode is provided, then any parameter received as argument
 will be considered as a file to execute to start the binding generation process.
 
   *--log xxxx* : used to specify the desired target log file for the execution of the software. 
+
+  *--loglevel xxxx* (or -l) : Use to specify the desired log level for this session. Default value is DEBUG0, possible options are:
+"FATAL","ERROR","WARNING","NOTICE","INFO","DEBUG0","DEBUG1","DEBUG2","DEBUG3","DEBUG4","DEBUG5"
+
+	*--verbose* (or -v): toggle verbose log output mode ON if specified.
 ]]
 
 --[=[
@@ -37,9 +40,11 @@ function Class:initialize(options)
 
 	--  parse the arguments:
 	local app = require "utils.app"
-	self._flags, self._params = app.parse_args(self._args,{mode=true,log=true})
+	self._flags, self._params = app.parse_args(self._args,{mode=true,log=true,loglevel=true},{m="mode",l="loglevel",v="verbose"})
 	
 	self._log_file = "sgt.log"
+	self._log_level = self._flags.loglevel or "DEBUG0"
+	self._verbose = self._flags.verbose or false
 
 	if self._flags.log then
 		-- change the log file:
@@ -51,6 +56,10 @@ function Class:initialize(options)
 			sink:dynCast("sgt::FileLogger"):init(self._log_file,false)
 		end
 	end
+
+	self:debug("Setting log level to ",self._log_level," and verbose = ",self._verbose)
+	sgt.LogManager.instance():setNotifyLevel(sgt.LogManager[self._log_level])
+	sgt.LogManager.instance():setVerbose(self._verbose)
 
 	self:debug("Received flags: ", self._flags, " and parameters: ", self._params)
 end
