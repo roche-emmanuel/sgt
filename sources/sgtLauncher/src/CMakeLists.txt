@@ -9,9 +9,14 @@ ADD_DEFINITIONS(-DLAUNCHER_VERSION="${PROJECT_VERSION}")
 
 # Build this app as a windows app or not:
 SET(WINDOWS_APP TRUE)
+SET(LUNAGEN_SUPPORT TRUE)
 
 IF(WINDOWS_APP)
 ADD_DEFINITIONS(-DWINDOWS_APP)
+ENDIF()
+
+IF(LUNAGEN_SUPPORT)
+ADD_DEFINITIONS(-DWITH_LUNAGEN_SUPPORT)
 ENDIF()
 
 FILE(GLOB_RECURSE PUBLIC_HEADERS "../include/*.h")
@@ -22,11 +27,11 @@ ADD_MSVC_PRECOMPILED_HEADER("launcher.h" "launcher.cpp" SOURCE_FILES)
 
 ADD_CUSTOM_TARGET(${TARGET_NAME}_images)
 
+# core dependencies:
 GENERATE_LIBRARY_IMAGE(ModuleLoader moduleloader_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(sgtLuna sgtluna_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(sgtCore sgtcore_dll SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(plug_core plug_core_sgp SOURCE_FILES)
-GENERATE_LIBRARY_IMAGE(plug_doxmlparser plug_doxmlparser_sgp SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(plug_lfs plug_lfs_sgp SOURCE_FILES)
 GENERATE_LIBRARY_IMAGE(core_pack lua_core_pak SOURCE_FILES)
 
@@ -35,6 +40,11 @@ GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osg.dll osg97_osg_dll SOURCE_FILES)
 GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osgDB.dll osg97_osgdb_dll SOURCE_FILES)
 GENERATE_EXT_LIBRARY_IMAGE(deps/osg97-osgUtil.dll osg97_osgutil_dll SOURCE_FILES)
 GENERATE_EXT_LIBRARY_IMAGE(deps/ot12-OpenThreads.dll ot12_openthreads_dll SOURCE_FILES)
+
+IF(LUNAGEN_SUPPORT)
+GENERATE_LIBRARY_IMAGE(plug_doxmlparser plug_doxmlparser_sgp SOURCE_FILES)
+ENDIF()
+
 
 # GENERATE_LIBRARY_IMAGE(TurretSim2_encrypted turretsim2_fusion plugins/TurretSim2.fusion SOURCE_FILES)
 
