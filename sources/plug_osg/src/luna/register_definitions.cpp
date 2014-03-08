@@ -1,0 +1,1743 @@
+#include <plug_common.h>
+
+#include <osgParticle/AccelOperator>
+#include <osg/AlphaFunc>
+#include <osgParticle/AngularAccelOperator>
+#include <osg/AnimationPath>
+#include <osgGA/AnimationPathManipulator>
+#include <osg/ApplicationUsage>
+#include <osgDB/Archive>
+#include <osg/ArgumentParser>
+#include <osg/Array>
+#include <osg/ArrayDispatchers>
+#include <osg/AudioStream>
+#include <osgDB/AuthenticationMap>
+#include <osg/AutoTransform>
+#include <osg/Billboard>
+#include <osg/BlendColor>
+#include <osg/BlendEquation>
+#include <osg/BlendFunc>
+#include <osg/BoundingBox>
+#include <osg/BoundingSphere>
+#include <osg/BoundsChecking>
+#include <osgParticle/BoxPlacer>
+#include <osg/buffered_value>
+#include <osg/BufferIndexBinding>
+#include <osg/BufferObject>
+#include <osgDB/Callbacks>
+#include <osg/Camera>
+#include <osgGA/CameraManipulator>
+#include <osg/CameraNode>
+#include <osg/CameraView>
+#include <osgGA/CameraViewSwitchManipulator>
+#include <osgParticle/CenteredPlacer>
+#include <osg/ClampColor>
+#include <osg/ClearNode>
+#include <osg/ClipNode>
+#include <osg/ClipPlane>
+#include <osg/ClusterCullingCallback>
+#include <osg/CollectOccludersVisitor>
+#include <osg/ColorMask>
+#include <osg/ColorMatrix>
+#include <osgViewer/CompositeViewer>
+#include <osg/ComputeBoundsVisitor>
+#include <osg/Config>
+#include <osgParticle/ConnectedParticleSystem>
+#include <osgParticle/ConstantRateCounter>
+#include <osgDB/ConvertUTF>
+#include <osgUtil/ConvertVec>
+#include <osg/ConvexPlanarOccluder>
+#include <osg/ConvexPlanarPolygon>
+#include <osg/CoordinateSystemNode>
+#include <osg/CopyOp>
+#include <osgParticle/Counter>
+#include <osg/CullFace>
+#include <osg/CullingSet>
+#include <osg/CullSettings>
+#include <osg/CullStack>
+#include <osgUtil/CullVisitor>
+#include <osgDB/DatabasePager>
+#include <osgDB/DatabaseRevisions>
+#include <osgDB/DataTypes>
+#include <osg/DeleteHandler>
+#include <osg/Depth>
+#include <osgGA/Device>
+#include <osgUtil/DisplayRequirementsVisitor>
+#include <osg/DisplaySettings>
+#include <osgDB/DotOsgWrapper>
+#include <osg/Drawable>
+#include <osg/DrawPixels>
+#include <osgGA/DriveManipulator>
+#include <osgDB/DynamicLibrary>
+#include <osgUtil/EdgeCollector>
+#include <osgParticle/Emitter>
+#include <osg/Endian>
+#include <osgGA/EventQueue>
+#include <osgGA/EventVisitor>
+#include <osg/Export>
+#include <osgDB/Export>
+#include <osgGA/Export>
+#include <osgParticle/Export>
+#include <osgText/Export>
+#include <osgUtil/Export>
+#include <osgViewer/Export>
+#include <osgDB/ExternalFileWriter>
+#include <osgText/FadeText>
+#include <osg/fast_back_stack>
+#include <osgDB/FileCache>
+#include <osgDB/FileNameUtils>
+#include <osgDB/FileUtils>
+#include <osgGA/FirstPersonManipulator>
+#include <osgGA/FlightManipulator>
+#include <osgParticle/FluidFrictionOperator>
+#include <osgParticle/FluidProgram>
+#include <osg/Fog>
+#include <osgText/Font>
+#include <osgText/Font3D>
+#include <osgParticle/ForceOperator>
+#include <osg/FragmentProgram>
+#include <osg/FrameBufferObject>
+#include <osg/FrameStamp>
+#include <osg/FrontFace>
+#include <osgDB/fstream>
+#include <osg/Geode>
+#include <osg/Geometry>
+#include <osg/GL>
+#include <osg/GL2Extensions>
+#include <osg/GLBeginEndAdapter>
+#include <osg/GLExtensions>
+#include <osg/GLObjects>
+#include <osgUtil/GLObjectsVisitor>
+#include <osg/GLU>
+#include <osgText/Glyph>
+#include <osg/GraphicsContext>
+#include <osg/GraphicsThread>
+#include <osgViewer/GraphicsWindow>
+#include <osg/Group>
+#include <osgGA/GUIActionAdapter>
+#include <osgGA/GUIEventAdapter>
+#include <osgGA/GUIEventHandler>
+#include <osg/Hint>
+#include <osg/Image>
+#include <osgDB/ImageOptions>
+#include <osgDB/ImagePager>
+#include <osgDB/ImageProcessor>
+#include <osg/ImageSequence>
+#include <osg/ImageStream>
+#include <osg/ImageUtils>
+#include <osgDB/Input>
+#include <osgUtil/IntersectionVisitor>
+#include <osgUtil/IntersectVisitor>
+#include <osg/io_utils>
+#include <osg/KdTree>
+#include <osgGA/KeySwitchMatrixManipulator>
+#include <osg/Light>
+#include <osg/LightModel>
+#include <osg/LightSource>
+#include <osg/LineSegment>
+#include <osgUtil/LineSegmentIntersector>
+#include <osg/LineStipple>
+#include <osg/LineWidth>
+#include <osg/LOD>
+#include <osg/LogicOp>
+#include <osg/Material>
+#include <osg/Matrix>
+#include <osg/Matrixd>
+#include <osg/Matrixf>
+#include <osg/MatrixTransform>
+#include <osgUtil/MeshOptimizers>
+#include <osg/MixinVector>
+#include <osgParticle/ModularEmitter>
+#include <osgParticle/ModularProgram>
+#include <osg/Multisample>
+#include <osgParticle/MultiSegmentPlacer>
+#include <osgGA/MultiTouchTrackballManipulator>
+#include <osg/Node>
+#include <osg/NodeCallback>
+#include <osg/NodeTrackerCallback>
+#include <osgGA/NodeTrackerManipulator>
+#include <osg/NodeVisitor>
+#include <osg/Notify>
+#include <osg/Object>
+#include <osg/Observer>
+#include <osg/ObserverNodePath>
+#include <osg/OccluderNode>
+#include <osg/OcclusionQueryNode>
+#include <osgUtil/OperationArrayFunctor>
+#include <osg/OperationThread>
+#include <osgParticle/Operator>
+#include <osgDB/Options>
+#include <osgGA/OrbitManipulator>
+#include <osgDB/Output>
+#include <osg/PagedLOD>
+#include <osgDB/ParameterOutput>
+#include <osgParticle/Particle>
+#include <osgParticle/ParticleProcessor>
+#include <osgParticle/ParticleSystem>
+#include <osgParticle/ParticleSystemUpdater>
+#include <osgParticle/Placer>
+#include <osg/Plane>
+#include <osgUtil/PlaneIntersector>
+#include <osg/Point>
+#include <osgParticle/PointPlacer>
+#include <osg/PointSprite>
+#include <osg/PolygonMode>
+#include <osg/PolygonOffset>
+#include <osg/PolygonStipple>
+#include <osg/Polytope>
+#include <osgUtil/PolytopeIntersector>
+#include <osgUtil/PositionalStateContainer>
+#include <osg/PositionAttitudeTransform>
+#include <osg/PrimitiveSet>
+#include <osgUtil/PrintVisitor>
+#include <osg/Program>
+#include <osgParticle/Program>
+#include <osg/Projection>
+#include <osg/ProxyNode>
+#include <osg/Quat>
+#include <osgParticle/RadialShooter>
+#include <osgParticle/RandomRateCounter>
+#include <osgParticle/range>
+#include <osgDB/ReaderWriter>
+#include <osgDB/ReadFile>
+#include <osg/ref_ptr>
+#include <osg/Referenced>
+#include <osgDB/Registry>
+#include <osgUtil/RenderBin>
+#include <osgViewer/Renderer>
+#include <osg/RenderInfo>
+#include <osgUtil/RenderLeaf>
+#include <osgUtil/RenderStage>
+#include <osgUtil/ReversePrimitiveFunctor>
+#include <osg/SampleMaski>
+#include <osgViewer/Scene>
+#include <osgUtil/SceneGraphBuilder>
+#include <osgUtil/SceneView>
+#include <osg/Scissor>
+#include <osgParticle/SectorPlacer>
+#include <osgParticle/SegmentPlacer>
+#include <osg/Sequence>
+#include <osg/ShadeModel>
+#include <osg/Shader>
+#include <osg/ShaderAttribute>
+#include <osg/ShaderComposer>
+#include <osgUtil/ShaderGen>
+#include <osg/ShadowVolumeOccluder>
+#include <osg/Shape>
+#include <osg/ShapeDrawable>
+#include <osgDB/SharedStateManager>
+#include <osgParticle/Shooter>
+#include <osgUtil/Simplifier>
+#include <osgUtil/SmoothingVisitor>
+#include <osgGA/StandardManipulator>
+#include <osg/State>
+#include <osg/StateAttribute>
+#include <osg/StateAttributeCallback>
+#include <osgUtil/StateGraph>
+#include <osg/StateSet>
+#include <osgGA/StateSetManipulator>
+#include <osgUtil/Statistics>
+#include <osg/Stats>
+#include <osg/Stencil>
+#include <osg/StencilTwoSided>
+#include <osgText/String>
+#include <osgText/Style>
+#include <osg/Switch>
+#include <osg/TemplatePrimitiveFunctor>
+#include <osgGA/TerrainManipulator>
+#include <osg/TexEnv>
+#include <osg/TexEnvCombine>
+#include <osg/TexEnvFilter>
+#include <osg/TexGen>
+#include <osg/TexGenNode>
+#include <osg/TexMat>
+#include <osgText/Text>
+#include <osgText/Text3D>
+#include <osgText/TextBase>
+#include <osg/Texture>
+#include <osg/Texture1D>
+#include <osg/Texture2D>
+#include <osg/Texture2DArray>
+#include <osg/Texture2DMultisample>
+#include <osg/Texture3D>
+#include <osg/TextureCubeMap>
+#include <osg/TextureRectangle>
+#include <osg/Timer>
+#include <osgGA/TrackballManipulator>
+#include <osg/TransferFunction>
+#include <osg/Transform>
+#include <osgUtil/TransformAttributeFunctor>
+#include <osgUtil/TransformCallback>
+#include <osg/TriangleFunctor>
+#include <osg/TriangleIndexFunctor>
+#include <osgUtil/TriStripVisitor>
+#include <osgGA/UFOManipulator>
+#include <osg/Uniform>
+#include <osgUtil/UpdateVisitor>
+#include <osg/UserDataContainer>
+#include <osg/ValueObject>
+#include <osgParticle/VariableRateCounter>
+#include <osg/Vec2>
+#include <osg/Vec2b>
+#include <osg/Vec2d>
+#include <osg/Vec2f>
+#include <osg/Vec2s>
+#include <osg/Vec3>
+#include <osg/Vec3b>
+#include <osg/Vec3d>
+#include <osg/Vec3f>
+#include <osg/Vec3s>
+#include <osg/Vec4>
+#include <osg/Vec4b>
+#include <osg/Vec4d>
+#include <osg/Vec4f>
+#include <osg/Vec4s>
+#include <osg/Vec4ub>
+#include <OpenThreads/Version>
+#include <osg/Version>
+#include <osgDB/Version>
+#include <osgGA/Version>
+#include <osgParticle/Version>
+#include <osgText/Version>
+#include <osgUtil/Version>
+#include <osgViewer/Version>
+#include <osg/VertexProgram>
+#include <osg/View>
+#include <osgViewer/View>
+#include <osgViewer/Viewer>
+#include <osgViewer/ViewerBase>
+#include <osgViewer/ViewerEventHandlers>
+#include <osg/Viewport>
+#include <osgDB/WriteFile>
+#include <osgDB/XmlParser>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void register_defines(lua_State* L) {
+	lua_pushnumber(L,OSGPARTICLE_ACCELOPERATOR); lua_setfield(L,-2,"OSGPARTICLE_ACCELOPERATOR");
+	lua_pushnumber(L,OSG_ALPHAFUNC); lua_setfield(L,-2,"OSG_ALPHAFUNC");
+	lua_pushnumber(L,GL_ALPHA_TEST); lua_setfield(L,-2,"GL_ALPHA_TEST");
+	lua_pushnumber(L,OSGPARTICLE_ANGULARACCELOPERATOR); lua_setfield(L,-2,"OSGPARTICLE_ANGULARACCELOPERATOR");
+	lua_pushnumber(L,OSG_ANIMATIONPATH); lua_setfield(L,-2,"OSG_ANIMATIONPATH");
+	lua_pushnumber(L,OSGGA_ANIMATION_PATH_MANIPULATOR); lua_setfield(L,-2,"OSGGA_ANIMATION_PATH_MANIPULATOR");
+	lua_pushnumber(L,OSG_APPLICATIONUSAGE); lua_setfield(L,-2,"OSG_APPLICATIONUSAGE");
+	lua_pushnumber(L,OSGDB_ARCHIVE); lua_setfield(L,-2,"OSGDB_ARCHIVE");
+	lua_pushnumber(L,OSG_ARGUMENTPARSER); lua_setfield(L,-2,"OSG_ARGUMENTPARSER");
+	lua_pushnumber(L,OSG_ARRAY); lua_setfield(L,-2,"OSG_ARRAY");
+	lua_pushnumber(L,OSG_ArrayDispatchers); lua_setfield(L,-2,"OSG_ArrayDispatchers");
+	lua_pushnumber(L,OSG_AUDIOSTREAM); lua_setfield(L,-2,"OSG_AUDIOSTREAM");
+	lua_pushnumber(L,OSGDB_AUTHENTICATIONMAP); lua_setfield(L,-2,"OSGDB_AUTHENTICATIONMAP");
+	lua_pushnumber(L,OSG_AUTOTRANSFORM); lua_setfield(L,-2,"OSG_AUTOTRANSFORM");
+	lua_pushnumber(L,OSG_BILLBOARD); lua_setfield(L,-2,"OSG_BILLBOARD");
+	lua_pushnumber(L,OSG_BLENDCOLOR); lua_setfield(L,-2,"OSG_BLENDCOLOR");
+	lua_pushnumber(L,OSG_BLENDEQUATION); lua_setfield(L,-2,"OSG_BLENDEQUATION");
+	lua_pushnumber(L,GL_MIN); lua_setfield(L,-2,"GL_MIN");
+	lua_pushnumber(L,GL_MAX); lua_setfield(L,-2,"GL_MAX");
+	lua_pushnumber(L,GL_FUNC_ADD); lua_setfield(L,-2,"GL_FUNC_ADD");
+	lua_pushnumber(L,GL_FUNC_SUBTRACT); lua_setfield(L,-2,"GL_FUNC_SUBTRACT");
+	lua_pushnumber(L,GL_FUNC_REVERSE_SUBTRACT); lua_setfield(L,-2,"GL_FUNC_REVERSE_SUBTRACT");
+	lua_pushnumber(L,GL_LOGIC_OP); lua_setfield(L,-2,"GL_LOGIC_OP");
+	lua_pushnumber(L,GL_ALPHA_MIN_SGIX); lua_setfield(L,-2,"GL_ALPHA_MIN_SGIX");
+	lua_pushnumber(L,GL_ALPHA_MAX_SGIX); lua_setfield(L,-2,"GL_ALPHA_MAX_SGIX");
+	lua_pushnumber(L,OSG_BLENDFUNC); lua_setfield(L,-2,"OSG_BLENDFUNC");
+	lua_pushnumber(L,GL_CONSTANT_COLOR); lua_setfield(L,-2,"GL_CONSTANT_COLOR");
+	lua_pushnumber(L,GL_ONE_MINUS_CONSTANT_COLOR); lua_setfield(L,-2,"GL_ONE_MINUS_CONSTANT_COLOR");
+	lua_pushnumber(L,GL_CONSTANT_ALPHA); lua_setfield(L,-2,"GL_CONSTANT_ALPHA");
+	lua_pushnumber(L,GL_ONE_MINUS_CONSTANT_ALPHA); lua_setfield(L,-2,"GL_ONE_MINUS_CONSTANT_ALPHA");
+	lua_pushnumber(L,GL_BLEND_COLOR); lua_setfield(L,-2,"GL_BLEND_COLOR");
+	lua_pushnumber(L,GL_BLEND_DST_RGB); lua_setfield(L,-2,"GL_BLEND_DST_RGB");
+	lua_pushnumber(L,GL_BLEND_SRC_RGB); lua_setfield(L,-2,"GL_BLEND_SRC_RGB");
+	lua_pushnumber(L,GL_BLEND_DST_ALPHA); lua_setfield(L,-2,"GL_BLEND_DST_ALPHA");
+	lua_pushnumber(L,GL_BLEND_SRC_ALPHA); lua_setfield(L,-2,"GL_BLEND_SRC_ALPHA");
+	lua_pushnumber(L,OSG_BOUNDINGBOX); lua_setfield(L,-2,"OSG_BOUNDINGBOX");
+	lua_pushnumber(L,OSG_BOUNDINGSPHERE); lua_setfield(L,-2,"OSG_BOUNDINGSPHERE");
+	lua_pushnumber(L,OSG_BOUNDSCHECKING); lua_setfield(L,-2,"OSG_BOUNDSCHECKING");
+	lua_pushnumber(L,OSGPARTICLE_BOX_PLACER); lua_setfield(L,-2,"OSGPARTICLE_BOX_PLACER");
+	lua_pushnumber(L,OSG_BUFFERED_VALUE); lua_setfield(L,-2,"OSG_BUFFERED_VALUE");
+	lua_pushnumber(L,OSG_BUFFERINDEXBINDING); lua_setfield(L,-2,"OSG_BUFFERINDEXBINDING");
+	lua_pushnumber(L,GL_TRANSFORM_FEEDBACK_BUFFER); lua_setfield(L,-2,"GL_TRANSFORM_FEEDBACK_BUFFER");
+	lua_pushnumber(L,OSG_BUFFEROBJECT); lua_setfield(L,-2,"OSG_BUFFEROBJECT");
+	lua_pushnumber(L,GL_ARRAY_BUFFER_ARB); lua_setfield(L,-2,"GL_ARRAY_BUFFER_ARB");
+	lua_pushnumber(L,GL_ELEMENT_ARRAY_BUFFER_ARB); lua_setfield(L,-2,"GL_ELEMENT_ARRAY_BUFFER_ARB");
+	lua_pushnumber(L,GL_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_VERTEX_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_VERTEX_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_NORMAL_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_NORMAL_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_COLOR_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_COLOR_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_INDEX_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_INDEX_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_EDGE_FLAG_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_EDGE_FLAG_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_WEIGHT_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_WEIGHT_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_STREAM_DRAW_ARB); lua_setfield(L,-2,"GL_STREAM_DRAW_ARB");
+	lua_pushnumber(L,GL_STREAM_READ_ARB); lua_setfield(L,-2,"GL_STREAM_READ_ARB");
+	lua_pushnumber(L,GL_STREAM_COPY_ARB); lua_setfield(L,-2,"GL_STREAM_COPY_ARB");
+	lua_pushnumber(L,GL_STATIC_DRAW_ARB); lua_setfield(L,-2,"GL_STATIC_DRAW_ARB");
+	lua_pushnumber(L,GL_STATIC_READ_ARB); lua_setfield(L,-2,"GL_STATIC_READ_ARB");
+	lua_pushnumber(L,GL_STATIC_COPY_ARB); lua_setfield(L,-2,"GL_STATIC_COPY_ARB");
+	lua_pushnumber(L,GL_DYNAMIC_DRAW_ARB); lua_setfield(L,-2,"GL_DYNAMIC_DRAW_ARB");
+	lua_pushnumber(L,GL_DYNAMIC_READ_ARB); lua_setfield(L,-2,"GL_DYNAMIC_READ_ARB");
+	lua_pushnumber(L,GL_DYNAMIC_COPY_ARB); lua_setfield(L,-2,"GL_DYNAMIC_COPY_ARB");
+	lua_pushnumber(L,GL_READ_ONLY_ARB); lua_setfield(L,-2,"GL_READ_ONLY_ARB");
+	lua_pushnumber(L,GL_WRITE_ONLY_ARB); lua_setfield(L,-2,"GL_WRITE_ONLY_ARB");
+	lua_pushnumber(L,GL_READ_WRITE_ARB); lua_setfield(L,-2,"GL_READ_WRITE_ARB");
+	lua_pushnumber(L,GL_BUFFER_SIZE_ARB); lua_setfield(L,-2,"GL_BUFFER_SIZE_ARB");
+	lua_pushnumber(L,GL_BUFFER_USAGE_ARB); lua_setfield(L,-2,"GL_BUFFER_USAGE_ARB");
+	lua_pushnumber(L,GL_BUFFER_ACCESS_ARB); lua_setfield(L,-2,"GL_BUFFER_ACCESS_ARB");
+	lua_pushnumber(L,GL_BUFFER_MAPPED_ARB); lua_setfield(L,-2,"GL_BUFFER_MAPPED_ARB");
+	lua_pushnumber(L,GL_BUFFER_MAP_POINTER_ARB); lua_setfield(L,-2,"GL_BUFFER_MAP_POINTER_ARB");
+	lua_pushnumber(L,GL_STREAM_DRAW); lua_setfield(L,-2,"GL_STREAM_DRAW");
+	lua_pushnumber(L,GL_STREAM_READ); lua_setfield(L,-2,"GL_STREAM_READ");
+	lua_pushnumber(L,GL_STREAM_COPY); lua_setfield(L,-2,"GL_STREAM_COPY");
+	lua_pushnumber(L,GL_STATIC_DRAW); lua_setfield(L,-2,"GL_STATIC_DRAW");
+	lua_pushnumber(L,GL_STATIC_READ); lua_setfield(L,-2,"GL_STATIC_READ");
+	lua_pushnumber(L,GL_STATIC_COPY); lua_setfield(L,-2,"GL_STATIC_COPY");
+	lua_pushnumber(L,GL_DYNAMIC_DRAW); lua_setfield(L,-2,"GL_DYNAMIC_DRAW");
+	lua_pushnumber(L,GL_DYNAMIC_READ); lua_setfield(L,-2,"GL_DYNAMIC_READ");
+	lua_pushnumber(L,GL_DYNAMIC_COPY); lua_setfield(L,-2,"GL_DYNAMIC_COPY");
+	lua_pushnumber(L,GL_PIXEL_PACK_BUFFER); lua_setfield(L,-2,"GL_PIXEL_PACK_BUFFER");
+	lua_pushnumber(L,GL_PIXEL_UNPACK_BUFFER); lua_setfield(L,-2,"GL_PIXEL_UNPACK_BUFFER");
+	lua_pushnumber(L,GL_PIXEL_PACK_BUFFER_BINDING); lua_setfield(L,-2,"GL_PIXEL_PACK_BUFFER_BINDING");
+	lua_pushnumber(L,GL_PIXEL_UNPACK_BUFFER_BINDING); lua_setfield(L,-2,"GL_PIXEL_UNPACK_BUFFER_BINDING");
+	lua_pushnumber(L,GL_PIXEL_PACK_BUFFER_ARB); lua_setfield(L,-2,"GL_PIXEL_PACK_BUFFER_ARB");
+	lua_pushnumber(L,GL_PIXEL_UNPACK_BUFFER_ARB); lua_setfield(L,-2,"GL_PIXEL_UNPACK_BUFFER_ARB");
+	lua_pushnumber(L,GL_PIXEL_PACK_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_PIXEL_PACK_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,GL_PIXEL_UNPACK_BUFFER_BINDING_ARB); lua_setfield(L,-2,"GL_PIXEL_UNPACK_BUFFER_BINDING_ARB");
+	lua_pushnumber(L,OSGDB_CALLBACKS); lua_setfield(L,-2,"OSGDB_CALLBACKS");
+	lua_pushnumber(L,OSG_CAMERA); lua_setfield(L,-2,"OSG_CAMERA");
+	lua_pushnumber(L,OSGGA_CameraManipulator); lua_setfield(L,-2,"OSGGA_CameraManipulator");
+	lua_pushnumber(L,OSG_CAMERANODE); lua_setfield(L,-2,"OSG_CAMERANODE");
+	lua_pushnumber(L,OSG_CAMERAVIEW); lua_setfield(L,-2,"OSG_CAMERAVIEW");
+	lua_pushnumber(L,OSGGA_VIEWLISTMANIPULATOR); lua_setfield(L,-2,"OSGGA_VIEWLISTMANIPULATOR");
+	lua_pushnumber(L,OSGPARTICLE_CENTERED_PLACER); lua_setfield(L,-2,"OSGPARTICLE_CENTERED_PLACER");
+	lua_pushnumber(L,OSG_CLAMPCOLOR); lua_setfield(L,-2,"OSG_CLAMPCOLOR");
+	lua_pushnumber(L,GL_RGBA_FLOAT_MODE_ARB); lua_setfield(L,-2,"GL_RGBA_FLOAT_MODE_ARB");
+	lua_pushnumber(L,GL_CLAMP_VERTEX_COLOR_ARB); lua_setfield(L,-2,"GL_CLAMP_VERTEX_COLOR_ARB");
+	lua_pushnumber(L,GL_CLAMP_FRAGMENT_COLOR_ARB); lua_setfield(L,-2,"GL_CLAMP_FRAGMENT_COLOR_ARB");
+	lua_pushnumber(L,GL_CLAMP_READ_COLOR_ARB); lua_setfield(L,-2,"GL_CLAMP_READ_COLOR_ARB");
+	lua_pushnumber(L,GL_FIXED_ONLY_ARB); lua_setfield(L,-2,"GL_FIXED_ONLY_ARB");
+	lua_pushnumber(L,OSG_CLEARNODE); lua_setfield(L,-2,"OSG_CLEARNODE");
+	lua_pushnumber(L,OSG_CLIPNODE); lua_setfield(L,-2,"OSG_CLIPNODE");
+	lua_pushnumber(L,OSG_CLIPPLANE); lua_setfield(L,-2,"OSG_CLIPPLANE");
+	lua_pushnumber(L,GL_CLIP_PLANE0); lua_setfield(L,-2,"GL_CLIP_PLANE0");
+	lua_pushnumber(L,GL_CLIP_PLANE1); lua_setfield(L,-2,"GL_CLIP_PLANE1");
+	lua_pushnumber(L,GL_CLIP_PLANE2); lua_setfield(L,-2,"GL_CLIP_PLANE2");
+	lua_pushnumber(L,GL_CLIP_PLANE3); lua_setfield(L,-2,"GL_CLIP_PLANE3");
+	lua_pushnumber(L,GL_CLIP_PLANE4); lua_setfield(L,-2,"GL_CLIP_PLANE4");
+	lua_pushnumber(L,GL_CLIP_PLANE5); lua_setfield(L,-2,"GL_CLIP_PLANE5");
+	lua_pushnumber(L,OSG_CLUSTERCULLINGCALLBACK); lua_setfield(L,-2,"OSG_CLUSTERCULLINGCALLBACK");
+	lua_pushnumber(L,OSG_COLLECTOCCLUDERSVISITOR); lua_setfield(L,-2,"OSG_COLLECTOCCLUDERSVISITOR");
+	lua_pushnumber(L,OSG_COLORMASK); lua_setfield(L,-2,"OSG_COLORMASK");
+	lua_pushnumber(L,OSG_COLORMATRIX); lua_setfield(L,-2,"OSG_COLORMATRIX");
+	lua_pushnumber(L,OSGVIEWER_CompositeViewer); lua_setfield(L,-2,"OSGVIEWER_CompositeViewer");
+	lua_pushnumber(L,OSG_COMPUTEBOUNDSVISITOR); lua_setfield(L,-2,"OSG_COMPUTEBOUNDSVISITOR");
+	lua_pushnumber(L,OSG_CONFIG); lua_setfield(L,-2,"OSG_CONFIG");
+	lua_pushnumber(L,OSGPARTICLE_CONNECTEDPARTICLESYSTEM); lua_setfield(L,-2,"OSGPARTICLE_CONNECTEDPARTICLESYSTEM");
+	lua_pushnumber(L,OSGPARTICLE_CONSTANTRATECOUNTER); lua_setfield(L,-2,"OSGPARTICLE_CONSTANTRATECOUNTER");
+	lua_pushnumber(L,OSGDB_CONVERTUTF); lua_setfield(L,-2,"OSGDB_CONVERTUTF");
+	lua_pushnumber(L,OSGUTIL_CONVERTVEC); lua_setfield(L,-2,"OSGUTIL_CONVERTVEC");
+	lua_pushnumber(L,OSG_CONVEXPLANAROCCLUDER); lua_setfield(L,-2,"OSG_CONVEXPLANAROCCLUDER");
+	lua_pushnumber(L,OSG_CONVEXPLANARPOLYGON); lua_setfield(L,-2,"OSG_CONVEXPLANARPOLYGON");
+	lua_pushnumber(L,OSG_COORDINATESYSTEMNODE); lua_setfield(L,-2,"OSG_COORDINATESYSTEMNODE");
+	lua_pushnumber(L,OSG_COPYOP); lua_setfield(L,-2,"OSG_COPYOP");
+	lua_pushnumber(L,OSGPARTICLE_COUNTER); lua_setfield(L,-2,"OSGPARTICLE_COUNTER");
+	lua_pushnumber(L,OSG_CULLFACE); lua_setfield(L,-2,"OSG_CULLFACE");
+	lua_pushnumber(L,OSG_CullingSet); lua_setfield(L,-2,"OSG_CullingSet");
+	lua_pushnumber(L,OSG_CULLSETTINGS); lua_setfield(L,-2,"OSG_CULLSETTINGS");
+	lua_pushnumber(L,OSG_CULLSTACK); lua_setfield(L,-2,"OSG_CULLSTACK");
+	lua_pushnumber(L,OSGUTIL_CULLVISITOR); lua_setfield(L,-2,"OSGUTIL_CULLVISITOR");
+	lua_pushnumber(L,OSGDB_DATABASEPAGER); lua_setfield(L,-2,"OSGDB_DATABASEPAGER");
+	lua_pushnumber(L,OSGDB_DATABASEREVISIONS); lua_setfield(L,-2,"OSGDB_DATABASEREVISIONS");
+	lua_pushnumber(L,OSG_HEADER_LOW); lua_setfield(L,-2,"OSG_HEADER_LOW");
+	lua_pushnumber(L,OSG_HEADER_HIGH); lua_setfield(L,-2,"OSG_HEADER_HIGH");
+	lua_pushnumber(L,OSG_DELETEHANDLER); lua_setfield(L,-2,"OSG_DELETEHANDLER");
+	lua_pushnumber(L,OSG_DEPTH); lua_setfield(L,-2,"OSG_DEPTH");
+	lua_pushnumber(L,OSGGA_EVENTSOURCE); lua_setfield(L,-2,"OSGGA_EVENTSOURCE");
+	lua_pushnumber(L,OSGUTIL_DISPLAYREQUIREMENTSVISITOR); lua_setfield(L,-2,"OSGUTIL_DISPLAYREQUIREMENTSVISITOR");
+	lua_pushnumber(L,OSG_DisplaySettings); lua_setfield(L,-2,"OSG_DisplaySettings");
+	lua_pushnumber(L,OSGDB_DOTOSGWRAPPER); lua_setfield(L,-2,"OSGDB_DOTOSGWRAPPER");
+	lua_pushnumber(L,OSG_DRAWABLE); lua_setfield(L,-2,"OSG_DRAWABLE");
+	lua_pushnumber(L,GL_OCCLUSION_TEST_HP); lua_setfield(L,-2,"GL_OCCLUSION_TEST_HP");
+	lua_pushnumber(L,GL_OCCLUSION_TEST_RESULT_HP); lua_setfield(L,-2,"GL_OCCLUSION_TEST_RESULT_HP");
+	lua_pushnumber(L,GL_PIXEL_COUNTER_BITS_NV); lua_setfield(L,-2,"GL_PIXEL_COUNTER_BITS_NV");
+	lua_pushnumber(L,GL_CURRENT_OCCLUSION_QUERY_ID_NV); lua_setfield(L,-2,"GL_CURRENT_OCCLUSION_QUERY_ID_NV");
+	lua_pushnumber(L,GL_PIXEL_COUNT_NV); lua_setfield(L,-2,"GL_PIXEL_COUNT_NV");
+	lua_pushnumber(L,GL_PIXEL_COUNT_AVAILABLE_NV); lua_setfield(L,-2,"GL_PIXEL_COUNT_AVAILABLE_NV");
+	lua_pushnumber(L,GL_SAMPLES_PASSED_ARB); lua_setfield(L,-2,"GL_SAMPLES_PASSED_ARB");
+	lua_pushnumber(L,GL_QUERY_COUNTER_BITS_ARB); lua_setfield(L,-2,"GL_QUERY_COUNTER_BITS_ARB");
+	lua_pushnumber(L,GL_CURRENT_QUERY_ARB); lua_setfield(L,-2,"GL_CURRENT_QUERY_ARB");
+	lua_pushnumber(L,GL_QUERY_RESULT_ARB); lua_setfield(L,-2,"GL_QUERY_RESULT_ARB");
+	lua_pushnumber(L,GL_QUERY_RESULT_AVAILABLE_ARB); lua_setfield(L,-2,"GL_QUERY_RESULT_AVAILABLE_ARB");
+	lua_pushnumber(L,GL_TIME_ELAPSED); lua_setfield(L,-2,"GL_TIME_ELAPSED");
+	lua_pushnumber(L,GL_TIMESTAMP); lua_setfield(L,-2,"GL_TIMESTAMP");
+	lua_pushnumber(L,GL_QUERY_RESULT); lua_setfield(L,-2,"GL_QUERY_RESULT");
+	lua_pushnumber(L,GL_QUERY_RESULT_AVAILABLE); lua_setfield(L,-2,"GL_QUERY_RESULT_AVAILABLE");
+	lua_pushnumber(L,OSG_DRAWPIXELS); lua_setfield(L,-2,"OSG_DRAWPIXELS");
+	lua_pushnumber(L,OSGGA_DRIVEMANIPULATOR); lua_setfield(L,-2,"OSGGA_DRIVEMANIPULATOR");
+	lua_pushnumber(L,OSGDB_DYNAMICLIBRARY); lua_setfield(L,-2,"OSGDB_DYNAMICLIBRARY");
+	lua_pushnumber(L,OSGUTIL_EDGECOLLECTOR); lua_setfield(L,-2,"OSGUTIL_EDGECOLLECTOR");
+	lua_pushnumber(L,OSGPARTICLE_EMITTER); lua_setfield(L,-2,"OSGPARTICLE_EMITTER");
+	lua_pushnumber(L,OSG_ENDIAN); lua_setfield(L,-2,"OSG_ENDIAN");
+	lua_pushnumber(L,OSGGA_EVENTQUEUE); lua_setfield(L,-2,"OSGGA_EVENTQUEUE");
+	lua_pushnumber(L,OSGGA_EVENTVISITOR); lua_setfield(L,-2,"OSGGA_EVENTVISITOR");
+	lua_pushnumber(L,OSG_EXPORT_); lua_setfield(L,-2,"OSG_EXPORT_");
+	lua_pushnumber(L,OSGDB_EXPORT_); lua_setfield(L,-2,"OSGDB_EXPORT_");
+	lua_pushnumber(L,OSGGA_EXPORT_); lua_setfield(L,-2,"OSGGA_EXPORT_");
+	lua_pushnumber(L,OSGPARTICLE_EXPORT_); lua_setfield(L,-2,"OSGPARTICLE_EXPORT_");
+	lua_pushnumber(L,OSGTEXT_EXPORT_); lua_setfield(L,-2,"OSGTEXT_EXPORT_");
+	lua_pushnumber(L,OSGUTIL_EXPORT_); lua_setfield(L,-2,"OSGUTIL_EXPORT_");
+	lua_pushnumber(L,OSGVIEWER_EXPORT_); lua_setfield(L,-2,"OSGVIEWER_EXPORT_");
+	lua_pushnumber(L,OSGDB_PLUGIN_IMAGE_WRITER); lua_setfield(L,-2,"OSGDB_PLUGIN_IMAGE_WRITER");
+	lua_pushnumber(L,OSGTEXT_FADETEXT); lua_setfield(L,-2,"OSGTEXT_FADETEXT");
+	lua_pushnumber(L,OSG_FAST_BACK_STACK); lua_setfield(L,-2,"OSG_FAST_BACK_STACK");
+	lua_pushnumber(L,OSGDB_FILECACHE); lua_setfield(L,-2,"OSGDB_FILECACHE");
+	lua_pushnumber(L,OSGDB_FILENAMEUTILS); lua_setfield(L,-2,"OSGDB_FILENAMEUTILS");
+	lua_pushnumber(L,OSGDB_FILEUTILS); lua_setfield(L,-2,"OSGDB_FILEUTILS");
+	lua_pushnumber(L,OSGGA_FIRST_PERSON_MANIPULATOR); lua_setfield(L,-2,"OSGGA_FIRST_PERSON_MANIPULATOR");
+	lua_pushnumber(L,OSGGA_FLIGHT_MANIPULATOR); lua_setfield(L,-2,"OSGGA_FLIGHT_MANIPULATOR");
+	lua_pushnumber(L,OSGPARTICLE_FLUIDFRICTIONOPERATOR); lua_setfield(L,-2,"OSGPARTICLE_FLUIDFRICTIONOPERATOR");
+	lua_pushnumber(L,OSGPARTICLE_FLUIDPROGRAM); lua_setfield(L,-2,"OSGPARTICLE_FLUIDPROGRAM");
+	lua_pushnumber(L,OSG_FOG); lua_setfield(L,-2,"OSG_FOG");
+	lua_pushnumber(L,GL_FOG_DISTANCE_MODE_NV); lua_setfield(L,-2,"GL_FOG_DISTANCE_MODE_NV");
+	lua_pushnumber(L,GL_EYE_PLANE_ABSOLUTE_NV); lua_setfield(L,-2,"GL_EYE_PLANE_ABSOLUTE_NV");
+	lua_pushnumber(L,GL_EYE_RADIAL_NV); lua_setfield(L,-2,"GL_EYE_RADIAL_NV");
+	lua_pushnumber(L,GL_FOG_COORDINATE); lua_setfield(L,-2,"GL_FOG_COORDINATE");
+	lua_pushnumber(L,GL_FRAGMENT_DEPTH); lua_setfield(L,-2,"GL_FRAGMENT_DEPTH");
+	lua_pushnumber(L,GL_FOG); lua_setfield(L,-2,"GL_FOG");
+	lua_pushnumber(L,GL_EXP); lua_setfield(L,-2,"GL_EXP");
+	lua_pushnumber(L,GL_EXP2); lua_setfield(L,-2,"GL_EXP2");
+	lua_pushnumber(L,GL_FOG_HINT); lua_setfield(L,-2,"GL_FOG_HINT");
+	lua_pushnumber(L,OSGTEXT_FONT); lua_setfield(L,-2,"OSGTEXT_FONT");
+	lua_pushnumber(L,OSGTEXT_FONT3D); lua_setfield(L,-2,"OSGTEXT_FONT3D");
+	lua_pushnumber(L,OSGPARTICLE_FORCEOPERATOR); lua_setfield(L,-2,"OSGPARTICLE_FORCEOPERATOR");
+	lua_pushnumber(L,OSG_FRAGMENTPROGRAM); lua_setfield(L,-2,"OSG_FRAGMENTPROGRAM");
+	lua_pushnumber(L,GL_FRAGMENT_PROGRAM_ARB); lua_setfield(L,-2,"GL_FRAGMENT_PROGRAM_ARB");
+	lua_pushnumber(L,GL_PROGRAM_FORMAT_ASCII_ARB); lua_setfield(L,-2,"GL_PROGRAM_FORMAT_ASCII_ARB");
+	lua_pushnumber(L,GL_PROGRAM_LENGTH_ARB); lua_setfield(L,-2,"GL_PROGRAM_LENGTH_ARB");
+	lua_pushnumber(L,GL_PROGRAM_FORMAT_ARB); lua_setfield(L,-2,"GL_PROGRAM_FORMAT_ARB");
+	lua_pushnumber(L,GL_PROGRAM_BINDING_ARB); lua_setfield(L,-2,"GL_PROGRAM_BINDING_ARB");
+	lua_pushnumber(L,GL_PROGRAM_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_PROGRAM_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_PROGRAM_PARAMETERS_ARB); lua_setfield(L,-2,"GL_PROGRAM_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_PARAMETERS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ATTRIBS_ARB); lua_setfield(L,-2,"GL_PROGRAM_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_ATTRIBS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_ATTRIBS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_ATTRIBS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_LOCAL_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_LOCAL_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_ENV_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_ENV_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_UNDER_NATIVE_LIMITS_ARB); lua_setfield(L,-2,"GL_PROGRAM_UNDER_NATIVE_LIMITS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ALU_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_ALU_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_TEX_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_TEX_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_TEX_INDIRECTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_TEX_INDIRECTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_ALU_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_ALU_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_TEX_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_TEX_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_TEX_INDIRECTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_TEX_INDIRECTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_ALU_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_ALU_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_TEX_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_TEX_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_TEX_INDIRECTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_TEX_INDIRECTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_ALU_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_ALU_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_TEX_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_TEX_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_TEX_INDIRECTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_TEX_INDIRECTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_STRING_ARB); lua_setfield(L,-2,"GL_PROGRAM_STRING_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ERROR_POSITION_ARB); lua_setfield(L,-2,"GL_PROGRAM_ERROR_POSITION_ARB");
+	lua_pushnumber(L,GL_CURRENT_MATRIX_ARB); lua_setfield(L,-2,"GL_CURRENT_MATRIX_ARB");
+	lua_pushnumber(L,GL_TRANSPOSE_CURRENT_MATRIX_ARB); lua_setfield(L,-2,"GL_TRANSPOSE_CURRENT_MATRIX_ARB");
+	lua_pushnumber(L,GL_CURRENT_MATRIX_STACK_DEPTH_ARB); lua_setfield(L,-2,"GL_CURRENT_MATRIX_STACK_DEPTH_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_MATRICES_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_MATRICES_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_MATRIX_STACK_DEPTH_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_MATRIX_STACK_DEPTH_ARB");
+	lua_pushnumber(L,GL_MAX_TEXTURE_COORDS_ARB); lua_setfield(L,-2,"GL_MAX_TEXTURE_COORDS_ARB");
+	lua_pushnumber(L,GL_MAX_TEXTURE_IMAGE_UNITS_ARB); lua_setfield(L,-2,"GL_MAX_TEXTURE_IMAGE_UNITS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ERROR_STRING_ARB); lua_setfield(L,-2,"GL_PROGRAM_ERROR_STRING_ARB");
+	lua_pushnumber(L,GL_MATRIX0_ARB); lua_setfield(L,-2,"GL_MATRIX0_ARB");
+	lua_pushnumber(L,GL_MATRIX1_ARB); lua_setfield(L,-2,"GL_MATRIX1_ARB");
+	lua_pushnumber(L,GL_MATRIX2_ARB); lua_setfield(L,-2,"GL_MATRIX2_ARB");
+	lua_pushnumber(L,GL_MATRIX3_ARB); lua_setfield(L,-2,"GL_MATRIX3_ARB");
+	lua_pushnumber(L,GL_MATRIX4_ARB); lua_setfield(L,-2,"GL_MATRIX4_ARB");
+	lua_pushnumber(L,GL_MATRIX5_ARB); lua_setfield(L,-2,"GL_MATRIX5_ARB");
+	lua_pushnumber(L,GL_MATRIX6_ARB); lua_setfield(L,-2,"GL_MATRIX6_ARB");
+	lua_pushnumber(L,GL_MATRIX7_ARB); lua_setfield(L,-2,"GL_MATRIX7_ARB");
+	lua_pushnumber(L,GL_MATRIX8_ARB); lua_setfield(L,-2,"GL_MATRIX8_ARB");
+	lua_pushnumber(L,GL_MATRIX9_ARB); lua_setfield(L,-2,"GL_MATRIX9_ARB");
+	lua_pushnumber(L,GL_MATRIX10_ARB); lua_setfield(L,-2,"GL_MATRIX10_ARB");
+	lua_pushnumber(L,GL_MATRIX11_ARB); lua_setfield(L,-2,"GL_MATRIX11_ARB");
+	lua_pushnumber(L,GL_MATRIX12_ARB); lua_setfield(L,-2,"GL_MATRIX12_ARB");
+	lua_pushnumber(L,GL_MATRIX13_ARB); lua_setfield(L,-2,"GL_MATRIX13_ARB");
+	lua_pushnumber(L,GL_MATRIX14_ARB); lua_setfield(L,-2,"GL_MATRIX14_ARB");
+	lua_pushnumber(L,GL_MATRIX15_ARB); lua_setfield(L,-2,"GL_MATRIX15_ARB");
+	lua_pushnumber(L,GL_MATRIX16_ARB); lua_setfield(L,-2,"GL_MATRIX16_ARB");
+	lua_pushnumber(L,GL_MATRIX17_ARB); lua_setfield(L,-2,"GL_MATRIX17_ARB");
+	lua_pushnumber(L,GL_MATRIX18_ARB); lua_setfield(L,-2,"GL_MATRIX18_ARB");
+	lua_pushnumber(L,GL_MATRIX19_ARB); lua_setfield(L,-2,"GL_MATRIX19_ARB");
+	lua_pushnumber(L,GL_MATRIX20_ARB); lua_setfield(L,-2,"GL_MATRIX20_ARB");
+	lua_pushnumber(L,GL_MATRIX21_ARB); lua_setfield(L,-2,"GL_MATRIX21_ARB");
+	lua_pushnumber(L,GL_MATRIX22_ARB); lua_setfield(L,-2,"GL_MATRIX22_ARB");
+	lua_pushnumber(L,GL_MATRIX23_ARB); lua_setfield(L,-2,"GL_MATRIX23_ARB");
+	lua_pushnumber(L,GL_MATRIX24_ARB); lua_setfield(L,-2,"GL_MATRIX24_ARB");
+	lua_pushnumber(L,GL_MATRIX25_ARB); lua_setfield(L,-2,"GL_MATRIX25_ARB");
+	lua_pushnumber(L,GL_MATRIX26_ARB); lua_setfield(L,-2,"GL_MATRIX26_ARB");
+	lua_pushnumber(L,GL_MATRIX27_ARB); lua_setfield(L,-2,"GL_MATRIX27_ARB");
+	lua_pushnumber(L,GL_MATRIX28_ARB); lua_setfield(L,-2,"GL_MATRIX28_ARB");
+	lua_pushnumber(L,GL_MATRIX29_ARB); lua_setfield(L,-2,"GL_MATRIX29_ARB");
+	lua_pushnumber(L,GL_MATRIX30_ARB); lua_setfield(L,-2,"GL_MATRIX30_ARB");
+	lua_pushnumber(L,GL_MATRIX31_ARB); lua_setfield(L,-2,"GL_MATRIX31_ARB");
+	lua_pushnumber(L,OSG_FRAMEBUFFEROBJECT); lua_setfield(L,-2,"OSG_FRAMEBUFFEROBJECT");
+	lua_pushnumber(L,GL_EXT_framebuffer_object); lua_setfield(L,-2,"GL_EXT_framebuffer_object");
+	lua_pushnumber(L,GL_FRAMEBUFFER_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_EXT");
+	lua_pushnumber(L,GL_STENCIL_INDEX1_EXT); lua_setfield(L,-2,"GL_STENCIL_INDEX1_EXT");
+	lua_pushnumber(L,GL_STENCIL_INDEX4_EXT); lua_setfield(L,-2,"GL_STENCIL_INDEX4_EXT");
+	lua_pushnumber(L,GL_STENCIL_INDEX8_EXT); lua_setfield(L,-2,"GL_STENCIL_INDEX8_EXT");
+	lua_pushnumber(L,GL_STENCIL_INDEX16_EXT); lua_setfield(L,-2,"GL_STENCIL_INDEX16_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_WIDTH_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_WIDTH_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_HEIGHT_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_HEIGHT_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_INTERNAL_FORMAT_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_INTERNAL_FORMAT_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_RED_SIZE_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_RED_SIZE_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_GREEN_SIZE_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_GREEN_SIZE_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_BLUE_SIZE_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_BLUE_SIZE_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_ALPHA_SIZE_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_ALPHA_SIZE_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_DEPTH_SIZE_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_DEPTH_SIZE_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_STENCIL_SIZE_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_STENCIL_SIZE_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_3D_ZOFFSET_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_3D_ZOFFSET_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT0_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT0_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT1_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT1_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT2_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT2_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT3_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT3_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT4_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT4_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT5_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT5_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT6_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT6_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT7_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT7_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT8_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT8_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT9_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT9_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT10_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT10_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT11_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT11_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT12_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT12_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT13_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT13_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT14_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT14_EXT");
+	lua_pushnumber(L,GL_COLOR_ATTACHMENT15_EXT); lua_setfield(L,-2,"GL_COLOR_ATTACHMENT15_EXT");
+	lua_pushnumber(L,GL_DEPTH_ATTACHMENT_EXT); lua_setfield(L,-2,"GL_DEPTH_ATTACHMENT_EXT");
+	lua_pushnumber(L,GL_STENCIL_ATTACHMENT_EXT); lua_setfield(L,-2,"GL_STENCIL_ATTACHMENT_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_COMPLETE_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_COMPLETE_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_UNSUPPORTED_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_UNSUPPORTED_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_BINDING_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_BINDING_EXT");
+	lua_pushnumber(L,GL_RENDERBUFFER_BINDING_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_BINDING_EXT");
+	lua_pushnumber(L,GL_MAX_COLOR_ATTACHMENTS_EXT); lua_setfield(L,-2,"GL_MAX_COLOR_ATTACHMENTS_EXT");
+	lua_pushnumber(L,GL_MAX_RENDERBUFFER_SIZE_EXT); lua_setfield(L,-2,"GL_MAX_RENDERBUFFER_SIZE_EXT");
+	lua_pushnumber(L,GL_INVALID_FRAMEBUFFER_OPERATION_EXT); lua_setfield(L,-2,"GL_INVALID_FRAMEBUFFER_OPERATION_EXT");
+	lua_pushnumber(L,GL_EXT_framebuffer_blit); lua_setfield(L,-2,"GL_EXT_framebuffer_blit");
+	lua_pushnumber(L,GL_DRAW_FRAMEBUFFER_BINDING_EXT); lua_setfield(L,-2,"GL_DRAW_FRAMEBUFFER_BINDING_EXT");
+	lua_pushnumber(L,GL_READ_FRAMEBUFFER_EXT); lua_setfield(L,-2,"GL_READ_FRAMEBUFFER_EXT");
+	lua_pushnumber(L,GL_DRAW_FRAMEBUFFER_EXT); lua_setfield(L,-2,"GL_DRAW_FRAMEBUFFER_EXT");
+	lua_pushnumber(L,GL_READ_FRAMEBUFFER_BINDING_EXT); lua_setfield(L,-2,"GL_READ_FRAMEBUFFER_BINDING_EXT");
+	lua_pushnumber(L,GL_EXT_framebuffer_multisample); lua_setfield(L,-2,"GL_EXT_framebuffer_multisample");
+	lua_pushnumber(L,GL_RENDERBUFFER_SAMPLES_EXT); lua_setfield(L,-2,"GL_RENDERBUFFER_SAMPLES_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT");
+	lua_pushnumber(L,GL_MAX_SAMPLES_EXT); lua_setfield(L,-2,"GL_MAX_SAMPLES_EXT");
+	lua_pushnumber(L,GL_NV_framebuffer_multisample_coverage); lua_setfield(L,-2,"GL_NV_framebuffer_multisample_coverage");
+	lua_pushnumber(L,GL_RENDERBUFFER_COVERAGE_SAMPLES_NV); lua_setfield(L,-2,"GL_RENDERBUFFER_COVERAGE_SAMPLES_NV");
+	lua_pushnumber(L,GL_RENDERBUFFER_COLOR_SAMPLES_NV); lua_setfield(L,-2,"GL_RENDERBUFFER_COLOR_SAMPLES_NV");
+	lua_pushnumber(L,GL_MAX_MULTISAMPLE_COVERAGE_MODES_NV); lua_setfield(L,-2,"GL_MAX_MULTISAMPLE_COVERAGE_MODES_NV");
+	lua_pushnumber(L,GL_MULTISAMPLE_COVERAGE_MODES_NV); lua_setfield(L,-2,"GL_MULTISAMPLE_COVERAGE_MODES_NV");
+	lua_pushnumber(L,GL_DEPTH_COMPONENT); lua_setfield(L,-2,"GL_DEPTH_COMPONENT");
+	lua_pushnumber(L,GL_DEPTH_COMPONENT16); lua_setfield(L,-2,"GL_DEPTH_COMPONENT16");
+	lua_pushnumber(L,GL_DEPTH_COMPONENT24); lua_setfield(L,-2,"GL_DEPTH_COMPONENT24");
+	lua_pushnumber(L,GL_DEPTH_COMPONENT32); lua_setfield(L,-2,"GL_DEPTH_COMPONENT32");
+	lua_pushnumber(L,GL_DEPTH_COMPONENT32F); lua_setfield(L,-2,"GL_DEPTH_COMPONENT32F");
+	lua_pushnumber(L,GL_DEPTH_COMPONENT32F_NV); lua_setfield(L,-2,"GL_DEPTH_COMPONENT32F_NV");
+	lua_pushnumber(L,GL_EXT_packed_depth_stencil); lua_setfield(L,-2,"GL_EXT_packed_depth_stencil");
+	lua_pushnumber(L,GL_DEPTH_STENCIL_EXT); lua_setfield(L,-2,"GL_DEPTH_STENCIL_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_24_8_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_24_8_EXT");
+	lua_pushnumber(L,GL_DEPTH24_STENCIL8_EXT); lua_setfield(L,-2,"GL_DEPTH24_STENCIL8_EXT");
+	lua_pushnumber(L,GL_TEXTURE_STENCIL_SIZE_EXT); lua_setfield(L,-2,"GL_TEXTURE_STENCIL_SIZE_EXT");
+	lua_pushnumber(L,OSG_FRAMESTAMP); lua_setfield(L,-2,"OSG_FRAMESTAMP");
+	lua_pushnumber(L,OSG_FRONTFACE); lua_setfield(L,-2,"OSG_FRONTFACE");
+	lua_pushnumber(L,OSGDB_FSTREAM); lua_setfield(L,-2,"OSGDB_FSTREAM");
+	lua_pushnumber(L,OSG_GEODE); lua_setfield(L,-2,"OSG_GEODE");
+	lua_pushnumber(L,OSG_GEOMETRY); lua_setfield(L,-2,"OSG_GEOMETRY");
+	lua_pushnumber(L,OSG_GL); lua_setfield(L,-2,"OSG_GL");
+	lua_pushnumber(L,GL_DOUBLE); lua_setfield(L,-2,"GL_DOUBLE");
+	lua_pushnumber(L,GL_INT); lua_setfield(L,-2,"GL_INT");
+	lua_pushnumber(L,GL_UNSIGNED_INT); lua_setfield(L,-2,"GL_UNSIGNED_INT");
+	lua_pushnumber(L,GL_NONE); lua_setfield(L,-2,"GL_NONE");
+	lua_pushnumber(L,OSG_GL2EXTENSIONS); lua_setfield(L,-2,"OSG_GL2EXTENSIONS");
+	lua_pushnumber(L,GL_SAMPLER_1D_ARRAY_EXT); lua_setfield(L,-2,"GL_SAMPLER_1D_ARRAY_EXT");
+	lua_pushnumber(L,GL_SAMPLER_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_SAMPLER_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_SAMPLER_1D_ARRAY_SHADOW_EXT); lua_setfield(L,-2,"GL_SAMPLER_1D_ARRAY_SHADOW_EXT");
+	lua_pushnumber(L,GL_SAMPLER_2D_ARRAY_SHADOW_EXT); lua_setfield(L,-2,"GL_SAMPLER_2D_ARRAY_SHADOW_EXT");
+	lua_pushnumber(L,GL_VERTEX_PROGRAM_POINT_SIZE); lua_setfield(L,-2,"GL_VERTEX_PROGRAM_POINT_SIZE");
+	lua_pushnumber(L,GL_VERTEX_PROGRAM_TWO_SIDE); lua_setfield(L,-2,"GL_VERTEX_PROGRAM_TWO_SIDE");
+	lua_pushnumber(L,GL_VERSION_2_0); lua_setfield(L,-2,"GL_VERSION_2_0");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_ENABLED); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_ENABLED");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_SIZE); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_SIZE");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_STRIDE); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_STRIDE");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_TYPE); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_TYPE");
+	lua_pushnumber(L,GL_CURRENT_VERTEX_ATTRIB); lua_setfield(L,-2,"GL_CURRENT_VERTEX_ATTRIB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_POINTER); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_POINTER");
+	lua_pushnumber(L,GL_STENCIL_BACK_FUNC); lua_setfield(L,-2,"GL_STENCIL_BACK_FUNC");
+	lua_pushnumber(L,GL_STENCIL_BACK_FAIL); lua_setfield(L,-2,"GL_STENCIL_BACK_FAIL");
+	lua_pushnumber(L,GL_STENCIL_BACK_PASS_DEPTH_FAIL); lua_setfield(L,-2,"GL_STENCIL_BACK_PASS_DEPTH_FAIL");
+	lua_pushnumber(L,GL_STENCIL_BACK_PASS_DEPTH_PASS); lua_setfield(L,-2,"GL_STENCIL_BACK_PASS_DEPTH_PASS");
+	lua_pushnumber(L,GL_MAX_DRAW_BUFFERS); lua_setfield(L,-2,"GL_MAX_DRAW_BUFFERS");
+	lua_pushnumber(L,GL_DRAW_BUFFER0); lua_setfield(L,-2,"GL_DRAW_BUFFER0");
+	lua_pushnumber(L,GL_DRAW_BUFFER1); lua_setfield(L,-2,"GL_DRAW_BUFFER1");
+	lua_pushnumber(L,GL_DRAW_BUFFER2); lua_setfield(L,-2,"GL_DRAW_BUFFER2");
+	lua_pushnumber(L,GL_DRAW_BUFFER3); lua_setfield(L,-2,"GL_DRAW_BUFFER3");
+	lua_pushnumber(L,GL_DRAW_BUFFER4); lua_setfield(L,-2,"GL_DRAW_BUFFER4");
+	lua_pushnumber(L,GL_DRAW_BUFFER5); lua_setfield(L,-2,"GL_DRAW_BUFFER5");
+	lua_pushnumber(L,GL_DRAW_BUFFER6); lua_setfield(L,-2,"GL_DRAW_BUFFER6");
+	lua_pushnumber(L,GL_DRAW_BUFFER7); lua_setfield(L,-2,"GL_DRAW_BUFFER7");
+	lua_pushnumber(L,GL_DRAW_BUFFER8); lua_setfield(L,-2,"GL_DRAW_BUFFER8");
+	lua_pushnumber(L,GL_DRAW_BUFFER9); lua_setfield(L,-2,"GL_DRAW_BUFFER9");
+	lua_pushnumber(L,GL_DRAW_BUFFER10); lua_setfield(L,-2,"GL_DRAW_BUFFER10");
+	lua_pushnumber(L,GL_DRAW_BUFFER11); lua_setfield(L,-2,"GL_DRAW_BUFFER11");
+	lua_pushnumber(L,GL_DRAW_BUFFER12); lua_setfield(L,-2,"GL_DRAW_BUFFER12");
+	lua_pushnumber(L,GL_DRAW_BUFFER13); lua_setfield(L,-2,"GL_DRAW_BUFFER13");
+	lua_pushnumber(L,GL_DRAW_BUFFER14); lua_setfield(L,-2,"GL_DRAW_BUFFER14");
+	lua_pushnumber(L,GL_DRAW_BUFFER15); lua_setfield(L,-2,"GL_DRAW_BUFFER15");
+	lua_pushnumber(L,GL_BLEND_EQUATION_ALPHA); lua_setfield(L,-2,"GL_BLEND_EQUATION_ALPHA");
+	lua_pushnumber(L,GL_POINT_SPRITE); lua_setfield(L,-2,"GL_POINT_SPRITE");
+	lua_pushnumber(L,GL_COORD_REPLACE); lua_setfield(L,-2,"GL_COORD_REPLACE");
+	lua_pushnumber(L,GL_MAX_VERTEX_ATTRIBS); lua_setfield(L,-2,"GL_MAX_VERTEX_ATTRIBS");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_NORMALIZED); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_NORMALIZED");
+	lua_pushnumber(L,GL_MAX_TEXTURE_COORDS); lua_setfield(L,-2,"GL_MAX_TEXTURE_COORDS");
+	lua_pushnumber(L,GL_MAX_TEXTURE_IMAGE_UNITS); lua_setfield(L,-2,"GL_MAX_TEXTURE_IMAGE_UNITS");
+	lua_pushnumber(L,GL_FRAGMENT_SHADER); lua_setfield(L,-2,"GL_FRAGMENT_SHADER");
+	lua_pushnumber(L,GL_VERTEX_SHADER); lua_setfield(L,-2,"GL_VERTEX_SHADER");
+	lua_pushnumber(L,GL_MAX_FRAGMENT_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_FRAGMENT_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_VERTEX_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_VERTEX_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_VARYING_FLOATS); lua_setfield(L,-2,"GL_MAX_VARYING_FLOATS");
+	lua_pushnumber(L,GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS); lua_setfield(L,-2,"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS");
+	lua_pushnumber(L,GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS); lua_setfield(L,-2,"GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS");
+	lua_pushnumber(L,GL_SHADER_TYPE); lua_setfield(L,-2,"GL_SHADER_TYPE");
+	lua_pushnumber(L,GL_FLOAT_VEC2); lua_setfield(L,-2,"GL_FLOAT_VEC2");
+	lua_pushnumber(L,GL_FLOAT_VEC3); lua_setfield(L,-2,"GL_FLOAT_VEC3");
+	lua_pushnumber(L,GL_FLOAT_VEC4); lua_setfield(L,-2,"GL_FLOAT_VEC4");
+	lua_pushnumber(L,GL_INT_VEC2); lua_setfield(L,-2,"GL_INT_VEC2");
+	lua_pushnumber(L,GL_INT_VEC3); lua_setfield(L,-2,"GL_INT_VEC3");
+	lua_pushnumber(L,GL_INT_VEC4); lua_setfield(L,-2,"GL_INT_VEC4");
+	lua_pushnumber(L,GL_BOOL); lua_setfield(L,-2,"GL_BOOL");
+	lua_pushnumber(L,GL_BOOL_VEC2); lua_setfield(L,-2,"GL_BOOL_VEC2");
+	lua_pushnumber(L,GL_BOOL_VEC3); lua_setfield(L,-2,"GL_BOOL_VEC3");
+	lua_pushnumber(L,GL_BOOL_VEC4); lua_setfield(L,-2,"GL_BOOL_VEC4");
+	lua_pushnumber(L,GL_FLOAT_MAT2); lua_setfield(L,-2,"GL_FLOAT_MAT2");
+	lua_pushnumber(L,GL_FLOAT_MAT3); lua_setfield(L,-2,"GL_FLOAT_MAT3");
+	lua_pushnumber(L,GL_FLOAT_MAT4); lua_setfield(L,-2,"GL_FLOAT_MAT4");
+	lua_pushnumber(L,GL_DELETE_STATUS); lua_setfield(L,-2,"GL_DELETE_STATUS");
+	lua_pushnumber(L,GL_COMPILE_STATUS); lua_setfield(L,-2,"GL_COMPILE_STATUS");
+	lua_pushnumber(L,GL_LINK_STATUS); lua_setfield(L,-2,"GL_LINK_STATUS");
+	lua_pushnumber(L,GL_VALIDATE_STATUS); lua_setfield(L,-2,"GL_VALIDATE_STATUS");
+	lua_pushnumber(L,GL_INFO_LOG_LENGTH); lua_setfield(L,-2,"GL_INFO_LOG_LENGTH");
+	lua_pushnumber(L,GL_ATTACHED_SHADERS); lua_setfield(L,-2,"GL_ATTACHED_SHADERS");
+	lua_pushnumber(L,GL_ACTIVE_UNIFORMS); lua_setfield(L,-2,"GL_ACTIVE_UNIFORMS");
+	lua_pushnumber(L,GL_ACTIVE_UNIFORM_MAX_LENGTH); lua_setfield(L,-2,"GL_ACTIVE_UNIFORM_MAX_LENGTH");
+	lua_pushnumber(L,GL_SHADER_SOURCE_LENGTH); lua_setfield(L,-2,"GL_SHADER_SOURCE_LENGTH");
+	lua_pushnumber(L,GL_ACTIVE_ATTRIBUTES); lua_setfield(L,-2,"GL_ACTIVE_ATTRIBUTES");
+	lua_pushnumber(L,GL_ACTIVE_ATTRIBUTE_MAX_LENGTH); lua_setfield(L,-2,"GL_ACTIVE_ATTRIBUTE_MAX_LENGTH");
+	lua_pushnumber(L,GL_FRAGMENT_SHADER_DERIVATIVE_HINT); lua_setfield(L,-2,"GL_FRAGMENT_SHADER_DERIVATIVE_HINT");
+	lua_pushnumber(L,GL_SHADING_LANGUAGE_VERSION); lua_setfield(L,-2,"GL_SHADING_LANGUAGE_VERSION");
+	lua_pushnumber(L,GL_CURRENT_PROGRAM); lua_setfield(L,-2,"GL_CURRENT_PROGRAM");
+	lua_pushnumber(L,GL_POINT_SPRITE_COORD_ORIGIN); lua_setfield(L,-2,"GL_POINT_SPRITE_COORD_ORIGIN");
+	lua_pushnumber(L,GL_LOWER_LEFT); lua_setfield(L,-2,"GL_LOWER_LEFT");
+	lua_pushnumber(L,GL_UPPER_LEFT); lua_setfield(L,-2,"GL_UPPER_LEFT");
+	lua_pushnumber(L,GL_STENCIL_BACK_REF); lua_setfield(L,-2,"GL_STENCIL_BACK_REF");
+	lua_pushnumber(L,GL_STENCIL_BACK_VALUE_MASK); lua_setfield(L,-2,"GL_STENCIL_BACK_VALUE_MASK");
+	lua_pushnumber(L,GL_STENCIL_BACK_WRITEMASK); lua_setfield(L,-2,"GL_STENCIL_BACK_WRITEMASK");
+	lua_pushnumber(L,GL_SAMPLER_2D); lua_setfield(L,-2,"GL_SAMPLER_2D");
+	lua_pushnumber(L,GL_SAMPLER_CUBE); lua_setfield(L,-2,"GL_SAMPLER_CUBE");
+	lua_pushnumber(L,GL_SAMPLER_1D); lua_setfield(L,-2,"GL_SAMPLER_1D");
+	lua_pushnumber(L,GL_SAMPLER_3D); lua_setfield(L,-2,"GL_SAMPLER_3D");
+	lua_pushnumber(L,GL_SAMPLER_1D_SHADOW); lua_setfield(L,-2,"GL_SAMPLER_1D_SHADOW");
+	lua_pushnumber(L,GL_SAMPLER_2D_SHADOW); lua_setfield(L,-2,"GL_SAMPLER_2D_SHADOW");
+	lua_pushnumber(L,GL_VERSION_2_1); lua_setfield(L,-2,"GL_VERSION_2_1");
+	lua_pushnumber(L,GL_CURRENT_RASTER_SECONDARY_COLOR); lua_setfield(L,-2,"GL_CURRENT_RASTER_SECONDARY_COLOR");
+	lua_pushnumber(L,GL_PIXEL_PACK_BUFFER); lua_setfield(L,-2,"GL_PIXEL_PACK_BUFFER");
+	lua_pushnumber(L,GL_PIXEL_UNPACK_BUFFER); lua_setfield(L,-2,"GL_PIXEL_UNPACK_BUFFER");
+	lua_pushnumber(L,GL_PIXEL_PACK_BUFFER_BINDING); lua_setfield(L,-2,"GL_PIXEL_PACK_BUFFER_BINDING");
+	lua_pushnumber(L,GL_PIXEL_UNPACK_BUFFER_BINDING); lua_setfield(L,-2,"GL_PIXEL_UNPACK_BUFFER_BINDING");
+	lua_pushnumber(L,GL_FLOAT_MAT2x3); lua_setfield(L,-2,"GL_FLOAT_MAT2x3");
+	lua_pushnumber(L,GL_FLOAT_MAT2x4); lua_setfield(L,-2,"GL_FLOAT_MAT2x4");
+	lua_pushnumber(L,GL_FLOAT_MAT3x2); lua_setfield(L,-2,"GL_FLOAT_MAT3x2");
+	lua_pushnumber(L,GL_FLOAT_MAT3x4); lua_setfield(L,-2,"GL_FLOAT_MAT3x4");
+	lua_pushnumber(L,GL_FLOAT_MAT4x2); lua_setfield(L,-2,"GL_FLOAT_MAT4x2");
+	lua_pushnumber(L,GL_FLOAT_MAT4x3); lua_setfield(L,-2,"GL_FLOAT_MAT4x3");
+	lua_pushnumber(L,GL_SRGB); lua_setfield(L,-2,"GL_SRGB");
+	lua_pushnumber(L,GL_SRGB8); lua_setfield(L,-2,"GL_SRGB8");
+	lua_pushnumber(L,GL_SRGB_ALPHA); lua_setfield(L,-2,"GL_SRGB_ALPHA");
+	lua_pushnumber(L,GL_SRGB8_ALPHA8); lua_setfield(L,-2,"GL_SRGB8_ALPHA8");
+	lua_pushnumber(L,GL_SLUMINANCE_ALPHA); lua_setfield(L,-2,"GL_SLUMINANCE_ALPHA");
+	lua_pushnumber(L,GL_SLUMINANCE8_ALPHA8); lua_setfield(L,-2,"GL_SLUMINANCE8_ALPHA8");
+	lua_pushnumber(L,GL_SLUMINANCE); lua_setfield(L,-2,"GL_SLUMINANCE");
+	lua_pushnumber(L,GL_SLUMINANCE8); lua_setfield(L,-2,"GL_SLUMINANCE8");
+	lua_pushnumber(L,GL_COMPRESSED_SRGB); lua_setfield(L,-2,"GL_COMPRESSED_SRGB");
+	lua_pushnumber(L,GL_COMPRESSED_SRGB_ALPHA); lua_setfield(L,-2,"GL_COMPRESSED_SRGB_ALPHA");
+	lua_pushnumber(L,GL_COMPRESSED_SLUMINANCE); lua_setfield(L,-2,"GL_COMPRESSED_SLUMINANCE");
+	lua_pushnumber(L,GL_COMPRESSED_SLUMINANCE_ALPHA); lua_setfield(L,-2,"GL_COMPRESSED_SLUMINANCE_ALPHA");
+	lua_pushnumber(L,GL_FRAMEBUFFER_SRGB); lua_setfield(L,-2,"GL_FRAMEBUFFER_SRGB");
+	lua_pushnumber(L,GL_GEOMETRY_SHADER_EXT); lua_setfield(L,-2,"GL_GEOMETRY_SHADER_EXT");
+	lua_pushnumber(L,GL_GEOMETRY_VERTICES_OUT_EXT); lua_setfield(L,-2,"GL_GEOMETRY_VERTICES_OUT_EXT");
+	lua_pushnumber(L,GL_GEOMETRY_INPUT_TYPE_EXT); lua_setfield(L,-2,"GL_GEOMETRY_INPUT_TYPE_EXT");
+	lua_pushnumber(L,GL_GEOMETRY_OUTPUT_TYPE_EXT); lua_setfield(L,-2,"GL_GEOMETRY_OUTPUT_TYPE_EXT");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_EXT); lua_setfield(L,-2,"GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_EXT");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_VARYING_COMPONENTS_EXT); lua_setfield(L,-2,"GL_MAX_GEOMETRY_VARYING_COMPONENTS_EXT");
+	lua_pushnumber(L,GL_MAX_VERTEX_VARYING_COMPONENTS_EXT); lua_setfield(L,-2,"GL_MAX_VERTEX_VARYING_COMPONENTS_EXT");
+	lua_pushnumber(L,GL_MAX_VARYING_COMPONENTS_EXT); lua_setfield(L,-2,"GL_MAX_VARYING_COMPONENTS_EXT");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT); lua_setfield(L,-2,"GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT); lua_setfield(L,-2,"GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_EXT); lua_setfield(L,-2,"GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_EXT");
+	lua_pushnumber(L,GL_LINES_ADJACENCY_EXT); lua_setfield(L,-2,"GL_LINES_ADJACENCY_EXT");
+	lua_pushnumber(L,GL_LINE_STRIP_ADJACENCY_EXT); lua_setfield(L,-2,"GL_LINE_STRIP_ADJACENCY_EXT");
+	lua_pushnumber(L,GL_TRIANGLES_ADJACENCY_EXT); lua_setfield(L,-2,"GL_TRIANGLES_ADJACENCY_EXT");
+	lua_pushnumber(L,GL_TRIANGLE_STRIP_ADJACENCY_EXT); lua_setfield(L,-2,"GL_TRIANGLE_STRIP_ADJACENCY_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT");
+	lua_pushnumber(L,GL_PROGRAM_POINT_SIZE_EXT); lua_setfield(L,-2,"GL_PROGRAM_POINT_SIZE_EXT");
+	lua_pushnumber(L,GL_PATCHES); lua_setfield(L,-2,"GL_PATCHES");
+	lua_pushnumber(L,GL_PATCH_VERTICES); lua_setfield(L,-2,"GL_PATCH_VERTICES");
+	lua_pushnumber(L,GL_PATCH_DEFAULT_INNER_LEVEL); lua_setfield(L,-2,"GL_PATCH_DEFAULT_INNER_LEVEL");
+	lua_pushnumber(L,GL_PATCH_DEFAULT_OUTER_LEVEL); lua_setfield(L,-2,"GL_PATCH_DEFAULT_OUTER_LEVEL");
+	lua_pushnumber(L,GL_MAX_PATCH_VERTICES); lua_setfield(L,-2,"GL_MAX_PATCH_VERTICES");
+	lua_pushnumber(L,GL_MAX_TESS_GEN_LEVEL); lua_setfield(L,-2,"GL_MAX_TESS_GEN_LEVEL");
+	lua_pushnumber(L,GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_TESS_CONTROL_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_TESS_EVALUATION_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS); lua_setfield(L,-2,"GL_MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS");
+	lua_pushnumber(L,GL_TESS_EVALUATION_SHADER); lua_setfield(L,-2,"GL_TESS_EVALUATION_SHADER");
+	lua_pushnumber(L,GL_TESS_CONTROL_SHADER); lua_setfield(L,-2,"GL_TESS_CONTROL_SHADER");
+	lua_pushnumber(L,GL_TESS_CONTROL_OUTPUT_VERTICES); lua_setfield(L,-2,"GL_TESS_CONTROL_OUTPUT_VERTICES");
+	lua_pushnumber(L,GL_TESS_GEN_MODE); lua_setfield(L,-2,"GL_TESS_GEN_MODE");
+	lua_pushnumber(L,GL_TESS_GEN_SPACING); lua_setfield(L,-2,"GL_TESS_GEN_SPACING");
+	lua_pushnumber(L,GL_TESS_GEN_VERTEX_ORDER); lua_setfield(L,-2,"GL_TESS_GEN_VERTEX_ORDER");
+	lua_pushnumber(L,GL_TESS_GEN_POINT_MODE); lua_setfield(L,-2,"GL_TESS_GEN_POINT_MODE");
+	lua_pushnumber(L,GL_ISOLINES); lua_setfield(L,-2,"GL_ISOLINES");
+	lua_pushnumber(L,GL_FRACTIONAL_ODD); lua_setfield(L,-2,"GL_FRACTIONAL_ODD");
+	lua_pushnumber(L,GL_FRACTIONAL_EVEN); lua_setfield(L,-2,"GL_FRACTIONAL_EVEN");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER");
+	lua_pushnumber(L,GL_SAMPLER_BUFFER_EXT); lua_setfield(L,-2,"GL_SAMPLER_BUFFER_EXT");
+	lua_pushnumber(L,GL_SAMPLER_CUBE_SHADOW_EXT); lua_setfield(L,-2,"GL_SAMPLER_CUBE_SHADOW_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_VEC2_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_VEC2_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_VEC3_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_VEC3_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_VEC4_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_VEC4_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_1D_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_1D_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_2D_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_2D_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_3D_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_3D_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_CUBE_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_CUBE_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_2D_RECT_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_2D_RECT_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_1D_ARRAY_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_1D_ARRAY_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_INT_SAMPLER_BUFFER_EXT); lua_setfield(L,-2,"GL_INT_SAMPLER_BUFFER_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_1D_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_1D_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_2D_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_2D_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_3D_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_3D_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_CUBE_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_CUBE_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_2D_RECT_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_2D_RECT_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_1D_ARRAY_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_1D_ARRAY_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_BUFFER_EXT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_BUFFER_EXT");
+	lua_pushnumber(L,GL_UNIFORM_BUFFER); lua_setfield(L,-2,"GL_UNIFORM_BUFFER");
+	lua_pushnumber(L,GL_UNIFORM_BUFFER_BINDING); lua_setfield(L,-2,"GL_UNIFORM_BUFFER_BINDING");
+	lua_pushnumber(L,GL_UNIFORM_BUFFER_START); lua_setfield(L,-2,"GL_UNIFORM_BUFFER_START");
+	lua_pushnumber(L,GL_UNIFORM_BUFFER_SIZE); lua_setfield(L,-2,"GL_UNIFORM_BUFFER_SIZE");
+	lua_pushnumber(L,GL_MAX_VERTEX_UNIFORM_BLOCKS); lua_setfield(L,-2,"GL_MAX_VERTEX_UNIFORM_BLOCKS");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_UNIFORM_BLOCKS); lua_setfield(L,-2,"GL_MAX_GEOMETRY_UNIFORM_BLOCKS");
+	lua_pushnumber(L,GL_MAX_FRAGMENT_UNIFORM_BLOCKS); lua_setfield(L,-2,"GL_MAX_FRAGMENT_UNIFORM_BLOCKS");
+	lua_pushnumber(L,GL_MAX_COMBINED_UNIFORM_BLOCKS); lua_setfield(L,-2,"GL_MAX_COMBINED_UNIFORM_BLOCKS");
+	lua_pushnumber(L,GL_MAX_UNIFORM_BUFFER_BINDINGS); lua_setfield(L,-2,"GL_MAX_UNIFORM_BUFFER_BINDINGS");
+	lua_pushnumber(L,GL_MAX_UNIFORM_BLOCK_SIZE); lua_setfield(L,-2,"GL_MAX_UNIFORM_BLOCK_SIZE");
+	lua_pushnumber(L,GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_COMBINED_GEOMETRY_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT); lua_setfield(L,-2,"GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT");
+	lua_pushnumber(L,GL_ACTIVE_UNIFORM_BLOCK_MAX_NAME_LENGTH); lua_setfield(L,-2,"GL_ACTIVE_UNIFORM_BLOCK_MAX_NAME_LENGTH");
+	lua_pushnumber(L,GL_ACTIVE_UNIFORM_BLOCKS); lua_setfield(L,-2,"GL_ACTIVE_UNIFORM_BLOCKS");
+	lua_pushnumber(L,GL_UNIFORM_TYPE); lua_setfield(L,-2,"GL_UNIFORM_TYPE");
+	lua_pushnumber(L,GL_UNIFORM_SIZE); lua_setfield(L,-2,"GL_UNIFORM_SIZE");
+	lua_pushnumber(L,GL_UNIFORM_NAME_LENGTH); lua_setfield(L,-2,"GL_UNIFORM_NAME_LENGTH");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_INDEX); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_INDEX");
+	lua_pushnumber(L,GL_UNIFORM_OFFSET); lua_setfield(L,-2,"GL_UNIFORM_OFFSET");
+	lua_pushnumber(L,GL_UNIFORM_ARRAY_STRIDE); lua_setfield(L,-2,"GL_UNIFORM_ARRAY_STRIDE");
+	lua_pushnumber(L,GL_UNIFORM_MATRIX_STRIDE); lua_setfield(L,-2,"GL_UNIFORM_MATRIX_STRIDE");
+	lua_pushnumber(L,GL_UNIFORM_IS_ROW_MAJOR); lua_setfield(L,-2,"GL_UNIFORM_IS_ROW_MAJOR");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_BINDING); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_BINDING");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_DATA_SIZE); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_DATA_SIZE");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_NAME_LENGTH); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_NAME_LENGTH");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER");
+	lua_pushnumber(L,GL_PROGRAM_BINARY_RETRIEVABLE_HINT); lua_setfield(L,-2,"GL_PROGRAM_BINARY_RETRIEVABLE_HINT");
+	lua_pushnumber(L,GL_PROGRAM_BINARY_LENGTH); lua_setfield(L,-2,"GL_PROGRAM_BINARY_LENGTH");
+	lua_pushnumber(L,GL_NUM_PROGRAM_BINARY_FORMATS); lua_setfield(L,-2,"GL_NUM_PROGRAM_BINARY_FORMATS");
+	lua_pushnumber(L,GL_PROGRAM_BINARY_FORMATS); lua_setfield(L,-2,"GL_PROGRAM_BINARY_FORMATS");
+	lua_pushnumber(L,GL_DOUBLE_VEC2); lua_setfield(L,-2,"GL_DOUBLE_VEC2");
+	lua_pushnumber(L,GL_DOUBLE_VEC3); lua_setfield(L,-2,"GL_DOUBLE_VEC3");
+	lua_pushnumber(L,GL_DOUBLE_VEC4); lua_setfield(L,-2,"GL_DOUBLE_VEC4");
+	lua_pushnumber(L,GL_DOUBLE_MAT2); lua_setfield(L,-2,"GL_DOUBLE_MAT2");
+	lua_pushnumber(L,GL_DOUBLE_MAT3); lua_setfield(L,-2,"GL_DOUBLE_MAT3");
+	lua_pushnumber(L,GL_DOUBLE_MAT4); lua_setfield(L,-2,"GL_DOUBLE_MAT4");
+	lua_pushnumber(L,GL_DOUBLE_MAT2x3); lua_setfield(L,-2,"GL_DOUBLE_MAT2x3");
+	lua_pushnumber(L,GL_DOUBLE_MAT2x4); lua_setfield(L,-2,"GL_DOUBLE_MAT2x4");
+	lua_pushnumber(L,GL_DOUBLE_MAT3x2); lua_setfield(L,-2,"GL_DOUBLE_MAT3x2");
+	lua_pushnumber(L,GL_DOUBLE_MAT3x4); lua_setfield(L,-2,"GL_DOUBLE_MAT3x4");
+	lua_pushnumber(L,GL_DOUBLE_MAT4x2); lua_setfield(L,-2,"GL_DOUBLE_MAT4x2");
+	lua_pushnumber(L,GL_DOUBLE_MAT4x3); lua_setfield(L,-2,"GL_DOUBLE_MAT4x3");
+	lua_pushnumber(L,GL_SAMPLER_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_SAMPLER_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_INT_SAMPLER_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_INT_SAMPLER_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_SAMPLER_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_SAMPLER_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_1D); lua_setfield(L,-2,"GL_IMAGE_1D");
+	lua_pushnumber(L,GL_IMAGE_2D); lua_setfield(L,-2,"GL_IMAGE_2D");
+	lua_pushnumber(L,GL_IMAGE_3D); lua_setfield(L,-2,"GL_IMAGE_3D");
+	lua_pushnumber(L,GL_IMAGE_2D_RECT); lua_setfield(L,-2,"GL_IMAGE_2D_RECT");
+	lua_pushnumber(L,GL_IMAGE_CUBE); lua_setfield(L,-2,"GL_IMAGE_CUBE");
+	lua_pushnumber(L,GL_IMAGE_BUFFER); lua_setfield(L,-2,"GL_IMAGE_BUFFER");
+	lua_pushnumber(L,GL_IMAGE_1D_ARRAY); lua_setfield(L,-2,"GL_IMAGE_1D_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_2D_ARRAY); lua_setfield(L,-2,"GL_IMAGE_2D_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_IMAGE_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_IMAGE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_IMAGE_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_IMAGE_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_1D); lua_setfield(L,-2,"GL_INT_IMAGE_1D");
+	lua_pushnumber(L,GL_INT_IMAGE_2D); lua_setfield(L,-2,"GL_INT_IMAGE_2D");
+	lua_pushnumber(L,GL_INT_IMAGE_3D); lua_setfield(L,-2,"GL_INT_IMAGE_3D");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_RECT); lua_setfield(L,-2,"GL_INT_IMAGE_2D_RECT");
+	lua_pushnumber(L,GL_INT_IMAGE_CUBE); lua_setfield(L,-2,"GL_INT_IMAGE_CUBE");
+	lua_pushnumber(L,GL_INT_IMAGE_BUFFER); lua_setfield(L,-2,"GL_INT_IMAGE_BUFFER");
+	lua_pushnumber(L,GL_INT_IMAGE_1D_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_1D_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_2D_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_INT_IMAGE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_1D); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_1D");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_3D); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_3D");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_RECT); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_RECT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_CUBE); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_CUBE");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_BUFFER); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_BUFFER");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_1D_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_1D_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_SAMPLER_2D_RECT); lua_setfield(L,-2,"GL_SAMPLER_2D_RECT");
+	lua_pushnumber(L,GL_SAMPLER_2D_RECT_SHADOW); lua_setfield(L,-2,"GL_SAMPLER_2D_RECT_SHADOW");
+	lua_pushnumber(L,GL_SAMPLER_BUFFER); lua_setfield(L,-2,"GL_SAMPLER_BUFFER");
+	lua_pushnumber(L,GL_INT_SAMPLER_2D_RECT); lua_setfield(L,-2,"GL_INT_SAMPLER_2D_RECT");
+	lua_pushnumber(L,GL_INT_SAMPLER_BUFFER); lua_setfield(L,-2,"GL_INT_SAMPLER_BUFFER");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_2D_RECT); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_2D_RECT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_BUFFER); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_BUFFER");
+	lua_pushnumber(L,GL_TEXTURE_BUFFER); lua_setfield(L,-2,"GL_TEXTURE_BUFFER");
+	lua_pushnumber(L,GL_MAX_TEXTURE_BUFFER_SIZE); lua_setfield(L,-2,"GL_MAX_TEXTURE_BUFFER_SIZE");
+	lua_pushnumber(L,GL_TEXTURE_BINDING_BUFFER); lua_setfield(L,-2,"GL_TEXTURE_BINDING_BUFFER");
+	lua_pushnumber(L,GL_TEXTURE_BUFFER_DATA_STORE_BINDING); lua_setfield(L,-2,"GL_TEXTURE_BUFFER_DATA_STORE_BINDING");
+	lua_pushnumber(L,GL_TEXTURE_RECTANGLE); lua_setfield(L,-2,"GL_TEXTURE_RECTANGLE");
+	lua_pushnumber(L,GL_TEXTURE_BINDING_RECTANGLE); lua_setfield(L,-2,"GL_TEXTURE_BINDING_RECTANGLE");
+	lua_pushnumber(L,GL_PROXY_TEXTURE_RECTANGLE); lua_setfield(L,-2,"GL_PROXY_TEXTURE_RECTANGLE");
+	lua_pushnumber(L,GL_MAX_RECTANGLE_TEXTURE_SIZE); lua_setfield(L,-2,"GL_MAX_RECTANGLE_TEXTURE_SIZE");
+	lua_pushnumber(L,GL_RED_SNORM); lua_setfield(L,-2,"GL_RED_SNORM");
+	lua_pushnumber(L,GL_RG_SNORM); lua_setfield(L,-2,"GL_RG_SNORM");
+	lua_pushnumber(L,GL_RGB_SNORM); lua_setfield(L,-2,"GL_RGB_SNORM");
+	lua_pushnumber(L,GL_RGBA_SNORM); lua_setfield(L,-2,"GL_RGBA_SNORM");
+	lua_pushnumber(L,GL_R8_SNORM); lua_setfield(L,-2,"GL_R8_SNORM");
+	lua_pushnumber(L,GL_RG8_SNORM); lua_setfield(L,-2,"GL_RG8_SNORM");
+	lua_pushnumber(L,GL_RGB8_SNORM); lua_setfield(L,-2,"GL_RGB8_SNORM");
+	lua_pushnumber(L,GL_RGBA8_SNORM); lua_setfield(L,-2,"GL_RGBA8_SNORM");
+	lua_pushnumber(L,GL_R16_SNORM); lua_setfield(L,-2,"GL_R16_SNORM");
+	lua_pushnumber(L,GL_RG16_SNORM); lua_setfield(L,-2,"GL_RG16_SNORM");
+	lua_pushnumber(L,GL_RGB16_SNORM); lua_setfield(L,-2,"GL_RGB16_SNORM");
+	lua_pushnumber(L,GL_RGBA16_SNORM); lua_setfield(L,-2,"GL_RGBA16_SNORM");
+	lua_pushnumber(L,GL_SIGNED_NORMALIZED); lua_setfield(L,-2,"GL_SIGNED_NORMALIZED");
+	lua_pushnumber(L,GL_PRIMITIVE_RESTART); lua_setfield(L,-2,"GL_PRIMITIVE_RESTART");
+	lua_pushnumber(L,GL_PRIMITIVE_RESTART_INDEX); lua_setfield(L,-2,"GL_PRIMITIVE_RESTART_INDEX");
+	lua_pushnumber(L,GL_SAMPLER_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_SAMPLER_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW); lua_setfield(L,-2,"GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW");
+	lua_pushnumber(L,GL_INT_SAMPLER_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_INT_SAMPLER_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_BINDING); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_BINDING");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_START); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_START");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_SIZE); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_SIZE");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_DATA_SIZE");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_VERTEX_SHADER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_VERTEX_SHADER");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_CONTROL_SHADER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_CONTROL_SHADER");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER");
+	lua_pushnumber(L,GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_VERTEX_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_COMBINED_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_VERTEX_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_VERTEX_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_TESS_CONTROL_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_TESS_EVALUATION_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_GEOMETRY_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_FRAGMENT_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_FRAGMENT_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_COMBINED_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_COMBINED_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE); lua_setfield(L,-2,"GL_MAX_ATOMIC_COUNTER_BUFFER_SIZE");
+	lua_pushnumber(L,GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS); lua_setfield(L,-2,"GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS");
+	lua_pushnumber(L,GL_ACTIVE_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_ACTIVE_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX); lua_setfield(L,-2,"GL_UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX");
+	lua_pushnumber(L,GL_UNSIGNED_INT_ATOMIC_COUNTER); lua_setfield(L,-2,"GL_UNSIGNED_INT_ATOMIC_COUNTER");
+	lua_pushnumber(L,GL_COMPUTE_SHADER); lua_setfield(L,-2,"GL_COMPUTE_SHADER");
+	lua_pushnumber(L,GL_MAX_COMPUTE_UNIFORM_BLOCKS); lua_setfield(L,-2,"GL_MAX_COMPUTE_UNIFORM_BLOCKS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS); lua_setfield(L,-2,"GL_MAX_COMPUTE_TEXTURE_IMAGE_UNITS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_COMPUTE_IMAGE_UNIFORMS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_SHARED_MEMORY_SIZE); lua_setfield(L,-2,"GL_MAX_COMPUTE_SHARED_MEMORY_SIZE");
+	lua_pushnumber(L,GL_MAX_COMPUTE_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_COMPUTE_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS); lua_setfield(L,-2,"GL_MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_ATOMIC_COUNTERS); lua_setfield(L,-2,"GL_MAX_COMPUTE_ATOMIC_COUNTERS");
+	lua_pushnumber(L,GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS); lua_setfield(L,-2,"GL_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_LOCAL_INVOCATIONS); lua_setfield(L,-2,"GL_MAX_COMPUTE_LOCAL_INVOCATIONS");
+	lua_pushnumber(L,GL_MAX_COMPUTE_WORK_GROUP_COUNT); lua_setfield(L,-2,"GL_MAX_COMPUTE_WORK_GROUP_COUNT");
+	lua_pushnumber(L,GL_MAX_COMPUTE_WORK_GROUP_SIZE); lua_setfield(L,-2,"GL_MAX_COMPUTE_WORK_GROUP_SIZE");
+	lua_pushnumber(L,GL_COMPUTE_LOCAL_WORK_SIZE); lua_setfield(L,-2,"GL_COMPUTE_LOCAL_WORK_SIZE");
+	lua_pushnumber(L,GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER); lua_setfield(L,-2,"GL_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_COMPUTE_SHADER); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_COMPUTE_SHADER");
+	lua_pushnumber(L,GL_DISPATCH_INDIRECT_BUFFER); lua_setfield(L,-2,"GL_DISPATCH_INDIRECT_BUFFER");
+	lua_pushnumber(L,GL_DISPATCH_INDIRECT_BUFFER_BINDING); lua_setfield(L,-2,"GL_DISPATCH_INDIRECT_BUFFER_BINDING");
+	lua_pushnumber(L,GL_COMPUTE_SHADER_BIT); lua_setfield(L,-2,"GL_COMPUTE_SHADER_BIT");
+	lua_pushnumber(L,GL_DEPTH_CLAMP); lua_setfield(L,-2,"GL_DEPTH_CLAMP");
+	lua_pushnumber(L,GL_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION); lua_setfield(L,-2,"GL_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION");
+	lua_pushnumber(L,GL_FIRST_VERTEX_CONVENTION); lua_setfield(L,-2,"GL_FIRST_VERTEX_CONVENTION");
+	lua_pushnumber(L,GL_LAST_VERTEX_CONVENTION); lua_setfield(L,-2,"GL_LAST_VERTEX_CONVENTION");
+	lua_pushnumber(L,GL_PROVOKING_VERTEX); lua_setfield(L,-2,"GL_PROVOKING_VERTEX");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_SEAMLESS); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_SEAMLESS");
+	lua_pushnumber(L,OSG_GLBeginEndAdapter); lua_setfield(L,-2,"OSG_GLBeginEndAdapter");
+	lua_pushnumber(L,GL_TEXTURE0); lua_setfield(L,-2,"GL_TEXTURE0");
+	lua_pushnumber(L,OSG_GLEXTENSIONS); lua_setfield(L,-2,"OSG_GLEXTENSIONS");
+	lua_pushnumber(L,OSG_GLOBJECTS); lua_setfield(L,-2,"OSG_GLOBJECTS");
+	lua_pushnumber(L,OSGUTIL_GLOBJECTSVISITOR); lua_setfield(L,-2,"OSGUTIL_GLOBJECTSVISITOR");
+	lua_pushnumber(L,OSG_GLU); lua_setfield(L,-2,"OSG_GLU");
+	lua_pushnumber(L,GLU_INVALID_ENUM); lua_setfield(L,-2,"GLU_INVALID_ENUM");
+	lua_pushnumber(L,GLU_INVALID_VALUE); lua_setfield(L,-2,"GLU_INVALID_VALUE");
+	lua_pushnumber(L,GLU_OUT_OF_MEMORY); lua_setfield(L,-2,"GLU_OUT_OF_MEMORY");
+	lua_pushnumber(L,GLU_INCOMPATIBLE_GL_VERSION); lua_setfield(L,-2,"GLU_INCOMPATIBLE_GL_VERSION");
+	lua_pushnumber(L,GLU_INVALID_OPERATION); lua_setfield(L,-2,"GLU_INVALID_OPERATION");
+	lua_pushnumber(L,GLU_FALSE); lua_setfield(L,-2,"GLU_FALSE");
+	lua_pushnumber(L,GLU_TRUE); lua_setfield(L,-2,"GLU_TRUE");
+	lua_pushnumber(L,GLU_POINT); lua_setfield(L,-2,"GLU_POINT");
+	lua_pushnumber(L,GLU_LINE); lua_setfield(L,-2,"GLU_LINE");
+	lua_pushnumber(L,GLU_FILL); lua_setfield(L,-2,"GLU_FILL");
+	lua_pushnumber(L,GLU_SILHOUETTE); lua_setfield(L,-2,"GLU_SILHOUETTE");
+	lua_pushnumber(L,GLU_SMOOTH); lua_setfield(L,-2,"GLU_SMOOTH");
+	lua_pushnumber(L,GLU_FLAT); lua_setfield(L,-2,"GLU_FLAT");
+	lua_pushnumber(L,GLU_NONE); lua_setfield(L,-2,"GLU_NONE");
+	lua_pushnumber(L,GLU_OUTSIDE); lua_setfield(L,-2,"GLU_OUTSIDE");
+	lua_pushnumber(L,GLU_INSIDE); lua_setfield(L,-2,"GLU_INSIDE");
+	lua_pushnumber(L,GLU_TESS_BEGIN); lua_setfield(L,-2,"GLU_TESS_BEGIN");
+	lua_pushnumber(L,GLU_BEGIN); lua_setfield(L,-2,"GLU_BEGIN");
+	lua_pushnumber(L,GLU_TESS_VERTEX); lua_setfield(L,-2,"GLU_TESS_VERTEX");
+	lua_pushnumber(L,GLU_VERTEX); lua_setfield(L,-2,"GLU_VERTEX");
+	lua_pushnumber(L,GLU_TESS_END); lua_setfield(L,-2,"GLU_TESS_END");
+	lua_pushnumber(L,GLU_END); lua_setfield(L,-2,"GLU_END");
+	lua_pushnumber(L,GLU_TESS_ERROR); lua_setfield(L,-2,"GLU_TESS_ERROR");
+	lua_pushnumber(L,GLU_TESS_EDGE_FLAG); lua_setfield(L,-2,"GLU_TESS_EDGE_FLAG");
+	lua_pushnumber(L,GLU_EDGE_FLAG); lua_setfield(L,-2,"GLU_EDGE_FLAG");
+	lua_pushnumber(L,GLU_TESS_COMBINE); lua_setfield(L,-2,"GLU_TESS_COMBINE");
+	lua_pushnumber(L,GLU_TESS_BEGIN_DATA); lua_setfield(L,-2,"GLU_TESS_BEGIN_DATA");
+	lua_pushnumber(L,GLU_TESS_VERTEX_DATA); lua_setfield(L,-2,"GLU_TESS_VERTEX_DATA");
+	lua_pushnumber(L,GLU_TESS_END_DATA); lua_setfield(L,-2,"GLU_TESS_END_DATA");
+	lua_pushnumber(L,GLU_TESS_ERROR_DATA); lua_setfield(L,-2,"GLU_TESS_ERROR_DATA");
+	lua_pushnumber(L,GLU_TESS_EDGE_FLAG_DATA); lua_setfield(L,-2,"GLU_TESS_EDGE_FLAG_DATA");
+	lua_pushnumber(L,GLU_TESS_COMBINE_DATA); lua_setfield(L,-2,"GLU_TESS_COMBINE_DATA");
+	lua_pushnumber(L,GLU_CW); lua_setfield(L,-2,"GLU_CW");
+	lua_pushnumber(L,GLU_CCW); lua_setfield(L,-2,"GLU_CCW");
+	lua_pushnumber(L,GLU_INTERIOR); lua_setfield(L,-2,"GLU_INTERIOR");
+	lua_pushnumber(L,GLU_EXTERIOR); lua_setfield(L,-2,"GLU_EXTERIOR");
+	lua_pushnumber(L,GLU_UNKNOWN); lua_setfield(L,-2,"GLU_UNKNOWN");
+	lua_pushnumber(L,GLU_TESS_WINDING_RULE); lua_setfield(L,-2,"GLU_TESS_WINDING_RULE");
+	lua_pushnumber(L,GLU_TESS_BOUNDARY_ONLY); lua_setfield(L,-2,"GLU_TESS_BOUNDARY_ONLY");
+	lua_pushnumber(L,GLU_TESS_TOLERANCE); lua_setfield(L,-2,"GLU_TESS_TOLERANCE");
+	lua_pushnumber(L,GLU_TESS_ERROR1); lua_setfield(L,-2,"GLU_TESS_ERROR1");
+	lua_pushnumber(L,GLU_TESS_ERROR2); lua_setfield(L,-2,"GLU_TESS_ERROR2");
+	lua_pushnumber(L,GLU_TESS_ERROR3); lua_setfield(L,-2,"GLU_TESS_ERROR3");
+	lua_pushnumber(L,GLU_TESS_ERROR4); lua_setfield(L,-2,"GLU_TESS_ERROR4");
+	lua_pushnumber(L,GLU_TESS_ERROR5); lua_setfield(L,-2,"GLU_TESS_ERROR5");
+	lua_pushnumber(L,GLU_TESS_ERROR6); lua_setfield(L,-2,"GLU_TESS_ERROR6");
+	lua_pushnumber(L,GLU_TESS_ERROR7); lua_setfield(L,-2,"GLU_TESS_ERROR7");
+	lua_pushnumber(L,GLU_TESS_ERROR8); lua_setfield(L,-2,"GLU_TESS_ERROR8");
+	lua_pushnumber(L,GLU_TESS_MISSING_BEGIN_POLYGON); lua_setfield(L,-2,"GLU_TESS_MISSING_BEGIN_POLYGON");
+	lua_pushnumber(L,GLU_TESS_MISSING_BEGIN_CONTOUR); lua_setfield(L,-2,"GLU_TESS_MISSING_BEGIN_CONTOUR");
+	lua_pushnumber(L,GLU_TESS_MISSING_END_POLYGON); lua_setfield(L,-2,"GLU_TESS_MISSING_END_POLYGON");
+	lua_pushnumber(L,GLU_TESS_MISSING_END_CONTOUR); lua_setfield(L,-2,"GLU_TESS_MISSING_END_CONTOUR");
+	lua_pushnumber(L,GLU_TESS_COORD_TOO_LARGE); lua_setfield(L,-2,"GLU_TESS_COORD_TOO_LARGE");
+	lua_pushnumber(L,GLU_TESS_NEED_COMBINE_CALLBACK); lua_setfield(L,-2,"GLU_TESS_NEED_COMBINE_CALLBACK");
+	lua_pushnumber(L,GLU_TESS_WINDING_ODD); lua_setfield(L,-2,"GLU_TESS_WINDING_ODD");
+	lua_pushnumber(L,GLU_TESS_WINDING_NONZERO); lua_setfield(L,-2,"GLU_TESS_WINDING_NONZERO");
+	lua_pushnumber(L,GLU_TESS_WINDING_POSITIVE); lua_setfield(L,-2,"GLU_TESS_WINDING_POSITIVE");
+	lua_pushnumber(L,GLU_TESS_WINDING_NEGATIVE); lua_setfield(L,-2,"GLU_TESS_WINDING_NEGATIVE");
+	lua_pushnumber(L,GLU_TESS_WINDING_ABS_GEQ_TWO); lua_setfield(L,-2,"GLU_TESS_WINDING_ABS_GEQ_TWO");
+	lua_pushnumber(L,GLU_TESS_MAX_COORD); lua_setfield(L,-2,"GLU_TESS_MAX_COORD");
+	lua_pushnumber(L,OSGTEXT_GLYPH); lua_setfield(L,-2,"OSGTEXT_GLYPH");
+	lua_pushnumber(L,OSG_GRAPHICSCONTEXT); lua_setfield(L,-2,"OSG_GRAPHICSCONTEXT");
+	lua_pushnumber(L,OSG_GRAPHICSTHREAD); lua_setfield(L,-2,"OSG_GRAPHICSTHREAD");
+	lua_pushnumber(L,OSGVIEWER_GRAPHICWINDOW); lua_setfield(L,-2,"OSGVIEWER_GRAPHICWINDOW");
+	lua_pushnumber(L,OSG_GROUP); lua_setfield(L,-2,"OSG_GROUP");
+	lua_pushnumber(L,OSGGA_GUIACTIONADAPTER); lua_setfield(L,-2,"OSGGA_GUIACTIONADAPTER");
+	lua_pushnumber(L,OSGGA_EVENT); lua_setfield(L,-2,"OSGGA_EVENT");
+	lua_pushnumber(L,OSGGA_GUIEVENTHANDLER); lua_setfield(L,-2,"OSGGA_GUIEVENTHANDLER");
+	lua_pushnumber(L,OSG_HINT); lua_setfield(L,-2,"OSG_HINT");
+	lua_pushnumber(L,OSG_IMAGE); lua_setfield(L,-2,"OSG_IMAGE");
+	lua_pushnumber(L,GL_BGR); lua_setfield(L,-2,"GL_BGR");
+	lua_pushnumber(L,GL_BGRA); lua_setfield(L,-2,"GL_BGRA");
+	lua_pushnumber(L,GL_UNSIGNED_BYTE_3_3_2); lua_setfield(L,-2,"GL_UNSIGNED_BYTE_3_3_2");
+	lua_pushnumber(L,GL_UNSIGNED_BYTE_2_3_3_REV); lua_setfield(L,-2,"GL_UNSIGNED_BYTE_2_3_3_REV");
+	lua_pushnumber(L,GL_UNSIGNED_SHORT_5_6_5); lua_setfield(L,-2,"GL_UNSIGNED_SHORT_5_6_5");
+	lua_pushnumber(L,GL_UNSIGNED_SHORT_5_6_5_REV); lua_setfield(L,-2,"GL_UNSIGNED_SHORT_5_6_5_REV");
+	lua_pushnumber(L,GL_UNSIGNED_SHORT_4_4_4_4); lua_setfield(L,-2,"GL_UNSIGNED_SHORT_4_4_4_4");
+	lua_pushnumber(L,GL_UNSIGNED_SHORT_4_4_4_4_REV); lua_setfield(L,-2,"GL_UNSIGNED_SHORT_4_4_4_4_REV");
+	lua_pushnumber(L,GL_UNSIGNED_SHORT_5_5_5_1); lua_setfield(L,-2,"GL_UNSIGNED_SHORT_5_5_5_1");
+	lua_pushnumber(L,GL_UNSIGNED_SHORT_1_5_5_5_REV); lua_setfield(L,-2,"GL_UNSIGNED_SHORT_1_5_5_5_REV");
+	lua_pushnumber(L,GL_UNSIGNED_INT_8_8_8_8); lua_setfield(L,-2,"GL_UNSIGNED_INT_8_8_8_8");
+	lua_pushnumber(L,GL_UNSIGNED_INT_8_8_8_8_REV); lua_setfield(L,-2,"GL_UNSIGNED_INT_8_8_8_8_REV");
+	lua_pushnumber(L,GL_UNSIGNED_INT_10_10_10_2); lua_setfield(L,-2,"GL_UNSIGNED_INT_10_10_10_2");
+	lua_pushnumber(L,GL_UNSIGNED_INT_2_10_10_10_REV); lua_setfield(L,-2,"GL_UNSIGNED_INT_2_10_10_10_REV");
+	lua_pushnumber(L,GL_COMPRESSED_ALPHA); lua_setfield(L,-2,"GL_COMPRESSED_ALPHA");
+	lua_pushnumber(L,GL_COMPRESSED_LUMINANCE); lua_setfield(L,-2,"GL_COMPRESSED_LUMINANCE");
+	lua_pushnumber(L,GL_COMPRESSED_LUMINANCE_ALPHA); lua_setfield(L,-2,"GL_COMPRESSED_LUMINANCE_ALPHA");
+	lua_pushnumber(L,GL_COMPRESSED_INTENSITY); lua_setfield(L,-2,"GL_COMPRESSED_INTENSITY");
+	lua_pushnumber(L,GL_COMPRESSED_RGB); lua_setfield(L,-2,"GL_COMPRESSED_RGB");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA); lua_setfield(L,-2,"GL_COMPRESSED_RGBA");
+	lua_pushnumber(L,GL_ABGR_EXT); lua_setfield(L,-2,"GL_ABGR_EXT");
+	lua_pushnumber(L,GL_PACK_SKIP_IMAGES); lua_setfield(L,-2,"GL_PACK_SKIP_IMAGES");
+	lua_pushnumber(L,GL_PACK_IMAGE_HEIGHT); lua_setfield(L,-2,"GL_PACK_IMAGE_HEIGHT");
+	lua_pushnumber(L,GL_UNPACK_SKIP_IMAGES); lua_setfield(L,-2,"GL_UNPACK_SKIP_IMAGES");
+	lua_pushnumber(L,GL_UNPACK_IMAGE_HEIGHT); lua_setfield(L,-2,"GL_UNPACK_IMAGE_HEIGHT");
+	lua_pushnumber(L,GL_ETC1_RGB8_OES); lua_setfield(L,-2,"GL_ETC1_RGB8_OES");
+	lua_pushnumber(L,OSGDB_IMAGEOPTIONS); lua_setfield(L,-2,"OSGDB_IMAGEOPTIONS");
+	lua_pushnumber(L,OSGDB_IMAGEPAGER); lua_setfield(L,-2,"OSGDB_IMAGEPAGER");
+	lua_pushnumber(L,OSGDB_IMAGEPROCESSOR); lua_setfield(L,-2,"OSGDB_IMAGEPROCESSOR");
+	lua_pushnumber(L,OSG_IMAGESEQUENCE); lua_setfield(L,-2,"OSG_IMAGESEQUENCE");
+	lua_pushnumber(L,OSG_IMAGESTREAM); lua_setfield(L,-2,"OSG_IMAGESTREAM");
+	lua_pushnumber(L,OSG_IMAGEUTILS); lua_setfield(L,-2,"OSG_IMAGEUTILS");
+	lua_pushnumber(L,OSGDB_INPUT); lua_setfield(L,-2,"OSGDB_INPUT");
+	lua_pushnumber(L,OSGUTIL_INTERSECTIONVISITOR); lua_setfield(L,-2,"OSGUTIL_INTERSECTIONVISITOR");
+	lua_pushnumber(L,OSGUTIL_INTERSECTVISITOR); lua_setfield(L,-2,"OSGUTIL_INTERSECTVISITOR");
+	lua_pushnumber(L,OSG_IO_UTILS); lua_setfield(L,-2,"OSG_IO_UTILS");
+	lua_pushnumber(L,OSG_KDTREE); lua_setfield(L,-2,"OSG_KDTREE");
+	lua_pushnumber(L,OSGUTIL_KEYSWITCMATRIXMANIPULATOR); lua_setfield(L,-2,"OSGUTIL_KEYSWITCMATRIXMANIPULATOR");
+	lua_pushnumber(L,OSG_LIGHT); lua_setfield(L,-2,"OSG_LIGHT");
+	lua_pushnumber(L,GL_LIGHT0); lua_setfield(L,-2,"GL_LIGHT0");
+	lua_pushnumber(L,GL_LIGHT1); lua_setfield(L,-2,"GL_LIGHT1");
+	lua_pushnumber(L,GL_LIGHT2); lua_setfield(L,-2,"GL_LIGHT2");
+	lua_pushnumber(L,GL_LIGHT3); lua_setfield(L,-2,"GL_LIGHT3");
+	lua_pushnumber(L,GL_LIGHT4); lua_setfield(L,-2,"GL_LIGHT4");
+	lua_pushnumber(L,GL_LIGHT5); lua_setfield(L,-2,"GL_LIGHT5");
+	lua_pushnumber(L,GL_LIGHT6); lua_setfield(L,-2,"GL_LIGHT6");
+	lua_pushnumber(L,GL_LIGHT7); lua_setfield(L,-2,"GL_LIGHT7");
+	lua_pushnumber(L,GL_LIGHTING); lua_setfield(L,-2,"GL_LIGHTING");
+	lua_pushnumber(L,OSG_LIGHTMODEL); lua_setfield(L,-2,"OSG_LIGHTMODEL");
+	lua_pushnumber(L,OSG_LIGHTSOURCE); lua_setfield(L,-2,"OSG_LIGHTSOURCE");
+	lua_pushnumber(L,OSG_LINESEGMENT); lua_setfield(L,-2,"OSG_LINESEGMENT");
+	lua_pushnumber(L,OSGUTIL_LINESEGMENTINTERSECTOR); lua_setfield(L,-2,"OSGUTIL_LINESEGMENTINTERSECTOR");
+	lua_pushnumber(L,OSG_LINESTIPPLE); lua_setfield(L,-2,"OSG_LINESTIPPLE");
+	lua_pushnumber(L,GL_LINE_STIPPLE); lua_setfield(L,-2,"GL_LINE_STIPPLE");
+	lua_pushnumber(L,OSG_LINEWIDTH); lua_setfield(L,-2,"OSG_LINEWIDTH");
+	lua_pushnumber(L,OSG_LOD); lua_setfield(L,-2,"OSG_LOD");
+	lua_pushnumber(L,OSG_LOGICOP); lua_setfield(L,-2,"OSG_LOGICOP");
+	lua_pushnumber(L,OSG_MATERIAL); lua_setfield(L,-2,"OSG_MATERIAL");
+	lua_pushnumber(L,OSG_MATRIX); lua_setfield(L,-2,"OSG_MATRIX");
+	lua_pushnumber(L,OSG_MATRIXD); lua_setfield(L,-2,"OSG_MATRIXD");
+	lua_pushnumber(L,OSG_MATRIXF); lua_setfield(L,-2,"OSG_MATRIXF");
+	lua_pushnumber(L,OSG_MATRIXTRANSFORM); lua_setfield(L,-2,"OSG_MATRIXTRANSFORM");
+	lua_pushnumber(L,OSGUTIL_MESHOPTIMIZERS); lua_setfield(L,-2,"OSGUTIL_MESHOPTIMIZERS");
+	lua_pushnumber(L,OSG_MIXIN_VECTOR); lua_setfield(L,-2,"OSG_MIXIN_VECTOR");
+	lua_pushnumber(L,OSGPARTICLE_MODULAREMITTER); lua_setfield(L,-2,"OSGPARTICLE_MODULAREMITTER");
+	lua_pushnumber(L,OSGPARTICLE_MODULARPROGRAM); lua_setfield(L,-2,"OSGPARTICLE_MODULARPROGRAM");
+	lua_pushnumber(L,OSG_MULTISAMPLE); lua_setfield(L,-2,"OSG_MULTISAMPLE");
+	lua_pushnumber(L,GL_MULTISAMPLE_ARB); lua_setfield(L,-2,"GL_MULTISAMPLE_ARB");
+	lua_pushnumber(L,GL_SAMPLE_ALPHA_TO_COVERAGE_ARB); lua_setfield(L,-2,"GL_SAMPLE_ALPHA_TO_COVERAGE_ARB");
+	lua_pushnumber(L,GL_SAMPLE_ALPHA_TO_ONE_ARB); lua_setfield(L,-2,"GL_SAMPLE_ALPHA_TO_ONE_ARB");
+	lua_pushnumber(L,GL_SAMPLE_COVERAGE_ARB); lua_setfield(L,-2,"GL_SAMPLE_COVERAGE_ARB");
+	lua_pushnumber(L,GL_SAMPLE_BUFFERS_ARB); lua_setfield(L,-2,"GL_SAMPLE_BUFFERS_ARB");
+	lua_pushnumber(L,GL_SAMPLES_ARB); lua_setfield(L,-2,"GL_SAMPLES_ARB");
+	lua_pushnumber(L,GL_SAMPLE_COVERAGE_VALUE_ARB); lua_setfield(L,-2,"GL_SAMPLE_COVERAGE_VALUE_ARB");
+	lua_pushnumber(L,GL_SAMPLE_COVERAGE_INVERT_ARB); lua_setfield(L,-2,"GL_SAMPLE_COVERAGE_INVERT_ARB");
+	lua_pushnumber(L,GL_MULTISAMPLE_BIT_ARB); lua_setfield(L,-2,"GL_MULTISAMPLE_BIT_ARB");
+	lua_pushnumber(L,GL_MULTISAMPLE_FILTER_HINT_NV); lua_setfield(L,-2,"GL_MULTISAMPLE_FILTER_HINT_NV");
+	lua_pushnumber(L,OSGPARTICLE_MULTISEGMENT_PLACER); lua_setfield(L,-2,"OSGPARTICLE_MULTISEGMENT_PLACER");
+	lua_pushnumber(L,OSGGA_MULTITOUCH_TRACKBALL_MANIPULATOR); lua_setfield(L,-2,"OSGGA_MULTITOUCH_TRACKBALL_MANIPULATOR");
+	lua_pushnumber(L,OSG_NODE); lua_setfield(L,-2,"OSG_NODE");
+	lua_pushnumber(L,OSG_NODECALLBACK); lua_setfield(L,-2,"OSG_NODECALLBACK");
+	lua_pushnumber(L,OSG_NODETRACKERCALLBACK); lua_setfield(L,-2,"OSG_NODETRACKERCALLBACK");
+	lua_pushnumber(L,OSGGA_NODE_TRACKER_MANIPULATOR); lua_setfield(L,-2,"OSGGA_NODE_TRACKER_MANIPULATOR");
+	lua_pushnumber(L,OSG_NODEVISITOR); lua_setfield(L,-2,"OSG_NODEVISITOR");
+	lua_pushnumber(L,OSG_NOTIFY_H); lua_setfield(L,-2,"OSG_NOTIFY_H");
+	lua_pushnumber(L,OSG_OBJECT); lua_setfield(L,-2,"OSG_OBJECT");
+	lua_pushnumber(L,OSG_OBSERVER); lua_setfield(L,-2,"OSG_OBSERVER");
+	lua_pushnumber(L,OSG_OBSERVERNODEPATH); lua_setfield(L,-2,"OSG_OBSERVERNODEPATH");
+	lua_pushnumber(L,OSG_OCCLUDERNODE); lua_setfield(L,-2,"OSG_OCCLUDERNODE");
+	lua_pushnumber(L,OSG_OCCLUSION_QUERY_NODE); lua_setfield(L,-2,"OSG_OCCLUSION_QUERY_NODE");
+	lua_pushnumber(L,OSGUTIL_OPERATIONARRAYFUNCTOR); lua_setfield(L,-2,"OSGUTIL_OPERATIONARRAYFUNCTOR");
+	lua_pushnumber(L,OSG_OPERATIONTHREAD); lua_setfield(L,-2,"OSG_OPERATIONTHREAD");
+	lua_pushnumber(L,OSGPARTICLE_OPERATOR); lua_setfield(L,-2,"OSGPARTICLE_OPERATOR");
+	lua_pushnumber(L,OSGDB_OPTIONS); lua_setfield(L,-2,"OSGDB_OPTIONS");
+	lua_pushnumber(L,OSGGA_ORBIT_MANIPULATOR); lua_setfield(L,-2,"OSGGA_ORBIT_MANIPULATOR");
+	lua_pushnumber(L,OSGDB_OUTPUT); lua_setfield(L,-2,"OSGDB_OUTPUT");
+	lua_pushnumber(L,OSG_PagedLOD); lua_setfield(L,-2,"OSG_PagedLOD");
+	lua_pushnumber(L,OSGDB_PARAMETEROUTPUT); lua_setfield(L,-2,"OSGDB_PARAMETEROUTPUT");
+	lua_pushnumber(L,OSGPARTICLE_PARTICLE); lua_setfield(L,-2,"OSGPARTICLE_PARTICLE");
+	lua_pushnumber(L,OSGPARTICLE_PARTICLEPROCESSOR); lua_setfield(L,-2,"OSGPARTICLE_PARTICLEPROCESSOR");
+	lua_pushnumber(L,OSGPARTICLE_PARTICLESYSTEM); lua_setfield(L,-2,"OSGPARTICLE_PARTICLESYSTEM");
+	lua_pushnumber(L,OSGPARTICLE_PARTICLESYSTEMUPDATER); lua_setfield(L,-2,"OSGPARTICLE_PARTICLESYSTEMUPDATER");
+	lua_pushnumber(L,OSGPARTICLE_PLACER); lua_setfield(L,-2,"OSGPARTICLE_PLACER");
+	lua_pushnumber(L,OSG_PLANE); lua_setfield(L,-2,"OSG_PLANE");
+	lua_pushnumber(L,OSGUTIL_PLANEINTERSECTOR); lua_setfield(L,-2,"OSGUTIL_PLANEINTERSECTOR");
+	lua_pushnumber(L,OSG_POINT); lua_setfield(L,-2,"OSG_POINT");
+	lua_pushnumber(L,GL_POINT_SMOOTH); lua_setfield(L,-2,"GL_POINT_SMOOTH");
+	lua_pushnumber(L,GL_POINT_SMOOTH_HINT); lua_setfield(L,-2,"GL_POINT_SMOOTH_HINT");
+	lua_pushnumber(L,OSGPARTICLE_POINT_PLACER); lua_setfield(L,-2,"OSGPARTICLE_POINT_PLACER");
+	lua_pushnumber(L,OSG_POINTSPRITE); lua_setfield(L,-2,"OSG_POINTSPRITE");
+	lua_pushnumber(L,GL_POINT_SPRITE_ARB); lua_setfield(L,-2,"GL_POINT_SPRITE_ARB");
+	lua_pushnumber(L,GL_COORD_REPLACE_ARB); lua_setfield(L,-2,"GL_COORD_REPLACE_ARB");
+	lua_pushnumber(L,OSG_POLYGONMODE); lua_setfield(L,-2,"OSG_POLYGONMODE");
+	lua_pushnumber(L,OSG_POLYGONOFFSET); lua_setfield(L,-2,"OSG_POLYGONOFFSET");
+	lua_pushnumber(L,GL_POLYGON_OFFSET_LINE); lua_setfield(L,-2,"GL_POLYGON_OFFSET_LINE");
+	lua_pushnumber(L,GL_POLYGON_OFFSET_POINT); lua_setfield(L,-2,"GL_POLYGON_OFFSET_POINT");
+	lua_pushnumber(L,OSG_POLYGONSTIPPLE); lua_setfield(L,-2,"OSG_POLYGONSTIPPLE");
+	lua_pushnumber(L,GL_POLYGON_STIPPLE); lua_setfield(L,-2,"GL_POLYGON_STIPPLE");
+	lua_pushnumber(L,OSG_POLYTOPE); lua_setfield(L,-2,"OSG_POLYTOPE");
+	lua_pushnumber(L,OSGUTIL_POLYTOPEINTERSECTOR); lua_setfield(L,-2,"OSGUTIL_POLYTOPEINTERSECTOR");
+	lua_pushnumber(L,OSGUTIL_POSTIONALSTATECONTIANER); lua_setfield(L,-2,"OSGUTIL_POSTIONALSTATECONTIANER");
+	lua_pushnumber(L,OSG_POSITIONATTITUDETRANSFORM); lua_setfield(L,-2,"OSG_POSITIONATTITUDETRANSFORM");
+	lua_pushnumber(L,OSG_PRIMITIVESET); lua_setfield(L,-2,"OSG_PRIMITIVESET");
+	lua_pushnumber(L,OSGUTIL_PRINTVISITOR); lua_setfield(L,-2,"OSGUTIL_PRINTVISITOR");
+	lua_pushnumber(L,OSG_PROGRAM); lua_setfield(L,-2,"OSG_PROGRAM");
+	lua_pushnumber(L,OSGPARTICLE_PROGRAM); lua_setfield(L,-2,"OSGPARTICLE_PROGRAM");
+	lua_pushnumber(L,OSG_PROJECTION); lua_setfield(L,-2,"OSG_PROJECTION");
+	lua_pushnumber(L,OSG_ProxyNode); lua_setfield(L,-2,"OSG_ProxyNode");
+	lua_pushnumber(L,OSG_QUAT); lua_setfield(L,-2,"OSG_QUAT");
+	lua_pushnumber(L,OSGPARTICLE_RADIAL_SHOOTER); lua_setfield(L,-2,"OSGPARTICLE_RADIAL_SHOOTER");
+	lua_pushnumber(L,OSGPARTICLE_RANDOMRATE_COUNTER); lua_setfield(L,-2,"OSGPARTICLE_RANDOMRATE_COUNTER");
+	lua_pushnumber(L,OSGPARTICLE_RANGE); lua_setfield(L,-2,"OSGPARTICLE_RANGE");
+	lua_pushnumber(L,OSGDB_READERWRITER); lua_setfield(L,-2,"OSGDB_READERWRITER");
+	lua_pushnumber(L,OSGDB_READFILE); lua_setfield(L,-2,"OSGDB_READFILE");
+	lua_pushnumber(L,OSG_REF_PTR); lua_setfield(L,-2,"OSG_REF_PTR");
+	lua_pushnumber(L,OSG_REFERENCED); lua_setfield(L,-2,"OSG_REFERENCED");
+	lua_pushnumber(L,OSGDB_REGISTRY); lua_setfield(L,-2,"OSGDB_REGISTRY");
+	lua_pushnumber(L,OSGUTIL_RENDERBIN); lua_setfield(L,-2,"OSGUTIL_RENDERBIN");
+	lua_pushnumber(L,OSGVIEWER_RENDERER); lua_setfield(L,-2,"OSGVIEWER_RENDERER");
+	lua_pushnumber(L,OSG_RENDERINFO); lua_setfield(L,-2,"OSG_RENDERINFO");
+	lua_pushnumber(L,OSGUTIL_RENDERLEAF); lua_setfield(L,-2,"OSGUTIL_RENDERLEAF");
+	lua_pushnumber(L,OSGUTIL_RENDERSTAGE); lua_setfield(L,-2,"OSGUTIL_RENDERSTAGE");
+	lua_pushnumber(L,OSGUTIL_REVERSEPRIMITIVEFUNCTOR); lua_setfield(L,-2,"OSGUTIL_REVERSEPRIMITIVEFUNCTOR");
+	lua_pushnumber(L,OSG_SAMPLEMASKI); lua_setfield(L,-2,"OSG_SAMPLEMASKI");
+	lua_pushnumber(L,OSGVIEWER_SCENE); lua_setfield(L,-2,"OSGVIEWER_SCENE");
+	lua_pushnumber(L,OSGUTIL_SCENEGRAPHBUILDER); lua_setfield(L,-2,"OSGUTIL_SCENEGRAPHBUILDER");
+	lua_pushnumber(L,OSGUTIL_SCENEVIEW); lua_setfield(L,-2,"OSGUTIL_SCENEVIEW");
+	lua_pushnumber(L,OSG_Scissor); lua_setfield(L,-2,"OSG_Scissor");
+	lua_pushnumber(L,OSGPARTICLE_SECTOR_PLACER); lua_setfield(L,-2,"OSGPARTICLE_SECTOR_PLACER");
+	lua_pushnumber(L,OSGPARTICLE_SEGMENT_PLACER); lua_setfield(L,-2,"OSGPARTICLE_SEGMENT_PLACER");
+	lua_pushnumber(L,OSG_SEQUENCE); lua_setfield(L,-2,"OSG_SEQUENCE");
+	lua_pushnumber(L,OSG_SHADEMODEL); lua_setfield(L,-2,"OSG_SHADEMODEL");
+	lua_pushnumber(L,OSG_SHADER); lua_setfield(L,-2,"OSG_SHADER");
+	lua_pushnumber(L,OSG_SHADERATTRIBUTE); lua_setfield(L,-2,"OSG_SHADERATTRIBUTE");
+	lua_pushnumber(L,OSG_SHADERCOMPOSER); lua_setfield(L,-2,"OSG_SHADERCOMPOSER");
+	lua_pushnumber(L,OSGUTIL_SHADER_STATE_); lua_setfield(L,-2,"OSGUTIL_SHADER_STATE_");
+	lua_pushnumber(L,OSG_SHADOWVOLUMEOCCLUDER); lua_setfield(L,-2,"OSG_SHADOWVOLUMEOCCLUDER");
+	lua_pushnumber(L,OSG_SHAPE); lua_setfield(L,-2,"OSG_SHAPE");
+	lua_pushnumber(L,OSG_SHAPEDRAWABLE); lua_setfield(L,-2,"OSG_SHAPEDRAWABLE");
+	lua_pushnumber(L,OSGDB_SHAREDSTATEMANAGER); lua_setfield(L,-2,"OSGDB_SHAREDSTATEMANAGER");
+	lua_pushnumber(L,OSGPARTICLE_SHOOTER); lua_setfield(L,-2,"OSGPARTICLE_SHOOTER");
+	lua_pushnumber(L,OSGUTIL_SIMPLIFIER); lua_setfield(L,-2,"OSGUTIL_SIMPLIFIER");
+	lua_pushnumber(L,OSGUTIL_SMOOTHINGVISITOR); lua_setfield(L,-2,"OSGUTIL_SMOOTHINGVISITOR");
+	lua_pushnumber(L,OSGGA_CAMERA_MANIPULATOR); lua_setfield(L,-2,"OSGGA_CAMERA_MANIPULATOR");
+	lua_pushnumber(L,OSG_STATE); lua_setfield(L,-2,"OSG_STATE");
+	lua_pushnumber(L,GL_FOG_COORDINATE_ARRAY); lua_setfield(L,-2,"GL_FOG_COORDINATE_ARRAY");
+	lua_pushnumber(L,GL_SECONDARY_COLOR_ARRAY); lua_setfield(L,-2,"GL_SECONDARY_COLOR_ARRAY");
+	lua_pushnumber(L,OSG_STATEATTRIBUTE); lua_setfield(L,-2,"OSG_STATEATTRIBUTE");
+	lua_pushnumber(L,GL_COLOR_SUM); lua_setfield(L,-2,"GL_COLOR_SUM");
+	lua_pushnumber(L,OSG_STATEATTRIBUTECALLBACK); lua_setfield(L,-2,"OSG_STATEATTRIBUTECALLBACK");
+	lua_pushnumber(L,OSGUTIL_STATEGRAPH); lua_setfield(L,-2,"OSGUTIL_STATEGRAPH");
+	lua_pushnumber(L,OSG_STATESET); lua_setfield(L,-2,"OSG_STATESET");
+	lua_pushnumber(L,GL_RESCALE_NORMAL); lua_setfield(L,-2,"GL_RESCALE_NORMAL");
+	lua_pushnumber(L,OSGGA_STATESET_MANIPULATOR); lua_setfield(L,-2,"OSGGA_STATESET_MANIPULATOR");
+	lua_pushnumber(L,OSGUTIL_STATISTICS); lua_setfield(L,-2,"OSGUTIL_STATISTICS");
+	lua_pushnumber(L,OSG_STATS); lua_setfield(L,-2,"OSG_STATS");
+	lua_pushnumber(L,OSG_STENCIL); lua_setfield(L,-2,"OSG_STENCIL");
+	lua_pushnumber(L,GL_INCR_WRAP); lua_setfield(L,-2,"GL_INCR_WRAP");
+	lua_pushnumber(L,GL_DECR_WRAP); lua_setfield(L,-2,"GL_DECR_WRAP");
+	lua_pushnumber(L,OSG_STENCILTWOSIDED); lua_setfield(L,-2,"OSG_STENCILTWOSIDED");
+	lua_pushnumber(L,GL_STENCIL_TEST_TWO_SIDE); lua_setfield(L,-2,"GL_STENCIL_TEST_TWO_SIDE");
+	lua_pushnumber(L,OSGTEXT_STRING); lua_setfield(L,-2,"OSGTEXT_STRING");
+	lua_pushnumber(L,OSGTEXT_STYLE); lua_setfield(L,-2,"OSGTEXT_STYLE");
+	lua_pushnumber(L,OSG_SWITCH); lua_setfield(L,-2,"OSG_SWITCH");
+	lua_pushnumber(L,OSG_TERMPLATEPRIMITIVEFUNCTOR); lua_setfield(L,-2,"OSG_TERMPLATEPRIMITIVEFUNCTOR");
+	lua_pushnumber(L,OSGGA_TERRAIN_MANIPULATOR); lua_setfield(L,-2,"OSGGA_TERRAIN_MANIPULATOR");
+	lua_pushnumber(L,OSG_TEXENV); lua_setfield(L,-2,"OSG_TEXENV");
+	lua_pushnumber(L,OSG_TEXENVCOMBINE); lua_setfield(L,-2,"OSG_TEXENVCOMBINE");
+	lua_pushnumber(L,GL_COMBINE_ARB); lua_setfield(L,-2,"GL_COMBINE_ARB");
+	lua_pushnumber(L,GL_COMBINE_RGB_ARB); lua_setfield(L,-2,"GL_COMBINE_RGB_ARB");
+	lua_pushnumber(L,GL_COMBINE_ALPHA_ARB); lua_setfield(L,-2,"GL_COMBINE_ALPHA_ARB");
+	lua_pushnumber(L,GL_SOURCE0_RGB_ARB); lua_setfield(L,-2,"GL_SOURCE0_RGB_ARB");
+	lua_pushnumber(L,GL_SOURCE1_RGB_ARB); lua_setfield(L,-2,"GL_SOURCE1_RGB_ARB");
+	lua_pushnumber(L,GL_SOURCE2_RGB_ARB); lua_setfield(L,-2,"GL_SOURCE2_RGB_ARB");
+	lua_pushnumber(L,GL_SOURCE0_ALPHA_ARB); lua_setfield(L,-2,"GL_SOURCE0_ALPHA_ARB");
+	lua_pushnumber(L,GL_SOURCE1_ALPHA_ARB); lua_setfield(L,-2,"GL_SOURCE1_ALPHA_ARB");
+	lua_pushnumber(L,GL_SOURCE2_ALPHA_ARB); lua_setfield(L,-2,"GL_SOURCE2_ALPHA_ARB");
+	lua_pushnumber(L,GL_OPERAND0_RGB_ARB); lua_setfield(L,-2,"GL_OPERAND0_RGB_ARB");
+	lua_pushnumber(L,GL_OPERAND1_RGB_ARB); lua_setfield(L,-2,"GL_OPERAND1_RGB_ARB");
+	lua_pushnumber(L,GL_OPERAND2_RGB_ARB); lua_setfield(L,-2,"GL_OPERAND2_RGB_ARB");
+	lua_pushnumber(L,GL_OPERAND0_ALPHA_ARB); lua_setfield(L,-2,"GL_OPERAND0_ALPHA_ARB");
+	lua_pushnumber(L,GL_OPERAND1_ALPHA_ARB); lua_setfield(L,-2,"GL_OPERAND1_ALPHA_ARB");
+	lua_pushnumber(L,GL_OPERAND2_ALPHA_ARB); lua_setfield(L,-2,"GL_OPERAND2_ALPHA_ARB");
+	lua_pushnumber(L,GL_RGB_SCALE_ARB); lua_setfield(L,-2,"GL_RGB_SCALE_ARB");
+	lua_pushnumber(L,GL_ADD_SIGNED_ARB); lua_setfield(L,-2,"GL_ADD_SIGNED_ARB");
+	lua_pushnumber(L,GL_INTERPOLATE_ARB); lua_setfield(L,-2,"GL_INTERPOLATE_ARB");
+	lua_pushnumber(L,GL_SUBTRACT_ARB); lua_setfield(L,-2,"GL_SUBTRACT_ARB");
+	lua_pushnumber(L,GL_CONSTANT_ARB); lua_setfield(L,-2,"GL_CONSTANT_ARB");
+	lua_pushnumber(L,GL_PRIMARY_COLOR_ARB); lua_setfield(L,-2,"GL_PRIMARY_COLOR_ARB");
+	lua_pushnumber(L,GL_PREVIOUS_ARB); lua_setfield(L,-2,"GL_PREVIOUS_ARB");
+	lua_pushnumber(L,GL_DOT3_RGB_ARB); lua_setfield(L,-2,"GL_DOT3_RGB_ARB");
+	lua_pushnumber(L,GL_DOT3_RGBA_ARB); lua_setfield(L,-2,"GL_DOT3_RGBA_ARB");
+	lua_pushnumber(L,GL_TEXTURE0); lua_setfield(L,-2,"GL_TEXTURE0");
+	lua_pushnumber(L,OSG_TEXENVFILTER); lua_setfield(L,-2,"OSG_TEXENVFILTER");
+	lua_pushnumber(L,GL_MAX_TEXTURE_LOD_BIAS_EXT); lua_setfield(L,-2,"GL_MAX_TEXTURE_LOD_BIAS_EXT");
+	lua_pushnumber(L,GL_TEXTURE_FILTER_CONTROL_EXT); lua_setfield(L,-2,"GL_TEXTURE_FILTER_CONTROL_EXT");
+	lua_pushnumber(L,GL_TEXTURE_LOD_BIAS_EXT); lua_setfield(L,-2,"GL_TEXTURE_LOD_BIAS_EXT");
+	lua_pushnumber(L,OSG_TEXGEN); lua_setfield(L,-2,"OSG_TEXGEN");
+	lua_pushnumber(L,GL_NORMAL_MAP_ARB); lua_setfield(L,-2,"GL_NORMAL_MAP_ARB");
+	lua_pushnumber(L,GL_REFLECTION_MAP_ARB); lua_setfield(L,-2,"GL_REFLECTION_MAP_ARB");
+	lua_pushnumber(L,OSG_TexGenNode); lua_setfield(L,-2,"OSG_TexGenNode");
+	lua_pushnumber(L,OSG_TEXMAT); lua_setfield(L,-2,"OSG_TEXMAT");
+	lua_pushnumber(L,OSGTEXT_TEXT); lua_setfield(L,-2,"OSGTEXT_TEXT");
+	lua_pushnumber(L,OSGTEXT_TEXT3D); lua_setfield(L,-2,"OSGTEXT_TEXT3D");
+	lua_pushnumber(L,OSGTEXT_TEXTBASE); lua_setfield(L,-2,"OSGTEXT_TEXTBASE");
+	lua_pushnumber(L,OSG_TEXTURE); lua_setfield(L,-2,"OSG_TEXTURE");
+	lua_pushnumber(L,GL_TEXTURE_MAX_ANISOTROPY_EXT); lua_setfield(L,-2,"GL_TEXTURE_MAX_ANISOTROPY_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_ALPHA_ARB); lua_setfield(L,-2,"GL_COMPRESSED_ALPHA_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_LUMINANCE_ARB); lua_setfield(L,-2,"GL_COMPRESSED_LUMINANCE_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_LUMINANCE_ALPHA_ARB); lua_setfield(L,-2,"GL_COMPRESSED_LUMINANCE_ALPHA_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_INTENSITY_ARB); lua_setfield(L,-2,"GL_COMPRESSED_INTENSITY_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_RGB_ARB); lua_setfield(L,-2,"GL_COMPRESSED_RGB_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA_ARB); lua_setfield(L,-2,"GL_COMPRESSED_RGBA_ARB");
+	lua_pushnumber(L,GL_TEXTURE_COMPRESSION_HINT_ARB); lua_setfield(L,-2,"GL_TEXTURE_COMPRESSION_HINT_ARB");
+	lua_pushnumber(L,GL_TEXTURE_COMPRESSED_ARB); lua_setfield(L,-2,"GL_TEXTURE_COMPRESSED_ARB");
+	lua_pushnumber(L,GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB); lua_setfield(L,-2,"GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_TEXTURE_FORMATS_ARB); lua_setfield(L,-2,"GL_COMPRESSED_TEXTURE_FORMATS_ARB");
+	lua_pushnumber(L,GL_TEXTURE_COMPRESSED_IMAGE_SIZE_ARB); lua_setfield(L,-2,"GL_TEXTURE_COMPRESSED_IMAGE_SIZE_ARB");
+	lua_pushnumber(L,GL_COMPRESSED_RGB_S3TC_DXT1_EXT); lua_setfield(L,-2,"GL_COMPRESSED_RGB_S3TC_DXT1_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA_S3TC_DXT1_EXT); lua_setfield(L,-2,"GL_COMPRESSED_RGBA_S3TC_DXT1_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA_S3TC_DXT3_EXT); lua_setfield(L,-2,"GL_COMPRESSED_RGBA_S3TC_DXT3_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA_S3TC_DXT5_EXT); lua_setfield(L,-2,"GL_COMPRESSED_RGBA_S3TC_DXT5_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_RED_RGTC1_EXT); lua_setfield(L,-2,"GL_COMPRESSED_RED_RGTC1_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_SIGNED_RED_RGTC1_EXT); lua_setfield(L,-2,"GL_COMPRESSED_SIGNED_RED_RGTC1_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_RED_GREEN_RGTC2_EXT); lua_setfield(L,-2,"GL_COMPRESSED_RED_GREEN_RGTC2_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT); lua_setfield(L,-2,"GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT");
+	lua_pushnumber(L,GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG); lua_setfield(L,-2,"GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG");
+	lua_pushnumber(L,GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG); lua_setfield(L,-2,"GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG); lua_setfield(L,-2,"GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG");
+	lua_pushnumber(L,GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG); lua_setfield(L,-2,"GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG");
+	lua_pushnumber(L,GL_ETC1_RGB8_OES); lua_setfield(L,-2,"GL_ETC1_RGB8_OES");
+	lua_pushnumber(L,GL_RGBA32F_ARB); lua_setfield(L,-2,"GL_RGBA32F_ARB");
+	lua_pushnumber(L,GL_RGB32F_ARB); lua_setfield(L,-2,"GL_RGB32F_ARB");
+	lua_pushnumber(L,GL_ALPHA32F_ARB); lua_setfield(L,-2,"GL_ALPHA32F_ARB");
+	lua_pushnumber(L,GL_INTENSITY32F_ARB); lua_setfield(L,-2,"GL_INTENSITY32F_ARB");
+	lua_pushnumber(L,GL_LUMINANCE32F_ARB); lua_setfield(L,-2,"GL_LUMINANCE32F_ARB");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA32F_ARB); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA32F_ARB");
+	lua_pushnumber(L,GL_RGBA16F_ARB); lua_setfield(L,-2,"GL_RGBA16F_ARB");
+	lua_pushnumber(L,GL_RGB16F_ARB); lua_setfield(L,-2,"GL_RGB16F_ARB");
+	lua_pushnumber(L,GL_ALPHA16F_ARB); lua_setfield(L,-2,"GL_ALPHA16F_ARB");
+	lua_pushnumber(L,GL_INTENSITY16F_ARB); lua_setfield(L,-2,"GL_INTENSITY16F_ARB");
+	lua_pushnumber(L,GL_LUMINANCE16F_ARB); lua_setfield(L,-2,"GL_LUMINANCE16F_ARB");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA16F_ARB); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA16F_ARB");
+	lua_pushnumber(L,GL_HALF_FLOAT); lua_setfield(L,-2,"GL_HALF_FLOAT");
+	lua_pushnumber(L,GL_HILO_NV); lua_setfield(L,-2,"GL_HILO_NV");
+	lua_pushnumber(L,GL_DSDT_NV); lua_setfield(L,-2,"GL_DSDT_NV");
+	lua_pushnumber(L,GL_DSDT_MAG_NV); lua_setfield(L,-2,"GL_DSDT_MAG_NV");
+	lua_pushnumber(L,GL_DSDT_MAG_VIB_NV); lua_setfield(L,-2,"GL_DSDT_MAG_VIB_NV");
+	lua_pushnumber(L,GL_HILO16_NV); lua_setfield(L,-2,"GL_HILO16_NV");
+	lua_pushnumber(L,GL_SIGNED_HILO_NV); lua_setfield(L,-2,"GL_SIGNED_HILO_NV");
+	lua_pushnumber(L,GL_SIGNED_HILO16_NV); lua_setfield(L,-2,"GL_SIGNED_HILO16_NV");
+	lua_pushnumber(L,GL_SIGNED_RGBA_NV); lua_setfield(L,-2,"GL_SIGNED_RGBA_NV");
+	lua_pushnumber(L,GL_SIGNED_RGBA8_NV); lua_setfield(L,-2,"GL_SIGNED_RGBA8_NV");
+	lua_pushnumber(L,GL_SIGNED_RGB_NV); lua_setfield(L,-2,"GL_SIGNED_RGB_NV");
+	lua_pushnumber(L,GL_SIGNED_RGB8_NV); lua_setfield(L,-2,"GL_SIGNED_RGB8_NV");
+	lua_pushnumber(L,GL_SIGNED_LUMINANCE_NV); lua_setfield(L,-2,"GL_SIGNED_LUMINANCE_NV");
+	lua_pushnumber(L,GL_SIGNED_LUMINANCE8_NV); lua_setfield(L,-2,"GL_SIGNED_LUMINANCE8_NV");
+	lua_pushnumber(L,GL_SIGNED_LUMINANCE_ALPHA_NV); lua_setfield(L,-2,"GL_SIGNED_LUMINANCE_ALPHA_NV");
+	lua_pushnumber(L,GL_SIGNED_LUMINANCE8_ALPHA8_NV); lua_setfield(L,-2,"GL_SIGNED_LUMINANCE8_ALPHA8_NV");
+	lua_pushnumber(L,GL_SIGNED_ALPHA_NV); lua_setfield(L,-2,"GL_SIGNED_ALPHA_NV");
+	lua_pushnumber(L,GL_SIGNED_ALPHA8_NV); lua_setfield(L,-2,"GL_SIGNED_ALPHA8_NV");
+	lua_pushnumber(L,GL_SIGNED_INTENSITY_NV); lua_setfield(L,-2,"GL_SIGNED_INTENSITY_NV");
+	lua_pushnumber(L,GL_SIGNED_INTENSITY8_NV); lua_setfield(L,-2,"GL_SIGNED_INTENSITY8_NV");
+	lua_pushnumber(L,GL_DSDT8_NV); lua_setfield(L,-2,"GL_DSDT8_NV");
+	lua_pushnumber(L,GL_DSDT8_MAG8_NV); lua_setfield(L,-2,"GL_DSDT8_MAG8_NV");
+	lua_pushnumber(L,GL_DSDT8_MAG8_INTENSITY8_NV); lua_setfield(L,-2,"GL_DSDT8_MAG8_INTENSITY8_NV");
+	lua_pushnumber(L,GL_SIGNED_RGB_UNSIGNED_ALPHA_NV); lua_setfield(L,-2,"GL_SIGNED_RGB_UNSIGNED_ALPHA_NV");
+	lua_pushnumber(L,GL_SIGNED_RGB8_UNSIGNED_ALPHA8_NV); lua_setfield(L,-2,"GL_SIGNED_RGB8_UNSIGNED_ALPHA8_NV");
+	lua_pushnumber(L,GL_FLOAT_R_NV); lua_setfield(L,-2,"GL_FLOAT_R_NV");
+	lua_pushnumber(L,GL_FLOAT_RG_NV); lua_setfield(L,-2,"GL_FLOAT_RG_NV");
+	lua_pushnumber(L,GL_FLOAT_RGB_NV); lua_setfield(L,-2,"GL_FLOAT_RGB_NV");
+	lua_pushnumber(L,GL_FLOAT_RGBA_NV); lua_setfield(L,-2,"GL_FLOAT_RGBA_NV");
+	lua_pushnumber(L,GL_FLOAT_R16_NV); lua_setfield(L,-2,"GL_FLOAT_R16_NV");
+	lua_pushnumber(L,GL_FLOAT_R32_NV); lua_setfield(L,-2,"GL_FLOAT_R32_NV");
+	lua_pushnumber(L,GL_FLOAT_RG16_NV); lua_setfield(L,-2,"GL_FLOAT_RG16_NV");
+	lua_pushnumber(L,GL_FLOAT_RG32_NV); lua_setfield(L,-2,"GL_FLOAT_RG32_NV");
+	lua_pushnumber(L,GL_FLOAT_RGB16_NV); lua_setfield(L,-2,"GL_FLOAT_RGB16_NV");
+	lua_pushnumber(L,GL_FLOAT_RGB32_NV); lua_setfield(L,-2,"GL_FLOAT_RGB32_NV");
+	lua_pushnumber(L,GL_FLOAT_RGBA16_NV); lua_setfield(L,-2,"GL_FLOAT_RGBA16_NV");
+	lua_pushnumber(L,GL_FLOAT_RGBA32_NV); lua_setfield(L,-2,"GL_FLOAT_RGBA32_NV");
+	lua_pushnumber(L,GL_RGBA_FLOAT32_ATI); lua_setfield(L,-2,"GL_RGBA_FLOAT32_ATI");
+	lua_pushnumber(L,GL_RGB_FLOAT32_ATI); lua_setfield(L,-2,"GL_RGB_FLOAT32_ATI");
+	lua_pushnumber(L,GL_ALPHA_FLOAT32_ATI); lua_setfield(L,-2,"GL_ALPHA_FLOAT32_ATI");
+	lua_pushnumber(L,GL_INTENSITY_FLOAT32_ATI); lua_setfield(L,-2,"GL_INTENSITY_FLOAT32_ATI");
+	lua_pushnumber(L,GL_LUMINANCE_FLOAT32_ATI); lua_setfield(L,-2,"GL_LUMINANCE_FLOAT32_ATI");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA_FLOAT32_ATI); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA_FLOAT32_ATI");
+	lua_pushnumber(L,GL_RGBA_FLOAT16_ATI); lua_setfield(L,-2,"GL_RGBA_FLOAT16_ATI");
+	lua_pushnumber(L,GL_RGB_FLOAT16_ATI); lua_setfield(L,-2,"GL_RGB_FLOAT16_ATI");
+	lua_pushnumber(L,GL_ALPHA_FLOAT16_ATI); lua_setfield(L,-2,"GL_ALPHA_FLOAT16_ATI");
+	lua_pushnumber(L,GL_INTENSITY_FLOAT16_ATI); lua_setfield(L,-2,"GL_INTENSITY_FLOAT16_ATI");
+	lua_pushnumber(L,GL_LUMINANCE_FLOAT16_ATI); lua_setfield(L,-2,"GL_LUMINANCE_FLOAT16_ATI");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA_FLOAT16_ATI); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA_FLOAT16_ATI");
+	lua_pushnumber(L,GL_MIRRORED_REPEAT_IBM); lua_setfield(L,-2,"GL_MIRRORED_REPEAT_IBM");
+	lua_pushnumber(L,GL_CLAMP_TO_EDGE); lua_setfield(L,-2,"GL_CLAMP_TO_EDGE");
+	lua_pushnumber(L,GL_CLAMP); lua_setfield(L,-2,"GL_CLAMP");
+	lua_pushnumber(L,GL_CLAMP_TO_BORDER_ARB); lua_setfield(L,-2,"GL_CLAMP_TO_BORDER_ARB");
+	lua_pushnumber(L,GL_INTENSITY); lua_setfield(L,-2,"GL_INTENSITY");
+	lua_pushnumber(L,GL_GENERATE_MIPMAP_SGIS); lua_setfield(L,-2,"GL_GENERATE_MIPMAP_SGIS");
+	lua_pushnumber(L,GL_GENERATE_MIPMAP_HINT_SGIS); lua_setfield(L,-2,"GL_GENERATE_MIPMAP_HINT_SGIS");
+	lua_pushnumber(L,GL_TEXTURE_3D); lua_setfield(L,-2,"GL_TEXTURE_3D");
+	lua_pushnumber(L,GL_TEXTURE_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_TEXTURE_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_PROXY_TEXTURE_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_PROXY_TEXTURE_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_TEXTURE_BINDING_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_TEXTURE_BINDING_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_MAX_ARRAY_TEXTURE_LAYERS_EXT); lua_setfield(L,-2,"GL_MAX_ARRAY_TEXTURE_LAYERS_EXT");
+	lua_pushnumber(L,GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT); lua_setfield(L,-2,"GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT");
+	lua_pushnumber(L,GL_SAMPLER_2D_ARRAY_EXT); lua_setfield(L,-2,"GL_SAMPLER_2D_ARRAY_EXT");
+	lua_pushnumber(L,GL_SAMPLER_2D_ARRAY_SHADOW_EXT); lua_setfield(L,-2,"GL_SAMPLER_2D_ARRAY_SHADOW_EXT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT); lua_setfield(L,-2,"GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP");
+	lua_pushnumber(L,GL_TEXTURE_BINDING_CUBE_MAP); lua_setfield(L,-2,"GL_TEXTURE_BINDING_CUBE_MAP");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_POSITIVE_X); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_POSITIVE_X");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_NEGATIVE_X); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_NEGATIVE_X");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_POSITIVE_Y); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_POSITIVE_Y");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_NEGATIVE_Y); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_NEGATIVE_Y");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_POSITIVE_Z); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_POSITIVE_Z");
+	lua_pushnumber(L,GL_TEXTURE_CUBE_MAP_NEGATIVE_Z); lua_setfield(L,-2,"GL_TEXTURE_CUBE_MAP_NEGATIVE_Z");
+	lua_pushnumber(L,GL_PROXY_TEXTURE_CUBE_MAP); lua_setfield(L,-2,"GL_PROXY_TEXTURE_CUBE_MAP");
+	lua_pushnumber(L,GL_MAX_CUBE_MAP_TEXTURE_SIZE); lua_setfield(L,-2,"GL_MAX_CUBE_MAP_TEXTURE_SIZE");
+	lua_pushnumber(L,GL_TEXTURE_BINDING_3D); lua_setfield(L,-2,"GL_TEXTURE_BINDING_3D");
+	lua_pushnumber(L,GL_DEPTH_TEXTURE_MODE_ARB); lua_setfield(L,-2,"GL_DEPTH_TEXTURE_MODE_ARB");
+	lua_pushnumber(L,GL_TEXTURE_COMPARE_MODE_ARB); lua_setfield(L,-2,"GL_TEXTURE_COMPARE_MODE_ARB");
+	lua_pushnumber(L,GL_TEXTURE_COMPARE_FUNC_ARB); lua_setfield(L,-2,"GL_TEXTURE_COMPARE_FUNC_ARB");
+	lua_pushnumber(L,GL_COMPARE_R_TO_TEXTURE_ARB); lua_setfield(L,-2,"GL_COMPARE_R_TO_TEXTURE_ARB");
+	lua_pushnumber(L,TEXTURE_COMPARE_FAIL_VALUE_ARB); lua_setfield(L,-2,"TEXTURE_COMPARE_FAIL_VALUE_ARB");
+	lua_pushnumber(L,GL_MAX_TEXTURE_UNITS); lua_setfield(L,-2,"GL_MAX_TEXTURE_UNITS");
+	lua_pushnumber(L,GL_TEXTURE_DEPTH); lua_setfield(L,-2,"GL_TEXTURE_DEPTH");
+	lua_pushnumber(L,GL_TEXTURE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_TEXTURE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_RGBA32UI_EXT); lua_setfield(L,-2,"GL_RGBA32UI_EXT");
+	lua_pushnumber(L,GL_RGB32UI_EXT); lua_setfield(L,-2,"GL_RGB32UI_EXT");
+	lua_pushnumber(L,GL_ALPHA32UI_EXT); lua_setfield(L,-2,"GL_ALPHA32UI_EXT");
+	lua_pushnumber(L,GL_INTENSITY32UI_EXT); lua_setfield(L,-2,"GL_INTENSITY32UI_EXT");
+	lua_pushnumber(L,GL_LUMINANCE32UI_EXT); lua_setfield(L,-2,"GL_LUMINANCE32UI_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA32UI_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA32UI_EXT");
+	lua_pushnumber(L,GL_RGBA16UI_EXT); lua_setfield(L,-2,"GL_RGBA16UI_EXT");
+	lua_pushnumber(L,GL_RGB16UI_EXT); lua_setfield(L,-2,"GL_RGB16UI_EXT");
+	lua_pushnumber(L,GL_ALPHA16UI_EXT); lua_setfield(L,-2,"GL_ALPHA16UI_EXT");
+	lua_pushnumber(L,GL_INTENSITY16UI_EXT); lua_setfield(L,-2,"GL_INTENSITY16UI_EXT");
+	lua_pushnumber(L,GL_LUMINANCE16UI_EXT); lua_setfield(L,-2,"GL_LUMINANCE16UI_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA16UI_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA16UI_EXT");
+	lua_pushnumber(L,GL_RGBA8UI_EXT); lua_setfield(L,-2,"GL_RGBA8UI_EXT");
+	lua_pushnumber(L,GL_RGB8UI_EXT); lua_setfield(L,-2,"GL_RGB8UI_EXT");
+	lua_pushnumber(L,GL_ALPHA8UI_EXT); lua_setfield(L,-2,"GL_ALPHA8UI_EXT");
+	lua_pushnumber(L,GL_INTENSITY8UI_EXT); lua_setfield(L,-2,"GL_INTENSITY8UI_EXT");
+	lua_pushnumber(L,GL_LUMINANCE8UI_EXT); lua_setfield(L,-2,"GL_LUMINANCE8UI_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA8UI_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA8UI_EXT");
+	lua_pushnumber(L,GL_RGBA32I_EXT); lua_setfield(L,-2,"GL_RGBA32I_EXT");
+	lua_pushnumber(L,GL_RGB32I_EXT); lua_setfield(L,-2,"GL_RGB32I_EXT");
+	lua_pushnumber(L,GL_ALPHA32I_EXT); lua_setfield(L,-2,"GL_ALPHA32I_EXT");
+	lua_pushnumber(L,GL_INTENSITY32I_EXT); lua_setfield(L,-2,"GL_INTENSITY32I_EXT");
+	lua_pushnumber(L,GL_LUMINANCE32I_EXT); lua_setfield(L,-2,"GL_LUMINANCE32I_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA32I_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA32I_EXT");
+	lua_pushnumber(L,GL_RGBA16I_EXT); lua_setfield(L,-2,"GL_RGBA16I_EXT");
+	lua_pushnumber(L,GL_RGB16I_EXT); lua_setfield(L,-2,"GL_RGB16I_EXT");
+	lua_pushnumber(L,GL_ALPHA16I_EXT); lua_setfield(L,-2,"GL_ALPHA16I_EXT");
+	lua_pushnumber(L,GL_INTENSITY16I_EXT); lua_setfield(L,-2,"GL_INTENSITY16I_EXT");
+	lua_pushnumber(L,GL_LUMINANCE16I_EXT); lua_setfield(L,-2,"GL_LUMINANCE16I_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA16I_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA16I_EXT");
+	lua_pushnumber(L,GL_RGBA8I_EXT); lua_setfield(L,-2,"GL_RGBA8I_EXT");
+	lua_pushnumber(L,GL_RGB8I_EXT); lua_setfield(L,-2,"GL_RGB8I_EXT");
+	lua_pushnumber(L,GL_ALPHA8I_EXT); lua_setfield(L,-2,"GL_ALPHA8I_EXT");
+	lua_pushnumber(L,GL_INTENSITY8I_EXT); lua_setfield(L,-2,"GL_INTENSITY8I_EXT");
+	lua_pushnumber(L,GL_LUMINANCE8I_EXT); lua_setfield(L,-2,"GL_LUMINANCE8I_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA8I_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA8I_EXT");
+	lua_pushnumber(L,GL_RED_INTEGER_EXT); lua_setfield(L,-2,"GL_RED_INTEGER_EXT");
+	lua_pushnumber(L,GL_GREEN_INTEGER_EXT); lua_setfield(L,-2,"GL_GREEN_INTEGER_EXT");
+	lua_pushnumber(L,GL_BLUE_INTEGER_EXT); lua_setfield(L,-2,"GL_BLUE_INTEGER_EXT");
+	lua_pushnumber(L,GL_ALPHA_INTEGER_EXT); lua_setfield(L,-2,"GL_ALPHA_INTEGER_EXT");
+	lua_pushnumber(L,GL_RGB_INTEGER_EXT); lua_setfield(L,-2,"GL_RGB_INTEGER_EXT");
+	lua_pushnumber(L,GL_RGBA_INTEGER_EXT); lua_setfield(L,-2,"GL_RGBA_INTEGER_EXT");
+	lua_pushnumber(L,GL_BGR_INTEGER_EXT); lua_setfield(L,-2,"GL_BGR_INTEGER_EXT");
+	lua_pushnumber(L,GL_BGRA_INTEGER_EXT); lua_setfield(L,-2,"GL_BGRA_INTEGER_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_INTEGER_EXT); lua_setfield(L,-2,"GL_LUMINANCE_INTEGER_EXT");
+	lua_pushnumber(L,GL_LUMINANCE_ALPHA_INTEGER_EXT); lua_setfield(L,-2,"GL_LUMINANCE_ALPHA_INTEGER_EXT");
+	lua_pushnumber(L,GL_RGBA_INTEGER_MODE_EXT); lua_setfield(L,-2,"GL_RGBA_INTEGER_MODE_EXT");
+	lua_pushnumber(L,GL_RG); lua_setfield(L,-2,"GL_RG");
+	lua_pushnumber(L,GL_RG_INTEGER); lua_setfield(L,-2,"GL_RG_INTEGER");
+	lua_pushnumber(L,GL_R8); lua_setfield(L,-2,"GL_R8");
+	lua_pushnumber(L,GL_R16); lua_setfield(L,-2,"GL_R16");
+	lua_pushnumber(L,GL_RG8); lua_setfield(L,-2,"GL_RG8");
+	lua_pushnumber(L,GL_RG16); lua_setfield(L,-2,"GL_RG16");
+	lua_pushnumber(L,GL_R16F); lua_setfield(L,-2,"GL_R16F");
+	lua_pushnumber(L,GL_R32F); lua_setfield(L,-2,"GL_R32F");
+	lua_pushnumber(L,GL_RG16F); lua_setfield(L,-2,"GL_RG16F");
+	lua_pushnumber(L,GL_RG32F); lua_setfield(L,-2,"GL_RG32F");
+	lua_pushnumber(L,GL_R8I); lua_setfield(L,-2,"GL_R8I");
+	lua_pushnumber(L,GL_R8UI); lua_setfield(L,-2,"GL_R8UI");
+	lua_pushnumber(L,GL_R16I); lua_setfield(L,-2,"GL_R16I");
+	lua_pushnumber(L,GL_R16UI); lua_setfield(L,-2,"GL_R16UI");
+	lua_pushnumber(L,GL_R32I); lua_setfield(L,-2,"GL_R32I");
+	lua_pushnumber(L,GL_R32UI); lua_setfield(L,-2,"GL_R32UI");
+	lua_pushnumber(L,GL_RG8I); lua_setfield(L,-2,"GL_RG8I");
+	lua_pushnumber(L,GL_RG8UI); lua_setfield(L,-2,"GL_RG8UI");
+	lua_pushnumber(L,GL_RG16I); lua_setfield(L,-2,"GL_RG16I");
+	lua_pushnumber(L,GL_RG16UI); lua_setfield(L,-2,"GL_RG16UI");
+	lua_pushnumber(L,GL_RG32I); lua_setfield(L,-2,"GL_RG32I");
+	lua_pushnumber(L,GL_RG32UI); lua_setfield(L,-2,"GL_RG32UI");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT");
+	lua_pushnumber(L,GL_ELEMENT_ARRAY_BARRIER_BIT); lua_setfield(L,-2,"GL_ELEMENT_ARRAY_BARRIER_BIT");
+	lua_pushnumber(L,GL_UNIFORM_BARRIER_BIT); lua_setfield(L,-2,"GL_UNIFORM_BARRIER_BIT");
+	lua_pushnumber(L,GL_TEXTURE_FETCH_BARRIER_BIT); lua_setfield(L,-2,"GL_TEXTURE_FETCH_BARRIER_BIT");
+	lua_pushnumber(L,GL_SHADER_IMAGE_ACCESS_BARRIER_BIT); lua_setfield(L,-2,"GL_SHADER_IMAGE_ACCESS_BARRIER_BIT");
+	lua_pushnumber(L,GL_COMMAND_BARRIER_BIT); lua_setfield(L,-2,"GL_COMMAND_BARRIER_BIT");
+	lua_pushnumber(L,GL_PIXEL_BUFFER_BARRIER_BIT); lua_setfield(L,-2,"GL_PIXEL_BUFFER_BARRIER_BIT");
+	lua_pushnumber(L,GL_TEXTURE_UPDATE_BARRIER_BIT); lua_setfield(L,-2,"GL_TEXTURE_UPDATE_BARRIER_BIT");
+	lua_pushnumber(L,GL_BUFFER_UPDATE_BARRIER_BIT); lua_setfield(L,-2,"GL_BUFFER_UPDATE_BARRIER_BIT");
+	lua_pushnumber(L,GL_FRAMEBUFFER_BARRIER_BIT); lua_setfield(L,-2,"GL_FRAMEBUFFER_BARRIER_BIT");
+	lua_pushnumber(L,GL_TRANSFORM_FEEDBACK_BARRIER_BIT); lua_setfield(L,-2,"GL_TRANSFORM_FEEDBACK_BARRIER_BIT");
+	lua_pushnumber(L,GL_ATOMIC_COUNTER_BARRIER_BIT); lua_setfield(L,-2,"GL_ATOMIC_COUNTER_BARRIER_BIT");
+	lua_pushnumber(L,GL_ALL_BARRIER_BITS); lua_setfield(L,-2,"GL_ALL_BARRIER_BITS");
+	lua_pushnumber(L,GL_MAX_IMAGE_UNITS); lua_setfield(L,-2,"GL_MAX_IMAGE_UNITS");
+	lua_pushnumber(L,GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS); lua_setfield(L,-2,"GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS");
+	lua_pushnumber(L,GL_IMAGE_BINDING_NAME); lua_setfield(L,-2,"GL_IMAGE_BINDING_NAME");
+	lua_pushnumber(L,GL_IMAGE_BINDING_LEVEL); lua_setfield(L,-2,"GL_IMAGE_BINDING_LEVEL");
+	lua_pushnumber(L,GL_IMAGE_BINDING_LAYERED); lua_setfield(L,-2,"GL_IMAGE_BINDING_LAYERED");
+	lua_pushnumber(L,GL_IMAGE_BINDING_LAYER); lua_setfield(L,-2,"GL_IMAGE_BINDING_LAYER");
+	lua_pushnumber(L,GL_IMAGE_BINDING_ACCESS); lua_setfield(L,-2,"GL_IMAGE_BINDING_ACCESS");
+	lua_pushnumber(L,GL_IMAGE_1D); lua_setfield(L,-2,"GL_IMAGE_1D");
+	lua_pushnumber(L,GL_IMAGE_2D); lua_setfield(L,-2,"GL_IMAGE_2D");
+	lua_pushnumber(L,GL_IMAGE_3D); lua_setfield(L,-2,"GL_IMAGE_3D");
+	lua_pushnumber(L,GL_IMAGE_2D_RECT); lua_setfield(L,-2,"GL_IMAGE_2D_RECT");
+	lua_pushnumber(L,GL_IMAGE_CUBE); lua_setfield(L,-2,"GL_IMAGE_CUBE");
+	lua_pushnumber(L,GL_IMAGE_BUFFER); lua_setfield(L,-2,"GL_IMAGE_BUFFER");
+	lua_pushnumber(L,GL_IMAGE_1D_ARRAY); lua_setfield(L,-2,"GL_IMAGE_1D_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_2D_ARRAY); lua_setfield(L,-2,"GL_IMAGE_2D_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_IMAGE_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_IMAGE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_IMAGE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_IMAGE_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_IMAGE_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_1D); lua_setfield(L,-2,"GL_INT_IMAGE_1D");
+	lua_pushnumber(L,GL_INT_IMAGE_2D); lua_setfield(L,-2,"GL_INT_IMAGE_2D");
+	lua_pushnumber(L,GL_INT_IMAGE_3D); lua_setfield(L,-2,"GL_INT_IMAGE_3D");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_RECT); lua_setfield(L,-2,"GL_INT_IMAGE_2D_RECT");
+	lua_pushnumber(L,GL_INT_IMAGE_CUBE); lua_setfield(L,-2,"GL_INT_IMAGE_CUBE");
+	lua_pushnumber(L,GL_INT_IMAGE_BUFFER); lua_setfield(L,-2,"GL_INT_IMAGE_BUFFER");
+	lua_pushnumber(L,GL_INT_IMAGE_1D_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_1D_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_2D_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_INT_IMAGE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_1D); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_1D");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_3D); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_3D");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_RECT); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_RECT");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_CUBE); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_CUBE");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_BUFFER); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_BUFFER");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_1D_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_1D_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE");
+	lua_pushnumber(L,GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY); lua_setfield(L,-2,"GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY");
+	lua_pushnumber(L,GL_MAX_IMAGE_SAMPLES); lua_setfield(L,-2,"GL_MAX_IMAGE_SAMPLES");
+	lua_pushnumber(L,GL_IMAGE_BINDING_FORMAT); lua_setfield(L,-2,"GL_IMAGE_BINDING_FORMAT");
+	lua_pushnumber(L,GL_IMAGE_FORMAT_COMPATIBILITY_TYPE); lua_setfield(L,-2,"GL_IMAGE_FORMAT_COMPATIBILITY_TYPE");
+	lua_pushnumber(L,GL_IMAGE_FORMAT_COMPATIBILITY_BY_SIZE); lua_setfield(L,-2,"GL_IMAGE_FORMAT_COMPATIBILITY_BY_SIZE");
+	lua_pushnumber(L,GL_IMAGE_FORMAT_COMPATIBILITY_BY_CLASS); lua_setfield(L,-2,"GL_IMAGE_FORMAT_COMPATIBILITY_BY_CLASS");
+	lua_pushnumber(L,GL_MAX_VERTEX_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_VERTEX_IMAGE_UNIFORMS");
+	lua_pushnumber(L,GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_TESS_CONTROL_IMAGE_UNIFORMS");
+	lua_pushnumber(L,GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_TESS_EVALUATION_IMAGE_UNIFORMS");
+	lua_pushnumber(L,GL_MAX_GEOMETRY_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_GEOMETRY_IMAGE_UNIFORMS");
+	lua_pushnumber(L,GL_MAX_FRAGMENT_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_FRAGMENT_IMAGE_UNIFORMS");
+	lua_pushnumber(L,GL_MAX_COMBINED_IMAGE_UNIFORMS); lua_setfield(L,-2,"GL_MAX_COMBINED_IMAGE_UNIFORMS");
+	lua_pushnumber(L,OSG_TEXTURE1D); lua_setfield(L,-2,"OSG_TEXTURE1D");
+	lua_pushnumber(L,GL_TEXTURE_1D); lua_setfield(L,-2,"GL_TEXTURE_1D");
+	lua_pushnumber(L,OSG_TEXTURE2D); lua_setfield(L,-2,"OSG_TEXTURE2D");
+	lua_pushnumber(L,OSG_TEXTURE2DARRAY); lua_setfield(L,-2,"OSG_TEXTURE2DARRAY");
+	lua_pushnumber(L,OSG_TEXTURE2DMS); lua_setfield(L,-2,"OSG_TEXTURE2DMS");
+	lua_pushnumber(L,OSG_TEXTURE3D); lua_setfield(L,-2,"OSG_TEXTURE3D");
+	lua_pushnumber(L,GL_MAX_3D_TEXTURE_SIZE); lua_setfield(L,-2,"GL_MAX_3D_TEXTURE_SIZE");
+	lua_pushnumber(L,OSG_TEXTURECUBEMAP); lua_setfield(L,-2,"OSG_TEXTURECUBEMAP");
+	lua_pushnumber(L,OSG_TEXTURERECTANGLE); lua_setfield(L,-2,"OSG_TEXTURERECTANGLE");
+	lua_pushnumber(L,GL_TEXTURE_RECTANGLE_NV); lua_setfield(L,-2,"GL_TEXTURE_RECTANGLE_NV");
+	lua_pushnumber(L,OSG_TIMER); lua_setfield(L,-2,"OSG_TIMER");
+	lua_pushnumber(L,OSGGA_TRACKBALL_MANIPULATOR); lua_setfield(L,-2,"OSGGA_TRACKBALL_MANIPULATOR");
+	lua_pushnumber(L,OSG_TRANSFERFUNCTION); lua_setfield(L,-2,"OSG_TRANSFERFUNCTION");
+	lua_pushnumber(L,OSG_TRANSFORM); lua_setfield(L,-2,"OSG_TRANSFORM");
+	lua_pushnumber(L,GL_NORMALIZE); lua_setfield(L,-2,"GL_NORMALIZE");
+	lua_pushnumber(L,OSGUTIL_TRANSFORMATTRIBUTEFUNCTOR); lua_setfield(L,-2,"OSGUTIL_TRANSFORMATTRIBUTEFUNCTOR");
+	lua_pushnumber(L,OSGUTIL_TRANSFORMCALLBACK); lua_setfield(L,-2,"OSGUTIL_TRANSFORMCALLBACK");
+	lua_pushnumber(L,OSG_TRIANGLEFUNCTOR); lua_setfield(L,-2,"OSG_TRIANGLEFUNCTOR");
+	lua_pushnumber(L,OSG_TRIANGLEINDEXFUNCTOR); lua_setfield(L,-2,"OSG_TRIANGLEINDEXFUNCTOR");
+	lua_pushnumber(L,OSGUTIL_TRISTRIPVISITOR); lua_setfield(L,-2,"OSGUTIL_TRISTRIPVISITOR");
+	lua_pushnumber(L,OSGGA_UFO_MANIPULATOR_DEF); lua_setfield(L,-2,"OSGGA_UFO_MANIPULATOR_DEF");
+	lua_pushnumber(L,OSG_UNIFORM); lua_setfield(L,-2,"OSG_UNIFORM");
+	lua_pushnumber(L,OSGUTIL_UPDATEVISITOR); lua_setfield(L,-2,"OSGUTIL_UPDATEVISITOR");
+	lua_pushnumber(L,OSG_USERDATACONTAINER); lua_setfield(L,-2,"OSG_USERDATACONTAINER");
+	lua_pushnumber(L,OSG_VALUEOBJECT); lua_setfield(L,-2,"OSG_VALUEOBJECT");
+	lua_pushnumber(L,OSGPARTICLE_VARIABLERATE_COUNTER); lua_setfield(L,-2,"OSGPARTICLE_VARIABLERATE_COUNTER");
+	lua_pushnumber(L,OSG_VEC2); lua_setfield(L,-2,"OSG_VEC2");
+	lua_pushnumber(L,OSG_VEC2B); lua_setfield(L,-2,"OSG_VEC2B");
+	lua_pushnumber(L,OSG_VEC2D); lua_setfield(L,-2,"OSG_VEC2D");
+	lua_pushnumber(L,OSG_VEC2F); lua_setfield(L,-2,"OSG_VEC2F");
+	lua_pushnumber(L,OSG_VEC2S); lua_setfield(L,-2,"OSG_VEC2S");
+	lua_pushnumber(L,OSG_VEC3); lua_setfield(L,-2,"OSG_VEC3");
+	lua_pushnumber(L,OSG_VEC3B); lua_setfield(L,-2,"OSG_VEC3B");
+	lua_pushnumber(L,OSG_VEC3D); lua_setfield(L,-2,"OSG_VEC3D");
+	lua_pushnumber(L,OSG_VEC3F); lua_setfield(L,-2,"OSG_VEC3F");
+	lua_pushnumber(L,OSG_VEC3S); lua_setfield(L,-2,"OSG_VEC3S");
+	lua_pushnumber(L,OSG_VEC4); lua_setfield(L,-2,"OSG_VEC4");
+	lua_pushnumber(L,OSG_VEC4B); lua_setfield(L,-2,"OSG_VEC4B");
+	lua_pushnumber(L,OSG_VEC4D); lua_setfield(L,-2,"OSG_VEC4D");
+	lua_pushnumber(L,OSG_VEC4F); lua_setfield(L,-2,"OSG_VEC4F");
+	lua_pushnumber(L,OSG_VEC4S); lua_setfield(L,-2,"OSG_VEC4S");
+	lua_pushnumber(L,OSG_VEC4UB); lua_setfield(L,-2,"OSG_VEC4UB");
+	lua_pushnumber(L,OPENTHREADS_VERSION); lua_setfield(L,-2,"OPENTHREADS_VERSION");
+	lua_pushnumber(L,OPENTHREADS_MAJOR_VERSION); lua_setfield(L,-2,"OPENTHREADS_MAJOR_VERSION");
+	lua_pushnumber(L,OPENTHREADS_MINOR_VERSION); lua_setfield(L,-2,"OPENTHREADS_MINOR_VERSION");
+	lua_pushnumber(L,OPENTHREADS_PATCH_VERSION); lua_setfield(L,-2,"OPENTHREADS_PATCH_VERSION");
+	lua_pushnumber(L,OPENTHREADS_SOVERSION); lua_setfield(L,-2,"OPENTHREADS_SOVERSION");
+	lua_pushnumber(L,OSG_VERSION); lua_setfield(L,-2,"OSG_VERSION");
+	lua_pushnumber(L,OPENSCENEGRAPH_MAJOR_VERSION); lua_setfield(L,-2,"OPENSCENEGRAPH_MAJOR_VERSION");
+	lua_pushnumber(L,OPENSCENEGRAPH_MINOR_VERSION); lua_setfield(L,-2,"OPENSCENEGRAPH_MINOR_VERSION");
+	lua_pushnumber(L,OPENSCENEGRAPH_PATCH_VERSION); lua_setfield(L,-2,"OPENSCENEGRAPH_PATCH_VERSION");
+	lua_pushnumber(L,OPENSCENEGRAPH_SOVERSION); lua_setfield(L,-2,"OPENSCENEGRAPH_SOVERSION");
+	lua_pushnumber(L,OSG_VERSION_REVISION); lua_setfield(L,-2,"OSG_VERSION_REVISION");
+	lua_pushnumber(L,OSGDB_VERSION); lua_setfield(L,-2,"OSGDB_VERSION");
+	lua_pushnumber(L,OSGGA_VERSION); lua_setfield(L,-2,"OSGGA_VERSION");
+	lua_pushnumber(L,OSGPARTICLE_VERSION); lua_setfield(L,-2,"OSGPARTICLE_VERSION");
+	lua_pushnumber(L,OSGTEXT_VERSION); lua_setfield(L,-2,"OSGTEXT_VERSION");
+	lua_pushnumber(L,OSGUTIL_VERSION); lua_setfield(L,-2,"OSGUTIL_VERSION");
+	lua_pushnumber(L,OSGVIEWER_VERSION); lua_setfield(L,-2,"OSGVIEWER_VERSION");
+	lua_pushnumber(L,OSG_VERTEXPROGRAM); lua_setfield(L,-2,"OSG_VERTEXPROGRAM");
+	lua_pushnumber(L,GL_VERTEX_PROGRAM_ARB); lua_setfield(L,-2,"GL_VERTEX_PROGRAM_ARB");
+	lua_pushnumber(L,GL_VERTEX_PROGRAM_POINT_SIZE_ARB); lua_setfield(L,-2,"GL_VERTEX_PROGRAM_POINT_SIZE_ARB");
+	lua_pushnumber(L,GL_VERTEX_PROGRAM_TWO_SIDE_ARB); lua_setfield(L,-2,"GL_VERTEX_PROGRAM_TWO_SIDE_ARB");
+	lua_pushnumber(L,GL_COLOR_SUM_ARB); lua_setfield(L,-2,"GL_COLOR_SUM_ARB");
+	lua_pushnumber(L,GL_PROGRAM_FORMAT_ASCII_ARB); lua_setfield(L,-2,"GL_PROGRAM_FORMAT_ASCII_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_ENABLED_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_ENABLED_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_SIZE_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_SIZE_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_STRIDE_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_STRIDE_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_TYPE_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_TYPE_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_NORMALIZED_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_NORMALIZED_ARB");
+	lua_pushnumber(L,GL_CURRENT_VERTEX_ATTRIB_ARB); lua_setfield(L,-2,"GL_CURRENT_VERTEX_ATTRIB_ARB");
+	lua_pushnumber(L,GL_VERTEX_ATTRIB_ARRAY_POINTER_ARB); lua_setfield(L,-2,"GL_VERTEX_ATTRIB_ARRAY_POINTER_ARB");
+	lua_pushnumber(L,GL_PROGRAM_LENGTH_ARB); lua_setfield(L,-2,"GL_PROGRAM_LENGTH_ARB");
+	lua_pushnumber(L,GL_PROGRAM_FORMAT_ARB); lua_setfield(L,-2,"GL_PROGRAM_FORMAT_ARB");
+	lua_pushnumber(L,GL_PROGRAM_BINDING_ARB); lua_setfield(L,-2,"GL_PROGRAM_BINDING_ARB");
+	lua_pushnumber(L,GL_PROGRAM_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_INSTRUCTIONS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_INSTRUCTIONS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_PROGRAM_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_TEMPORARIES_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_TEMPORARIES_ARB");
+	lua_pushnumber(L,GL_PROGRAM_PARAMETERS_ARB); lua_setfield(L,-2,"GL_PROGRAM_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_PARAMETERS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ATTRIBS_ARB); lua_setfield(L,-2,"GL_PROGRAM_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_ATTRIBS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_ATTRIBS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_ATTRIBS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ADDRESS_REGISTERS_ARB); lua_setfield(L,-2,"GL_PROGRAM_ADDRESS_REGISTERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_ADDRESS_REGISTERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_ADDRESS_REGISTERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB); lua_setfield(L,-2,"GL_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_LOCAL_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_LOCAL_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_ENV_PARAMETERS_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_ENV_PARAMETERS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_UNDER_NATIVE_LIMITS_ARB); lua_setfield(L,-2,"GL_PROGRAM_UNDER_NATIVE_LIMITS_ARB");
+	lua_pushnumber(L,GL_PROGRAM_STRING_ARB); lua_setfield(L,-2,"GL_PROGRAM_STRING_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ERROR_POSITION_ARB); lua_setfield(L,-2,"GL_PROGRAM_ERROR_POSITION_ARB");
+	lua_pushnumber(L,GL_CURRENT_MATRIX_ARB); lua_setfield(L,-2,"GL_CURRENT_MATRIX_ARB");
+	lua_pushnumber(L,GL_TRANSPOSE_CURRENT_MATRIX_ARB); lua_setfield(L,-2,"GL_TRANSPOSE_CURRENT_MATRIX_ARB");
+	lua_pushnumber(L,GL_CURRENT_MATRIX_STACK_DEPTH_ARB); lua_setfield(L,-2,"GL_CURRENT_MATRIX_STACK_DEPTH_ARB");
+	lua_pushnumber(L,GL_MAX_VERTEX_ATTRIBS_ARB); lua_setfield(L,-2,"GL_MAX_VERTEX_ATTRIBS_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_MATRICES_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_MATRICES_ARB");
+	lua_pushnumber(L,GL_MAX_PROGRAM_MATRIX_STACK_DEPTH_ARB); lua_setfield(L,-2,"GL_MAX_PROGRAM_MATRIX_STACK_DEPTH_ARB");
+	lua_pushnumber(L,GL_PROGRAM_ERROR_STRING_ARB); lua_setfield(L,-2,"GL_PROGRAM_ERROR_STRING_ARB");
+	lua_pushnumber(L,GL_MATRIX0_ARB); lua_setfield(L,-2,"GL_MATRIX0_ARB");
+	lua_pushnumber(L,GL_MATRIX1_ARB); lua_setfield(L,-2,"GL_MATRIX1_ARB");
+	lua_pushnumber(L,GL_MATRIX2_ARB); lua_setfield(L,-2,"GL_MATRIX2_ARB");
+	lua_pushnumber(L,GL_MATRIX3_ARB); lua_setfield(L,-2,"GL_MATRIX3_ARB");
+	lua_pushnumber(L,GL_MATRIX4_ARB); lua_setfield(L,-2,"GL_MATRIX4_ARB");
+	lua_pushnumber(L,GL_MATRIX5_ARB); lua_setfield(L,-2,"GL_MATRIX5_ARB");
+	lua_pushnumber(L,GL_MATRIX6_ARB); lua_setfield(L,-2,"GL_MATRIX6_ARB");
+	lua_pushnumber(L,GL_MATRIX7_ARB); lua_setfield(L,-2,"GL_MATRIX7_ARB");
+	lua_pushnumber(L,GL_MATRIX8_ARB); lua_setfield(L,-2,"GL_MATRIX8_ARB");
+	lua_pushnumber(L,GL_MATRIX9_ARB); lua_setfield(L,-2,"GL_MATRIX9_ARB");
+	lua_pushnumber(L,GL_MATRIX10_ARB); lua_setfield(L,-2,"GL_MATRIX10_ARB");
+	lua_pushnumber(L,GL_MATRIX11_ARB); lua_setfield(L,-2,"GL_MATRIX11_ARB");
+	lua_pushnumber(L,GL_MATRIX12_ARB); lua_setfield(L,-2,"GL_MATRIX12_ARB");
+	lua_pushnumber(L,GL_MATRIX13_ARB); lua_setfield(L,-2,"GL_MATRIX13_ARB");
+	lua_pushnumber(L,GL_MATRIX14_ARB); lua_setfield(L,-2,"GL_MATRIX14_ARB");
+	lua_pushnumber(L,GL_MATRIX15_ARB); lua_setfield(L,-2,"GL_MATRIX15_ARB");
+	lua_pushnumber(L,GL_MATRIX16_ARB); lua_setfield(L,-2,"GL_MATRIX16_ARB");
+	lua_pushnumber(L,GL_MATRIX17_ARB); lua_setfield(L,-2,"GL_MATRIX17_ARB");
+	lua_pushnumber(L,GL_MATRIX18_ARB); lua_setfield(L,-2,"GL_MATRIX18_ARB");
+	lua_pushnumber(L,GL_MATRIX19_ARB); lua_setfield(L,-2,"GL_MATRIX19_ARB");
+	lua_pushnumber(L,GL_MATRIX20_ARB); lua_setfield(L,-2,"GL_MATRIX20_ARB");
+	lua_pushnumber(L,GL_MATRIX21_ARB); lua_setfield(L,-2,"GL_MATRIX21_ARB");
+	lua_pushnumber(L,GL_MATRIX22_ARB); lua_setfield(L,-2,"GL_MATRIX22_ARB");
+	lua_pushnumber(L,GL_MATRIX23_ARB); lua_setfield(L,-2,"GL_MATRIX23_ARB");
+	lua_pushnumber(L,GL_MATRIX24_ARB); lua_setfield(L,-2,"GL_MATRIX24_ARB");
+	lua_pushnumber(L,GL_MATRIX25_ARB); lua_setfield(L,-2,"GL_MATRIX25_ARB");
+	lua_pushnumber(L,GL_MATRIX26_ARB); lua_setfield(L,-2,"GL_MATRIX26_ARB");
+	lua_pushnumber(L,GL_MATRIX27_ARB); lua_setfield(L,-2,"GL_MATRIX27_ARB");
+	lua_pushnumber(L,GL_MATRIX28_ARB); lua_setfield(L,-2,"GL_MATRIX28_ARB");
+	lua_pushnumber(L,GL_MATRIX29_ARB); lua_setfield(L,-2,"GL_MATRIX29_ARB");
+	lua_pushnumber(L,GL_MATRIX30_ARB); lua_setfield(L,-2,"GL_MATRIX30_ARB");
+	lua_pushnumber(L,GL_MATRIX31_ARB); lua_setfield(L,-2,"GL_MATRIX31_ARB");
+	lua_pushnumber(L,OSG_VIEW); lua_setfield(L,-2,"OSG_VIEW");
+	lua_pushnumber(L,OSGVIEWER_VIEW); lua_setfield(L,-2,"OSGVIEWER_VIEW");
+	lua_pushnumber(L,OSGVIEWER_Viewer); lua_setfield(L,-2,"OSGVIEWER_Viewer");
+	lua_pushnumber(L,OSGVIEWER_VIEWERBASE); lua_setfield(L,-2,"OSGVIEWER_VIEWERBASE");
+	lua_pushnumber(L,OSGVIEWER_VIEWEREVENTHANDLERS); lua_setfield(L,-2,"OSGVIEWER_VIEWEREVENTHANDLERS");
+	lua_pushnumber(L,OSG_VIEWPORT); lua_setfield(L,-2,"OSG_VIEWPORT");
+	lua_pushnumber(L,OSGDB_WRITEFILE); lua_setfield(L,-2,"OSGDB_WRITEFILE");
+	lua_pushnumber(L,OSGDB_XML_PARSER); lua_setfield(L,-2,"OSGDB_XML_PARSER");
+}
+
+#ifdef __cplusplus
+}
+#endif
+

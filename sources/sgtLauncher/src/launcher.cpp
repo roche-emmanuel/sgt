@@ -24,6 +24,14 @@ extern const unsigned char buf_plug_doxmlparser_sgp[];
 extern const unsigned char buf_plug_lpeg_sgp[];
 #endif
 
+#ifdef WITH_OSG_SUPPORT
+extern const unsigned char buf_osg97_osgga_dll[];
+extern const unsigned char buf_osg97_osgtext_dll[];
+extern const unsigned char buf_osg97_osgviewer_dll[];
+extern const unsigned char buf_osg97_osgparticle_dll[];
+extern const unsigned char buf_plug_osg_sgp[];
+#endif
+
 namespace po = boost::program_options;
 
 typedef bool (*loadModule_t)(const std::string& name, void* data);
@@ -138,6 +146,14 @@ int Launcher::doRun()
 	setModuleData("doxmlparser.sgp",(void*)buf_plug_doxmlparser_sgp);
 	setModuleData("lpeg.sgp",(void*)buf_plug_lpeg_sgp);
 #endif	
+
+#ifdef WITH_OSG_SUPPORT
+	setModuleData("osg97-osgGA.dll",(void*)buf_osg97_osgga_dll);
+	setModuleData("osg97-osgText.dll",(void*)buf_osg97_osgtext_dll);
+	setModuleData("osg97-osgViewer.dll",(void*)buf_osg97_osgviewer_dll);
+	setModuleData("osg97-osgParticle.dll",(void*)buf_osg97_osgparticle_dll);
+	setModuleData("osg.sgp",(void*)buf_plug_osg_sgp);
+#endif
 
 	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");
 

@@ -21,6 +21,15 @@ SET(DEP_OSG ${DEPS_DIR}/${FLAVOR}/OpenSceneGraph-3.1.5 CACHE STRING "osg path")
 
 
 # Depdencies definitions:
+IF(WIN32)
+	SET(FLAVOR_LIBS rpcrt4 oleaut32 ole32 uuid winspool winmm shell32 comctl32 comdlg32 advapi32 ws2_32 wsock32 gdi32 wmvcore vfw32 strmiids)
+	SET(GL_LIBS opengl32 GLU32)
+	SET(IUP_FLAGS    -DIUP_DLL)
+ELSE()
+	SET(FLAVOR_LIBS dl)
+	SET(GL_LIBS GL GLU)
+ENDIF()
+
 SET(BOOST_INC_DIR 	${DEP_BOOST}/include)
 SET(BOOST_LIB_DIR 	${DEP_BOOST}/lib)
 SET(BOOST_LIBS 		)
@@ -31,4 +40,6 @@ SET(LUA_LIBS 			lua51)
 
 SET(OSG_INC_DIR 	${DEP_OSG}/include)
 SET(OSG_LIB_DIR 	${DEP_OSG}/lib)
-SET(OSG_LIBS     	OpenThreads osg osgUtil osgDB osgGA osgText osgViewer osgParticle)
+SET(OSG_LIBS     	OpenThreads osg osgUtil osgDB osgGA osgText osgViewer osgParticle )
+
+SET(OSG_FLAGS     	)

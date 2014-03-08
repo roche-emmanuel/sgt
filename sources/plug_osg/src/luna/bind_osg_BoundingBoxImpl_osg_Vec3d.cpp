@@ -1,0 +1,87 @@
+#include <plug_common.h>
+
+#include <plug_common.h>
+
+class luna_wrapper_osg_BoundingBoxImpl_osg_Vec3d {
+public:
+	typedef Luna< osg::BoundingBoxImpl< osg::Vec3d > > luna_t;
+
+	inline static bool _lg_typecheck___eq(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( !Luna<void>::has_uniqueid(L,1,41227270) ) return false;
+		return true;
+	}
+	
+	static int _bind___eq(lua_State *L) {
+		if (!_lg_typecheck___eq(L)) {
+			luaL_error(L, "luna typecheck failed in __eq function, expected prototype:\n__eq(osg::BoundingBoxImpl< osg::Vec3d >*). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		osg::BoundingBoxImpl< osg::Vec3d >* rhs =(Luna< osg::BoundingBoxImpl< osg::Vec3d > >::check(L,2));
+		osg::BoundingBoxImpl< osg::Vec3d >* self=(Luna< osg::BoundingBoxImpl< osg::Vec3d > >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call __eq(...)");
+		}
+		
+		return self==rhs;
+	}
+
+	// Base class dynamic cast support:
+	inline static bool _lg_typecheck_dynCast(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_type(L,2)!=LUA_TSTRING ) return false;
+		return true;
+	}
+	
+	static int _bind_dynCast(lua_State *L) {
+		if (!_lg_typecheck_dynCast(L)) {
+			luaL_error(L, "luna typecheck failed in dynCast function, expected prototype:\ndynCast(const std::string &). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		std::string name(lua_tostring(L,2),lua_objlen(L,2));
+
+		osg::BoundingBoxImpl< osg::Vec3d >* self=(Luna< osg::BoundingBoxImpl< osg::Vec3d > >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call dynCast(...)");
+		}
+		
+		static LunaConverterMap& converters = luna_getConverterMap("osg::BoundingBoxImpl< osg::Vec3d >");
+		
+		return luna_dynamicCast(L,converters,"osg::BoundingBoxImpl< osg::Vec3d >",name);
+	}
+
+};
+
+osg::BoundingBoxImpl< osg::Vec3d >* LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::_bind_ctor(lua_State *L) {
+	return new osg::BoundingBoxImpl< osg::Vec3d >();
+}
+
+void LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::_bind_dtor(osg::BoundingBoxImpl< osg::Vec3d >* obj) {
+	delete obj;
+}
+
+const char LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::className[] = "osg_BoundingBoxImpl_osg_Vec3d";
+const char LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::fullName[] = "osg::BoundingBoxImpl< osg::Vec3d >";
+const char LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::moduleName[] = "osg";
+const char* LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::parents[] = {0};
+const int LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::hash = 41227270;
+const int LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::uniqueIDs[] = {41227270,0};
+
+luna_RegType LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::methods[] = {
+	{"dynCast", &luna_wrapper_osg_BoundingBoxImpl_osg_Vec3d::_bind_dynCast},
+	{"__eq", &luna_wrapper_osg_BoundingBoxImpl_osg_Vec3d::_bind___eq},
+	
+	{0,0}
+};
+
+luna_ConverterType LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::converters[] = {
+	{0,0}
+};
+
+luna_RegEnumType LunaTraits< osg::BoundingBoxImpl< osg::Vec3d > >::enumValues[] = {
+	{0,0}
+};
+
+

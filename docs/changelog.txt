@@ -32,3 +32,4 @@
 - Now using sgt as tool for binding generation.
 - Added support for log level and verbosity specification on command line.
 - Updated documentation.
+- Added support for osg plug.
