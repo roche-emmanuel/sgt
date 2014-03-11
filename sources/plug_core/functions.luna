@@ -5,6 +5,7 @@ doLogV
 doTrace
 doTraceV
 loadModuleFromMemory
+executeMain
 openLanes
 getLuaID
 showError

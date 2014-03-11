@@ -64,6 +64,13 @@ inline static bool _lg_typecheck_loadModuleFromMemory_overload_2(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_executeMain(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( !Luna<void>::has_uniqueid(L,1,95416160) ) return false;
+	return true;
+}
+
 inline static bool _lg_typecheck_openLanes(lua_State *L) {
 	if( lua_gettop(L)!=0 ) return false;
 
@@ -233,6 +240,24 @@ static int _bind_loadModuleFromMemory(lua_State *L) {
 
 	luaL_error(L, "error in function loadModuleFromMemory, cannot match any of the overloads for function loadModuleFromMemory:\n  loadModuleFromMemory(const std::string &, const std::string &, lua_State *)\n  loadModuleFromMemory(const std::string &, const std::string &, const std::string &, lua_State *)\n");
 	return 0;
+}
+
+// int executeMain(const std::vector< std::string > & args)
+static int _bind_executeMain(lua_State *L) {
+	if (!_lg_typecheck_executeMain(L)) {
+		luaL_error(L, "luna typecheck failed in int executeMain(const std::vector< std::string > & args) function, expected prototype:\nint executeMain(const std::vector< std::string > & args)\nClass arguments details:\narg 1 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	const std::vector< std::string >* args_ptr=(Luna< std::vector< std::string > >::check(L,1));
+	if( !args_ptr ) {
+		luaL_error(L, "Dereferencing NULL pointer for arg args in executeMain function");
+	}
+	const std::vector< std::string > & args=*args_ptr;
+
+	int lret = ::executeMain(args);
+	lua_pushnumber(L,lret);
+
+	return 1;
 }
 
 // void openLanes(lua_State * L)
@@ -962,6 +987,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_doTrace); lua_setfield(L,-2,"doTrace");
 	lua_pushcfunction(L, _bind_doTraceV); lua_setfield(L,-2,"doTraceV");
 	lua_pushcfunction(L, _bind_loadModuleFromMemory); lua_setfield(L,-2,"loadModuleFromMemory");
+	lua_pushcfunction(L, _bind_executeMain); lua_setfield(L,-2,"executeMain");
 	lua_pushcfunction(L, _bind_openLanes); lua_setfield(L,-2,"openLanes");
 	lua_pushcfunction(L, _bind_getLuaID); lua_setfield(L,-2,"getLuaID");
 	lua_pushcfunction(L, _bind_showError); lua_setfield(L,-2,"showError");

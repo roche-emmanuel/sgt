@@ -1,6 +1,10 @@
 # Ignored executable files
 software/*.exe
 software/*.log
+software/*.dll
+software/modules/*.sgp
+software/packages/*.lpak
+
 tools/*.log
 
 # Ignore compiled documentation:

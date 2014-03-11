@@ -7,6 +7,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/program_options.hpp>
 
+#ifdef WITH_CORE_SUPPORT
 extern const unsigned char buf_moduleloader_dll[];
 extern const unsigned char buf_sgtluna_dll[];
 extern const unsigned char buf_lua51_dll[];
@@ -19,29 +20,24 @@ extern const unsigned char buf_plug_core_sgp[];
 extern const unsigned char buf_plug_lfs_sgp[];
 extern const unsigned char buf_lua_core_pak[];
 
-#ifdef WITH_LUNAGEN_SUPPORT
-extern const unsigned char buf_plug_doxmlparser_sgp[];
-extern const unsigned char buf_plug_lpeg_sgp[];
-#endif
-
-#ifdef WITH_OSG_SUPPORT
-extern const unsigned char buf_osg97_osgga_dll[];
-extern const unsigned char buf_osg97_osgtext_dll[];
-extern const unsigned char buf_osg97_osgviewer_dll[];
-extern const unsigned char buf_osg97_osgparticle_dll[];
-extern const unsigned char buf_plug_osg_sgp[];
-#endif
-
-namespace po = boost::program_options;
-
 typedef bool (*loadModule_t)(const std::string& name, void* data);
 typedef void* (*getModule_t)(const std::string& name);
 typedef void (*setModuleData_t)(const std::string& name, void* data);
 typedef void (*setModule_t)(const std::string& name, HCUSTOMMODULE handle);
 typedef FARPROC (*getProcedure_t)(const std::string& name, const std::string procname);
-
 typedef int (*executeMain_t)(const std::vector<std::string>& cmdline);
 
+#else
+#include "ModuleLoader.h"
+#include "kernel.h"
+#endif
+
+#ifdef WITH_LUNAGEN_SUPPORT
+extern const unsigned char buf_plug_doxmlparser_sgp[];
+extern const unsigned char buf_plug_lpeg_sgp[];
+#endif
+
+namespace po = boost::program_options;
 
 int showError(const std::string& text) {
 	return MessageBox(NULL,text.c_str(),"Error",MB_ICONERROR|MB_OK);
@@ -110,6 +106,7 @@ int Launcher::run(int argc, char* argv[])
 
 int Launcher::doRun()
 {
+#ifdef WITH_CORE_SUPPORT	
 	HCUSTOMMODULE handle = MemoryLoadLibrary((void*)buf_moduleloader_dll);
 	CHECK_RET(handle,1,"Invalid ModuleLoader handle");
 	// logINFO("ModuleLoader loaded.")
@@ -130,7 +127,7 @@ int Launcher::doRun()
 	setModule("ModuleLoader.dll",handle);
 	
 	CHECK_RET(getModule("ModuleLoader.dll")==handle,1,"Invalid Module loader handle retrieved: actual="<<(const void*)handle<<", retrieved="<< (const void*) getModule("ModuleLoader.dll") );
-	
+
 	setModuleData("lua51.dll",(void*)buf_lua51_dll);
 	setModuleData("sgtLuna.dll",(void*)buf_sgtluna_dll);
 	setModuleData("osg97-osg.dll",(void*)buf_osg97_osg_dll);
@@ -141,31 +138,28 @@ int Launcher::doRun()
 	setModuleData("core.lpak",(void*)buf_lua_core_pak);
 	setModuleData("core.sgp",(void*)buf_plug_core_sgp);
 	setModuleData("lfs.sgp",(void*)buf_plug_lfs_sgp);
+#endif
 
 #ifdef WITH_LUNAGEN_SUPPORT
 	setModuleData("doxmlparser.sgp",(void*)buf_plug_doxmlparser_sgp);
 	setModuleData("lpeg.sgp",(void*)buf_plug_lpeg_sgp);
-#endif	
-
-#ifdef WITH_OSG_SUPPORT
-	setModuleData("osg97-osgGA.dll",(void*)buf_osg97_osgga_dll);
-	setModuleData("osg97-osgText.dll",(void*)buf_osg97_osgtext_dll);
-	setModuleData("osg97-osgViewer.dll",(void*)buf_osg97_osgviewer_dll);
-	setModuleData("osg97-osgParticle.dll",(void*)buf_osg97_osgparticle_dll);
-	setModuleData("osg.sgp",(void*)buf_plug_osg_sgp);
 #endif
 
+	int res = 0;
+#ifdef WITH_CORE_SUPPORT	
 	CHECK_RET(loadModule("sgtCore.dll",(void*)buf_sgtcore_dll),1,"Cannot load kernel library.");
-
 	executeMain_t executeMain_fn = (executeMain_t) getProcedure("sgtCore.dll", "executeMain");
 	CHECK_RET(executeMain_fn,1,"Invalid executeMain method.");
 
-	// NOw call the execute main method:
-	int res = executeMain_fn(_args);
+	// Now call the execute main method:
+	res = executeMain_fn(_args);
 
 	// showError("Loading successfull !");
 	// should free the modules here:
 	MemoryFreeLibrary(handle);
+#else
+	res = executeMain(_args);
+#endif
 
 	std::cout<< "Exiting with code "<<res<< std::endl;
 	return res;

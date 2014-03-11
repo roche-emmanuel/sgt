@@ -8,9 +8,6 @@ IF(NOT DEFINED FLAVOR)
 	SET(FLAVOR win32)	
 ENDIF()
 
-# Include the macro definitions:
-INCLUDE(cmake/Macros.cmake)
-
 # Include the config:
 INCLUDE(cmake/Config.cmake)
 

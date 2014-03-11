@@ -2,6 +2,7 @@ root_path = root_path:gsub("\\","/")
 
 -- provide all the common default paths:
 -- package.cpath = package.cpath..";".. root_path .. "/bin/modules/?.dll;".. root_path .. "/bin/external/?.dll"
+package.cpath = package.cpath ..";" .. root_path .. "/modules/?.sgp;"
 
 -- core library should already be loaded from memory at that point (when applicable)
 -- thus we only load it if the core namespace is not registered yet:
@@ -9,6 +10,7 @@ local core = sgt
 
 if not core then
 	require "core"
+	core = sgt
 elseif not package.loaded["core"] then
 	-- manually register the just loaded core module!
 	package.loaded["core"] = core;
@@ -148,6 +150,11 @@ if not _G.requireLua then
 	-- This function can be used to load a lua package easily:
 	_G.requirePackage = function(packName,path)
 		core.doLog(sgt.LogManager.DEBUG2,"Loading lua package '" .. packName .. "'")
+
+		if not sgt.hasModuleData(packName..".lpak") then
+			path = path or (root_path .. "packages/")
+		end
+
 		if path then
 			-- path or root_dir .. "/bin/packages/"
 			local filename = path .. packName .. ".lpak"

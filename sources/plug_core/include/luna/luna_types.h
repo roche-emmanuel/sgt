@@ -886,6 +886,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Mapped type: std::vector< std::string >
+template<>
+class LunaTraits< std::vector< std::string > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< std::string >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< std::string >* obj);
+	typedef std::vector< std::string > parent_t;
+	typedef std::vector< std::string > base_t;
+	static luna_ConverterType converters[];
+};
+
 
 template<>
 class LunaType< 32973728 > {
@@ -1157,6 +1176,13 @@ template<>
 class LunaType< 84875541 > {
 public:
 	typedef OpenThreads::ScopedLock< OpenThreads::Mutex > type;
+	
+};
+
+template<>
+class LunaType< 95416160 > {
+public:
+	typedef std::vector< std::string > type;
 	
 };
 

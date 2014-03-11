@@ -1,1 +1,1 @@
-- add the osg plug support.
+- add the wx plug support.

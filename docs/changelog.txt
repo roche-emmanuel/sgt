@@ -33,3 +33,4 @@
 - Added support for log level and verbosity specification on command line.
 - Updated documentation.
 - Added support for osg plug.
+- Binding wx plug and removing hard dependency on module loading from memory. We will use software virtualisation eventually.

@@ -66,6 +66,7 @@ int PLUG_EXPORT luaopen_core(lua_State* L) {
 	Luna< std::vector< float > >::Register(L);
 	Luna< std::vector< double > >::Register(L);
 	Luna< std::vector< void * > >::Register(L);
+	Luna< std::vector< std::string > >::Register(L);
 	luna_popModule(L);
 
 	luna_pushModule(L,"sgt");

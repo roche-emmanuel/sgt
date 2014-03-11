@@ -45,3 +45,4 @@ std::vector< int > => std::vector< int >
 std::vector< float > => std::vector< float >
 std::vector< double > => std::vector< double >
 std::vector< void * > => std::vector< void * >
+std::vector< std::string > => std::vector< std::string >

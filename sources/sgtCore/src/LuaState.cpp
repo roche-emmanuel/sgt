@@ -9,6 +9,7 @@
 #include "lua.hpp"
 #include "luna/luna.h"
 #include "lua/ModuleProvider.h"
+#include "ModuleLoader.h"
 
 int panic_handler(lua_State* L)
 {
@@ -40,10 +41,13 @@ int init_lua_env (lua_State* L)
 	// Now load the module in the lua state:
 	// showMessageBox("Loading core module","Loading");
 	// int ret = ::loadModuleFromMemory((void*)core.data(),"lua_core","luaopen_core", L);
-	int ret = ::loadModuleFromMemory("core.sgp","luaopen_core", L);
-	if (ret > 0) {
-		// pop the results:
-		lua_pop(L,ret);
+	if(hasModuleData("core.sgp")) {
+		// Only try loading the core module if available in memory.
+		int ret = ::loadModuleFromMemory("core.sgp","luaopen_core", L);
+		if (ret > 0) {
+			// pop the results:
+			lua_pop(L,ret);
+		}
 	}
 
 	// next we have to execute the setup script:
