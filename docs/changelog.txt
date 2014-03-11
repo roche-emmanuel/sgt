@@ -34,3 +34,4 @@
 - Updated documentation.
 - Added support for osg plug.
 - Binding wx plug and removing hard dependency on module loading from memory. We will use software virtualisation eventually.
+- Added support to build lunagen app.

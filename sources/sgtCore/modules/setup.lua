@@ -152,7 +152,7 @@ if not _G.requireLua then
 		core.doLog(sgt.LogManager.DEBUG2,"Loading lua package '" .. packName .. "'")
 
 		if not sgt.hasModuleData(packName..".lpak") then
-			path = path or (root_path .. "packages/")
+			path = path or (root_path .. "/packages/")
 		end
 
 		if path then
@@ -160,7 +160,7 @@ if not _G.requireLua then
 			local filename = path .. packName .. ".lpak"
 			local f = io.open(filename,"rb")
 			if not f then 
-				core.showMessageBox("ERROR: Could not find package file " .. filename,"loading")
+				core.doLog(sgt.LogManager.ERROR,"ERROR: Could not find package file " .. filename)
 				return
 			end
 			content = f:read("*a")

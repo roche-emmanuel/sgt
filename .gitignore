@@ -5,6 +5,8 @@ software/*.dll
 software/modules/*.sgp
 software/packages/*.lpak
 
+apps/*.*
+
 tools/*.log
 
 # Ignore compiled documentation:
