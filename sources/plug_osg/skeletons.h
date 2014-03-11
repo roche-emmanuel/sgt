@@ -1128,9 +1128,6 @@ namespace osg {
 		class ParentList {
 		};
 
-		class DescriptionList {
-		};
-
 		class ComputeBoundingSphereCallback: public osg::Object {
 		};
 
@@ -1722,9 +1719,6 @@ namespace osg {
 
 	class UserDataContainer: public osg::Object {
 	public:
-		class DescriptionList {
-		};
-
 	};
 
 	class DefaultUserDataContainer: public osg::UserDataContainer {
@@ -1920,12 +1914,6 @@ namespace osgDB {
 	class FilePathList {
 	};
 
-	class DirectoryContents {
-	};
-
-	class StringList {
-	};
-
 	class FileNameList {
 	};
 
@@ -1992,9 +1980,6 @@ namespace osgDB {
 
 	class DotOsgWrapper: public osg::Referenced {
 	public:
-		class Associates {
-		};
-
 	};
 
 	class DeprecatedDotOsgWrapperManager: public osg::Referenced {
@@ -2163,9 +2148,6 @@ namespace osgDB {
 		};
 
 		class ImageProcessorList {
-		};
-
-		class ArchiveExtensionList {
 		};
 
 	};

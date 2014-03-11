@@ -330,7 +330,6 @@ osg::MatrixTransform => osg::Referenced
 osg::Multisample => osg::Referenced
 osg::Multisample::Extensions => osg::Referenced
 std::vector< osg::Group * > => std::vector< osg::Group * >
-std::vector< std::string > => std::vector< std::string >
 osg::Node::ComputeBoundingSphereCallback => osg::Referenced
 osg::NodeTrackerCallback => osg::Referenced
 osg::NodeVisitor::DatabaseRequestHandler => osg::Referenced

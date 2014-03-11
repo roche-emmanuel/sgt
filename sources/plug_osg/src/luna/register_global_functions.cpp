@@ -5004,7 +5004,7 @@ static int _bind_appendPlatformSpecificResourceFilePaths(lua_State *L) {
 // void osgDB::split(const std::string & src, osgDB::StringList & list, char separator = ' ')
 static int _bind_split(lua_State *L) {
 	if (!_lg_typecheck_split(L)) {
-		luaL_error(L, "luna typecheck failed in void osgDB::split(const std::string & src, osgDB::StringList & list, char separator = ' ') function, expected prototype:\nvoid osgDB::split(const std::string & src, osgDB::StringList & list, char separator = ' ')\nClass arguments details:\narg 2 ID = 26072480\n\n%s",luna_dumpStack(L).c_str());
+		luaL_error(L, "luna typecheck failed in void osgDB::split(const std::string & src, osgDB::StringList & list, char separator = ' ') function, expected prototype:\nvoid osgDB::split(const std::string & src, osgDB::StringList & list, char separator = ' ')\nClass arguments details:\narg 2 ID = 95416160\n\n%s",luna_dumpStack(L).c_str());
 	}
 
 	int luatop = lua_gettop(L);

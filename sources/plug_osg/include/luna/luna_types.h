@@ -19782,13 +19782,6 @@ public:
 };
 
 template<>
-class LunaType< 95416160 > {
-public:
-	typedef std::vector< std::string > type;
-	
-};
-
-template<>
 class LunaType< 32905741 > {
 public:
 	typedef std::set< osg::Observer * > type;
@@ -20548,6 +20541,13 @@ template<>
 class LunaType< 3625364 > {
 public:
 	typedef void type;
+	
+};
+
+template<>
+class LunaType< 95416160 > {
+public:
+	typedef std::vector< std::string > type;
 	
 };
 

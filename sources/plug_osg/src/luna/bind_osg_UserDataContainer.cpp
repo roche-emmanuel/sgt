@@ -706,7 +706,7 @@ public:
 	// void osg::UserDataContainer::setDescriptions(const osg::UserDataContainer::DescriptionList & descriptions)
 	static int _bind_setDescriptions(lua_State *L) {
 		if (!_lg_typecheck_setDescriptions(L)) {
-			luaL_error(L, "luna typecheck failed in void osg::UserDataContainer::setDescriptions(const osg::UserDataContainer::DescriptionList & descriptions) function, expected prototype:\nvoid osg::UserDataContainer::setDescriptions(const osg::UserDataContainer::DescriptionList & descriptions)\nClass arguments details:\narg 1 ID = 13881074\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in void osg::UserDataContainer::setDescriptions(const osg::UserDataContainer::DescriptionList & descriptions) function, expected prototype:\nvoid osg::UserDataContainer::setDescriptions(const osg::UserDataContainer::DescriptionList & descriptions)\nClass arguments details:\narg 1 ID = 95416160\n\n%s",luna_dumpStack(L).c_str());
 		}
 
 		const osg::UserDataContainer::DescriptionList* descriptions_ptr=(Luna< std::vector< std::string > >::checkSubType< osg::UserDataContainer::DescriptionList >(L,2));

@@ -560,7 +560,7 @@ public:
 	// bool osgDB::Archive::getFileNames(osgDB::DirectoryContents & fileNames) const
 	static int _bind_getFileNames(lua_State *L) {
 		if (!_lg_typecheck_getFileNames(L)) {
-			luaL_error(L, "luna typecheck failed in bool osgDB::Archive::getFileNames(osgDB::DirectoryContents & fileNames) const function, expected prototype:\nbool osgDB::Archive::getFileNames(osgDB::DirectoryContents & fileNames) const\nClass arguments details:\narg 1 ID = 1372978\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in bool osgDB::Archive::getFileNames(osgDB::DirectoryContents & fileNames) const function, expected prototype:\nbool osgDB::Archive::getFileNames(osgDB::DirectoryContents & fileNames) const\nClass arguments details:\narg 1 ID = 95416160\n\n%s",luna_dumpStack(L).c_str());
 		}
 
 		osgDB::DirectoryContents* fileNames_ptr=(Luna< std::vector< std::string > >::checkSubType< osgDB::DirectoryContents >(L,2));

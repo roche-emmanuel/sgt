@@ -374,7 +374,6 @@ int PLUG_EXPORT luaopen_osg(lua_State* L) {
 	Luna< osg::Multisample >::Register(L);
 	Luna< osg::Multisample::Extensions >::Register(L);
 	Luna< std::vector< osg::Group * > >::Register(L);
-	Luna< std::vector< std::string > >::Register(L);
 	Luna< osg::Node::ComputeBoundingSphereCallback >::Register(L);
 	Luna< osg::NodeTrackerCallback >::Register(L);
 	Luna< osg::NodeVisitor::DatabaseRequestHandler >::Register(L);

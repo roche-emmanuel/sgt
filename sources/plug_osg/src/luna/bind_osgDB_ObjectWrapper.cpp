@@ -477,7 +477,7 @@ public:
 	// bool osgDB::ObjectWrapper::readSchema(const osgDB::StringList & properties, const std::vector< int > & types)
 	static int _bind_readSchema(lua_State *L) {
 		if (!_lg_typecheck_readSchema(L)) {
-			luaL_error(L, "luna typecheck failed in bool osgDB::ObjectWrapper::readSchema(const osgDB::StringList & properties, const std::vector< int > & types) function, expected prototype:\nbool osgDB::ObjectWrapper::readSchema(const osgDB::StringList & properties, const std::vector< int > & types)\nClass arguments details:\narg 1 ID = 26072480\narg 2 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in bool osgDB::ObjectWrapper::readSchema(const osgDB::StringList & properties, const std::vector< int > & types) function, expected prototype:\nbool osgDB::ObjectWrapper::readSchema(const osgDB::StringList & properties, const std::vector< int > & types)\nClass arguments details:\narg 1 ID = 95416160\narg 2 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
 		}
 
 		const osgDB::StringList* properties_ptr=(Luna< std::vector< std::string > >::checkSubType< osgDB::StringList >(L,2));
@@ -504,7 +504,7 @@ public:
 	// void osgDB::ObjectWrapper::writeSchema(osgDB::StringList & properties, std::vector< int > & types)
 	static int _bind_writeSchema(lua_State *L) {
 		if (!_lg_typecheck_writeSchema(L)) {
-			luaL_error(L, "luna typecheck failed in void osgDB::ObjectWrapper::writeSchema(osgDB::StringList & properties, std::vector< int > & types) function, expected prototype:\nvoid osgDB::ObjectWrapper::writeSchema(osgDB::StringList & properties, std::vector< int > & types)\nClass arguments details:\narg 1 ID = 26072480\narg 2 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in void osgDB::ObjectWrapper::writeSchema(osgDB::StringList & properties, std::vector< int > & types) function, expected prototype:\nvoid osgDB::ObjectWrapper::writeSchema(osgDB::StringList & properties, std::vector< int > & types)\nClass arguments details:\narg 1 ID = 95416160\narg 2 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
 		}
 
 		osgDB::StringList* properties_ptr=(Luna< std::vector< std::string > >::checkSubType< osgDB::StringList >(L,2));

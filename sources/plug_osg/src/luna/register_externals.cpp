@@ -24,6 +24,12 @@ const char LunaTraits< OpenThreads::Mutex >::moduleName[] = "OpenThreads";
 const int LunaTraits< OpenThreads::Mutex >::hash = 3168391;
 const int LunaTraits< OpenThreads::Mutex >::uniqueIDs[] = {3168391,0};
 
+const char LunaTraits< osg::Node::DescriptionList >::className[] = "std_vector_std_string";
+const char LunaTraits< std::vector< std::string > >::fullName[] = "std::vector< std::string >";
+const char LunaTraits< osg::Node::DescriptionList >::moduleName[] = "osg";
+const int LunaTraits< osg::Node::DescriptionList >::hash = 27507650;
+const int LunaTraits< osg::Node::DescriptionList >::uniqueIDs[] = {95416160,0};
+
 const char LunaTraits< osg::HeightField::HeightList >::className[] = "std_vector_float";
 const char LunaTraits< std::vector< float > >::fullName[] = "std::vector< float >";
 const char LunaTraits< osg::HeightField::HeightList >::moduleName[] = "osg";
