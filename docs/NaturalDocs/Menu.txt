@@ -83,6 +83,9 @@ Group: Packages  {
 
       }  # Group: Gui
 
+   File: loaders.LoaderBase  (loaders/LoaderBase.lua)
+   File: loaders.lunagen  (loaders/Lunagen.lua)
+   File: loaders.test  (loaders/Test.lua)
    File: MainLoader  (MainLoader.lua)
    File: test.Manager  (test/Manager.lua)
    File: test.Suite  (test/Suite.lua)

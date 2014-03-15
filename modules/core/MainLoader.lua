@@ -1,5 +1,8 @@
 local Class = createClass{"MainLoader"}
 
+-- load the compat module to get access to package.searchpath
+require "utils.compat"
+
 --[[
 Class: MainLoader
 
@@ -22,6 +25,8 @@ will be considered as a file to execute to start the binding generation process.
  "FATAL","ERROR","WARNING","NOTICE","INFO","DEBUG0","DEBUG1","DEBUG2","DEBUG3","DEBUG4","DEBUG5"
 
 	*--verbose* (or -v): toggle verbose log output mode ON if specified.
+
+	*--profiling*: toggle the profiling of the application on if specified.
 ]]
 
 --[=[
@@ -45,6 +50,12 @@ function Class:initialize(options)
 	self._log_file = "sgt.log"
 	self._log_level = self._flags.loglevel or "DEBUG0"
 	self._verbose = self._flags.verbose or false
+
+	-- retrieve config:
+	_G.config = require "config"
+	_G.log = require "logger"
+
+	config.profiler_enabled = self._flags.profiling or false
 
 	if self._flags.log then
 		-- change the log file:
@@ -77,6 +88,12 @@ function Class:execute()
 		return 1
 	end
 
+	-- return code should always be an integer:
+	if type(res)~='number' or res ~= math.floor(res+0.5)then
+		self:warn("Invalid return code received : '",res,"'")
+		res = 1
+	end
+
 	return res
 end
 
@@ -87,20 +104,31 @@ Actual implementation for the execution of the loader.
 This implementation will be called in a protected environment by <execute>
 ]]
 function Class:doExecute()
-	if self._flags.mode == "lunagen" then
-		self:debug("Entering lunagen mode...")
-		--  Here we should have receive a parameter, and this parameter should be considered as a file to execute to perform 
-		-- the binding generation process:
-		self:check(#self._params==1,"Should receive 1 parameter for lunagen mode: params=",self._params)
+	local m = self._flags.mode
 
-		-- execute the file:
-		self:debug("Executing file: ",self._params[1])
-		dofile(self._params[1])
-	else
-		self:debug("Not entering any mode.")
+	if not m then
+		self:warn("No execution mode provided.")
+		return 1
 	end
 
-	return 0
+	-- We use the provided execution mode to retrieve the appropriate loader.
+	self:debug("Selecting loader for execution mode ",m)
+
+	-- to select the module we should capitalize the first letter of the mode name:
+	local mname = "loaders." .. m:sub(1,1):upper() .. m:sub(2)
+	local fpath = package.searchpath(mname,package.path)
+	if not fpath then
+		self:warn("Could not find loader for execution mode '",m,"'")
+		return 1
+	end
+
+	-- loader file is supposed to be available, so we may try to load it:
+	local Loader = require(mname)
+
+	-- Now create an instance of the loader and execute it:
+	local l = Loader {self._flags, self._params}
+
+	return l:execute()
 end
 
 return Class

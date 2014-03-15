@@ -5,6 +5,7 @@ software/*.dll
 software/modules/*.sgp
 software/packages/*.lpak
 
+# ignore the packaged app folder content:
 apps/*.*
 
 tools/*.log

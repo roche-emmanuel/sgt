@@ -1,1 +1,3 @@
-- add the wx plug support.
+- Add support for test loader
+- auto generate software virtualization packages.
+
