@@ -22,6 +22,7 @@ function Class:execute()
 	-- execute the file:
 	self:debug("Executing file: ",self._params[1])
 	dofile(self._params[1])
+	
 	return 0
 end
 

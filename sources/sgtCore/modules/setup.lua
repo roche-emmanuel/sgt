@@ -188,3 +188,29 @@ _G.addModulePath = function(path)
 	package.cpath = package.cpath .. ";" .. path
 end
 
+-- Now we should decide here if we should be using release packages or developer modules:
+-- We use the VBSSIM2_MODULE_PATH environment variable for this.
+-- When this variable is set, it should specify additional locations where to look for lua modules.
+-- We assume that those locations will contain the mxcore modules at least, thus, in that case, 
+-- we do not load the mxcore lua package:
+local mpath = os.getenv("SGT_MODULE_PATH")
+if mpath then
+	-- just add the path:
+	mpath = mpath:gsub("\\","/") ..";"
+	mpath = mpath:gsub(";","/?.lua;")
+	sgt.doLog(sgt.LogManager.INFO,"Adding module paths: '"..mpath.."'");
+	package.path = package.path..";".. mpath
+else
+	requirePackage "core"
+end
+
+-- core2.showMessageBox("Step 3","loading")
+
+-- After setting the module path, we may add additional common paths:
+-- This is done to ensure that core modules will be given higher priority
+-- than public modules (found in software/modules):
+package.path = package.path..";" .. root_path .. "/?.cfg;" .. root_path .. "/modules/?.lua;"
+
+require "utils.buildclass" -- load the new class builder system.
+
+_G.log = require "logger"

@@ -175,11 +175,13 @@ function Object:backtrace(level)
 	log[level or "error"](log,self,debug.traceback())
 end
 
-for k,v in pairs(log.levels) do
-	Object[k] = function(self,trace,...) 
-		return log[k](log,self,trace,...); end
-	Object[k.."_v"] = function(self,trace,...) 
-		return log[k.."_v"](log,self,trace,...); end
+local sgtlog = require "utils.sgtlog"
+
+for k,v in pairs(sgtlog.levels) do
+	Object[k] = function(self,msg,...) 
+		return log[k](log,type(self)=="table" and self._TRACE_ or self,msg,...); end
+	Object[k.."_v"] = function(self,msg,...) 
+		return log[k.."_v"](log,type(self)=="table" and self._TRACE_ or self,msg,...); end
 end
 
 function Object:getProperties()

@@ -53,7 +53,6 @@ function Class:initialize(options)
 
 	-- retrieve config:
 	_G.config = require "config"
-	_G.log = require "logger"
 
 	config.profiler_enabled = self._flags.profiling or false
 

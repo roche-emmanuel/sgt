@@ -1,12 +1,13 @@
- 
-local DefaultTracer = require "logging.DefaultTracer"
-local LOG = DefaultTracer()
+local Class = createClass{"Tracer"}
 
--- override the global print method:
-_G.old_print = _G.print
+local log = require "log"
 
-_G.print = function(...)
-	LOG:info("Print",...)
+for lname,v in pairs(log.levels) do
+	for sorig, sdest in pairs{_t="",_tf="_f",_tv="_v"} do
+		local oname = lname..sorig
+		local dname = lname..sdest
+		Class[dname] = function(self,...) return log[oname](...); end
+	end
 end
 
-return LOG;
+return Class()

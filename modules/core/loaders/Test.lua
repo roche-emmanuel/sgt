@@ -22,6 +22,8 @@ function TestLoader(options)
 function Class:initialize(options)
 	-- require the test package:
 	requirePackage 'tests'
+
+	_G.profiler = require "debugging.Profiler"	
 end
 
 --[[
