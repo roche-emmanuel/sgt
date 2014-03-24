@@ -1,6 +1,6 @@
+- Add support for gui3 test
 - add enigma virtual box tool
 - auto generate software virtualization packages.
-- Add support for gui2 test => need osg and wx interop.
 - Add proland support
 - add Python support
 

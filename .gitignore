@@ -4,6 +4,7 @@ software/*.log
 software/*.dll
 software/modules/*.sgp
 software/packages/*.lpak
+software/tools/*.exe
 
 # ignore the packaged app folder content:
 apps/*.*
