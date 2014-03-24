@@ -1,4 +1,3 @@
-- Add wx resource to executable
 - add enigma virtual box tool
 - auto generate software virtualization packages.
 - Add support for gui2 test => need osg and wx interop.

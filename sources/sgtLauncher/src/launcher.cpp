@@ -7,6 +7,17 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/program_options.hpp>
 
+#ifdef WIN32
+// This section is needed to get the updated control design for wxwidgets components.
+#pragma comment(linker,"/manifestdependency:\"type='win32' "\
+               "name='Microsoft.Windows.Common-Controls' "\
+               "version='6.0.0.0' "\
+               "processorArchitecture='x86' "\
+               "publicKeyToken='6595b64144ccf1df' "\
+               "language='*' "\
+               "\"")
+#endif
+
 #ifdef WITH_CORE_SUPPORT
 extern const unsigned char buf_moduleloader_dll[];
 extern const unsigned char buf_sgtluna_dll[];
