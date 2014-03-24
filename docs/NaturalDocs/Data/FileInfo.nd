@@ -104,14 +104,14 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/spark/SimpleSystem.lua	1357821232	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/spark/SimpleSystem.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/std/tree/Iterator.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/std/tree/Iterator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/utils/loadTGA.lua	1277226666	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/utils/loadTGA.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/debugging/Profiler.lua	1378488455	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/debugging/Profiler.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/debugging/Profiler.lua	1395693305	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/debugging/Profiler.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Scope.lua	1358252601	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Scope.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/io/FileWriter.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/io/FileWriter.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/MethodValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/MethodValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/ItemLink.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/ItemLink.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/Timer.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/Timer.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ModuleWriter.lua	1365492832	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ModuleWriter.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua	1395693014	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua	1395693466	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/NoOverloadsValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/NoOverloadsValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/DocGen.lua	1346251815	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/DocGen.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/WebTile.lua	1379451481	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/WebTile.lua

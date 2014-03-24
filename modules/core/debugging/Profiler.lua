@@ -97,6 +97,8 @@ function Class:getReport()
 end
 
 function Class:writeReport(filename)
+	if not self._enabled then return end
+	
 	local str = self:getReport()
 	
 	filename = filename or "profile.log"
