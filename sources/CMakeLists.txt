@@ -24,6 +24,7 @@ ADD_SUBDIRECTORY(plug_lpeg)
 # ADD_SUBDIRECTORY(plug_wx)
 
 ADD_SUBDIRECTORY(plug_gl)
+ADD_SUBDIRECTORY(plug_opengl)
 ADD_SUBDIRECTORY(plug_osgWX)
 
 ADD_SUBDIRECTORY(sgtLauncher)

@@ -40,3 +40,4 @@
 - Added wx pack.
 - Added locale support and refactoring logger implementation. gui1 test still failing because of global profiler object missing.
 - Added osgWX and gl modules.
+- Added opengl module.
