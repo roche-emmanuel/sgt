@@ -1,6 +1,7 @@
+- Find how to add flags for command line depending on selected loader.
+- Auto generate software virtualization packages.
 - Add support for gui3 test
-- add enigma virtual box tool
-- auto generate software virtualization packages.
+- Find how to pass default mode for boxed execution ?
 - Add proland support
 - add Python support
 

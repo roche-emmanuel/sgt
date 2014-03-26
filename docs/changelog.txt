@@ -44,3 +44,4 @@
 - Disabled profiler log file writing when profiler is disabled.
 - Added updated control resource to executable for nicer wxWidgets design.
 - Added enigmavbconsole tool for futur development.
+- Implemented support for packages and options in enigma generator.

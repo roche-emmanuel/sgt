@@ -18,6 +18,7 @@ Arguments:
 the software will be completely different. Current possible values are:
  	- "lunagen" : used to perform binding generation for a library. When is mode is provided, then any parameter received as argument
 will be considered as a file to execute to start the binding generation process.
+ 	- "enigma" : used to enigma encapsulation using the provided configuration for the package.
 
   *--log xxxx* : used to specify the desired target log file for the execution of the software. 
   
@@ -28,6 +29,20 @@ will be considered as a file to execute to start the binding generation process.
 
 	*--profiling*: toggle the profiling of the application on if specified.
 ]]
+
+local flags_with_value = {
+	mode=true,
+	log=true,
+	loglevel=true,
+	evbfile=true,
+}
+
+local aliases = {
+	m="mode",
+	l="loglevel",
+	v="verbose",
+	evb="evbfile",
+}
 
 --[=[
 --[[
@@ -45,7 +60,7 @@ function Class:initialize(options)
 
 	--  parse the arguments:
 	local app = require "utils.app"
-	self._flags, self._params = app.parse_args(self._args,{mode=true,log=true,loglevel=true},{m="mode",l="loglevel",v="verbose"})
+	self._flags, self._params = app.parse_args(self._args,flags_with_value,aliases)
 	
 	self._log_file = "sgt.log"
 	self._log_level = self._flags.loglevel or "DEBUG0"

@@ -1,0 +1,19 @@
+local cfg = {}
+
+cfg.input_file = "W:/Cloud/Projects/sgt/software/sgt.exe"
+cfg.output_file = "W:/Cloud/Projects/sgt/apps/sgtLauncher.exe"
+
+cfg.share_virtual_system = false
+cfg.map_exec_temp_file = true
+cfg.allow_running_virtual_exec = true
+cfg.packaging_enabled = true
+
+cfg.files = {
+
+}
+
+cfg.packages = {
+	"%DEFAULT FOLDER%\\*.sgpack"
+}
+
+return cfg
