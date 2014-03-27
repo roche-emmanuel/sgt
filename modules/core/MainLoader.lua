@@ -95,6 +95,13 @@ Function: execute
 Main method called to execute the process. Should return the application exit code.
 ]]
 function Class:execute()
+	if self._flags.version then
+		-- just print the version number:
+		local ver = require "version"
+		log:info("Singularity version v", ver.major,".", ver.minor,".", ver.patch," - Build ", ver.build)
+		return 0
+	end
+
 	local status,res = pcall(Class.doExecute,self)
 	if not status then
 		self:error("Error occured in protected call, now exiting: ",res)

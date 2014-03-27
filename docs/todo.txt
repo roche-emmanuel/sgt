@@ -1,4 +1,3 @@
-- Build a lunagen app with lunagen and enigma modes support.
 - Add support for package generation in enigma.
 - Add support for package or main app generation selection in enigma.
 - Find how to add flags for command line depending on selected loader ?
@@ -6,4 +5,3 @@
 - Find how to pass default mode for boxed execution ?
 - Add proland support
 - add Python support
-- add support to print version number and exit in sgt.
