@@ -1,9 +1,9 @@
 local cfg = {}
 
 cfg.input_file = "W:/Cloud/Projects/sgt/software/sgt.exe"
-cfg.output_file = "W:/Cloud/Projects/sgt/apps/sgtLauncher.exe"
+cfg.output_file = "W:/Cloud/Projects/sgt/apps/sgtgen/sgtgen.exe"
 
-cfg.share_virtual_system = false
+cfg.share_virtual_system = true
 cfg.map_exec_temp_file = true
 cfg.allow_running_virtual_exec = true
 
@@ -31,5 +31,12 @@ addFile("sgtLuna.dll")
 addFile("modules/core.sgp")
 addFile("modules/lfs.sgp")
 addFile("packages/core.lpak")
+
+-- add the lunagen components:
+addFile("modules/doxmlparser.sgp")
+addFile("modules/lpeg.sgp")
+
+-- add the enigma components:
+addFile("tools/enigmavbconsole.exe")
 
 return cfg

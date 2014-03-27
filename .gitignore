@@ -7,7 +7,7 @@ software/packages/*.lpak
 software/tools/*.exe
 
 # ignore the packaged app folder content:
-apps/*.*
+apps/*
 
 tools/*.log
 

@@ -48,3 +48,4 @@
 - Added iconv plugin. But this doesn't seem to work as expected for now. First working implementation of enigma mode.
 - built and tested boxed app sgtgen for lunagen and enigma support.
 - Added support to print version number and exit in sgt.
+- Refactored the enigma scripts.

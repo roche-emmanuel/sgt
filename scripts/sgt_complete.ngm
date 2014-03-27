@@ -1,7 +1,7 @@
 local cfg = {}
 
 cfg.input_file = "W:/Cloud/Projects/sgt/software/sgt.exe"
-cfg.output_file = "W:/Cloud/Projects/sgt/apps/sgtgen.exe"
+cfg.output_file = "W:/Cloud/Projects/sgt/apps/complete/sgt_main.exe"
 
 cfg.share_virtual_system = true
 cfg.map_exec_temp_file = true
@@ -28,15 +28,32 @@ addFile("osg97-osgUtil.dll")
 addFile("ot12-OpenThreads.dll")
 addFile("sgtCore.dll")
 addFile("sgtLuna.dll")
+
 addFile("modules/core.sgp")
 addFile("modules/lfs.sgp")
-addFile("packages/core.lpak")
-
--- add the lunagen components:
-addFile("modules/doxmlparser.sgp")
 addFile("modules/lpeg.sgp")
 
--- add the enigma components:
-addFile("tools/enigmavbconsole.exe")
+addFile("packages/core.lpak")
+addFile("packages/tests.lpak")
+
+addFile("data/*",true)
+addFile("locales/*")
+
+-- osg files:
+addFile("osg97-osgGA.dll")
+addFile("osg97-osgParticle.dll")
+addFile("osg97-osgText.dll")
+addFile("osg97-osgViewer.dll")
+addFile("modules/osg.sgp")
+addFile("modules/luagl.sgp")
+addFile("modules/luaglu.sgp")
+addFile("modules/opengl.sgp")
+
+-- wx files:
+addFile("wxmsw293u_vc_2008.dll")
+addFile("wxmsw293u_gl_vc_2008.dll")
+addFile("modules/wx.sgp")
+addFile("modules/osgWX.sgp")
+
 
 return cfg
