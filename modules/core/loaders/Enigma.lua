@@ -35,7 +35,7 @@ function Class:execute()
 	self:debug("Executing file: ",self._params[1])
 	local desc = dofile(self._params[1])
 	
-	self:debug("Received description: ",desc)
+	-- self:debug("Received description: ",desc)
 	self._desc = desc
 
 	-- we need to generate a temporary file except if the target description file name is specified.
@@ -197,7 +197,7 @@ function Class:collectFiles()
 		end
 	end
 
-	self:debug("Generated file listing: ",self._files.children)
+	-- self:debug("Generated file listing: ",self._files.children)
 end
 
 --[[
