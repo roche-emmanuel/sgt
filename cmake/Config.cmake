@@ -20,6 +20,7 @@ SET(DEP_LUA ${DEPS_DIR}/${FLAVOR}/LuaJIT-2.0.1 CACHE STRING "lua path")
 SET(DEP_OSG ${DEPS_DIR}/${FLAVOR}/OpenSceneGraph-3.1.5 CACHE STRING "osg path")
 SET(DEP_WX ${DEPS_DIR}/${FLAVOR}/wxWidgets-2.9.3 CACHE STRING "wx path")
 SET(DEP_GLEW ${DEPS_DIR}/${FLAVOR}/glew-1.9.0 CACHE STRING "GLEW path")
+SET(DEP_ICONV ${DEPS_DIR}/${FLAVOR}/libiconv-1.9.2-1 CACHE STRING "iconv path")
 
 # Include the macro definitions:
 INCLUDE(cmake/Macros.cmake)
@@ -57,3 +58,7 @@ SET(GLEW_INC_DIR 	${DEP_GLEW}/include)
 SET(GLEW_LIB_DIR 	${DEP_GLEW}/lib)
 SET(GLEW_LIBS 		glew32s.lib) #glew32.lib)
 SET(GLEW_FLAGS 		-DGLEW_STATIC)
+
+SET(ICONV_INC_DIR 	${DEP_ICONV}/include)
+SET(ICONV_LIB_DIR 	${DEP_ICONV}/lib)
+SET(ICONV_LIBS 			libiconv libcharset)

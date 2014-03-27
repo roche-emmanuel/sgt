@@ -4,7 +4,7 @@ local indent = 0
 local indentStr = "  " -- the indent string to use.
 local writtenTables = {}
 local currentLevel = 0
-local maxLevel = 4;
+local maxLevel = 5;
 local writeTable = nil -- forward declaration !
 
 local resetState = function()

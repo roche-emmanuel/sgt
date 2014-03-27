@@ -6,14 +6,30 @@ cfg.output_file = "W:/Cloud/Projects/sgt/apps/sgtLauncher.exe"
 cfg.share_virtual_system = false
 cfg.map_exec_temp_file = true
 cfg.allow_running_virtual_exec = true
+
 cfg.packaging_enabled = true
-
-cfg.files = {
-
-}
-
 cfg.packages = {
 	"%DEFAULT FOLDER%\\*.sgpack"
 }
+
+cfg.files = {}
+
+local root_folder = "W:/Cloud/Projects/sgt/software"
+
+local addFile = function(pattern,recursive)
+	table.insert(cfg.files,{root_path=root_folder, pattern=pattern, recursive=recursive})
+end
+
+addFile("lua51.dll")
+addFile("ModuleLoader.dll")
+addFile("osg97-osg.dll")
+addFile("osg97-osgDB.dll")
+addFile("osg97-osgUtil.dll")
+addFile("ot12-OpenThreads.dll")
+addFile("sgtCore.dll")
+addFile("sgtLuna.dll")
+addFile("modules/core.sgp")
+addFile("modules/lfs.sgp")
+addFile("packages/core.lpak")
 
 return cfg

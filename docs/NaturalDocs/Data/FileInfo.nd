@@ -86,7 +86,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/box2d/TestApp.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/box2d/TestApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ValidWrapperValidator.lua	1355575556	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ValidWrapperValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/spark/SmokeSystem.lua	1357821238	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/spark/SmokeSystem.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/MainLoader.lua	1395352705	1	MainLoader
+/cygdrive/w/Cloud/Projects/sgt/modules/core/MainLoader.lua	1395697430	1	MainLoader
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/utilities.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/utilities.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/BoolEntry.lua	1380035906	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/BoolEntry.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/helpers/wxValueFinder.lua	1351258680	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/helpers/wxValueFinder.lua
@@ -111,7 +111,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/ItemLink.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/ItemLink.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/Timer.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/Timer.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ModuleWriter.lua	1365492832	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ModuleWriter.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua	1395694234	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua	1395905269	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/version.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/NoOverloadsValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/NoOverloadsValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/DocGen.lua	1346251815	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/DocGen.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/WebTile.lua	1379451481	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/WebTile.lua
@@ -150,6 +150,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/test/Suite.lua	1372670825	1	test.Suite
 /cygdrive/w/Cloud/Projects/sgt/modules/core/std/tree/UpwardsIterator.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/std/tree/UpwardsIterator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/LicensedBase.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/LicensedBase.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/loaders/Enigma.lua	1395873271	1	loaders.enigma
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/SkyBoxBuilder.lua	1365488987	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/SkyBoxBuilder.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/logging/LoggerBase.lua	1365488987	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/logging/LoggerBase.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/WebPanel.lua	1384330291	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/WebPanel.lua
@@ -247,7 +248,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/DefineWriter.lua	1361354573	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/DefineWriter.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/lanes.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/lanes.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/misc/FrequencyTestApp.lua	1359722261	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/misc/FrequencyTestApp.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/utils/tostring.lua	1384330291	1	utils.tostring
+/cygdrive/w/Cloud/Projects/sgt/modules/core/utils/tostring.lua	1395870939	1	utils.tostring
 /cygdrive/w/Cloud/Projects/sgt/modules/core/log.lua	1372330950	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/log.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/finance/AgentProto1.lua	1350224423	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/finance/AgentProto1.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/finance/yahoo/SymbolRetriever.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/finance/yahoo/SymbolRetriever.lua

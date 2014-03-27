@@ -1,0 +1,4 @@
+LIBRARY iconv.sgp
+VERSION 7
+EXPORTS
+luaopen_iconv

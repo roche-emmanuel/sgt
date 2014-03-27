@@ -23,6 +23,8 @@ ADD_SUBDIRECTORY(plug_lpeg)
 # ADD_SUBDIRECTORY(plug_osg)
 # ADD_SUBDIRECTORY(plug_wx)
 
+ADD_SUBDIRECTORY(plug_iconv)
+
 ADD_SUBDIRECTORY(plug_gl)
 ADD_SUBDIRECTORY(plug_opengl)
 ADD_SUBDIRECTORY(plug_osgWX)
