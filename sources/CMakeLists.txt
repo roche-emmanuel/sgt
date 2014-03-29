@@ -31,4 +31,6 @@ ADD_SUBDIRECTORY(plug_osgWX)
 
 ADD_SUBDIRECTORY(sgtLauncher)
 
+ADD_SUBDIRECTORY(ork)
+
 # ADD_SUBDIRECTORY(template_launcher)

@@ -5,6 +5,7 @@ software/*.dll
 software/modules/*.sgp
 software/packages/*.lpak
 software/tools/*.exe
+software/ork/*.exe
 
 # ignore the packaged app folder content:
 apps/*
