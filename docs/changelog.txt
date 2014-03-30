@@ -51,3 +51,4 @@
 - Refactored the enigma scripts.
 - Added initial ork import.
 - Initial import of the ork library.
+- Rebuild ork minimal example and test on shuttle.

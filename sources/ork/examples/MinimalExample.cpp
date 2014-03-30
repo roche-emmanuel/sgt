@@ -72,7 +72,7 @@ public:
 
     virtual void redisplay(double t, double dt)
     {
-#if 0
+#if 1
         ptr<FrameBuffer> fb = FrameBuffer::getDefault();
         // clears the color buffer of the default framebuffer
         fb->clear(true, false, false);
@@ -85,7 +85,7 @@ public:
 
     virtual void reshape(int x, int y)
     {
-#if 0
+#if 1
         // sets the viewport of the default framebuffer to the new window size
         FrameBuffer::getDefault()->setViewport(vec4<GLint>(0, 0, x, y));
         // sets the 'scale' uniform in program 'p' to the inverse of the new window size
