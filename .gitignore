@@ -1,7 +1,7 @@
 # Ignored executable files
 software/*.exe
 software/*.log
-software/log.html
+software/*.html
 software/*.dll
 software/modules/*.sgp
 software/packages/*.lpak

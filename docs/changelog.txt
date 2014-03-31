@@ -55,3 +55,4 @@
 - Added support for ork examples compilation and test.
 - Renamed ork samples folder.
 - Ignoring ork log file.
+- Added support for ork tests.

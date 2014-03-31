@@ -1,13 +1,21 @@
-cmake_minimum_required(VERSION 2.6)
+SET(TARGET_DIR "./")
 
-set(EXENAME ork-test)
+set(TARGET_NAME ork-tests)
+
+link_directories(${GLUT_LIB_DIR})
+link_directories(${PTHREADS_LIB_DIR})
 
 # Sources
-include_directories("${PROJECT_SOURCE_DIR}" "${PROJECT_SOURCE_DIR}/libraries" "${CMAKE_CURRENT_SOURCE_DIR}")
+include_directories("../" "../libraries" "${CMAKE_CURRENT_SOURCE_DIR}")
 file(GLOB SOURCE_FILES *.cpp)
 
-add_definitions("-DORK_API=")
+add_definitions("-DORK_API=__declspec(dllimport)")
 
-add_executable(${EXENAME} ${SOURCE_FILES})
-target_link_libraries(${EXENAME} ork)
+add_executable(${TARGET_NAME} ${SOURCE_FILES})
+target_link_libraries(${TARGET_NAME} ork)
 
+INSTALL(TARGETS ${TARGET_NAME}
+	RUNTIME DESTINATION ${TARGET_DIR}
+	LIBRARY DESTINATION ${TARGET_DIR})
+
+COMPRESS_BINARY()
