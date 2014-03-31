@@ -54,3 +54,4 @@
 - Rebuild ork minimal example and test on shuttle.
 - Added support for ork examples compilation and test.
 - Renamed ork samples folder.
+- Ignoring ork log file.
