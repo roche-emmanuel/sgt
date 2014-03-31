@@ -53,3 +53,4 @@
 - Initial import of the ork library.
 - Rebuild ork minimal example and test on shuttle.
 - Added support for ork examples compilation and test.
+- Renamed ork samples folder.
