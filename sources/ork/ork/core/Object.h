@@ -24,6 +24,12 @@
 #ifndef _ORK_OBJECT_H_
 #define _ORK_OBJECT_H_
 
+
+#ifdef _MSC_VER
+#pragma warning( disable : 4251 )
+#pragma warning( disable : 4786 )
+#endif
+
 #include <cstdio>
 #include <cassert>
 
@@ -181,7 +187,7 @@ public: // in fact should be private, but then ptr could not access these member
     /*
      * A static reference to an object.
      */
-    class static_ref
+    class ORK_API static_ref
     {
     protected:
         /**

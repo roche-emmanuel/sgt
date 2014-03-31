@@ -195,6 +195,8 @@
 
 #define STBI_VERSION 1
 
+#define STB_API
+
 enum
 {
    STBI_default = 0, // only used for req_comp
@@ -220,11 +222,11 @@ extern "C" {
 // load image by filename, open file, or memory buffer
 //
 
-ORK_API stbi_uc *stbi_load_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
+STB_API stbi_uc *stbi_load_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
 
 #ifndef STBI_NO_STDIO
-ORK_API stbi_uc *stbi_load            (char const *filename,     int *x, int *y, int *comp, int req_comp);
-ORK_API stbi_uc *stbi_load_from_file  (FILE *f,                  int *x, int *y, int *comp, int req_comp);
+STB_API stbi_uc *stbi_load            (char const *filename,     int *x, int *y, int *comp, int req_comp);
+STB_API stbi_uc *stbi_load_from_file  (FILE *f,                  int *x, int *y, int *comp, int req_comp);
 // for stbi_load_from_file, file pointer is left pointing immediately after image
 #endif
 
@@ -235,48 +237,48 @@ typedef struct
    int      (*eof)   (void *user);                       // returns nonzero if we are at end of file/data
 } stbi_io_callbacks;
 
-ORK_API stbi_uc *stbi_load_from_callbacks  (stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp, int req_comp);
+STB_API stbi_uc *stbi_load_from_callbacks  (stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp, int req_comp);
 
 #ifndef STBI_NO_HDR
-   ORK_API float *stbi_loadf_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
+   STB_API float *stbi_loadf_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
 
    #ifndef STBI_NO_STDIO
-   ORK_API float *stbi_loadf            (char const *filename,   int *x, int *y, int *comp, int req_comp);
-   ORK_API float *stbi_loadf_from_file  (FILE *f,                int *x, int *y, int *comp, int req_comp);
+   STB_API float *stbi_loadf            (char const *filename,   int *x, int *y, int *comp, int req_comp);
+   STB_API float *stbi_loadf_from_file  (FILE *f,                int *x, int *y, int *comp, int req_comp);
    #endif
 
-   ORK_API float *stbi_loadf_from_callbacks  (stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp, int req_comp);
+   STB_API float *stbi_loadf_from_callbacks  (stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp, int req_comp);
 
-   ORK_API void   stbi_hdr_to_ldr_gamma(float gamma);
-   ORK_API void   stbi_hdr_to_ldr_scale(float scale);
+   STB_API void   stbi_hdr_to_ldr_gamma(float gamma);
+   STB_API void   stbi_hdr_to_ldr_scale(float scale);
 
-   ORK_API void   stbi_ldr_to_hdr_gamma(float gamma);
-   ORK_API void   stbi_ldr_to_hdr_scale(float scale);
+   STB_API void   stbi_ldr_to_hdr_gamma(float gamma);
+   STB_API void   stbi_ldr_to_hdr_scale(float scale);
 #endif // STBI_NO_HDR
 
 // stbi_is_hdr is always defined
-ORK_API int    stbi_is_hdr_from_callbacks(stbi_io_callbacks const *clbk, void *user);
-ORK_API int    stbi_is_hdr_from_memory(stbi_uc const *buffer, int len);
+STB_API int    stbi_is_hdr_from_callbacks(stbi_io_callbacks const *clbk, void *user);
+STB_API int    stbi_is_hdr_from_memory(stbi_uc const *buffer, int len);
 #ifndef STBI_NO_STDIO
-ORK_API int      stbi_is_hdr          (char const *filename);
-ORK_API int      stbi_is_hdr_from_file(FILE *f);
+STB_API int      stbi_is_hdr          (char const *filename);
+STB_API int      stbi_is_hdr_from_file(FILE *f);
 #endif // STBI_NO_STDIO
 
 
 // get a VERY brief reason for failure
 // NOT THREADSAFE
-ORK_API const char *stbi_failure_reason  (void);
+STB_API const char *stbi_failure_reason  (void);
 
 // free the loaded image -- this is just free()
-ORK_API void     stbi_image_free      (void *retval_from_stbi_load);
+STB_API void     stbi_image_free      (void *retval_from_stbi_load);
 
 // get image dimensions & components without fully decoding
-ORK_API int      stbi_info_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp);
-ORK_API int      stbi_info_from_callbacks(stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp);
+STB_API int      stbi_info_from_memory(stbi_uc const *buffer, int len, int *x, int *y, int *comp);
+STB_API int      stbi_info_from_callbacks(stbi_io_callbacks const *clbk, void *user, int *x, int *y, int *comp);
 
 #ifndef STBI_NO_STDIO
-ORK_API int      stbi_info            (char const *filename,     int *x, int *y, int *comp);
-ORK_API int      stbi_info_from_file  (FILE *f,                  int *x, int *y, int *comp);
+STB_API int      stbi_info            (char const *filename,     int *x, int *y, int *comp);
+STB_API int      stbi_info_from_file  (FILE *f,                  int *x, int *y, int *comp);
 
 #endif
 
@@ -285,21 +287,21 @@ ORK_API int      stbi_info_from_file  (FILE *f,                  int *x, int *y,
 // for image formats that explicitly notate that they have premultiplied alpha,
 // we just return the colors as stored in the file. set this flag to force
 // unpremultiplication. results are undefined if the unpremultiply overflow.
-ORK_API void stbi_set_unpremultiply_on_load(int flag_true_if_should_unpremultiply);
+STB_API void stbi_set_unpremultiply_on_load(int flag_true_if_should_unpremultiply);
 
 // indicate whether we should process iphone images back to canonical format,
 // or just pass them through "as-is"
-ORK_API void stbi_convert_iphone_png_to_rgb(int flag_true_if_should_convert);
+STB_API void stbi_convert_iphone_png_to_rgb(int flag_true_if_should_convert);
 
 
 // ZLIB client - used by PNG, available for other purposes
 
-ORK_API char *stbi_zlib_decode_malloc_guesssize(const char *buffer, int len, int initial_size, int *outlen);
-ORK_API char *stbi_zlib_decode_malloc(const char *buffer, int len, int *outlen);
-ORK_API int   stbi_zlib_decode_buffer(char *obuffer, int olen, const char *ibuffer, int ilen);
+STB_API char *stbi_zlib_decode_malloc_guesssize(const char *buffer, int len, int initial_size, int *outlen);
+STB_API char *stbi_zlib_decode_malloc(const char *buffer, int len, int *outlen);
+STB_API int   stbi_zlib_decode_buffer(char *obuffer, int olen, const char *ibuffer, int ilen);
 
-ORK_API char *stbi_zlib_decode_noheader_malloc(const char *buffer, int len, int *outlen);
-ORK_API int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const char *ibuffer, int ilen);
+STB_API char *stbi_zlib_decode_noheader_malloc(const char *buffer, int len, int *outlen);
+STB_API int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const char *ibuffer, int ilen);
 
 
 // define faster low-level operations (typically SIMD support)
@@ -317,8 +319,8 @@ typedef void (*stbi_YCbCr_to_RGB_run)(stbi_uc *output, stbi_uc const  *y, stbi_u
 //     cb: Cb input channel; scale/biased to be 0..255
 //     cr: Cr input channel; scale/biased to be 0..255
 
-ORK_API void stbi_install_idct(stbi_idct_8x8 func);
-ORK_API void stbi_install_YCbCr_to_RGB(stbi_YCbCr_to_RGB_run func);
+STB_API void stbi_install_idct(stbi_idct_8x8 func);
+STB_API void stbi_install_YCbCr_to_RGB(stbi_YCbCr_to_RGB_run func);
 #endif // STBI_SIMD
 
 

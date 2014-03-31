@@ -111,6 +111,7 @@ public:
          */
         Type()
         {
+            // printf("Creating new resource type '%s'\n",t);
             ResourceFactory::getInstance()->addType(std::string(t), ctor);
         }
     };

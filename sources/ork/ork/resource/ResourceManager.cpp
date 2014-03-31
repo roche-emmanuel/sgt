@@ -80,6 +80,9 @@ ptr<Object> ResourceManager::loadResource(const string &name)
 
     if (d != NULL) {
         // then we create the actual resource from this descriptor
+        // if (Logger::INFO_LOGGER != NULL) {
+        //     Logger::INFO_LOGGER->log("RESOURCE", "Got valid descriptor for '" + name + "'");
+        // }
         try {
             r = ResourceFactory::getInstance()->create(this, name, d).cast<Object>();
         } catch (...) {

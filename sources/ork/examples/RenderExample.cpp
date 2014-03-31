@@ -85,6 +85,8 @@ public:
     RenderExample(const string &dir) :
         GlutWindow(Window::Parameters().size(1024, 768).depth(true)), fov(80.0), alpha(135), theta(45), dist(15)
     {
+        printf("Root directory is:  '%s'\n", dir.c_str());
+#if 1
         cube = new Mesh<P3_N3_UV_C, unsigned int>(TRIANGLES, GPU_STATIC);
         cube->addAttributeType(0, 3, A32F, false);
         cube->addAttributeType(1, 3, A32F, false);
@@ -183,10 +185,12 @@ public:
 
         fb = FrameBuffer::getDefault();
         fb->setDepthTest(true, LESS);
+#endif
     }
 
     void redisplay(double t, double dt)
     {
+#if 1
         fb->clear(true, false, true);
 
         mat4f cameraToWorld = mat4f::rotatex(90);
@@ -212,6 +216,7 @@ public:
         localToScreen2->setMatrix(cameraToScreen * worldToCamera * mat4f::translate(vec3f(0.0, 0.0, -2.0)) * mat4f::rotatez(180));
         fb->draw(p2, *plane);
 
+#endif
         GlutWindow::redisplay(t, dt);
 
         if (Logger::ERROR_LOGGER != NULL) {
@@ -221,8 +226,10 @@ public:
 
     void reshape(int x, int y)
     {
+#if 1
         fb->setViewport(vec4<GLint>(0, 0, x, y));
         fb->setDepthTest(true, LESS);
+#endif
         GlutWindow::reshape(x, y);
         idle(false);
     }

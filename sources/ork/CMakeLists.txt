@@ -34,7 +34,7 @@ link_directories(${GLEW_LIB_DIR})
 add_definitions("-DORK_API=" "-DTIXML_USE_STL" "-D_CRT_SECURE_NO_WARNINGS") #"-fPIC"
 add_definitions(${GLEW_FLAGS})
 
-option(BUILD_SHARED      "Build shared library instead of static"   OFF)
+option(BUILD_SHARED      "Build shared library instead of static"   ON)
 option(BUILD_EXAMPLES    "Build examples"                           ON )
 option(BUILD_TESTS       "Build tests"                              ON )
 
