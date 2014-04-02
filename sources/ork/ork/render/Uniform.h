@@ -285,7 +285,7 @@ typedef Uniform1<VEC1B, bool, GLuint, uniform1b, value1b> Uniform1b;
  * @ingroup render
  */
 template<UniformType U, class T, class R, const char *V, const char *W>
-class ORK_API Uniform2 : public Uniform
+class Uniform2 : public Uniform
 {
 public:
     /**
@@ -381,31 +381,31 @@ extern const char uniform2b[];
  * A uniform holding a single precision two vector.
  * @ingroup render
  */
-typedef Uniform2<VEC2F, GLfloat, GLfloat, uniform2f, value2f> Uniform2f;
+typedef ORK_API Uniform2<VEC2F, GLfloat, GLfloat, uniform2f, value2f> Uniform2f;
 
 /**
  * A uniform holding a double precision two vector.
  * @ingroup render
  */
-typedef Uniform2<VEC2B, GLdouble, GLdouble, uniform2d, value2d> Uniform2d;
+typedef ORK_API Uniform2<VEC2B, GLdouble, GLdouble, uniform2d, value2d> Uniform2d;
 
 /**
  * A uniform holding a signed integer two vector.
  * @ingroup render
  */
-typedef Uniform2<VEC2I, GLint, GLint, uniform2i, value2i> Uniform2i;
+typedef ORK_API Uniform2<VEC2I, GLint, GLint, uniform2i, value2i> Uniform2i;
 
 /**
  * A uniform holding an unsigned integer two vector.
  * @ingroup render
  */
-typedef Uniform2<VEC2UI, GLuint, GLuint, uniform2ui, value2ui> Uniform2ui;
+typedef ORK_API Uniform2<VEC2UI, GLuint, GLuint, uniform2ui, value2ui> Uniform2ui;
 
 /**
  * A uniform holding a boolean two vector.
  * @ingroup render
  */
-typedef Uniform2<VEC2B, bool, GLuint, uniform2b, value2b> Uniform2b;
+typedef ORK_API Uniform2<VEC2B, bool, GLuint, uniform2b, value2b> Uniform2b;
 
 // ----------------------------------------------------------------------------
 
@@ -414,7 +414,7 @@ typedef Uniform2<VEC2B, bool, GLuint, uniform2b, value2b> Uniform2b;
  * @ingroup render
  */
 template<UniformType U, class T, class R, const char *V, const char *W>
-class ORK_API Uniform3 : public Uniform
+class Uniform3 : public Uniform
 {
 public:
     /**
@@ -511,31 +511,31 @@ extern const char uniform3b[];
  * A uniform holding a single precision three vector.
  * @ingroup render
  */
-typedef Uniform3<VEC3F, GLfloat, GLfloat, uniform3f, value3f> Uniform3f;
+typedef ORK_API Uniform3<VEC3F, GLfloat, GLfloat, uniform3f, value3f> Uniform3f;
 
 /**
  * A uniform holding a double precision three vector.
  * @ingroup render
  */
-typedef Uniform3<VEC3D, GLdouble, GLdouble, uniform3d, value3d> Uniform3d;
+typedef ORK_API Uniform3<VEC3D, GLdouble, GLdouble, uniform3d, value3d> Uniform3d;
 
 /**
  * A uniform holding a signed integer three vector.
  * @ingroup render
  */
-typedef Uniform3<VEC3I, GLint, GLint, uniform3i, value3i> Uniform3i;
+typedef ORK_API Uniform3<VEC3I, GLint, GLint, uniform3i, value3i> Uniform3i;
 
 /**
  * A uniform holding an unsigned integer three vector.
  * @ingroup render
  */
-typedef Uniform3<VEC3UI, GLuint, GLuint, uniform3ui, value3ui> Uniform3ui;
+typedef ORK_API Uniform3<VEC3UI, GLuint, GLuint, uniform3ui, value3ui> Uniform3ui;
 
 /**
  * A uniform holding a boolean three vector.
  * @ingroup render
  */
-typedef Uniform3<VEC3B, bool, GLuint, uniform3b, value3b> Uniform3b;
+typedef ORK_API Uniform3<VEC3B, bool, GLuint, uniform3b, value3b> Uniform3b;
 
 // ----------------------------------------------------------------------------
 
@@ -544,7 +544,7 @@ typedef Uniform3<VEC3B, bool, GLuint, uniform3b, value3b> Uniform3b;
  * @ingroup render
  */
 template<UniformType U, class T, class R, const char *V, const char *W>
-class ORK_API Uniform4 : public Uniform
+class Uniform4 : public Uniform
 {
 public:
     /**
@@ -642,31 +642,31 @@ extern const char uniform4b[];
  * A uniform holding a single precision four vector.
  * @ingroup render
  */
-typedef Uniform4<VEC4F, GLfloat, GLfloat, uniform4f, value4f> Uniform4f;
+typedef ORK_API Uniform4<VEC4F, GLfloat, GLfloat, uniform4f, value4f> Uniform4f;
 
 /**
  * A uniform holding a double precision four vector.
  * @ingroup render
  */
-typedef Uniform4<VEC4D, GLdouble, GLdouble, uniform4d, value4d> Uniform4d;
+typedef ORK_API Uniform4<VEC4D, GLdouble, GLdouble, uniform4d, value4d> Uniform4d;
 
 /**
  * A uniform holding a signed integer four vector.
  * @ingroup render
  */
-typedef Uniform4<VEC4I, GLint, GLint, uniform4i, value4i> Uniform4i;
+typedef ORK_API Uniform4<VEC4I, GLint, GLint, uniform4i, value4i> Uniform4i;
 
 /**
  * A uniform holding an unsigned integer four vector.
  * @ingroup render
  */
-typedef Uniform4<VEC4UI, GLuint, GLuint, uniform4ui, value4ui> Uniform4ui;
+typedef ORK_API Uniform4<VEC4UI, GLuint, GLuint, uniform4ui, value4ui> Uniform4ui;
 
 /**
  * A uniform holding a boolean four vector.
  * @ingroup render
  */
-typedef Uniform4<VEC4B, bool, GLuint, uniform4b, value4b> Uniform4b;
+typedef ORK_API Uniform4<VEC4B, bool, GLuint, uniform4b, value4b> Uniform4b;
 
 // ----------------------------------------------------------------------------
 
@@ -675,7 +675,7 @@ typedef Uniform4<VEC4B, bool, GLuint, uniform4b, value4b> Uniform4b;
  * @ingroup render
  */
 template<UniformType U, class T, int C, int R, const char *V, const char *W>
-class ORK_API UniformMatrix : public Uniform
+class UniformMatrix : public Uniform
 {
 public:
     /**
@@ -945,109 +945,109 @@ extern const char uniformMatrix4x3d[];
  * A uniform holding a single precision 2x2 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT2F, GLfloat, 2, 2, uniformMatrix2f, valueMatrix2f> UniformMatrix2f;
+typedef ORK_API UniformMatrix<MAT2F, GLfloat, 2, 2, uniformMatrix2f, valueMatrix2f> UniformMatrix2f;
 
 /**
  * A uniform holding a single precision 3x3 matrix.
  * @ingroup render
  */
-typedef UniformMatrix3<MAT3F, GLfloat, uniformMatrix3f, valueMatrix3f> UniformMatrix3f;
+typedef ORK_API UniformMatrix3<MAT3F, GLfloat, uniformMatrix3f, valueMatrix3f> UniformMatrix3f;
 
 /**
  * A uniform holding a single precision 4x4 matrix.
  * @ingroup render
  */
-typedef UniformMatrix4<MAT4F, GLfloat, uniformMatrix4f, valueMatrix4f> UniformMatrix4f;
+typedef ORK_API UniformMatrix4<MAT4F, GLfloat, uniformMatrix4f, valueMatrix4f> UniformMatrix4f;
 
 /**
  * A uniform holding a single precision 2x3 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT2x3F, GLfloat, 2, 3, uniformMatrix2x3f, valueMatrix2x3f> UniformMatrix2x3f;
+typedef ORK_API UniformMatrix<MAT2x3F, GLfloat, 2, 3, uniformMatrix2x3f, valueMatrix2x3f> UniformMatrix2x3f;
 
 /**
  * A uniform holding a single precision 2x4 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT2x4F, GLfloat, 2, 4, uniformMatrix2x4f, valueMatrix2x4f> UniformMatrix2x4f;
+typedef ORK_API UniformMatrix<MAT2x4F, GLfloat, 2, 4, uniformMatrix2x4f, valueMatrix2x4f> UniformMatrix2x4f;
 
 /**
  * A uniform holding a single precision 3x2 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT3x2F, GLfloat, 3, 2, uniformMatrix3x2f, valueMatrix3x2f> UniformMatrix3x2f;
+typedef ORK_API UniformMatrix<MAT3x2F, GLfloat, 3, 2, uniformMatrix3x2f, valueMatrix3x2f> UniformMatrix3x2f;
 
 /**
  * A uniform holding a single precision 3x4 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT3x4F, GLfloat, 3, 4, uniformMatrix3x4f, valueMatrix3x4f> UniformMatrix3x4f;
+typedef ORK_API UniformMatrix<MAT3x4F, GLfloat, 3, 4, uniformMatrix3x4f, valueMatrix3x4f> UniformMatrix3x4f;
 
 /**
  * A uniform holding a single precision 4x2 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT4x2F, GLfloat, 4, 2, uniformMatrix4x2f, valueMatrix4x2f> UniformMatrix4x2f;
+typedef ORK_API UniformMatrix<MAT4x2F, GLfloat, 4, 2, uniformMatrix4x2f, valueMatrix4x2f> UniformMatrix4x2f;
 
 /**
  * A uniform holding a single precision 4x3 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT4x3F, GLfloat, 4, 3, uniformMatrix4x3f, valueMatrix4x3f> UniformMatrix4x3f;
+typedef ORK_API UniformMatrix<MAT4x3F, GLfloat, 4, 3, uniformMatrix4x3f, valueMatrix4x3f> UniformMatrix4x3f;
 
 /**
  * A uniform holding a double precision 2x2 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT2D, GLdouble, 2, 2, uniformMatrix2d, valueMatrix2d> UniformMatrix2d;
+typedef ORK_API UniformMatrix<MAT2D, GLdouble, 2, 2, uniformMatrix2d, valueMatrix2d> UniformMatrix2d;
 
 /**
  * A uniform holding a double precision 3x3 matrix.
  * @ingroup render
  */
-typedef UniformMatrix3<MAT3D, GLdouble, uniformMatrix3d, valueMatrix3d> UniformMatrix3d;
+typedef ORK_API UniformMatrix3<MAT3D, GLdouble, uniformMatrix3d, valueMatrix3d> UniformMatrix3d;
 
 /**
  * A uniform holding a double precision 4x4 matrix.
  * @ingroup render
  */
-typedef UniformMatrix4<MAT4D, GLdouble, uniformMatrix4d, valueMatrix4d> UniformMatrix4d;
+typedef ORK_API UniformMatrix4<MAT4D, GLdouble, uniformMatrix4d, valueMatrix4d> UniformMatrix4d;
 
 /**
  * A uniform holding a double precision 2x3 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT2x3D, GLdouble, 2, 3, uniformMatrix2x3d, valueMatrix2x3d> UniformMatrix2x3d;
+typedef ORK_API UniformMatrix<MAT2x3D, GLdouble, 2, 3, uniformMatrix2x3d, valueMatrix2x3d> UniformMatrix2x3d;
 
 /**
  * A uniform holding a double precision 2x4 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT2x4D, GLdouble, 2, 4, uniformMatrix2x4d, valueMatrix2x4d> UniformMatrix2x4d;
+typedef ORK_API UniformMatrix<MAT2x4D, GLdouble, 2, 4, uniformMatrix2x4d, valueMatrix2x4d> UniformMatrix2x4d;
 
 /**
  * A uniform holding a double precision 3x2 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT3x2D, GLdouble, 3, 2, uniformMatrix3x2d, valueMatrix3x2d> UniformMatrix3x2d;
+typedef ORK_API UniformMatrix<MAT3x2D, GLdouble, 3, 2, uniformMatrix3x2d, valueMatrix3x2d> UniformMatrix3x2d;
 
 /**
  * A uniform holding a double precision 3x4 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT3x4D, GLdouble, 3, 4, uniformMatrix3x4d, valueMatrix3x4d> UniformMatrix3x4d;
+typedef ORK_API UniformMatrix<MAT3x4D, GLdouble, 3, 4, uniformMatrix3x4d, valueMatrix3x4d> UniformMatrix3x4d;
 
 /**
  * A uniform holding a double precision 4x2 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT4x2D, GLdouble, 4, 2, uniformMatrix4x2d, valueMatrix4x2d> UniformMatrix4x2d;
+typedef ORK_API UniformMatrix<MAT4x2D, GLdouble, 4, 2, uniformMatrix4x2d, valueMatrix4x2d> UniformMatrix4x2d;
 
 /**
  * A uniform holding a double precision 4x3 matrix.
  * @ingroup render
  */
-typedef UniformMatrix<MAT4x3D, GLdouble, 4, 3, uniformMatrix4x3d, valueMatrix4x3d> UniformMatrix4x3d;
+typedef ORK_API UniformMatrix<MAT4x3D, GLdouble, 4, 3, uniformMatrix4x3d, valueMatrix4x3d> UniformMatrix4x3d;
 
 // ----------------------------------------------------------------------------
 

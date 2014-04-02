@@ -57,3 +57,4 @@
 - Ignoring ork log file.
 - Added support for ork tests.
 - Adding proland sources.
+- Built proland core with working sample.

@@ -229,25 +229,25 @@ public:
  * A 2D vector with half float coordinates.
  * @ingroup math
  */
-typedef vec2<half> vec2h;
+typedef ORK_API vec2<half> vec2h;
 
 /**
  * A 2D vector with float coordinates.
  * @ingroup math
  */
-typedef vec2<float> vec2f;
+typedef ORK_API vec2<float> vec2f;
 
 /**
  * A 2D vector with double coordinates.
  * @ingroup math
  */
-typedef vec2<double> vec2d;
+typedef ORK_API vec2<double> vec2d;
 
 /**
  * A 2D vector with int coordinates.
  * @ingroup math
  */
-typedef vec2<int> vec2i;
+typedef ORK_API vec2<int> vec2i;
 
 template <typename type>
 inline vec2<type>::vec2()

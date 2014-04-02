@@ -24,6 +24,7 @@ SET(DEP_GLEW ${DEPS_DIR}/${FLAVOR}/glew-1.9.0 CACHE STRING "GLEW path")
 SET(DEP_GLUT ${DEPS_DIR}/${FLAVOR}/glut-3.7.6 CACHE STRING "GLUT path")
 SET(DEP_ICONV ${DEPS_DIR}/${FLAVOR}/libiconv-1.9.2-1 CACHE STRING "iconv path")
 SET(DEP_PTHREADS ${DEPS_DIR}/${FLAVOR}/pthreads-w32-2.9.1 CACHE STRING "pthreads path")
+SET(DEP_ATB ${DEPS_DIR}/${FLAVOR}/AntTweakBar-1.15 CACHE STRING "AntTweakBar path")
 
 # Include the macro definitions:
 INCLUDE(cmake/Macros.cmake)
@@ -73,3 +74,7 @@ SET(GLUT_LIBS 		glut32.lib)
 SET(PTHREADS_INC_DIR 	${DEP_PTHREADS}/include)
 SET(PTHREADS_LIB_DIR 	${DEP_PTHREADS}/lib/x86)
 SET(PTHREADS_LIBS 		pthreadVCE2.lib)
+
+SET(ATB_INC_DIR 	${DEP_ATB}/include)
+SET(ATB_LIB_DIR 	${DEP_ATB}/lib)
+SET(ATB_LIBS 			AntTweakBar.lib)
