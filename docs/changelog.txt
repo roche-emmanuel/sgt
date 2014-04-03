@@ -59,3 +59,4 @@
 - Adding proland sources.
 - Built proland core with working sample.
 - Rebuilt proland core demo with proper sub path.
+- Adding proland terrain plugin.

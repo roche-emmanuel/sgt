@@ -25,6 +25,7 @@ SET(DEP_GLUT ${DEPS_DIR}/${FLAVOR}/glut-3.7.6 CACHE STRING "GLUT path")
 SET(DEP_ICONV ${DEPS_DIR}/${FLAVOR}/libiconv-1.9.2-1 CACHE STRING "iconv path")
 SET(DEP_PTHREADS ${DEPS_DIR}/${FLAVOR}/pthreads-w32-2.9.1 CACHE STRING "pthreads path")
 SET(DEP_ATB ${DEPS_DIR}/${FLAVOR}/AntTweakBar-1.15 CACHE STRING "AntTweakBar path")
+SET(DEP_TIFF ${DEPS_DIR}/${FLAVOR}/libtiff-3.8.2 CACHE STRING "TIFF path")
 
 # Include the macro definitions:
 INCLUDE(cmake/Macros.cmake)
@@ -78,3 +79,7 @@ SET(PTHREADS_LIBS 		pthreadVCE2.lib)
 SET(ATB_INC_DIR 	${DEP_ATB}/include)
 SET(ATB_LIB_DIR 	${DEP_ATB}/lib)
 SET(ATB_LIBS 			AntTweakBar.lib)
+
+SET(TIFF_INC_DIR 	${DEP_TIFF}/include)
+SET(TIFF_LIB_DIR 	${DEP_TIFF}/lib)
+SET(TIFF_LIBS 		libtiff.lib)
