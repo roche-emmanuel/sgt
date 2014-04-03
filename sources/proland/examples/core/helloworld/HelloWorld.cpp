@@ -54,8 +54,8 @@ public:
         Logger::ERROR_LOGGER = new FileLogger("ERROR", out, Logger::ERROR_LOGGER);
 
         ptr<XMLResourceLoader> resLoader = new XMLResourceLoader();
-        resLoader->addPath(".");
-        resLoader->addArchive("helloworld.xml");
+        resLoader->addPath("./proland_samples/core");
+        resLoader->addArchive("./proland_samples/core/helloworld.xml");
 
         ptr<ResourceManager> resManager = new ResourceManager(resLoader, 8);
 

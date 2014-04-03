@@ -58,3 +58,4 @@
 - Added support for ork tests.
 - Adding proland sources.
 - Built proland core with working sample.
+- Rebuilt proland core demo with proper sub path.
