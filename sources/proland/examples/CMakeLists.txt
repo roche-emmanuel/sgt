@@ -31,4 +31,8 @@ ADD_DEFINITIONS("-DPROLAND_API=__declspec(dllimport)")
 
 ADD_SUBDIRECTORY(core)
 ADD_SUBDIRECTORY(terrain/terrain1)
+ADD_SUBDIRECTORY(terrain/terrain2)
+ADD_SUBDIRECTORY(terrain/terrain3)
+ADD_SUBDIRECTORY(terrain/terrain4)
+ADD_SUBDIRECTORY(terrain/terrain5)
 

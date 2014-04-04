@@ -61,3 +61,4 @@
 - Rebuilt proland core demo with proper sub path.
 - Adding proland terrain plugin.
 - Built terrain1 example.
+- Added the terrain samples 2 to 5.

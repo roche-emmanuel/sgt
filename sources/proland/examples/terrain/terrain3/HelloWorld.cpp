@@ -58,8 +58,8 @@ public:
         Logger::ERROR_LOGGER = new FileLogger("ERROR", out, Logger::ERROR_LOGGER);
 
         ptr<XMLResourceLoader> resLoader = new XMLResourceLoader();
-        resLoader->addPath(".");
-        resLoader->addArchive("helloworld.xml");
+        resLoader->addPath("./proland_samples/terrain/terrain3");
+        resLoader->addArchive("./proland_samples/terrain/terrain3/helloworld.xml");
 
         ptr<ResourceManager> resManager = new ResourceManager(resLoader, 8);
 
