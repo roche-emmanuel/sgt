@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -45,11 +48,19 @@ float id(float x)
 
 bool fexists(const string &name)
 {
+#ifdef _WIN32
+	FILE* fd = fopen(name.c_str(),"r");
+	if(fd!=NULL) {
+		fclose(fd);
+		return true;
+	}
+#else
     int fd = open(name.c_str(), O_RDONLY);
     if (fd != -1) {
         close(fd);
         return true;
     }
+#endif
     return false;
 }
 
@@ -70,10 +81,8 @@ bool flog(const string &name)
         printf("GENERATING %s\n", name.c_str());
         return true;
     }
-    int fd = open(name.c_str(), O_RDONLY);
-    if (fd != -1) {
-        // file already exists
-        close(fd);
+    
+    if (fexists(name)) {
         return false;
     } else {
         printf("GENERATING %s\n", name.c_str());
@@ -151,8 +160,11 @@ void GetMinMaxColorsDXT1( const byte *colorBlock, byte *minColor, byte *maxColor
 	maxColor[2] = ( maxColor[2] >= inset[2] ) ? maxColor[2] - inset[2] : 0;
 }
 
-//#define ALIGN16( x ) __declspec(align(16)) x
+#ifdef _MSC_VER
+#define ALIGN16( x ) __declspec(align(16)) x
+#else
 #define ALIGN16( x ) x __attribute__ ((aligned (16)))
+#endif
 
 #define R_SHUFFLE_D( x, y, z, w ) (( (w) & 3 ) << 6 | ( (z) & 3 ) << 4 | ( (y) & 3 ) << 2 | ( (x) & 3 ))
 

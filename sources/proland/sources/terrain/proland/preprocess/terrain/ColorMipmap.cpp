@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -296,15 +299,15 @@ void ColorMipmap::buildBaseLevelTile(int tx, int ty, TIFF *f)
 	for (int j = -border; j < tileSize + border; ++j) {
 		for (int i = -border; i < tileSize + border; ++i) {
 			vec4f c = colorf->getColor(tx * tileSize + i, ty * tileSize + j);
-    		tile[off++] = int(roundf(c.x));
+    		tile[off++] = int(round(c.x));
     		if (channels > 1) {
-    		    tile[off++] = int(roundf(c.y));
+    		    tile[off++] = int(round(c.y));
     		}
     		if (channels > 2) {
-    		    tile[off++] = int(roundf(c.z));
+    		    tile[off++] = int(round(c.z));
     		}
     		if (channels > 3) {
-    		    tile[off++] = int(roundf(c.w));
+    		    tile[off++] = int(round(c.w));
     		}
 		}
 	}
@@ -357,12 +360,12 @@ void ColorMipmap::buildMipmapLevel(int level)
                                 vec4f c3 = getTileColor(ix, iy+1);
                                 vec4f c4 = getTileColor(ix+1, iy+1);
 
-                                tile[off++] = int(roundf(l2r((r2l(c1.x)+r2l(c2.x)+r2l(c3.x)+r2l(c4.x))/4.0)));
+                                tile[off++] = int(round(l2r((r2l(c1.x)+r2l(c2.x)+r2l(c3.x)+r2l(c4.x))/4.0)));
                                 if (channels > 1) {
-                                    tile[off++] = int(roundf(l2r((r2l(c1.y)+r2l(c2.y)+r2l(c3.y)+r2l(c4.y))/4.0)));
+                                    tile[off++] = int(round(l2r((r2l(c1.y)+r2l(c2.y)+r2l(c3.y)+r2l(c4.y))/4.0)));
                                 }
                                 if (channels > 2) {
-                                    tile[off++] = int(roundf(l2r((r2l(c1.z)+r2l(c2.z)+r2l(c3.z)+r2l(c4.z))/4.0)));
+                                    tile[off++] = int(round(l2r((r2l(c1.z)+r2l(c2.z)+r2l(c3.z)+r2l(c4.z))/4.0)));
                                 }
                                 if (channels > 3) {
                                     float w1 = max(2.0 * c1.w - 255.0, 0.0);
@@ -373,8 +376,8 @@ void ColorMipmap::buildMipmapLevel(int level)
                                     float n3 = max(255.0 - 2.0 * c3.w, 0.0);
                                     float w4 = max(2.0 * c4.w - 255.0, 0.0);
                                     float n4 = max(255.0 - 2.0 * c4.w, 0.0);
-                                    int w = int(roundf((w1 + w2 + w3 + w4) / 4));
-                                    int n = int(roundf((n1 + n2 + n3 + n4) / 4));
+                                    int w = int(round((w1 + w2 + w3 + w4) / 4));
+                                    int n = int(round((n1 + n2 + n3 + n4) / 4));
                                     tile[off++] = 127 + w / 2 - n / 2;
                                 }
                             }

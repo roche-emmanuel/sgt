@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -400,7 +403,7 @@ public:
                                     float a = (a1 + a2 + a3 + a4) / 4.0;
                                     //float a = max(a1, max(a2, max(a3, a4)));
                                     //float a = ((a1 + a2 + a3 + a4) / 4.0 + max(a1, max(a2, max(a3, a4)))) / 2.0;
-                                    tile[off++] = int(roundf(pow(a, 4.0f) * 255));
+                                    tile[off++] = int(round(pow(a, 4.0f) * 255));
 
                                     #define X(x) tan(x * (2.9 / 255.0) - 1.45) / 8.0
                                     vec3d n1 = vec3d(X(c1.y), X(c1.z), 0.0);

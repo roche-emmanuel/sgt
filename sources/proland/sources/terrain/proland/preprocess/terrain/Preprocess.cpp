@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -38,6 +41,13 @@
 
 #define RGB_JPEG_QUALITY 90
 
+#ifdef _MSC_VER
+#include <errno.h>
+#include <direct.h>
+#include <stdlib.h>
+#include <stdio.h>
+#endif
+ 
 namespace proland
 {
 
@@ -502,7 +512,11 @@ void createDir(const string &dir)
             createDir(dir.substr(0, index));
         }
     }
+#ifdef _MSC_VER
+    int status = _mkdir(dir.c_str());
+#else
     int status = mkdir(dir.c_str());
+#endif
     if (status != 0 && errno != EEXIST) {
         fprintf(stderr, "Cannot create directory %s\n", dir.c_str());
         throw exception();

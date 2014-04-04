@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -502,7 +505,7 @@ void HeightMipmap::encodeResidual(int level, float *residual, unsigned char *enc
     for (int j = 0; j <= tileSize + 4; ++j) {
         for (int i = 0; i <= tileSize + 4; ++i) {
             int off = i + j * (this->tileSize + 5);
-            short z = short(roundf(residual[off]));
+            short z = short(round(residual[off]));
             residual[off] = z;
             off = i + j * (tileSize + 5);
             encoded[2 * off] = z & 0xFF;
@@ -571,7 +574,7 @@ void HeightMipmap::produceTile(int level, int tx, int ty, unsigned int *offset, 
         for (int j = 0; j <= tileSize + 4; ++j) {
             for (int i = 0; i <= tileSize + 4; ++i) {
                 int off = i + j * (tileSize + 5);
-                short z = short(roundf(getTileHeight(i - 2, j - 2) / scale));
+                short z = short(round(getTileHeight(i - 2, j - 2) / scale));
                 off = i + j * (tileSize + 5);
                 tile[2 * off] = z & 0xFF;
                 tile[2 * off + 1] = z >> 8;
