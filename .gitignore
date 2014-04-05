@@ -6,6 +6,7 @@ software/*.dll
 software/modules/*.sgp
 software/packages/*.lpak
 software/tools/*.exe
+software/proland_samples/atmo/*.raw
 
 # ignore the packaged app folder content:
 apps/*

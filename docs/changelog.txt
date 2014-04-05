@@ -62,3 +62,4 @@
 - Adding proland terrain plugin.
 - Built terrain1 example.
 - Added the terrain samples 2 to 5.
+- Added proland atmo plugin support.

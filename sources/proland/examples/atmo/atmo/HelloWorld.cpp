@@ -237,7 +237,7 @@ void precompute();
 
 void init()
 {
-    preprocessAtmo(AtmoParameters(), ".");
+    preprocessAtmo(AtmoParameters(), "./proland_samples/atmo");
 
     FileLogger::File *out = new FileLogger::File("log.html");
     Logger::INFO_LOGGER = new FileLogger("INFO", out, Logger::INFO_LOGGER);
@@ -245,8 +245,8 @@ void init()
     Logger::ERROR_LOGGER = new FileLogger("ERROR", out, Logger::ERROR_LOGGER);
 
     ptr<XMLResourceLoader> resLoader = new XMLResourceLoader();
-    resLoader->addPath(".");
-    resLoader->addArchive("helloworld.xml");
+    resLoader->addPath("./proland_samples/atmo");
+    resLoader->addArchive("./proland_samples/atmo/helloworld.xml");
 
     ptr<ResourceManager> resManager = new ResourceManager(resLoader, 8);
 
