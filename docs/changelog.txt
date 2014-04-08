@@ -63,3 +63,4 @@
 - Built terrain1 example.
 - Added the terrain samples 2 to 5.
 - Added proland atmo plugin support.
+- Added ocean support in proland.

@@ -110,6 +110,9 @@ public:
 
     virtual bool mouseClick(button b, state s, modifier m, int x, int y)
     {
+        // std::cout << "Mouse click event : b=" << b << "std::endl";
+        Logger::INFO_LOGGER->log("ManuDebug","Mouse click event received.");
+
         mouseX = x;
         mouseY = y;
         rotate = (m & CTRL) != 0;
@@ -135,6 +138,9 @@ public:
 
     virtual bool mouseWheel(wheel b, modifier m, int x, int y)
     {
+        // std::cout << "Mouse wheel event : b=" << b << "std::endl";
+        Logger::INFO_LOGGER->log("ManuDebug","Mouse wheel event received.");
+
         if (b == WHEEL_DOWN) {
             controller->d *= 1.1;
         }

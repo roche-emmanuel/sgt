@@ -23,6 +23,7 @@ LINK_DIRECTORIES(${TIFF_LIB_DIR})
 INCLUDE_DIRECTORIES(../sources/core)
 INCLUDE_DIRECTORIES(../sources/terrain)
 INCLUDE_DIRECTORIES(../sources/atmo)
+INCLUDE_DIRECTORIES(../sources/ocean)
 
 ADD_DEFINITIONS("-D_CRT_SECURE_NO_WARNINGS" "-DTIXML_USE_STL")
 
@@ -40,3 +41,5 @@ ADD_SUBDIRECTORY(terrain/terrain5)
 # ADD_SUBDIRECTORY(terrain/exercise1) # ocean plugin required.
 
 ADD_SUBDIRECTORY(atmo/atmo)
+ADD_SUBDIRECTORY(ocean/ocean1)
+ADD_SUBDIRECTORY(ocean/ocean2)
