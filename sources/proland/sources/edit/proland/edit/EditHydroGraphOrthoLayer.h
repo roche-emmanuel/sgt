@@ -41,7 +41,7 @@ namespace proland
  * @ingroup edit
  * @authors Antoine Begault, Eric Bruneton, Guillaume Piolat
  */
-PROLAND_API class EditHydroGraphOrthoLayer : public EditGraphOrthoLayer
+class PROLAND_API EditHydroGraphOrthoLayer : public EditGraphOrthoLayer
 {
 public:
     /**

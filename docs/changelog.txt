@@ -64,3 +64,4 @@
 - Added the terrain samples 2 to 5.
 - Added proland atmo plugin support.
 - Added ocean support in proland.
+- Built forest, graph and river plugins for proland.

@@ -180,7 +180,7 @@ private:
  *     overflows during the precomputations (i.e. if the maximum residual, indicated
  *     in the standard ouput is larger than 65535), retry with a larger value.
  */
-PROLAND_API void preprocessDem(InputMap *src, int dstMinTileSize, int dstTileSize, int dstMaxLevel,
+void PROLAND_API preprocessDem(InputMap *src, int dstMinTileSize, int dstTileSize, int dstMaxLevel,
         const string &dstFolder, const string &tmpFolder, float residualScale);
 
 /**
@@ -212,7 +212,7 @@ PROLAND_API void preprocessDem(InputMap *src, int dstMinTileSize, int dstTileSiz
  *     overflows during the precomputations (i.e. if the maximum residual, indicated
  *     in the standard ouput is larger than 65535), retry with a larger value.
  */
-PROLAND_API void preprocessSphericalDem(InputMap *src, int dstMinTileSize, int dstTileSize, int dstMaxLevel,
+void PROLAND_API preprocessSphericalDem(InputMap *src, int dstMinTileSize, int dstTileSize, int dstMaxLevel,
         const string &dstFolder, const string &tmpFolder, float residualScale);
 
 /**
@@ -244,7 +244,7 @@ PROLAND_API void preprocessSphericalDem(InputMap *src, int dstMinTileSize, int d
  * @param dstFolder where the precomputed file must be saved.
  * @param tmpFolder where temporary files must be saved.
  */
-PROLAND_API void preprocessSphericalAperture(const string &srcFolder, int minLevel, int maxLevel, int samples,
+void PROLAND_API preprocessSphericalAperture(const string &srcFolder, int minLevel, int maxLevel, int samples,
         const string &dstFolder, const string &tmpFolder);
 
 /**
@@ -268,7 +268,7 @@ PROLAND_API void preprocessSphericalAperture(const string &srcFolder, int minLev
  * @param linearToRgb an optional transformation, which must be the inverse of
  *     'rgbToLinear'. A NULL value indicates the identity function.
  */
-PROLAND_API void preprocessOrtho(InputMap *src, int dstTileSize, int dstChannels, int dstMaxLevel,
+void PROLAND_API preprocessOrtho(InputMap *src, int dstTileSize, int dstChannels, int dstMaxLevel,
         const string &dstFolder, const string &tmpFolder, float (*rgbToLinear)(float) = NULL, float (*linearToRgb)(float) = NULL);
 
 /**
@@ -293,7 +293,7 @@ PROLAND_API void preprocessOrtho(InputMap *src, int dstTileSize, int dstChannels
  * @param linearToRgb an optional transformation, which must be the inverse of
  *     'rgbToLinear'. A NULL value indicates the identity function.
  */
-PROLAND_API void preprocessSphericalOrtho(InputMap *src, int dstTileSize, int dstChannels, int dstMaxLevel,
+void PROLAND_API preprocessSphericalOrtho(InputMap *src, int dstTileSize, int dstChannels, int dstMaxLevel,
         const string &dstFolder, const string &tmpFolder, float (*rgbToLinear)(float) = NULL, float (*linearToRgb)(float) = NULL);
 
 }

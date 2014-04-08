@@ -52,7 +52,7 @@ namespace proland
  * @ingroup edit
  * @authors Antoine Begault, Eric Bruneton, Guillaume Piolat
  */
-PROLAND_API class EditGraphOrthoLayer : public TileLayer
+class PROLAND_API EditGraphOrthoLayer : public TileLayer
 {
 public:
     /**

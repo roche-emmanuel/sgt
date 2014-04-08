@@ -39,7 +39,7 @@ namespace proland
  * @ingroup twbar
  * @author Antoine Begault
  */
-PROLAND_API class TweakRivers : public TweakBarHandler
+class PROLAND_API TweakRivers : public TweakBarHandler
 {
 public:
     /**

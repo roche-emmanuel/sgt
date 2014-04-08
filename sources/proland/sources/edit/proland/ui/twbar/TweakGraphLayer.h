@@ -39,7 +39,7 @@ namespace proland
  * @ingroup twbar
  * @author Antoine Begault, Guillaume Piolat
  */
-PROLAND_API class TweakGraphLayer : public TweakBarHandler
+class PROLAND_API TweakGraphLayer : public TweakBarHandler
 {
 public:
     enum CONTEXT_MENU_MODE

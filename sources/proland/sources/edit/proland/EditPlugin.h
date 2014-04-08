@@ -34,7 +34,7 @@ namespace proland
 /**
  * Initializes the edit plugin.
  */
-PROLAND_API void initEditPlugin();
+void PROLAND_API initEditPlugin();
 
 }
 
