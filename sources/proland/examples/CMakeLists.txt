@@ -24,6 +24,10 @@ INCLUDE_DIRECTORIES(../sources/core)
 INCLUDE_DIRECTORIES(../sources/terrain)
 INCLUDE_DIRECTORIES(../sources/atmo)
 INCLUDE_DIRECTORIES(../sources/ocean)
+INCLUDE_DIRECTORIES(../sources/graph)
+INCLUDE_DIRECTORIES(../sources/forest)
+INCLUDE_DIRECTORIES(../sources/river)
+INCLUDE_DIRECTORIES(../sources/edit)
 
 ADD_DEFINITIONS("-D_CRT_SECURE_NO_WARNINGS" "-DTIXML_USE_STL")
 
@@ -38,8 +42,22 @@ ADD_SUBDIRECTORY(terrain/terrain3)
 ADD_SUBDIRECTORY(terrain/terrain4)
 ADD_SUBDIRECTORY(terrain/terrain5)
 
-# ADD_SUBDIRECTORY(terrain/exercise1) # ocean plugin required.
+ADD_SUBDIRECTORY(terrain/exercise1)
+ADD_SUBDIRECTORY(terrain/exercise2)
+ADD_SUBDIRECTORY(terrain/exercise3)
+ADD_SUBDIRECTORY(terrain/exercise4)
+ADD_SUBDIRECTORY(terrain/exercise5)
 
 ADD_SUBDIRECTORY(atmo/atmo)
 ADD_SUBDIRECTORY(ocean/ocean1)
 ADD_SUBDIRECTORY(ocean/ocean2)
+
+ADD_SUBDIRECTORY(graph/graph1)
+ADD_SUBDIRECTORY(forest/trees1)
+
+ADD_SUBDIRECTORY(river/river1)
+
+ADD_SUBDIRECTORY(edit/edit1)
+ADD_SUBDIRECTORY(edit/edit2)
+ADD_SUBDIRECTORY(edit/edit3)
+ADD_SUBDIRECTORY(edit/edit4)

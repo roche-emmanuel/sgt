@@ -57,7 +57,7 @@ public:
     /**
      * Vertex format for a text mesh.
      */
-    struct Vertex
+    struct ORK_API Vertex
     {
         vec4h pos_uv;
 
