@@ -7,6 +7,7 @@ software/modules/*.sgp
 software/packages/*.lpak
 software/tools/*.exe
 software/proland_samples/atmo/*.raw
+software/proland_samples/terrain/exercise1/*.raw
 
 # ignore the packaged app folder content:
 apps/*

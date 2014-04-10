@@ -237,7 +237,7 @@ static_ptr<Window> app;
 
 void init()
 {
-    preprocessAtmo(AtmoParameters(), ".");
+    preprocessAtmo(AtmoParameters(), "./proland_samples/terrain/exercise1");
 
     FileLogger::File *out = new FileLogger::File("log.html");
     Logger::INFO_LOGGER = new FileLogger("INFO", out, Logger::INFO_LOGGER);

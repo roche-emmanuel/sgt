@@ -66,3 +66,4 @@
 - Added ocean support in proland.
 - Built forest, graph and river plugins for proland.
 - Built all proland examples.
+- Tested proland examples.
