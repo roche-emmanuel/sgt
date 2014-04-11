@@ -77,7 +77,7 @@ end
 
 local function param (tag, block, text)
 	block[tag] = block[tag] or {}
-	-- TODO: make this pattern more flexible, accepting empty descriptions
+	-- TODO : make this pattern more flexible, accepting empty descriptions
 	local _, _, name, desc = string.find(text, "^([_%w%.]+)%s+(.*)")
 	if not name then
 		luadoc.logger:warn("parameter `name' not defined [["..text.."]]: skipping")

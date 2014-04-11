@@ -88,8 +88,8 @@ end
 -- @return name of the generated html file for the module
 
 function module_link (modulename, doc, from)
-	-- TODO: replace "." by "/" to create directories?
-	-- TODO: how to deal with module names with "/"?
+	-- TODO : replace "." by "/" to create directories?
+	-- TODO : how to deal with module names with "/"?
 	assert(modulename)
 	assert(doc)
 	from = from or ""
@@ -190,7 +190,7 @@ end
 
 -------------------------------------------------------------------------------
 -- Assembly the output filename for an input file.
--- TODO: change the name of this function
+-- TODO : change the name of this function
 function out_file (filename)
 	local h = filename
 	h = string.gsub(h, "lua$", "html")
@@ -203,7 +203,7 @@ end
 
 -------------------------------------------------------------------------------
 -- Assembly the output filename for a module.
--- TODO: change the name of this function
+-- TODO : change the name of this function
 function out_module (modulename)
 	local h = modulename .. ".html"
 	h = "modules/" .. h

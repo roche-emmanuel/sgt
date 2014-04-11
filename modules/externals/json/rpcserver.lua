@@ -70,7 +70,6 @@ function serve(luaClass, packReturn)
   end 
   
   -- Output the result
-  -- TODO: How to be sure that the result and error tags are there even when they are nil in Lua?
   -- Can force them by hand... ?
   cgilua.contentheader('text','plain')
   cgilua.put( json.encode( jsonResponse ) )

@@ -637,7 +637,6 @@ local function run_test(name, test, suite, hooks, setup, teardown)
    result = err
    if elapsed then result.elapsed = elapsed end
 
-   -- TODO: log tests w/ no assertions?
    result:add(suite, name)
 
    if is_func(hooks.post_test) then hooks.post_test(name, result) end

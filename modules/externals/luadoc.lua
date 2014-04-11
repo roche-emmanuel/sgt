@@ -53,7 +53,7 @@ local function off_messages (arg, i, options)
 end
 
 -------------------------------------------------------------------------------
--- Process options. TODO: use getopts.
+-- Process options.
 -- @class table
 -- @name OPTIONS
 

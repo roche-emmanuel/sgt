@@ -60,7 +60,7 @@ local function check_function (line)
 		end
 	end)
 
-	-- TODO: remove these assert's?
+	-- TODO : remove these assert's?
 	if info ~= nil then
 		assert(info.name, "function name undefined")
 		assert(info.param, string.format("undefined parameter list for function `%s'", info.name))
@@ -185,7 +185,7 @@ local function parse_comment (block, first_line)
 			block.param = {}
 		end
 	else
-		-- TODO: comment without any code. Does this means we are dealing
+		-- TODO : comment without any code. Does this means we are dealing
 		-- with a file comment?
 	end
 
@@ -199,7 +199,7 @@ local function parse_comment (block, first_line)
 		local r, _, tag, text = string.find(line, "@([_%w%.]+)%s+(.*)")
 		if r ~= nil then
 			-- found new tag, add previous one, and start a new one
-			-- TODO: what to do with invalid tags? issue an error? or log a warning?
+			-- TODO : what to do with invalid tags? issue an error? or log a warning?
 			tags.handle(currenttag, block, currenttext)
 			
 			currenttag = tag
@@ -237,7 +237,7 @@ local function parse_block (f, line, modulename, first)
 	while line ~= nil do
 		if string.find(line, "^[\t ]*%-%-") == nil then
 			-- reached end of comment, read the code below it
-			-- TODO: allow empty lines
+			-- TODO : allow empty lines
 			line, block.code, modulename = parse_code(f, line, modulename)
 			
 			-- parse information in block comment
@@ -282,7 +282,7 @@ function parse_file (filepath, doc)
 			-- look for a module definition
 			modulename = check_module(line, modulename)
 			
-			-- TODO: keep beginning of file somewhere
+			-- TODO : keep beginning of file somewhere
 			
 			line = f:read()
 		end
@@ -322,7 +322,7 @@ function parse_file (filepath, doc)
 				table.insert(doc.modules[modulename].doc, v)
 			end)
 		else
-			-- TODO: put this in a different module
+			-- TODO : put this in a different module
 			table.insert(doc.modules, modulename)
 			doc.modules[modulename] = {
 				type = "module",

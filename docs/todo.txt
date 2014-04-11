@@ -1,3 +1,6 @@
+TODO:
+- remove luadoc if we dont need it anymore.
+- remove lunatest if we do not need it anymore.
 - Add support for package generation in enigma.
 - Add support for package or main app generation selection in enigma.
 - Find how to add flags for command line depending on selected loader ?

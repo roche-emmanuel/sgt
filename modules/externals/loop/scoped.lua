@@ -32,7 +32,7 @@
 --   prot(object)                                                             --
 --------------------------------------------------------------------------------
 
--- TODO:
+-- TODO :
 --	 Test replacement of all members of a scope by ClassProxy[scope] = { ... }
 --	 Test static method call.
 --	 Define a default __eq metamethod that compares the object references.

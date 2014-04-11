@@ -63,7 +63,6 @@ local m_known_functions = {
 	[load] = "load",
 	[error] = "error",
 	[loadfile] = "loadfile",
-	-- TODO: add table.* etc functions
 }
 
 local m_user_known_functions = {}

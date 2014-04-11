@@ -19,7 +19,7 @@ options = {
 
 -------------------------------------------------------------------------------
 -- Assembly the output filename for an input file.
--- TODO: change the name of this function
+-- TODO : change the name of this function
 function out_file (filename)
 	local h = filename
 	h = options.output_dir..h
@@ -40,7 +40,7 @@ function start (doc)
 		local filename = out_file(file_doc.name)
 		luadoc.logger:info(string.format("generating file `%s'", filename))
 
-		-- TODO: confirm file overwrite
+		-- TODO : confirm file overwrite
 		local f = lfs.open(filename, "w")
 		assert(f, string.format("could not open `%s' for writing", filename))
 
@@ -69,9 +69,6 @@ function start (doc)
 					f:write(util.comment(util.wrap(string.format("@return %s", block.ret or todo), 77)).."\n")
 				end
 			end
-			
-			-- TODO: usage
-			-- TODO: see
 
 			-- write code
 			for _, line in ipairs(block.code) do
