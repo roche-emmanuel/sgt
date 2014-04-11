@@ -10,8 +10,6 @@ local oo = require "loop.cached"
 
 local path
 
-local Meta = {}
-
 local errorlevel = function()
   -- find the first level, not defined in the same file as this
   -- code file to properly report the error
@@ -77,9 +75,13 @@ local doTest0 = function(result,reason,...)
 	onError0(reason,...)
 end
 
+local Meta = {}
+
 --- Meta method to handle the calls assert(val,msg,...)
 Meta.__call = function(self,val,...)
-	return doTest1(val,val,"is false or nil",...)
+	if val then return val end
+	-- assertion failed:
+	onError1(val,"is false or nil",...)
 end
 
 local Class = {}
@@ -96,37 +98,46 @@ Returns:
 	The value itself if it is true, an error is triggered otherwise.
 ]]
 function Class.isTrue(val,...)
-	return doTest1(val==true,val,"is not true",...)
+	if val==true then return val end
+	onError1(val,"is not true",...)
 end
 
 function Class.isFalse(val,...)
-	return doTest1(val==false,val,"is not false",...)
+	if val==false then return val end
+	onError1(val,"is not false",...)
 end
 
 function Class.isString(val,...)
-	return doTest1(type(val)=="string",val,"is not a string",...)
+	if type(val)=="string" then return val end
+	onError1(val,"is not a string",...)
 end
 
 function Class.isTable(val,...)
-	return doTest1(type(val)=="table",val,"is not a table",...)
+	if type(val)=="table" then return val end
+	onError1(val,"is not a table",...)
 end
 
 function Class.isFunction(val,...)
-	return doTest1(type(val)=="function",val,"is not a function",...)
+	if type(val)=="function" then return val end
+	onError1(val,"is not a function",...)
 end
 
 function Class.isBoolean(val,...)
-	return doTest1(type(val)=="boolean",val,"is not a boolean",...)
+	if type(val)=="boolean" then return val end
+	onError1(val,"is not a boolean",...)
 end
 
 function Class.isNonEmptyString(val,...)
-	return doTest1(type(val)=="string" and #val>0,val,"is not a string or is the empty string",...)
+	if type(val)=="string" and #val>0 then return val end
+	onError1(val,"is not a string or is the empty string",...)
 end
 
 function Class.areEqual(val1,val2,...)
-	return doTest2(val1==val2,val1,val2,"are not equals",...)
+	if val1==val2 then return end
+	onError2(val1,val2,"are not equals",...)
 end
 
+-- TODO: finish optimizing assert methods here.
 function Class.isGreaterThan(val1,val2,...)
 	return doTest2(val1 and val2 and val1<val2,val1,val2,"value2 is less or equal to value1",...)
 end

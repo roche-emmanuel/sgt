@@ -1,8 +1,11 @@
 --[[
 Class: base.Object
 
-This is the absolute base object.
+This is the absolute base object for all generated class.
+This class is used by default as parent class when <createClass>
+is called with no bases argument.
 ]]
+
 local className = "base.Object"
 
 local oo = require "loop.cached"
@@ -33,6 +36,8 @@ function Object:supers()
 	return oo.supers(oo.classof(self))
 end
 
+-- TODO: remove the methods below they should not be
+-- part of the Object base API.
 function Object:isString(var)
 	return type(var)=="string"
 end

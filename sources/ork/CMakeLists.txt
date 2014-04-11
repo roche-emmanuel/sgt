@@ -32,6 +32,7 @@ link_directories(${GLEW_LIB_DIR})
 
 # set(EXECUTABLE_OUTPUT_PATH ${CMAKE_INSTALL_PREFIX}/ork)
 add_definitions("-DORK_API=" "-DTIXML_USE_STL" "-D_CRT_SECURE_NO_WARNINGS") #"-fPIC"
+add_definitions(${GLUT_FLAGS})
 add_definitions(${GLEW_FLAGS})
 
 option(BUILD_SHARED      "Build shared library instead of static"   ON)

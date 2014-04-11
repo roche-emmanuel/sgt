@@ -26,6 +26,7 @@ local Object = oo.class{}
 Object._CLASSNAME_ = className
 Object._TRACE_ = className
 
+-- TODO: remove this variable to enforce local caching of config when needed.
 --[[
 Variable: cfg
 
@@ -33,13 +34,6 @@ This is the global level configuration table. It can be accessed by all
 classes inheriting from <core.Object>.
 ]]
 Object.cfg = require "config"
-
---[[
-Variable: assert
-
-Global access to the <utils.assert> library.
-]]
-Object.assert = assert
 
 --[[
 Variable: throw

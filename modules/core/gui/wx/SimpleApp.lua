@@ -1,9 +1,7 @@
-local Class = require("classBuilder"){name="SimpleApp",bases="base.Object"};
+local Class = createClass{"SimpleApp"}
 
 local wx = require "wx"
-
 local i18n = require "i18n"
-local cfg = require "config"
 local Event = require "base.Event"
 local prof = require "debugging.Profiler"
 
@@ -16,12 +14,12 @@ function Class:initialize(options)
 	self._profileFile = options.profileFile
 	
 	-- create the mainframe:
-    self._frame = wx.wxFrame:new( nil,            -- no parent for toplevel windows
-                wx.wxID_ANY,          -- don't need a wxWindow ID
-                i18n.mainframe_title,-- caption on the frame
-                wx.wxPoint(-1,-1), -- let system place the frame
-                wx.wxSize(450, 450),  -- set the size of the frame
-                wx.wxDEFAULT_FRAME_STYLE ) -- use default frame styles
+  self._frame = wx.wxFrame:new( nil,            -- no parent for toplevel windows
+              wx.wxID_ANY,          -- don't need a wxWindow ID
+              i18n.mainframe_title,-- caption on the frame
+              wx.wxPoint(-1,-1), -- let system place the frame
+              wx.wxSize(450, 450),  -- set the size of the frame
+              wx.wxDEFAULT_FRAME_STYLE ) -- use default frame styles
                 
 	-- Display mainframe:
 	self._frame:Show(true)

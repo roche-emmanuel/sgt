@@ -1,6 +1,8 @@
 -- Implementation of the locale management system.
 local Class = createClass{"Locale"}
 
+local assert = require "utils.assert"
+
 local locale_list = { "en", "fr" }
 
 local currentLocale = nil -- the default locale as global variable.
@@ -48,8 +50,8 @@ function Class:initialize(options)
 end
 
 function Class:addLocaleMap(lang,map)
-	self.assert.nonEmptyString(lang,"Invalid locale.")
-	self.assert.isTable(map,"Invalid locale map")
+	assert.nonEmptyString(lang,"Invalid locale.")
+	assert.isTable(map,"Invalid locale map")
 	
 	locales[lang] = locales[map] or {}
 	
@@ -63,22 +65,22 @@ function Class:addLocaleMap(lang,map)
 end
 
 function Class:setLocale(locale)
-  	self.assert.nonEmptyString(locale,"Invalid locale code");
+  	assert.nonEmptyString(locale,"Invalid locale code");
   	self:check(locales[locale],"No locale map found for locale ",locale)
 
   	currentLocale = locale
 end
 
 function Class:translate(id,...)
-	self.assert.nonEmptyString(id,"Invalid id")
-	self.assert.nonEmptyString(currentLocale,"Invalid current locale")
+	assert.nonEmptyString(id,"Invalid id")
+	assert.nonEmptyString(currentLocale,"Invalid current locale")
   	self:check(locales[currentLocale],"No locale map found for locale ",currentLocale)
 
 	self:debug("Translating id=",id," for locale ",currentLocale)
 	
 	local result = locales[currentLocale][id]
 	
-	if self.assert.isString(result) then
+	if assert.isString(result) then
 		for id,v in ipairs({...}) do
 			result = result:gsub("%${"..id.."}",v)
 		end

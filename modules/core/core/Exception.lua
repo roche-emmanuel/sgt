@@ -1,5 +1,7 @@
 local Class = createClass{"Exception"}
 
+local assert = require "utils.assert"
+
 --[[
 Class: core.Exception
 
@@ -26,7 +28,7 @@ function Class:initialize(options)
 	options = type(options)=="string" and {options} or options or {}
 	
 	self._message = options[1] or options.msg
-	self.assert(self._message,"Invalid exception message.")
+	assert(self._message,"Invalid exception message.")
 	self._stack = options.stack or debug.traceback("",4)
 end
 

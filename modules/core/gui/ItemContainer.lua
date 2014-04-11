@@ -1,7 +1,8 @@
-local Class = require("classBuilder"){name="ItemContainer",bases="gui.Container"};
+local Class = createClass{name="ItemContainer",bases="gui.Container"};
 
 local base = require "utils.base"
 local Vector = require "std.Vector"
+local assert = require "utils.assert"
 
 --[[
 Class: gui.ITemContainer
@@ -43,7 +44,7 @@ Parameters:
 	func - The new create function to use.  
 ]]
 function Class:setCreateFunction(func)
-	self.assert.Function(func)
+	assert.Function(func)
 	self._createFunc = func
 end
 
@@ -59,7 +60,7 @@ Parameters:
 prototype should be ID func(item);  
 ]]
 function Class:setIDFunction(func)
-	self.assert.Function(func)
+	assert.Function(func)
 	self._idFunc = func
 end
 

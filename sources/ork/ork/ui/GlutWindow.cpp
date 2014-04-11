@@ -27,6 +27,8 @@
 
 #include <GL/glew.h>
 
+#include <iostream>
+
 #ifdef USEFREEGLUT
 #include <GL/freeglut.h>
 #else
@@ -118,20 +120,24 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
     int argc = 1;
     char *argv[1] = { (char*) "dummy" };
     if (INSTANCES.size() == 0) {
+        std::cout << "CALLING glutInit!!!" << std::endl;
         glutInit(&argc, argv);
+    
+#ifdef USEFREEGLUT
+        //Init OpenGL context
+        std::cout << "Initializing freeglut with version: " << params.version().x << "." << params.version().y << std::endl;
+        // Note that if we try to specify this setting then we only get a black display.
+        // glutInitContextVersion(params.version().x, params.version().y);
+        glutInitContextProfile(GLUT_CORE_PROFILE);
+        glutInitContextFlags(GLUT_FORWARD_COMPATIBLE | (params.debug() ? GLUT_DEBUG : 0));
+#endif
     }
+
     glutInitDisplayMode(GLUT_DOUBLE |
         (params.alpha() ? GLUT_ALPHA : 0) |
         (params.depth() ? GLUT_DEPTH : 0) |
         (params.stencil() ? GLUT_STENCIL : 0) |
         (params.multiSample() ? GLUT_MULTISAMPLE : 0));
-
-#ifdef USEFREEGLUT
-    //Init OpenGL context
-    glutInitContextVersion(params.version().x, params.version().y);
-    glutInitContextProfile(GLUT_CORE_PROFILE);
-    glutInitContextFlags(GLUT_FORWARD_COMPATIBLE | (params.debug() ? GLUT_DEBUG : 0));
-#endif
 
     glutInitWindowSize(params.width(), params.height());
     windowId = glutCreateWindow(params.name().c_str());
@@ -242,6 +248,8 @@ void GlutWindow::idleFunc()
 
 void GlutWindow::mouseClickFunc(int b, int s, int x, int y)
 {
+    // std::cout << "Received mouseClickFunc with button=" << b << std::endl;
+
     int m = glutGetModifiers();
 
 #ifdef GLUT_WHEEL_UP
