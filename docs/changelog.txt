@@ -69,3 +69,4 @@
 - Tested proland examples.
 - Added glut minimal test. Fixed mouse wheel usage. minor refactoring of assert methods.
 - Preparing TODO list support.
+- Added minimal OSG test.
