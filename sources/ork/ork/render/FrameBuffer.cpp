@@ -695,9 +695,9 @@ bool FrameBuffer::getFrontFaceCW()
     return parameters.frontFaceCW;
 }
 
-vec2<PolygonMode> FrameBuffer::getPolygonMode()
+vec2<int> FrameBuffer::getPolygonMode()
 {
-    return vec2<PolygonMode>(parameters.polygonFront, parameters.polygonBack);
+    return vec2<int>((int)parameters.polygonFront, (int)parameters.polygonBack);
 }
 
 bool FrameBuffer::getPolygonSmooth()

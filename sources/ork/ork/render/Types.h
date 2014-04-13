@@ -25,6 +25,7 @@
 #define _ORK_TYPES_H_
 
 #include <ork/core/pstdint.h>
+#include <ork/math/vec2.h>
 
 /**
  * An enum value.

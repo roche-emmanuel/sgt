@@ -40,12 +40,14 @@ INSTALL(TARGETS ${TARGET_NAME}
 # reflection settings:	
 SET(INTF_FILES)
 
-
 # LIST(APPEND INTF_FILES "${MYDEP_INC_DIR}")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/core")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/math")
+LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/render")
+LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/util")
 ADD_FILES(INTF_FILES "../include/plug_extensions.h")
 ADD_FILES(INTF_FILES "../interface/helpers.h")
+
 
 SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES 
 	OUTPUT_NAME "${PLUG_NAME}"

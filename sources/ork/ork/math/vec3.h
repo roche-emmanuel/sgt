@@ -241,25 +241,25 @@ public:
  * A 3D vector with half float coordinates.
  * @ingroup math
  */
-typedef vec3<half> vec3h;
+typedef ORK_API vec3<half> vec3h;
 
 /**
  * A 3D vector with float coordinates.
  * @ingroup math
  */
-typedef vec3<float> vec3f;
+typedef ORK_API vec3<float> vec3f;
 
 /**
  * A 3D vector with double coordinates.
  * @ingroup math
  */
-typedef vec3<double> vec3d;
+typedef ORK_API vec3<double> vec3d;
 
 /**
  * A 3D vector with int coordinates.
  * @ingroup math
  */
-typedef vec3<int> vec3i;
+typedef ORK_API vec3<int> vec3i;
 
 template <typename type>
 inline vec3<type>::vec3()

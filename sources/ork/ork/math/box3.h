@@ -25,9 +25,20 @@
 #define _ORK_BOX3_H_
 
 #include "pmath.h"
-#include <algorithm>
 
 #include "ork/math/vec3.h"
+
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
+
+#include <algorithm>
+
+using namespace std;
 
 namespace ork
 {
@@ -88,9 +99,9 @@ template <typename type> struct box3
      * Creates a new bounding box enclosing the two given points.
      */
     box3(const vec3<type> &p, const vec3<type> &q):
-        xmin(min(p.x, q.x)), xmax(max(p.x, q.x)),
-        ymin(min(p.y, q.y)), ymax(max(p.y, q.y)),
-        zmin(min(p.z, q.z)), zmax(max(p.z, q.z))
+        xmin(std::min(p.x, q.x)), xmax(std::max(p.x, q.x)),
+        ymin(std::min(p.y, q.y)), ymax(std::max(p.y, q.y)),
+        zmin(std::min(p.z, q.z)), zmax(std::max(p.z, q.z))
     {
     }
 
@@ -109,7 +120,7 @@ template <typename type> struct box3
      */
     box3<type> enlarge(const vec3<type> &p) const
     {
-        return box3<type>(min(xmin, p.x), max(xmax, p.x), min(ymin, p.y), max(ymax, p.y), min(zmin, p.z), max(zmax, p.z));
+        return box3<type>(std::min(xmin, p.x), std::max(xmax, p.x), std::min(ymin, p.y), std::max(ymax, p.y), std::min(zmin, p.z), std::max(zmax, p.z));
     }
 
     /**
@@ -119,7 +130,7 @@ template <typename type> struct box3
      */
     box3<type> enlarge(const box3<type> &r) const
     {
-        return box3<type>(min(xmin, r.xmin), max(xmax, r.xmax), min(ymin, r.ymin), max(ymax, r.ymax), min(zmin, r.zmin), max(zmax, r.zmax));
+        return box3<type>(std::min(xmin, r.xmin), std::max(xmax, r.xmax), std::min(ymin, r.ymin), std::max(ymax, r.ymax), std::min(zmin, r.zmin), std::max(zmax, r.zmax));
     }
 
     /**

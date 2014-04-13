@@ -8,8 +8,10 @@ tm:registerExternalFunctions(root_project_path .. "sources/plug_core/functions.l
 tm:registerExternals(root_project_path .. "sources/plug_osg/classes.luna")
 tm:registerExternalFunctions(root_project_path .. "sources/plug_osg/functions.luna")
 
--- tm:setTypeConstructor("^ork::Uniform[0-9]*<.->$","NULL;")
--- tm:setTypeConstructor("^ork::UniformMatrix[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^ork::Uniform[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^ork::UniformMatrix[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^ork::Value[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^ork::ValueMatrix[0-9]*<.->$","NULL;")
 
 local tc = require "bindings.TypeConverter"
 local utils = require "utils"
@@ -68,14 +70,19 @@ end
 tc:setFromLuaConverter("^ptr<",fromLua)
 tc:setToLuaConverter("^ptr<",toLua)
 
-tc:setFromLuaConverter("ork::ptr<",fromLua)
-tc:setToLuaConverter("ork::ptr<",toLua)
+tc:setFromLuaConverter("^ork::ptr<",fromLua)
+tc:setToLuaConverter("^ork::ptr<",toLua)
+
+tc:setFromLuaConverter("^const ork::ptr<",fromLua)
+tc:setToLuaConverter("^const ork::ptr<",toLua)
 
 tc:setTypeChecker("^ptr<",ptrChecker)
-tc:setTypeChecker("ork::ptr<",ptrChecker)
+tc:setTypeChecker("^ork::ptr<",ptrChecker)
+tc:setTypeChecker("^const ork::ptr<",ptrChecker)
 
 tc:setWrapperConverter("^ptr",toWrapper)
-tc:setWrapperConverter("ork::ptr",toWrapper)
+tc:setWrapperConverter("^ork::ptr",toWrapper)
+tc:setWrapperConverter("^const ork::ptr",toWrapper)
 
 ReflectionGenerator.generate{
 	xmlpath=xml_path,
@@ -88,6 +95,21 @@ ReflectionGenerator.generate{
 	ignoreFunctions={
 		"fseek64",
 		"isNaN",
+		-- For Uniform:
+		"mapBuffer",
+
+		-- For Program:
+		-- "std::vector< ork::ptr< ork::Module > >", -- no support for std::vector < ptr<Module> > handling.
+		
+		-- For GPU buffer:
+		"GPUBuffer::map",
+		"GPUBuffer::getMappedData",		
+
+		-- For Texture and Sampler parameters border confusion:
+		"Parameters::borderi%(%)",
+		"Parameters::borderf%(%)",		
+		"Parameters::borderIi%(%)",		
+		"Parameters::borderIui%(%)",		
 	},
 	ignoreClasses={
 		"box2<",

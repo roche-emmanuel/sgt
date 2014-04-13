@@ -778,7 +778,7 @@ public:
     /**
      * Returns the polygon mode for front and back faces cull state.
      */
-    vec2<PolygonMode> getPolygonMode();
+    vec2<int> getPolygonMode();
 
     /**
      * Returns true if AA is enabled for polygons.

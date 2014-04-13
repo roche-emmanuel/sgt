@@ -159,7 +159,7 @@ public:
      * Returns the number of times each attribute much be instanced, or 0
      * if attribute instancing is disabled for this attribute.
      */
-    int getDivisor();
+    // int getDivisor();
 
 private:
     /**

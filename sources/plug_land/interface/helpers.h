@@ -286,16 +286,20 @@ VEC2_CLASS(vec2h,half);
 VEC2_CLASS(vec2f,float);
 VEC2_CLASS(vec2d,double);
 VEC2_CLASS(vec2i,int);
+VEC2_CLASS(vec2b,bool);
+// VEC2_CLASS(vec2pm,ork::PolygonMode);
 
 VEC3_CLASS(vec3h,half,vec2h);
 VEC3_CLASS(vec3f,float,vec2f);
 VEC3_CLASS(vec3d,double,vec2d);
 VEC3_CLASS(vec3i,int,vec2i);
+VEC3_CLASS(vec3b,bool,vec2b);
 
 VEC4_CLASS(vec4h,half,vec2h,vec3h);
 VEC4_CLASS(vec4f,float,vec2f,vec3f);
 VEC4_CLASS(vec4d,double,vec2d,vec3d);
 VEC4_CLASS(vec4i,int,vec2i,vec3i);
+VEC4_CLASS(vec4b,bool,vec2b,vec3b);
 
 BOX2_CLASS(box2f,float,vec2f);
 BOX2_CLASS(box2d,double,vec2d);

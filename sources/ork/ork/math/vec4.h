@@ -239,25 +239,25 @@ public:
  * A 4D vector with half float coordinates.
  * @ingroup math
  */
-typedef vec4<half> vec4h;
+typedef ORK_API vec4<half> vec4h;
 
 /**
  * A 4D vector with float coordinates.
  * @ingroup math
  */
-typedef vec4<float> vec4f;
+typedef ORK_API vec4<float> vec4f;
 
 /**
  * A 4D vector with double coordinates.
  * @ingroup math
  */
-typedef vec4<double> vec4d;
+typedef ORK_API vec4<double> vec4d;
 
 /**
  * A 4D vector with int coordinates.
  * @ingroup math
  */
-typedef vec4<int> vec4i;
+typedef ORK_API vec4<int> vec4i;
 
 template <typename type>
 inline vec4<type>::vec4()

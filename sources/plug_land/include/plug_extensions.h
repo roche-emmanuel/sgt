@@ -4,6 +4,16 @@
 #include "luna/luna.h"
 #include "osg/Drawable"
 
+#include "ork/math/vec2.h"
+#include "ork/math/vec3.h"
+#include "ork/math/vec4.h"
+
+namespace ork {
+typedef vec2<bool> vec2b;
+typedef vec3<bool> vec3b;
+typedef vec4<bool> vec4b;
+}
+
 namespace land {
 
 class ProlandDrawable : public osg::Drawable

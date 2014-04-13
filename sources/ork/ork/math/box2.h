@@ -24,11 +24,22 @@
 #ifndef _ORK_BOX2_H_
 #define _ORK_BOX2_H_
 
-#include <algorithm>
 #include <assert.h>
 
 #include "pmath.h"
 #include "ork/math/vec2.h"
+
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
+
+#include <algorithm>
+
+using namespace std;
 
 namespace ork
 {
@@ -79,9 +90,12 @@ struct box2
     /**
      * Creates a new bounding box enclosing the two given points.
      */
-    box2(const vec2<type> &p, const vec2<type> &q) :
-        xmin(min(p.x, q.x)), xmax(max(p.x, q.x)), ymin(min(p.y, q.y)), ymax(max(p.y, q.y))
+    box2(const vec2<type> &p, const vec2<type> &q) 
     {
+        xmin = std::min(p.x, q.x);
+        xmax = std::max(p.x, q.x); 
+        ymin = std::min(p.y, q.y); 
+        ymax = std::max(p.y, q.y);
     }
 
     /**
