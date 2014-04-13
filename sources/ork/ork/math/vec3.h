@@ -418,7 +418,7 @@ inline bool vec3<type>::operator<(const vec3<type>& v) const
 template <typename type>
 inline type vec3<type>::length() const
 {
-    return sqrt(x*x + y*y + z*z);
+    return (type)sqrt((double)(x*x + y*y + z*z));
 }
 
 template <typename type>
@@ -436,7 +436,7 @@ inline type vec3<type>::dotproduct(const vec3<type>& v) const
 template <typename type>
 inline vec3<type> vec3<type>::normalize() const
 {
-    type length = sqrt(x * x + y * y + z * z);
+    type length = (type)sqrt((double)(x * x + y * y + z * z));
     type invLength = (type)1.0 / length;
     return vec3(x * invLength, y * invLength, z * invLength);
 }
@@ -444,7 +444,7 @@ inline vec3<type> vec3<type>::normalize() const
 template <typename type>
 inline vec3<type> vec3<type>::normalize(type l) const
 {
-    type length = sqrt(x * x + y * y + z * z);
+    type length = (type)sqrt((double)(x * x + y * y + z * z));
     type invLength = l / length;
     return vec3(x * invLength, y * invLength, z * invLength);
 }
@@ -452,7 +452,7 @@ inline vec3<type> vec3<type>::normalize(type l) const
 template <typename type>
 inline vec3<type> vec3<type>::normalize(type *previousLength) const
 {
-    *previousLength = sqrt(x * x + y * y + z * z);
+    *previousLength = (type)sqrt((double)(x * x + y * y + z * z));
     type invLength = 1.0 / *previousLength;
     return vec3(x * invLength, y * invLength, z * invLength);
 }
@@ -460,7 +460,7 @@ inline vec3<type> vec3<type>::normalize(type *previousLength) const
 template <typename type>
 inline vec3<type> vec3<type>::normalize(type l, type *previousLength)
 {
-    *previousLength = sqrt(x * x + y * y + z * z);
+    *previousLength = (type)sqrt((double)(x * x + y * y + z * z));
     type invLength = l / *previousLength;
     return vec3(x * invLength, y * invLength, z * invLength);
 }

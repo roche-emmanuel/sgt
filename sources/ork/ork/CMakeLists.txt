@@ -12,7 +12,7 @@ link_directories(${GLUT_LIB_DIR})
 link_directories(${PTHREADS_LIB_DIR})
 
 # Libraries
-set(LIBS ${GLEW_LIBS} ${GLUT_LIBS} ${PTHREADS_LIBS} stb_image tinyxml)
+set(LIBS ${GLEW_LIBS} ${GLUT_LIBS} ${PTHREADS_LIBS} ${OSG_LIBS} stb_image tinyxml)
 
 if(UNIX)
 	set(LIBS ${LIBS} rt)

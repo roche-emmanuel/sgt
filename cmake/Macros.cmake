@@ -145,7 +145,7 @@ MACRO(GENERATE_REFLECTION STUB_NAME INTERFACE_FILES)
     # Call doxygen on this file:
     COMMAND ${DOXYGEN} ${DOXFILE} > ${CMAKE_CURRENT_BINARY_DIR}/doxygen.log 2>&1
     # COMMAND ${DOXYGEN} ${DOXFILE}
-    COMMAND echo "Generating lua reflection..."
+    COMMAND echo "Generating lua reflection for ${PLUG_NAME}..."
     # cd ${SGT_PATH} && 
     COMMAND echo "project='${PLUG_NAME}'" > ${CFGFILE}
     # COMMAND echo "sgt_path='${SGT2_DIR}/'" >> ${CFGFILE}

@@ -34,4 +34,6 @@ ADD_SUBDIRECTORY(sgtLauncher)
 ADD_SUBDIRECTORY(ork)
 ADD_SUBDIRECTORY(proland)
 
+ADD_SUBDIRECTORY(plug_land)
+
 # ADD_SUBDIRECTORY(template_launcher)

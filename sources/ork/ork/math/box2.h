@@ -219,7 +219,7 @@ struct box2
      */
     bool operator==(const box2& b) const
     {
-        return xmin == b.xmin && xmax == b.xmax && ymin == b.ymin && ymax == b.max;
+        return xmin == b.xmin && xmax == b.xmax && ymin == b.ymin && ymax == b.ymax;
     }
 
     /**
