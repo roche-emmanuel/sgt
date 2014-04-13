@@ -54,7 +54,7 @@ public:
  *
  * @ingroup resource
  */
-class ResourceCompiler : public XMLResourceLoader
+class ORK_API ResourceCompiler : public XMLResourceLoader
 {
 public:
     /**

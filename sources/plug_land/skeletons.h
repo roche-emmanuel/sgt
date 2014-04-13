@@ -13,6 +13,58 @@ class Parameters {
 class static_ref {
 };
 
+class StaticResourceDescriptor: public ork::ResourceDescriptor {
+};
+
+class TiXmlAttribute: public TiXmlBase {
+};
+
+class TiXmlAttributeSet {
+};
+
+class TiXmlBase {
+public:
+	class Entity {
+	};
+
+};
+
+class TiXmlComment: public TiXmlNode {
+};
+
+class TiXmlCursor {
+};
+
+class TiXmlDeclaration: public TiXmlNode {
+};
+
+class TiXmlDocument: public TiXmlNode {
+};
+
+class TiXmlElement: public TiXmlNode {
+};
+
+class TiXmlHandle {
+};
+
+class TiXmlNode: public TiXmlBase {
+};
+
+class TiXmlPrinter: public TiXmlVisitor {
+};
+
+class TiXmlText: public TiXmlNode {
+};
+
+class TiXmlUnknown: public TiXmlNode {
+};
+
+class TiXmlVisitor {
+};
+
+class Type {
+};
+
 class Vertex {
 };
 
@@ -556,6 +608,38 @@ namespace ork {
 
 	class Font: public ork::Object {
 	public:
+	};
+
+	class CompiledResourceLoader: public ork::ResourceLoader {
+	public:
+	};
+
+	class Resource {
+	};
+
+	class ResourceCompiler: public ork::XMLResourceLoader {
+	};
+
+	class ResourceDescriptor: public ork::Object {
+	};
+
+	class ResourceFactory {
+	public:
+		class createFunc {
+		};
+
+	};
+
+	class ResourceLoader: public ork::Object {
+	};
+
+	class ResourceManager: public ork::Object {
+	};
+
+	class ResourceTemplate: public ork::Resource {
+	};
+
+	class XMLResourceLoader: public ork::ResourceLoader {
 	};
 
 	class vec2h {

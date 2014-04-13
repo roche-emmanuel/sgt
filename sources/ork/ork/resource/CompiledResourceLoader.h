@@ -52,13 +52,13 @@ public:
  *
  * @ingroup resource
  */
-class CompiledResourceLoader : public ResourceLoader
+class ORK_API CompiledResourceLoader : public ResourceLoader
 {
 public:
     /*
      * A ResourceDescriptor that never delete its data part.
      */
-    class StaticResourceDescriptor : public ResourceDescriptor
+    class ORK_API StaticResourceDescriptor : public ResourceDescriptor
     {
     public:
         /**

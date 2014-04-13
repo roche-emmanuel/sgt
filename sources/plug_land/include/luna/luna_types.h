@@ -6,6 +6,9 @@
 #include <ork/core/Object.h>
 #include <ork/render/Buffer.h>
 #include <ork/render/FrameBuffer.h>
+#include <ork/resource/ResourceDescriptor.h>
+#include <ork/resource/CompiledResourceLoader.h>
+#include <ork/resource/tinyxml.h>
 #include <ork/util/Font.h>
 #include <plug_extensions.h>
 #include <ork/math/box2.h>
@@ -46,6 +49,12 @@
 #include <ork/render/TextureCubeArray.h>
 #include <ork/render/TextureRectangle.h>
 #include <ork/render/TransformFeedback.h>
+#include <ork/resource/ResourceLoader.h>
+#include <ork/resource/Resource.h>
+#include <ork/resource/XMLResourceLoader.h>
+#include <ork/resource/ResourceCompiler.h>
+#include <ork/resource/ResourceFactory.h>
+#include <ork/resource/ResourceManager.h>
 
 // Class: ork::Object
 template<>
@@ -120,6 +129,310 @@ public:
 	static void _bind_dtor(ork::Object::static_ref* obj);
 	typedef ork::Object::static_ref parent_t;
 	typedef ork::Object::static_ref base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ResourceDescriptor
+template<>
+class LunaTraits< ork::ResourceDescriptor > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ResourceDescriptor* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ResourceDescriptor* obj);
+	typedef ork::Object parent_t;
+	typedef ork::ResourceDescriptor base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::CompiledResourceLoader::StaticResourceDescriptor
+template<>
+class LunaTraits< ork::CompiledResourceLoader::StaticResourceDescriptor > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::CompiledResourceLoader::StaticResourceDescriptor* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::CompiledResourceLoader::StaticResourceDescriptor* obj);
+	typedef ork::Object parent_t;
+	typedef ork::CompiledResourceLoader::StaticResourceDescriptor base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlBase
+template<>
+class LunaTraits< TiXmlBase > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlBase* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlBase* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlBase base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlAttribute
+template<>
+class LunaTraits< TiXmlAttribute > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlAttribute* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlAttribute* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlAttribute base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlAttributeSet
+template<>
+class LunaTraits< TiXmlAttributeSet > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlAttributeSet* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlAttributeSet* obj);
+	typedef TiXmlAttributeSet parent_t;
+	typedef TiXmlAttributeSet base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlNode
+template<>
+class LunaTraits< TiXmlNode > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlNode* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlNode* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlNode base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlComment
+template<>
+class LunaTraits< TiXmlComment > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlComment* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlComment* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlComment base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlCursor
+template<>
+class LunaTraits< TiXmlCursor > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlCursor* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlCursor* obj);
+	typedef TiXmlCursor parent_t;
+	typedef TiXmlCursor base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlDeclaration
+template<>
+class LunaTraits< TiXmlDeclaration > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlDeclaration* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlDeclaration* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlDeclaration base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlDocument
+template<>
+class LunaTraits< TiXmlDocument > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlDocument* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlDocument* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlDocument base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlElement
+template<>
+class LunaTraits< TiXmlElement > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlElement* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlElement* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlElement base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlHandle
+template<>
+class LunaTraits< TiXmlHandle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlHandle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlHandle* obj);
+	typedef TiXmlHandle parent_t;
+	typedef TiXmlHandle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlVisitor
+template<>
+class LunaTraits< TiXmlVisitor > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlVisitor* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlVisitor* obj);
+	typedef TiXmlVisitor parent_t;
+	typedef TiXmlVisitor base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlPrinter
+template<>
+class LunaTraits< TiXmlPrinter > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlPrinter* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlPrinter* obj);
+	typedef TiXmlVisitor parent_t;
+	typedef TiXmlPrinter base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlText
+template<>
+class LunaTraits< TiXmlText > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlText* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlText* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlText base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TiXmlUnknown
+template<>
+class LunaTraits< TiXmlUnknown > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TiXmlUnknown* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TiXmlUnknown* obj);
+	typedef TiXmlBase parent_t;
+	typedef TiXmlUnknown base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -2365,6 +2678,139 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: ork::ResourceLoader
+template<>
+class LunaTraits< ork::ResourceLoader > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ResourceLoader* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ResourceLoader* obj);
+	typedef ork::Object parent_t;
+	typedef ork::ResourceLoader base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::CompiledResourceLoader
+template<>
+class LunaTraits< ork::CompiledResourceLoader > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::CompiledResourceLoader* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::CompiledResourceLoader* obj);
+	typedef ork::Object parent_t;
+	typedef ork::CompiledResourceLoader base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::Resource
+template<>
+class LunaTraits< ork::Resource > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Resource* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Resource* obj);
+	typedef ork::Resource parent_t;
+	typedef ork::Resource base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::XMLResourceLoader
+template<>
+class LunaTraits< ork::XMLResourceLoader > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::XMLResourceLoader* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::XMLResourceLoader* obj);
+	typedef ork::Object parent_t;
+	typedef ork::XMLResourceLoader base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ResourceCompiler
+template<>
+class LunaTraits< ork::ResourceCompiler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ResourceCompiler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ResourceCompiler* obj);
+	typedef ork::Object parent_t;
+	typedef ork::ResourceCompiler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ResourceFactory
+template<>
+class LunaTraits< ork::ResourceFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ResourceFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ResourceFactory* obj);
+	typedef ork::ResourceFactory parent_t;
+	typedef ork::ResourceFactory base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ResourceManager
+template<>
+class LunaTraits< ork::ResourceManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ResourceManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ResourceManager* obj);
+	typedef ork::Object parent_t;
+	typedef ork::ResourceManager base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: ork::vec2h
 template<>
 class LunaTraits< ork::vec2h > {
@@ -3156,6 +3602,41 @@ public:
 };
 
 template<>
+class LunaType< 89852901 > {
+public:
+	typedef TiXmlBase type;
+	
+};
+
+template<>
+class LunaType< 40561291 > {
+public:
+	typedef TiXmlAttributeSet type;
+	
+};
+
+template<>
+class LunaType< 95715994 > {
+public:
+	typedef TiXmlCursor type;
+	
+};
+
+template<>
+class LunaType< 20257622 > {
+public:
+	typedef TiXmlHandle type;
+	
+};
+
+template<>
+class LunaType< 86845197 > {
+public:
+	typedef TiXmlVisitor type;
+	
+};
+
+template<>
 class LunaType< 35303943 > {
 public:
 	typedef ork::Font::Vertex type;
@@ -3929,6 +4410,20 @@ template<>
 class LunaType< 84580371 > {
 public:
 	typedef ork::Sampler::Parameters type;
+	
+};
+
+template<>
+class LunaType< 95308202 > {
+public:
+	typedef ork::Resource type;
+	
+};
+
+template<>
+class LunaType< 21152746 > {
+public:
+	typedef ork::ResourceFactory type;
 	
 };
 

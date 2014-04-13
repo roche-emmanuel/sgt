@@ -18,6 +18,27 @@ struct luna_caster<ork::FrameBuffer::Parameters,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<TiXmlAttributeSet,dstType> {
+	static inline dstType* cast(TiXmlAttributeSet* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<TiXmlCursor,dstType> {
+	static inline dstType* cast(TiXmlCursor* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<TiXmlHandle,dstType> {
+	static inline dstType* cast(TiXmlHandle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<ork::Font::Vertex,dstType> {
 	static inline dstType* cast(ork::Font::Vertex* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -566,6 +587,13 @@ struct luna_caster<ork::FileLogger::File,dstType> {
 template <typename dstType>
 struct luna_caster<ork::half,dstType> {
 	static inline dstType* cast(ork::half* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::ResourceFactory,dstType> {
+	static inline dstType* cast(ork::ResourceFactory* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

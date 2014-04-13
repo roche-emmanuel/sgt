@@ -1,5 +1,6 @@
 #include <plug_common.h>
 
+#include <ork/resource/tinyxml.h>
 #include <ork/render/Types.h>
 
 #ifdef __cplusplus
@@ -7,6 +8,32 @@ extern "C" {
 #endif
 
 void register_enums(lua_State* L) {
+	lua_newtable(L); // enum unnamed_7
+
+	lua_pushnumber(L,::TIXML_SUCCESS); lua_setfield(L,-2,"TIXML_SUCCESS");
+	lua_pushnumber(L,::TIXML_NO_ATTRIBUTE); lua_setfield(L,-2,"TIXML_NO_ATTRIBUTE");
+	lua_pushnumber(L,::TIXML_WRONG_TYPE); lua_setfield(L,-2,"TIXML_WRONG_TYPE");
+
+	lua_setfield(L,-2,"unnamed_7");
+
+	lua_pushnumber(L,::TIXML_SUCCESS); lua_setfield(L,-2,"TIXML_SUCCESS");
+	lua_pushnumber(L,::TIXML_NO_ATTRIBUTE); lua_setfield(L,-2,"TIXML_NO_ATTRIBUTE");
+	lua_pushnumber(L,::TIXML_WRONG_TYPE); lua_setfield(L,-2,"TIXML_WRONG_TYPE");
+
+
+	lua_newtable(L); // enum TiXmlEncoding
+
+	lua_pushnumber(L,::TIXML_ENCODING_UNKNOWN); lua_setfield(L,-2,"TIXML_ENCODING_UNKNOWN");
+	lua_pushnumber(L,::TIXML_ENCODING_UTF8); lua_setfield(L,-2,"TIXML_ENCODING_UTF8");
+	lua_pushnumber(L,::TIXML_ENCODING_LEGACY); lua_setfield(L,-2,"TIXML_ENCODING_LEGACY");
+
+	lua_setfield(L,-2,"TiXmlEncoding");
+
+	lua_pushnumber(L,::TIXML_ENCODING_UNKNOWN); lua_setfield(L,-2,"TIXML_ENCODING_UNKNOWN");
+	lua_pushnumber(L,::TIXML_ENCODING_UTF8); lua_setfield(L,-2,"TIXML_ENCODING_UTF8");
+	lua_pushnumber(L,::TIXML_ENCODING_LEGACY); lua_setfield(L,-2,"TIXML_ENCODING_LEGACY");
+
+
 	lua_newtable(L); // enum BufferUsage
 
 	lua_pushnumber(L,ork::STREAM_DRAW); lua_setfield(L,-2,"STREAM_DRAW");

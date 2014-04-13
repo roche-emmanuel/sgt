@@ -110,6 +110,11 @@ ReflectionGenerator.generate{
 		"Parameters::borderf%(%)",		
 		"Parameters::borderIi%(%)",		
 		"Parameters::borderIui%(%)",		
+
+		-- for TiXmlAttribute:
+		"TiXmlParsingData",
+		"FILE %*",
+		"std::string %*",
 	},
 	ignoreClasses={
 		"box2<",
