@@ -606,13 +606,6 @@ struct luna_caster<ork::ResourceFactory,dstType> {
 };
 
 template <typename dstType>
-struct luna_caster<ork::SetIterator< ork::ptr< ork::Task > >,dstType> {
-	static inline dstType* cast(ork::SetIterator< ork::ptr< ork::Task > >* ptr) {
-		return static_cast<dstType*>(ptr);
-	};
-};
-
-template <typename dstType>
 struct luna_caster<ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >,dstType> {
 	static inline dstType* cast(ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -657,6 +650,20 @@ struct luna_caster<ork::MapIterator< std::string, ork::ptr< ork::Object > >,dstT
 template <typename dstType>
 struct luna_caster<ork::MapIterator< std::string, ork::ptr< ork::Method > >,dstType> {
 	static inline dstType* cast(ork::MapIterator< std::string, ork::ptr< ork::Method > >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::SetIterator< ork::ptr< ork::Task > >,dstType> {
+	static inline dstType* cast(ork::SetIterator< ork::ptr< ork::Task > >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::Window::Parameters,dstType> {
+	static inline dstType* cast(ork::Window::Parameters* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

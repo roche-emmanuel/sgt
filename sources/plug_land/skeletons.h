@@ -624,10 +624,6 @@ namespace ork {
 	class ValueSubroutine: public ork::Value {
 	};
 
-	class Font: public ork::Object {
-	public:
-	};
-
 	class CompiledResourceLoader: public ork::ResourceLoader {
 	public:
 	};
@@ -658,30 +654,6 @@ namespace ork {
 	};
 
 	class XMLResourceLoader: public ork::ResourceLoader {
-	};
-
-	class MultithreadScheduler: public ork::Scheduler {
-	public:
-	};
-
-	class Scheduler: public ork::Object {
-	};
-
-	class Task: public ork::Object {
-	public:
-	};
-
-	class TaskListener {
-	};
-
-	class TaskFactory: public ork::Object {
-	};
-
-	class TaskGraph: public ork::Task, public ork::TaskListener {
-	public:
-		class TaskIterator {
-		};
-
 	};
 
 	class AbstractTask: public ork::TaskFactory {
@@ -771,6 +743,47 @@ namespace ork {
 	};
 
 	class ShowLogTask: public ork::ShowInfoTask {
+	};
+
+	class MultithreadScheduler: public ork::Scheduler {
+	public:
+	};
+
+	class Scheduler: public ork::Object {
+	};
+
+	class Task: public ork::Object {
+	public:
+	};
+
+	class TaskListener {
+	};
+
+	class TaskFactory: public ork::Object {
+	};
+
+	class TaskGraph: public ork::Task, public ork::TaskListener {
+	public:
+		class TaskIterator {
+		};
+
+	};
+
+	class EventHandler: public ork::Object {
+	};
+
+	class GlutWindow: public ork::Window {
+	};
+
+	class Window: public ork::EventHandler {
+	public:
+		class Parameters {
+		};
+
+	};
+
+	class Font: public ork::Object {
+	public:
 	};
 
 	class vec2h {

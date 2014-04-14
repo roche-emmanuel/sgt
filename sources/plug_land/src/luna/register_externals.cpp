@@ -12,17 +12,17 @@ const char LunaTraits< std::vector< unsigned int > >::moduleName[] = "osg";
 const int LunaTraits< std::vector< unsigned int > >::hash = 27834872;
 const int LunaTraits< std::vector< unsigned int > >::uniqueIDs[] = {27834872,0};
 
-const char LunaTraits< std::vector< int > >::className[] = "std_vector_int";
-const char LunaTraits< std::vector< int > >::fullName[] = "std::vector< int >";
-const char LunaTraits< std::vector< int > >::moduleName[] = "sgt";
-const int LunaTraits< std::vector< int > >::hash = 92299338;
-const int LunaTraits< std::vector< int > >::uniqueIDs[] = {92299338,0};
-
 const char LunaTraits< std::vector< std::string > >::className[] = "std_vector_std_string";
 const char LunaTraits< std::vector< std::string > >::fullName[] = "std::vector< std::string >";
 const char LunaTraits< std::vector< std::string > >::moduleName[] = "sgt";
 const int LunaTraits< std::vector< std::string > >::hash = 95416160;
 const int LunaTraits< std::vector< std::string > >::uniqueIDs[] = {95416160,0};
+
+const char LunaTraits< std::vector< int > >::className[] = "std_vector_int";
+const char LunaTraits< std::vector< int > >::fullName[] = "std::vector< int >";
+const char LunaTraits< std::vector< int > >::moduleName[] = "sgt";
+const int LunaTraits< std::vector< int > >::hash = 92299338;
+const int LunaTraits< std::vector< int > >::uniqueIDs[] = {92299338,0};
 
 const char LunaTraits< osg::Matrixd >::className[] = "Matrixd";
 const char LunaTraits< osg::Matrixd >::fullName[] = "osg::Matrixd";

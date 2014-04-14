@@ -111,6 +111,12 @@ ReflectionGenerator.generate{
 		"Parameters::borderIi%(%)",		
 		"Parameters::borderIui%(%)",		
 
+		-- For window parameter confusion:
+		"Window::Parameters::alpha%(%)",
+		"Window::Parameters::depth%(%)",
+		"Window::Parameters::stencil%(%)",
+		"Window::Parameters::multiSample%(%)",
+
 		-- for TiXmlAttribute:
 		"TiXmlParsingData",
 		"FILE %*",
