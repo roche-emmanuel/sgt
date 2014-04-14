@@ -33,6 +33,8 @@
 LUNA_DEFINE_DIRECT_CAST(MyNamespace::MyNonPolymorphicBaseClass)
 */
 
+LUNA_DEFINE_DIRECT_CAST(proland::BasicViewHandler::Position)
+
 // Insert any specific value getter/setter here.
 // - use "arg" as a valid pointer on the class.
 // - use "L" as lua state

@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -48,7 +51,7 @@ public:
     /**
      * A BasicViewHandler::Position together with a name and a shortcut key.
      */
-    class Position : public BasicViewHandler::Position {
+    class PROLAND_API Position : public BasicViewHandler::Position {
     public:
         /**
          * The TweakViewHandler to which this predefined position belongs.

@@ -12,6 +12,7 @@ tm:setTypeConstructor("^ork::Uniform[0-9]*<.->$","NULL;")
 tm:setTypeConstructor("^ork::UniformMatrix[0-9]*<.->$","NULL;")
 tm:setTypeConstructor("^ork::Value[0-9]*<.->$","NULL;")
 tm:setTypeConstructor("^ork::ValueMatrix[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^proland::seg[0-9]*<.->$","NULL;")
 
 local tc = require "bindings.TypeConverter"
 local utils = require "utils"
@@ -123,6 +124,16 @@ ReflectionGenerator.generate{
 		"std::string %*",
 
 		"QualifiedName",
+
+		-- For EventRecorder::Event:
+		"EventRecorder::Event::t%(",
+		"EventRecorder::Event::dt%(",
+		"EventRecorder::Event::groundHeight%(",
+		"EventRecorder::Event::m%(",
+		"EventRecorder::Event::arg[0-9]%(",
+
+		-- For readback manager callback:
+		"ReadbackManager::Callback::dataRead",
 	},
 	ignoreClasses={
 		"box2<",
@@ -146,7 +157,8 @@ ReflectionGenerator.generate{
 		"mat3<",
 		"mat4<",
 		"quat<",	
-		"QualifiedName",	
+		"QualifiedName",
+		"std::pair< int, proland::TileCache::Tile::Id >",
 	},
 	ignoreConverters={},
 	ignoreHeaders = { "helpers%.h" },

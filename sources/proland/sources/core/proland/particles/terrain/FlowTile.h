@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -32,6 +35,14 @@
 #include "ork/math/vec2.h"
 
 using namespace ork;
+
+#ifdef NEAR
+#undef NEAR
+#endif
+
+#ifdef FAR
+#undef FAR
+#endif
 
 namespace proland
 {

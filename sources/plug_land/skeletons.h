@@ -7,10 +7,22 @@ class FrameBufferMap: public ork::Object {
 class Impl: public ork::Task {
 };
 
+class Impl: public ork::Task {
+};
+
+class Impl: public ork::Task {
+};
+
+class mfs_file {
+};
+
 class Parameters {
 };
 
 class Parameters {
+};
+
+class Position {
 };
 
 class static_ref {
@@ -75,6 +87,18 @@ class TiXmlUnknown: public TiXmlNode {
 };
 
 class TiXmlVisitor {
+};
+
+class Tree {
+};
+
+class TreeZ {
+};
+
+class TreeZSort {
+};
+
+class TwBar {
 };
 
 class Type {
@@ -871,6 +895,239 @@ namespace ork {
 	};
 
 	class quatd {
+	};
+
+};
+
+namespace proland {
+	class seg2f {
+	};
+
+	class seg2d {
+	};
+
+	class seg2 {
+	};
+
+	class LifeCycleParticleLayer: public proland::ParticleLayer {
+	public:
+		class LifeCycleParticle {
+		};
+
+	};
+
+	class ParticleLayer: public ork::Object {
+	};
+
+	class ParticleProducer: public ork::Object {
+	};
+
+	class ParticleStorage: public ork::Object {
+	public:
+		class Particle {
+		};
+
+	};
+
+	class RandomParticleLayer: public proland::ParticleLayer {
+	public:
+		class RandomParticle {
+		};
+
+	};
+
+	class ParticleGrid: public ork::Object {
+	};
+
+	class ScreenParticleLayer: public proland::ParticleLayer {
+	public:
+		class ScreenParticle {
+		};
+
+	};
+
+	class FlowTile: public ork::Object {
+	};
+
+	class TerrainParticleLayer: public proland::ParticleLayer {
+	public:
+		class TerrainInfo {
+		};
+
+		class TerrainParticle {
+		};
+
+	};
+
+	class WorldParticleLayer: public proland::ParticleLayer {
+	public:
+		class WorldParticle {
+		};
+
+	};
+
+	class CPUTileStorage: public proland::TileStorage {
+	public:
+		class CPUSlot: public proland::TileStorage::Slot {
+		};
+
+	};
+
+	class GPUTileStorage: public proland::TileStorage {
+	public:
+		class GPUSlot {
+		};
+
+	};
+
+	class ObjectTileStorage: public proland::TileStorage {
+	public:
+		class ObjectSlot: public proland::TileStorage::Slot {
+		};
+
+	};
+
+	class TileCache: public ork::Object {
+	public:
+		class Tile {
+		public:
+			class Id {
+			};
+
+			class TId {
+			};
+
+		};
+
+	};
+
+	class TileLayer: public ork::Object {
+	};
+
+	class TileProducer: public ork::Object {
+	};
+
+	class TileStorage: public ork::Object {
+	public:
+		class Slot {
+		};
+
+	};
+
+	class CylindricalDeformation: public proland::Deformation {
+	};
+
+	class Deformation: public ork::Object {
+	};
+
+	class DrawTerrainTask: public ork::AbstractTask {
+	public:
+	};
+
+	class ReadbackManager: public ork::Object {
+	public:
+		class Callback: public ork::Object {
+		};
+
+	};
+
+	class SphericalDeformation: public proland::Deformation {
+	};
+
+	class TerrainNode: public ork::Object {
+	};
+
+	class TerrainQuad: public ork::Object {
+	};
+
+	class TileSampler: public ork::Object {
+	public:
+		class TileFilter {
+		};
+
+	};
+
+	class TileSamplerZ: public proland::TileSampler {
+	public:
+		class State: public ork::Object {
+		};
+
+		class TileCallback: public proland::ReadbackManager::Callback {
+		};
+
+	};
+
+	class UpdateTerrainTask: public ork::AbstractTask {
+	};
+
+	class UpdateTileSamplersTask: public ork::AbstractTask {
+	};
+
+	class ViewManager {
+	};
+
+	class BasicViewHandler: public ork::EventHandler {
+	public:
+	};
+
+	class Recordable {
+	};
+
+	class EventRecorder: public ork::EventHandler {
+	public:
+		class Event {
+		};
+
+	};
+
+	class MousePositionHandler: public ork::EventHandler {
+	};
+
+	class SceneVisitor: public ork::Object {
+	};
+
+	class DrawTweakBarTask: public ork::AbstractTask {
+	public:
+	};
+
+	class TweakBarHandler: public ork::Object {
+	};
+
+	class TweakBarManager: public ork::EventHandler {
+	public:
+		class BarData {
+		};
+
+	};
+
+	class TweakResource: public proland::TweakBarHandler {
+	public:
+		class Data {
+		};
+
+	};
+
+	class TweakSceneGraph: public proland::TweakBarHandler {
+	public:
+		class TextureInfo {
+		};
+
+	};
+
+	class TweakViewHandler: public proland::TweakBarHandler {
+	public:
+		class Position: public proland::BasicViewHandler::Position {
+		};
+
+	};
+
+	class CylinderViewController: public proland::TerrainViewController {
+	};
+
+	class PlanetViewController: public proland::TerrainViewController {
+	};
+
+	class TerrainViewController: public ork::Object {
 	};
 
 };

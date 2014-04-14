@@ -75,3 +75,4 @@
 - Added support for ork/resource folder.
 - Added bindings for ork scenegraph and taskgraph folders.
 - Added bindings for complete ork folder in plug_land.
+- Added binding for proland core in lang plugin.

@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -86,7 +89,7 @@ public:
     /**
      * A recorded event.
      */
-    struct Event
+    struct PROLAND_API Event
     {
         enum EventType
         {

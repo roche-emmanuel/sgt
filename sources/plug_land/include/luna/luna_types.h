@@ -5,8 +5,10 @@
 
 #include <ork/core/Object.h>
 #include <ork/taskgraph/Task.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/mfs.h>
 #include <ork/render/Buffer.h>
 #include <ork/render/FrameBuffer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/BasicViewHandler.h>
 #include <ork/resource/ResourceDescriptor.h>
 #include <ork/resource/CompiledResourceLoader.h>
 #include <ork/scenegraph/SetTargetTask.h>
@@ -77,6 +79,46 @@
 #include <ork/ui/EventHandler.h>
 #include <ork/ui/Window.h>
 #include <ork/ui/GlutWindow.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/math/seg2.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/LifeCycleParticleLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleProducer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleStorage.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/RandomParticleLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/screen/ParticleGrid.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/screen/ScreenParticleLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/terrain/FlowTile.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/terrain/TerrainParticleLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/WorldParticleLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileStorage.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/GPUTileStorage.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/ObjectTileStorage.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileCache.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileProducer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/Deformation.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/CylindricalDeformation.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/DrawTerrainTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/ReadbackManager.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/SphericalDeformation.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TerrainNode.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TerrainQuad.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TileSampler.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TileSamplerZ.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/UpdateTerrainTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/UpdateTileSamplersTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/EventRecorder.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/MousePositionHandler.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/SceneVisitor.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/DrawTweakBarTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakBarHandler.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakBarManager.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakResource.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakSceneGraph.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakViewHandler.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/TerrainViewController.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/CylinderViewController.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/PlanetViewController.h>
 
 // Class: ork::Object
 template<>
@@ -116,6 +158,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: mfs_file
+template<>
+class LunaTraits< mfs_file > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static mfs_file* _bind_ctor(lua_State *L);
+	static void _bind_dtor(mfs_file* obj);
+	typedef mfs_file parent_t;
+	typedef mfs_file base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: ork::Buffer::Parameters
 template<>
 class LunaTraits< ork::Buffer::Parameters > {
@@ -151,6 +212,25 @@ public:
 	static void _bind_dtor(ork::FrameBuffer::Parameters* obj);
 	typedef ork::FrameBuffer::Parameters parent_t;
 	typedef ork::FrameBuffer::Parameters base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::BasicViewHandler::Position
+template<>
+class LunaTraits< proland::BasicViewHandler::Position > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::BasicViewHandler::Position* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::BasicViewHandler::Position* obj);
+	typedef proland::BasicViewHandler::Position parent_t;
+	typedef proland::BasicViewHandler::Position base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -493,6 +573,25 @@ public:
 	static void _bind_dtor(TiXmlUnknown* obj);
 	typedef TiXmlBase parent_t;
 	typedef TiXmlUnknown base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: TwBar
+template<>
+class LunaTraits< TwBar > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static TwBar* _bind_ctor(lua_State *L);
+	static void _bind_dtor(TwBar* obj);
+	typedef TwBar parent_t;
+	typedef TwBar base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -4030,6 +4129,1203 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::seg2< float >
+template<>
+class LunaTraits< proland::seg2< float > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::seg2< float >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::seg2< float >* obj);
+	typedef proland::seg2< float > parent_t;
+	typedef proland::seg2< float > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::seg2< double >
+template<>
+class LunaTraits< proland::seg2< double > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::seg2< double >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::seg2< double >* obj);
+	typedef proland::seg2< double > parent_t;
+	typedef proland::seg2< double > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ParticleLayer
+template<>
+class LunaTraits< proland::ParticleLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ParticleLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ParticleLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ParticleLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LifeCycleParticleLayer
+template<>
+class LunaTraits< proland::LifeCycleParticleLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LifeCycleParticleLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LifeCycleParticleLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LifeCycleParticleLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LifeCycleParticleLayer::LifeCycleParticle
+template<>
+class LunaTraits< proland::LifeCycleParticleLayer::LifeCycleParticle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LifeCycleParticleLayer::LifeCycleParticle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LifeCycleParticleLayer::LifeCycleParticle* obj);
+	typedef proland::LifeCycleParticleLayer::LifeCycleParticle parent_t;
+	typedef proland::LifeCycleParticleLayer::LifeCycleParticle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ParticleProducer
+template<>
+class LunaTraits< proland::ParticleProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ParticleProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ParticleProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ParticleProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ParticleStorage
+template<>
+class LunaTraits< proland::ParticleStorage > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ParticleStorage* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ParticleStorage* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ParticleStorage base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ParticleStorage::Particle
+template<>
+class LunaTraits< proland::ParticleStorage::Particle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ParticleStorage::Particle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ParticleStorage::Particle* obj);
+	typedef proland::ParticleStorage::Particle parent_t;
+	typedef proland::ParticleStorage::Particle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::RandomParticleLayer
+template<>
+class LunaTraits< proland::RandomParticleLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::RandomParticleLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::RandomParticleLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::RandomParticleLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::RandomParticleLayer::RandomParticle
+template<>
+class LunaTraits< proland::RandomParticleLayer::RandomParticle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::RandomParticleLayer::RandomParticle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::RandomParticleLayer::RandomParticle* obj);
+	typedef proland::RandomParticleLayer::RandomParticle parent_t;
+	typedef proland::RandomParticleLayer::RandomParticle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ParticleGrid
+template<>
+class LunaTraits< proland::ParticleGrid > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ParticleGrid* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ParticleGrid* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ParticleGrid base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ScreenParticleLayer
+template<>
+class LunaTraits< proland::ScreenParticleLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ScreenParticleLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ScreenParticleLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ScreenParticleLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ScreenParticleLayer::ScreenParticle
+template<>
+class LunaTraits< proland::ScreenParticleLayer::ScreenParticle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ScreenParticleLayer::ScreenParticle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ScreenParticleLayer::ScreenParticle* obj);
+	typedef proland::ScreenParticleLayer::ScreenParticle parent_t;
+	typedef proland::ScreenParticleLayer::ScreenParticle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::FlowTile
+template<>
+class LunaTraits< proland::FlowTile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::FlowTile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::FlowTile* obj);
+	typedef ork::Object parent_t;
+	typedef proland::FlowTile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TerrainParticleLayer
+template<>
+class LunaTraits< proland::TerrainParticleLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TerrainParticleLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TerrainParticleLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TerrainParticleLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TerrainParticleLayer::TerrainInfo
+template<>
+class LunaTraits< proland::TerrainParticleLayer::TerrainInfo > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TerrainParticleLayer::TerrainInfo* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TerrainParticleLayer::TerrainInfo* obj);
+	typedef proland::TerrainParticleLayer::TerrainInfo parent_t;
+	typedef proland::TerrainParticleLayer::TerrainInfo base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TerrainParticleLayer::TerrainParticle
+template<>
+class LunaTraits< proland::TerrainParticleLayer::TerrainParticle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TerrainParticleLayer::TerrainParticle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TerrainParticleLayer::TerrainParticle* obj);
+	typedef proland::TerrainParticleLayer::TerrainParticle parent_t;
+	typedef proland::TerrainParticleLayer::TerrainParticle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::WorldParticleLayer
+template<>
+class LunaTraits< proland::WorldParticleLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::WorldParticleLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::WorldParticleLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::WorldParticleLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::WorldParticleLayer::WorldParticle
+template<>
+class LunaTraits< proland::WorldParticleLayer::WorldParticle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::WorldParticleLayer::WorldParticle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::WorldParticleLayer::WorldParticle* obj);
+	typedef proland::WorldParticleLayer::WorldParticle parent_t;
+	typedef proland::WorldParticleLayer::WorldParticle base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileStorage
+template<>
+class LunaTraits< proland::TileStorage > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileStorage* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileStorage* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TileStorage base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileStorage::Slot
+template<>
+class LunaTraits< proland::TileStorage::Slot > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileStorage::Slot* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileStorage::Slot* obj);
+	typedef proland::TileStorage::Slot parent_t;
+	typedef proland::TileStorage::Slot base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GPUTileStorage
+template<>
+class LunaTraits< proland::GPUTileStorage > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GPUTileStorage* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GPUTileStorage* obj);
+	typedef ork::Object parent_t;
+	typedef proland::GPUTileStorage base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GPUTileStorage::GPUSlot
+template<>
+class LunaTraits< proland::GPUTileStorage::GPUSlot > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GPUTileStorage::GPUSlot* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GPUTileStorage::GPUSlot* obj);
+	typedef proland::GPUTileStorage::GPUSlot parent_t;
+	typedef proland::GPUTileStorage::GPUSlot base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ObjectTileStorage
+template<>
+class LunaTraits< proland::ObjectTileStorage > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ObjectTileStorage* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ObjectTileStorage* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ObjectTileStorage base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ObjectTileStorage::ObjectSlot
+template<>
+class LunaTraits< proland::ObjectTileStorage::ObjectSlot > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ObjectTileStorage::ObjectSlot* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ObjectTileStorage::ObjectSlot* obj);
+	typedef proland::TileStorage::Slot parent_t;
+	typedef proland::ObjectTileStorage::ObjectSlot base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileCache
+template<>
+class LunaTraits< proland::TileCache > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileCache* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileCache* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TileCache base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileCache::Tile
+template<>
+class LunaTraits< proland::TileCache::Tile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileCache::Tile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileCache::Tile* obj);
+	typedef proland::TileCache::Tile parent_t;
+	typedef proland::TileCache::Tile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: std::pair< int, std::pair< int, int > >
+template<>
+class LunaTraits< std::pair< int, std::pair< int, int > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::pair< int, std::pair< int, int > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::pair< int, std::pair< int, int > >* obj);
+	typedef std::pair< int, std::pair< int, int > > parent_t;
+	typedef std::pair< int, std::pair< int, int > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileLayer
+template<>
+class LunaTraits< proland::TileLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TileLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileProducer
+template<>
+class LunaTraits< proland::TileProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TileProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Deformation
+template<>
+class LunaTraits< proland::Deformation > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Deformation* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Deformation* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Deformation base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::CylindricalDeformation
+template<>
+class LunaTraits< proland::CylindricalDeformation > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CylindricalDeformation* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CylindricalDeformation* obj);
+	typedef ork::Object parent_t;
+	typedef proland::CylindricalDeformation base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawTerrainTask
+template<>
+class LunaTraits< proland::DrawTerrainTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawTerrainTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawTerrainTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawTerrainTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ReadbackManager
+template<>
+class LunaTraits< proland::ReadbackManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ReadbackManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ReadbackManager* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ReadbackManager base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ReadbackManager::Callback
+template<>
+class LunaTraits< proland::ReadbackManager::Callback > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ReadbackManager::Callback* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ReadbackManager::Callback* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ReadbackManager::Callback base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::SphericalDeformation
+template<>
+class LunaTraits< proland::SphericalDeformation > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::SphericalDeformation* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::SphericalDeformation* obj);
+	typedef ork::Object parent_t;
+	typedef proland::SphericalDeformation base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TerrainNode
+template<>
+class LunaTraits< proland::TerrainNode > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TerrainNode* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TerrainNode* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TerrainNode base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TerrainQuad
+template<>
+class LunaTraits< proland::TerrainQuad > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TerrainQuad* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TerrainQuad* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TerrainQuad base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileSampler
+template<>
+class LunaTraits< proland::TileSampler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileSampler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileSampler* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TileSampler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileSampler::TileFilter
+template<>
+class LunaTraits< proland::TileSampler::TileFilter > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileSampler::TileFilter* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileSampler::TileFilter* obj);
+	typedef proland::TileSampler::TileFilter parent_t;
+	typedef proland::TileSampler::TileFilter base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TileSamplerZ
+template<>
+class LunaTraits< proland::TileSamplerZ > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TileSamplerZ* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TileSamplerZ* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TileSamplerZ base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::UpdateTerrainTask
+template<>
+class LunaTraits< proland::UpdateTerrainTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::UpdateTerrainTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::UpdateTerrainTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::UpdateTerrainTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::UpdateTileSamplersTask
+template<>
+class LunaTraits< proland::UpdateTileSamplersTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::UpdateTileSamplersTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::UpdateTileSamplersTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::UpdateTileSamplersTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ViewManager
+template<>
+class LunaTraits< proland::ViewManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ViewManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ViewManager* obj);
+	typedef proland::ViewManager parent_t;
+	typedef proland::ViewManager base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::BasicViewHandler
+template<>
+class LunaTraits< proland::BasicViewHandler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::BasicViewHandler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::BasicViewHandler* obj);
+	typedef ork::Object parent_t;
+	typedef proland::BasicViewHandler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Recordable
+template<>
+class LunaTraits< proland::Recordable > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Recordable* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Recordable* obj);
+	typedef proland::Recordable parent_t;
+	typedef proland::Recordable base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::EventRecorder
+template<>
+class LunaTraits< proland::EventRecorder > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::EventRecorder* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::EventRecorder* obj);
+	typedef ork::Object parent_t;
+	typedef proland::EventRecorder base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::EventRecorder::Event
+template<>
+class LunaTraits< proland::EventRecorder::Event > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::EventRecorder::Event* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::EventRecorder::Event* obj);
+	typedef proland::EventRecorder::Event parent_t;
+	typedef proland::EventRecorder::Event base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::MousePositionHandler
+template<>
+class LunaTraits< proland::MousePositionHandler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::MousePositionHandler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::MousePositionHandler* obj);
+	typedef ork::Object parent_t;
+	typedef proland::MousePositionHandler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::SceneVisitor
+template<>
+class LunaTraits< proland::SceneVisitor > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::SceneVisitor* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::SceneVisitor* obj);
+	typedef ork::Object parent_t;
+	typedef proland::SceneVisitor base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawTweakBarTask
+template<>
+class LunaTraits< proland::DrawTweakBarTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawTweakBarTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawTweakBarTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawTweakBarTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakBarHandler
+template<>
+class LunaTraits< proland::TweakBarHandler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakBarHandler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakBarHandler* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TweakBarHandler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakBarManager
+template<>
+class LunaTraits< proland::TweakBarManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakBarManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakBarManager* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TweakBarManager base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakBarManager::BarData
+template<>
+class LunaTraits< proland::TweakBarManager::BarData > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakBarManager::BarData* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakBarManager::BarData* obj);
+	typedef proland::TweakBarManager::BarData parent_t;
+	typedef proland::TweakBarManager::BarData base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakResource
+template<>
+class LunaTraits< proland::TweakResource > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakResource* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakResource* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TweakResource base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakResource::Data
+template<>
+class LunaTraits< proland::TweakResource::Data > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakResource::Data* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakResource::Data* obj);
+	typedef proland::TweakResource::Data parent_t;
+	typedef proland::TweakResource::Data base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakSceneGraph
+template<>
+class LunaTraits< proland::TweakSceneGraph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakSceneGraph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakSceneGraph* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TweakSceneGraph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakSceneGraph::TextureInfo
+template<>
+class LunaTraits< proland::TweakSceneGraph::TextureInfo > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakSceneGraph::TextureInfo* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakSceneGraph::TextureInfo* obj);
+	typedef proland::TweakSceneGraph::TextureInfo parent_t;
+	typedef proland::TweakSceneGraph::TextureInfo base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakViewHandler
+template<>
+class LunaTraits< proland::TweakViewHandler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakViewHandler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakViewHandler* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TweakViewHandler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakViewHandler::Position
+template<>
+class LunaTraits< proland::TweakViewHandler::Position > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakViewHandler::Position* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakViewHandler::Position* obj);
+	typedef proland::BasicViewHandler::Position parent_t;
+	typedef proland::TweakViewHandler::Position base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TerrainViewController
+template<>
+class LunaTraits< proland::TerrainViewController > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TerrainViewController* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TerrainViewController* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TerrainViewController base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::CylinderViewController
+template<>
+class LunaTraits< proland::CylinderViewController > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CylinderViewController* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CylinderViewController* obj);
+	typedef ork::Object parent_t;
+	typedef proland::CylinderViewController base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::PlanetViewController
+template<>
+class LunaTraits< proland::PlanetViewController > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::PlanetViewController* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::PlanetViewController* obj);
+	typedef ork::Object parent_t;
+	typedef proland::PlanetViewController base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: std::type_info
 template<>
 class LunaTraits< std::type_info > {
@@ -4104,6 +5400,63 @@ public:
 	static void _bind_dtor(std::vector< ork::SetTargetTask::Target >* obj);
 	typedef std::vector< ork::SetTargetTask::Target > parent_t;
 	typedef std::vector< ork::SetTargetTask::Target > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * >
+template<>
+class LunaTraits< std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * >* obj);
+	typedef std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * > parent_t;
+	typedef std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > >
+template<>
+class LunaTraits< map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > >* obj);
+	typedef map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > > parent_t;
+	typedef map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: vector< proland::TweakBarManager::BarData >
+template<>
+class LunaTraits< vector< proland::TweakBarManager::BarData > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< proland::TweakBarManager::BarData >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< proland::TweakBarManager::BarData >* obj);
+	typedef vector< proland::TweakBarManager::BarData > parent_t;
+	typedef vector< proland::TweakBarManager::BarData > base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -4240,6 +5593,82 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Mapped type: std::vector< ork::ptr< proland::TileProducer > >
+template<>
+class LunaTraits< std::vector< ork::ptr< proland::TileProducer > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< ork::ptr< proland::TileProducer > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< ork::ptr< proland::TileProducer > >* obj);
+	typedef std::vector< ork::ptr< proland::TileProducer > > parent_t;
+	typedef std::vector< ork::ptr< proland::TileProducer > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::vector< proland::ParticleStorage::Particle * >::iterator
+template<>
+class LunaTraits< std::vector< proland::ParticleStorage::Particle * >::iterator > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< proland::ParticleStorage::Particle * >::iterator* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< proland::ParticleStorage::Particle * >::iterator* obj);
+	typedef std::vector< proland::ParticleStorage::Particle * >::iterator parent_t;
+	typedef std::vector< proland::ParticleStorage::Particle * >::iterator base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::pair< int, std::pair< int, std::pair< int, int > > >
+template<>
+class LunaTraits< std::pair< int, std::pair< int, std::pair< int, int > > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::pair< int, std::pair< int, std::pair< int, int > > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::pair< int, std::pair< int, std::pair< int, int > > >* obj);
+	typedef std::pair< int, std::pair< int, std::pair< int, int > > > parent_t;
+	typedef std::pair< int, std::pair< int, std::pair< int, int > > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::vector< proland::TweakViewHandler::Position >
+template<>
+class LunaTraits< std::vector< proland::TweakViewHandler::Position > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< proland::TweakViewHandler::Position >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< proland::TweakViewHandler::Position >* obj);
+	typedef std::vector< proland::TweakViewHandler::Position > parent_t;
+	typedef std::vector< proland::TweakViewHandler::Position > base_t;
+	static luna_ConverterType converters[];
+};
+
 
 // Referenced external: void
 template<>
@@ -4344,6 +5773,13 @@ public:
 };
 
 template<>
+class LunaType< 83387491 > {
+public:
+	typedef mfs_file type;
+	
+};
+
+template<>
 class LunaType< 85004853 > {
 public:
 	typedef ork::Buffer::Parameters type;
@@ -4354,6 +5790,13 @@ template<>
 class LunaType< 72789067 > {
 public:
 	typedef ork::FrameBuffer::Parameters type;
+	
+};
+
+template<>
+class LunaType< 6582046 > {
+public:
+	typedef proland::BasicViewHandler::Position type;
 	
 };
 
@@ -4403,6 +5846,13 @@ template<>
 class LunaType< 86845197 > {
 public:
 	typedef TiXmlVisitor type;
+	
+};
+
+template<>
+class LunaType< 81187440 > {
+public:
+	typedef TwBar type;
 	
 };
 
@@ -5275,6 +6725,153 @@ public:
 };
 
 template<>
+class LunaType< 58780377 > {
+public:
+	typedef proland::seg2f type;
+	
+};
+
+template<>
+class LunaType< 58780375 > {
+public:
+	typedef proland::seg2d type;
+	
+};
+
+template<>
+class LunaType< 49055864 > {
+public:
+	typedef proland::LifeCycleParticleLayer::LifeCycleParticle type;
+	
+};
+
+template<>
+class LunaType< 93158916 > {
+public:
+	typedef proland::ParticleStorage::Particle type;
+	
+};
+
+template<>
+class LunaType< 59029701 > {
+public:
+	typedef proland::RandomParticleLayer::RandomParticle type;
+	
+};
+
+template<>
+class LunaType< 15286603 > {
+public:
+	typedef proland::ScreenParticleLayer::ScreenParticle type;
+	
+};
+
+template<>
+class LunaType< 29709589 > {
+public:
+	typedef proland::TerrainParticleLayer::TerrainInfo type;
+	
+};
+
+template<>
+class LunaType< 19603310 > {
+public:
+	typedef proland::TerrainParticleLayer::TerrainParticle type;
+	
+};
+
+template<>
+class LunaType< 65640640 > {
+public:
+	typedef proland::WorldParticleLayer::WorldParticle type;
+	
+};
+
+template<>
+class LunaType< 72091111 > {
+public:
+	typedef proland::TileStorage::Slot type;
+	
+};
+
+template<>
+class LunaType< 71475540 > {
+public:
+	typedef proland::GPUTileStorage::GPUSlot type;
+	
+};
+
+template<>
+class LunaType< 10515563 > {
+public:
+	typedef proland::TileCache::Tile type;
+	
+};
+
+template<>
+class LunaType< 42607664 > {
+public:
+	typedef proland::TileCache::Tile::Id type;
+	
+};
+
+template<>
+class LunaType< 20847041 > {
+public:
+	typedef proland::TileCache::Tile::TId type;
+	
+};
+
+template<>
+class LunaType< 89838339 > {
+public:
+	typedef proland::TileSampler::TileFilter type;
+	
+};
+
+template<>
+class LunaType< 2915545 > {
+public:
+	typedef proland::ViewManager type;
+	
+};
+
+template<>
+class LunaType< 61540425 > {
+public:
+	typedef proland::Recordable type;
+	
+};
+
+template<>
+class LunaType< 52737574 > {
+public:
+	typedef proland::EventRecorder::Event type;
+	
+};
+
+template<>
+class LunaType< 491757 > {
+public:
+	typedef proland::TweakBarManager::BarData type;
+	
+};
+
+template<>
+class LunaType< 65210794 > {
+public:
+	typedef proland::TweakResource::Data type;
+	
+};
+
+template<>
+class LunaType< 21281132 > {
+public:
+	typedef proland::TweakSceneGraph::TextureInfo type;
+	
+};
+
+template<>
 class LunaType< 79829375 > {
 public:
 	typedef std::type_info type;
@@ -5870,6 +7467,27 @@ public:
 };
 
 template<>
+class LunaType< 30985879 > {
+public:
+	typedef proland::seg2< float > type;
+	
+};
+
+template<>
+class LunaType< 70381882 > {
+public:
+	typedef proland::seg2< double > type;
+	
+};
+
+template<>
+class LunaType< 67383368 > {
+public:
+	typedef std::pair< int, std::pair< int, int > > type;
+	
+};
+
+template<>
 class LunaType< 8893137 > {
 public:
 	typedef std::vector< ork::ptr< ork::Module > > type;
@@ -5887,6 +7505,27 @@ template<>
 class LunaType< 35026174 > {
 public:
 	typedef std::vector< ork::SetTargetTask::Target > type;
+	
+};
+
+template<>
+class LunaType< 13829843 > {
+public:
+	typedef std::map< ork::ptr< proland::TileProducer >, proland::TerrainParticleLayer::TerrainInfo * > type;
+	
+};
+
+template<>
+class LunaType< 9346150 > {
+public:
+	typedef map< ork::ptr< ork::SceneNode >, ork::ptr< proland::TerrainNode > > type;
+	
+};
+
+template<>
+class LunaType< 40535768 > {
+public:
+	typedef vector< proland::TweakBarManager::BarData > type;
 	
 };
 
@@ -5936,6 +7575,34 @@ template<>
 class LunaType< 71786532 > {
 public:
 	typedef std::set< ork::ptr< ork::Task > > type;
+	
+};
+
+template<>
+class LunaType< 75010607 > {
+public:
+	typedef std::vector< ork::ptr< proland::TileProducer > > type;
+	
+};
+
+template<>
+class LunaType< 1587166 > {
+public:
+	typedef std::vector< proland::ParticleStorage::Particle * >::iterator type;
+	
+};
+
+template<>
+class LunaType< 40518290 > {
+public:
+	typedef std::pair< int, std::pair< int, std::pair< int, int > > > type;
+	
+};
+
+template<>
+class LunaType< 22464234 > {
+public:
+	typedef std::vector< proland::TweakViewHandler::Position > type;
 	
 };
 

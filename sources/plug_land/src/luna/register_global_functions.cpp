@@ -1,7 +1,10 @@
 #include <plug_common.h>
 
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/mfs.h>
 #include <ork/math/pmath.h>
 #include <ork/math/half.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/math/color.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/math/noise.h>
 
 // Function checkers:
 inline static bool _lg_typecheck_isFinite_overload_1(lua_State *L) {
@@ -64,6 +67,64 @@ inline static bool _lg_typecheck_isSubnormal_overload_3(lua_State *L) {
 	if( lua_gettop(L)!=1 ) return false;
 
 	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_open(lua_State *L) {
+	if( lua_gettop(L)!=4 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3625364)) ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( lua_type(L,3)!=LUA_TSTRING ) return false;
+	if( (lua_isnil(L,4)==0 && !Luna<void>::has_uniqueid(L,4,83387491)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_lseek(lua_State *L) {
+	if( lua_gettop(L)!=3 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_read(lua_State *L) {
+	if( lua_gettop(L)!=3 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
+	if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,3625364)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_write(lua_State *L) {
+	if( lua_gettop(L)!=3 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
+	if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,3625364)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_size(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_unmap(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_mfs_close(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
 	return true;
 }
 
@@ -283,6 +344,113 @@ static int _bind_isSubnormal(lua_State *L) {
 	return 0;
 }
 
+// int mfs_open(void * ptr, int size, char * mode, mfs_file * fd)
+static int _bind_mfs_open(lua_State *L) {
+	if (!_lg_typecheck_mfs_open(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_open(void * ptr, int size, char * mode, mfs_file * fd) function, expected prototype:\nint mfs_open(void * ptr, int size, char * mode, mfs_file * fd)\nClass arguments details:\narg 4 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	void* ptr=(Luna< void >::check(L,1));
+	int size=(int)lua_tointeger(L,2);
+	char* mode=(char*)Luna< void >::check(L,3);
+	mfs_file* fd=(Luna< mfs_file >::check(L,4));
+
+	int lret = ::mfs_open(ptr, size, mode, fd);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// int mfs_lseek(mfs_file * fd, int offset, int whence)
+static int _bind_mfs_lseek(lua_State *L) {
+	if (!_lg_typecheck_mfs_lseek(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_lseek(mfs_file * fd, int offset, int whence) function, expected prototype:\nint mfs_lseek(mfs_file * fd, int offset, int whence)\nClass arguments details:\narg 1 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	mfs_file* fd=(Luna< mfs_file >::check(L,1));
+	int offset=(int)lua_tointeger(L,2);
+	int whence=(int)lua_tointeger(L,3);
+
+	int lret = ::mfs_lseek(fd, offset, whence);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// int mfs_read(mfs_file * fd, void * buf, int size)
+static int _bind_mfs_read(lua_State *L) {
+	if (!_lg_typecheck_mfs_read(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_read(mfs_file * fd, void * buf, int size) function, expected prototype:\nint mfs_read(mfs_file * fd, void * buf, int size)\nClass arguments details:\narg 1 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	mfs_file* fd=(Luna< mfs_file >::check(L,1));
+	void* buf=(Luna< void >::check(L,2));
+	int size=(int)lua_tointeger(L,3);
+
+	int lret = ::mfs_read(fd, buf, size);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// int mfs_write(mfs_file * fd, void * buf, int size)
+static int _bind_mfs_write(lua_State *L) {
+	if (!_lg_typecheck_mfs_write(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_write(mfs_file * fd, void * buf, int size) function, expected prototype:\nint mfs_write(mfs_file * fd, void * buf, int size)\nClass arguments details:\narg 1 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	mfs_file* fd=(Luna< mfs_file >::check(L,1));
+	void* buf=(Luna< void >::check(L,2));
+	int size=(int)lua_tointeger(L,3);
+
+	int lret = ::mfs_write(fd, buf, size);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// int mfs_size(mfs_file * fd)
+static int _bind_mfs_size(lua_State *L) {
+	if (!_lg_typecheck_mfs_size(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_size(mfs_file * fd) function, expected prototype:\nint mfs_size(mfs_file * fd)\nClass arguments details:\narg 1 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	mfs_file* fd=(Luna< mfs_file >::check(L,1));
+
+	int lret = ::mfs_size(fd);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// int mfs_unmap(mfs_file * fd)
+static int _bind_mfs_unmap(lua_State *L) {
+	if (!_lg_typecheck_mfs_unmap(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_unmap(mfs_file * fd) function, expected prototype:\nint mfs_unmap(mfs_file * fd)\nClass arguments details:\narg 1 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	mfs_file* fd=(Luna< mfs_file >::check(L,1));
+
+	int lret = ::mfs_unmap(fd);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// int mfs_close(mfs_file * fd)
+static int _bind_mfs_close(lua_State *L) {
+	if (!_lg_typecheck_mfs_close(L)) {
+		luaL_error(L, "luna typecheck failed in int mfs_close(mfs_file * fd) function, expected prototype:\nint mfs_close(mfs_file * fd)\nClass arguments details:\narg 1 ID = 83387491\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	mfs_file* fd=(Luna< mfs_file >::check(L,1));
+
+	int lret = ::mfs_close(fd);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
 // bool isPointerAligned(void * p, size_t alignment)
 static int _bind_isPointerAligned(lua_State *L) {
 	if (!_lg_typecheck_isPointerAligned(L)) {
@@ -466,6 +634,395 @@ static int _bind_halfToFloat(lua_State *L) {
 }
 
 
+// Function checkers:
+inline static bool _lg_typecheck_rgb2hsl(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( !Luna<void>::has_uniqueid(L,1,81304271) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_hsl2rgb(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( !Luna<void>::has_uniqueid(L,1,81304271) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_dcolor(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<1 || luatop>2 ) return false;
+
+	if( !Luna<void>::has_uniqueid(L,1,81304271) ) return false;
+	if( luatop>1 && !Luna<void>::has_uniqueid(L,2,81304271) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_lrandom(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3625364)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_frandom(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3625364)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_grandom(lua_State *L) {
+	if( lua_gettop(L)!=3 ) return false;
+
+	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,2)!=LUA_TNUMBER ) return false;
+	if( (lua_isnil(L,3)==0 && !Luna<void>::has_uniqueid(L,3,3625364)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_cnoise_overload_1(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<2 || luatop>3 ) return false;
+
+	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,2)!=LUA_TNUMBER ) return false;
+	if( luatop>2 && (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_cnoise_overload_2(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<3 || luatop>4 ) return false;
+
+	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,2)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,3)!=LUA_TNUMBER ) return false;
+	if( luatop>3 && (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_snoise_overload_1(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<2 || luatop>3 ) return false;
+
+	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,2)!=LUA_TNUMBER ) return false;
+	if( luatop>2 && (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_snoise_overload_2(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<3 || luatop>4 ) return false;
+
+	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,2)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,3)!=LUA_TNUMBER ) return false;
+	if( luatop>3 && (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_snoise_overload_3(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<4 || luatop>5 ) return false;
+
+	if( lua_type(L,1)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,2)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,3)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,4)!=LUA_TNUMBER ) return false;
+	if( luatop>4 && (lua_type(L,5)!=LUA_TNUMBER || lua_tointeger(L,5) != lua_tonumber(L,5)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_buildFbm4NoiseTexture2D(lua_State *L) {
+	if( lua_gettop(L)!=5 ) return false;
+
+	if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	if( lua_type(L,5)!=LUA_TNUMBER ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_buildFbm1NoiseTexture3D(lua_State *L) {
+	if( lua_gettop(L)!=5 ) return false;
+
+	if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	if( lua_type(L,5)!=LUA_TNUMBER ) return false;
+	return true;
+}
+
+
+// Function binds:
+// ork::vec3f proland::rgb2hsl(const ork::vec3f & rgb)
+static int _bind_rgb2hsl(lua_State *L) {
+	if (!_lg_typecheck_rgb2hsl(L)) {
+		luaL_error(L, "luna typecheck failed in ork::vec3f proland::rgb2hsl(const ork::vec3f & rgb) function, expected prototype:\nork::vec3f proland::rgb2hsl(const ork::vec3f & rgb)\nClass arguments details:\narg 1 ID = 81304271\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	const ork::vec3f* rgb_ptr=(Luna< ork::vec3f >::check(L,1));
+	if( !rgb_ptr ) {
+		luaL_error(L, "Dereferencing NULL pointer for arg rgb in proland::rgb2hsl function");
+	}
+	const ork::vec3f & rgb=*rgb_ptr;
+
+	ork::vec3f stack_lret = proland::rgb2hsl(rgb);
+	ork::vec3f* lret = new ork::vec3f(stack_lret);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< ork::vec3f >::push(L,lret,true);
+
+	return 1;
+}
+
+// ork::vec3f proland::hsl2rgb(const ork::vec3f & hsl)
+static int _bind_hsl2rgb(lua_State *L) {
+	if (!_lg_typecheck_hsl2rgb(L)) {
+		luaL_error(L, "luna typecheck failed in ork::vec3f proland::hsl2rgb(const ork::vec3f & hsl) function, expected prototype:\nork::vec3f proland::hsl2rgb(const ork::vec3f & hsl)\nClass arguments details:\narg 1 ID = 81304271\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	const ork::vec3f* hsl_ptr=(Luna< ork::vec3f >::check(L,1));
+	if( !hsl_ptr ) {
+		luaL_error(L, "Dereferencing NULL pointer for arg hsl in proland::hsl2rgb function");
+	}
+	const ork::vec3f & hsl=*hsl_ptr;
+
+	ork::vec3f stack_lret = proland::hsl2rgb(hsl);
+	ork::vec3f* lret = new ork::vec3f(stack_lret);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< ork::vec3f >::push(L,lret,true);
+
+	return 1;
+}
+
+// ork::mat3f proland::dcolor(const ork::vec3f & rgb, const ork::vec3f & amp = ork::vec3f (1/12.0f, 1/3.0f, 1/6.0f))
+static int _bind_dcolor(lua_State *L) {
+	if (!_lg_typecheck_dcolor(L)) {
+		luaL_error(L, "luna typecheck failed in ork::mat3f proland::dcolor(const ork::vec3f & rgb, const ork::vec3f & amp = ork::vec3f (1/12.0f, 1/3.0f, 1/6.0f)) function, expected prototype:\nork::mat3f proland::dcolor(const ork::vec3f & rgb, const ork::vec3f & amp = ork::vec3f (1/12.0f, 1/3.0f, 1/6.0f))\nClass arguments details:\narg 1 ID = 81304271\narg 2 ID = 81304271\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	const ork::vec3f* rgb_ptr=(Luna< ork::vec3f >::check(L,1));
+	if( !rgb_ptr ) {
+		luaL_error(L, "Dereferencing NULL pointer for arg rgb in proland::dcolor function");
+	}
+	const ork::vec3f & rgb=*rgb_ptr;
+	const ork::vec3f* amp_ptr=luatop>1 ? (Luna< ork::vec3f >::check(L,2)) : NULL;
+	if( luatop>1 && !amp_ptr ) {
+		luaL_error(L, "Dereferencing NULL pointer for arg amp in proland::dcolor function");
+	}
+	const ork::vec3f & amp=luatop>1 ? *amp_ptr : (const ork::vec3f&)ork::vec3f (1/12.0f, 1/3.0f, 1/6.0f);
+
+	ork::mat3f stack_lret = proland::dcolor(rgb, amp);
+	ork::mat3f* lret = new ork::mat3f(stack_lret);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< ork::mat3f >::push(L,lret,true);
+
+	return 1;
+}
+
+// long proland::lrandom(long * seed)
+static int _bind_lrandom(lua_State *L) {
+	if (!_lg_typecheck_lrandom(L)) {
+		luaL_error(L, "luna typecheck failed in long proland::lrandom(long * seed) function, expected prototype:\nlong proland::lrandom(long * seed)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	long* seed=(long*)Luna< void >::check(L,1);
+
+	long lret = proland::lrandom(seed);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// float proland::frandom(long * seed)
+static int _bind_frandom(lua_State *L) {
+	if (!_lg_typecheck_frandom(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::frandom(long * seed) function, expected prototype:\nfloat proland::frandom(long * seed)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	long* seed=(long*)Luna< void >::check(L,1);
+
+	float lret = proland::frandom(seed);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// float proland::grandom(float mean, float stdDeviation, long * seed)
+static int _bind_grandom(lua_State *L) {
+	if (!_lg_typecheck_grandom(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::grandom(float mean, float stdDeviation, long * seed) function, expected prototype:\nfloat proland::grandom(float mean, float stdDeviation, long * seed)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	float mean=(float)lua_tonumber(L,1);
+	float stdDeviation=(float)lua_tonumber(L,2);
+	long* seed=(long*)Luna< void >::check(L,3);
+
+	float lret = proland::grandom(mean, stdDeviation, seed);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// float proland::cnoise(float x, float y, int P = 0)
+static int _bind_cnoise_overload_1(lua_State *L) {
+	if (!_lg_typecheck_cnoise_overload_1(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::cnoise(float x, float y, int P = 0) function, expected prototype:\nfloat proland::cnoise(float x, float y, int P = 0)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	float x=(float)lua_tonumber(L,1);
+	float y=(float)lua_tonumber(L,2);
+	int P=luatop>2 ? (int)lua_tointeger(L,3) : (int)0;
+
+	float lret = proland::cnoise(x, y, P);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// float proland::cnoise(float x, float y, float z, int P = 0)
+static int _bind_cnoise_overload_2(lua_State *L) {
+	if (!_lg_typecheck_cnoise_overload_2(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::cnoise(float x, float y, float z, int P = 0) function, expected prototype:\nfloat proland::cnoise(float x, float y, float z, int P = 0)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	float x=(float)lua_tonumber(L,1);
+	float y=(float)lua_tonumber(L,2);
+	float z=(float)lua_tonumber(L,3);
+	int P=luatop>3 ? (int)lua_tointeger(L,4) : (int)0;
+
+	float lret = proland::cnoise(x, y, z, P);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// Overload binder for proland::cnoise
+static int _bind_cnoise(lua_State *L) {
+	if (_lg_typecheck_cnoise_overload_1(L)) return _bind_cnoise_overload_1(L);
+	if (_lg_typecheck_cnoise_overload_2(L)) return _bind_cnoise_overload_2(L);
+
+	luaL_error(L, "error in function cnoise, cannot match any of the overloads for function cnoise:\n  cnoise(float, float, int)\n  cnoise(float, float, float, int)\n");
+	return 0;
+}
+
+// float proland::snoise(float x, float y, int P = 0)
+static int _bind_snoise_overload_1(lua_State *L) {
+	if (!_lg_typecheck_snoise_overload_1(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::snoise(float x, float y, int P = 0) function, expected prototype:\nfloat proland::snoise(float x, float y, int P = 0)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	float x=(float)lua_tonumber(L,1);
+	float y=(float)lua_tonumber(L,2);
+	int P=luatop>2 ? (int)lua_tointeger(L,3) : (int)0;
+
+	float lret = proland::snoise(x, y, P);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// float proland::snoise(float x, float y, float z, int P = 0)
+static int _bind_snoise_overload_2(lua_State *L) {
+	if (!_lg_typecheck_snoise_overload_2(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::snoise(float x, float y, float z, int P = 0) function, expected prototype:\nfloat proland::snoise(float x, float y, float z, int P = 0)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	float x=(float)lua_tonumber(L,1);
+	float y=(float)lua_tonumber(L,2);
+	float z=(float)lua_tonumber(L,3);
+	int P=luatop>3 ? (int)lua_tointeger(L,4) : (int)0;
+
+	float lret = proland::snoise(x, y, z, P);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// float proland::snoise(float x, float y, float z, float w, int P = 0)
+static int _bind_snoise_overload_3(lua_State *L) {
+	if (!_lg_typecheck_snoise_overload_3(L)) {
+		luaL_error(L, "luna typecheck failed in float proland::snoise(float x, float y, float z, float w, int P = 0) function, expected prototype:\nfloat proland::snoise(float x, float y, float z, float w, int P = 0)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	float x=(float)lua_tonumber(L,1);
+	float y=(float)lua_tonumber(L,2);
+	float z=(float)lua_tonumber(L,3);
+	float w=(float)lua_tonumber(L,4);
+	int P=luatop>4 ? (int)lua_tointeger(L,5) : (int)0;
+
+	float lret = proland::snoise(x, y, z, w, P);
+	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// Overload binder for proland::snoise
+static int _bind_snoise(lua_State *L) {
+	if (_lg_typecheck_snoise_overload_1(L)) return _bind_snoise_overload_1(L);
+	if (_lg_typecheck_snoise_overload_2(L)) return _bind_snoise_overload_2(L);
+	if (_lg_typecheck_snoise_overload_3(L)) return _bind_snoise_overload_3(L);
+
+	luaL_error(L, "error in function snoise, cannot match any of the overloads for function snoise:\n  snoise(float, float, int)\n  snoise(float, float, float, int)\n  snoise(float, float, float, float, int)\n");
+	return 0;
+}
+
+// float * proland::buildFbm4NoiseTexture2D(int size, int freq, int octaves, int lacunarity, float gain)
+static int _bind_buildFbm4NoiseTexture2D(lua_State *L) {
+	if (!_lg_typecheck_buildFbm4NoiseTexture2D(L)) {
+		luaL_error(L, "luna typecheck failed in float * proland::buildFbm4NoiseTexture2D(int size, int freq, int octaves, int lacunarity, float gain) function, expected prototype:\nfloat * proland::buildFbm4NoiseTexture2D(int size, int freq, int octaves, int lacunarity, float gain)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int size=(int)lua_tointeger(L,1);
+	int freq=(int)lua_tointeger(L,2);
+	int octaves=(int)lua_tointeger(L,3);
+	int lacunarity=(int)lua_tointeger(L,4);
+	float gain=(float)lua_tonumber(L,5);
+
+	float * lret = proland::buildFbm4NoiseTexture2D(size, freq, octaves, lacunarity, gain);
+	lua_pushnumber(L,*lret);
+
+	return 1;
+}
+
+// float * proland::buildFbm1NoiseTexture3D(int size, int freq, int octaves, int lacunarity, float gain)
+static int _bind_buildFbm1NoiseTexture3D(lua_State *L) {
+	if (!_lg_typecheck_buildFbm1NoiseTexture3D(L)) {
+		luaL_error(L, "luna typecheck failed in float * proland::buildFbm1NoiseTexture3D(int size, int freq, int octaves, int lacunarity, float gain) function, expected prototype:\nfloat * proland::buildFbm1NoiseTexture3D(int size, int freq, int octaves, int lacunarity, float gain)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int size=(int)lua_tointeger(L,1);
+	int freq=(int)lua_tointeger(L,2);
+	int octaves=(int)lua_tointeger(L,3);
+	int lacunarity=(int)lua_tointeger(L,4);
+	float gain=(float)lua_tonumber(L,5);
+
+	float * lret = proland::buildFbm1NoiseTexture3D(size, freq, octaves, lacunarity, gain);
+	lua_pushnumber(L,*lret);
+
+	return 1;
+}
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -475,6 +1032,13 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_isFinite); lua_setfield(L,-2,"isFinite");
 	lua_pushcfunction(L, _bind_isInf); lua_setfield(L,-2,"isInf");
 	lua_pushcfunction(L, _bind_isSubnormal); lua_setfield(L,-2,"isSubnormal");
+	lua_pushcfunction(L, _bind_mfs_open); lua_setfield(L,-2,"mfs_open");
+	lua_pushcfunction(L, _bind_mfs_lseek); lua_setfield(L,-2,"mfs_lseek");
+	lua_pushcfunction(L, _bind_mfs_read); lua_setfield(L,-2,"mfs_read");
+	lua_pushcfunction(L, _bind_mfs_write); lua_setfield(L,-2,"mfs_write");
+	lua_pushcfunction(L, _bind_mfs_size); lua_setfield(L,-2,"mfs_size");
+	lua_pushcfunction(L, _bind_mfs_unmap); lua_setfield(L,-2,"mfs_unmap");
+	lua_pushcfunction(L, _bind_mfs_close); lua_setfield(L,-2,"mfs_close");
 	lua_pushcfunction(L, _bind_isPointerAligned); lua_setfield(L,-2,"isPointerAligned");
 	lua_pushcfunction(L, _bind_alignPointer); lua_setfield(L,-2,"alignPointer");
 	lua_pushcfunction(L, _bind_degrees); lua_setfield(L,-2,"degrees");
@@ -483,6 +1047,18 @@ void register_global_functions(lua_State* L) {
 	luna_pushModule(L,"ork");
 	lua_pushcfunction(L, _bind_floatToHalf); lua_setfield(L,-2,"floatToHalf");
 	lua_pushcfunction(L, _bind_halfToFloat); lua_setfield(L,-2,"halfToFloat");
+	luna_popModule(L);
+	luna_pushModule(L,"proland");
+	lua_pushcfunction(L, _bind_rgb2hsl); lua_setfield(L,-2,"rgb2hsl");
+	lua_pushcfunction(L, _bind_hsl2rgb); lua_setfield(L,-2,"hsl2rgb");
+	lua_pushcfunction(L, _bind_dcolor); lua_setfield(L,-2,"dcolor");
+	lua_pushcfunction(L, _bind_lrandom); lua_setfield(L,-2,"lrandom");
+	lua_pushcfunction(L, _bind_frandom); lua_setfield(L,-2,"frandom");
+	lua_pushcfunction(L, _bind_grandom); lua_setfield(L,-2,"grandom");
+	lua_pushcfunction(L, _bind_cnoise); lua_setfield(L,-2,"cnoise");
+	lua_pushcfunction(L, _bind_snoise); lua_setfield(L,-2,"snoise");
+	lua_pushcfunction(L, _bind_buildFbm4NoiseTexture2D); lua_setfield(L,-2,"buildFbm4NoiseTexture2D");
+	lua_pushcfunction(L, _bind_buildFbm1NoiseTexture3D); lua_setfield(L,-2,"buildFbm1NoiseTexture3D");
 	luna_popModule(L);
 }
 

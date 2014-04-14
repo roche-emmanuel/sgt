@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -50,7 +53,7 @@ public:
     /**
      * A callback function called when a readback is done; see ReadbackManager.
      */
-    class Callback : public Object
+    class PROLAND_API Callback : public Object
     {
     public:
         /**

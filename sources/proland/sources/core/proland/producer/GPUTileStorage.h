@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -48,7 +51,7 @@ public:
     /**
      * A slot managed by a GPUTileStorage. Corresponds to a layer of a texture.
      */
-    class GPUSlot : public Slot
+    class PROLAND_API GPUSlot : public Slot
     {
     public:
         /**

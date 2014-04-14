@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -50,7 +53,7 @@ public:
     /**
      * Abstract data class used for tweak bar callbacks.
      */
-    class Data
+    class PROLAND_API Data
     {
     public:
         /**

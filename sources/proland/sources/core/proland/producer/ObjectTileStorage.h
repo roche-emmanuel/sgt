@@ -1,3 +1,6 @@
+// Common precompile header
+#include "proland_common.h"
+
 /*
  * Proland: a procedural landscape rendering library.
  * Copyright (c) 2008-2011 INRIA
@@ -44,7 +47,7 @@ public:
     /**
      * A tile managed by an ObjectTileStorage.
      */
-    class ObjectSlot : public Slot
+    class PROLAND_API ObjectSlot : public Slot
     {
     public:
         /**

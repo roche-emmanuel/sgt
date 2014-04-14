@@ -441,6 +441,12 @@ inline vec3<type> vec3<type>::normalize() const
     return vec3(x * invLength, y * invLength, z * invLength);
 }
 
+template <>
+inline vec3<bool> vec3<bool>::normalize() const
+{
+    return vec3(x,y,z);
+}
+
 template <typename type>
 inline vec3<type> vec3<type>::normalize(type l) const
 {

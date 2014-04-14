@@ -4,6 +4,13 @@
 #include <plug_common.h>
 
 template <typename dstType>
+struct luna_caster<mfs_file,dstType> {
+	static inline dstType* cast(mfs_file* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<ork::Buffer::Parameters,dstType> {
 	static inline dstType* cast(ork::Buffer::Parameters* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -13,6 +20,13 @@ struct luna_caster<ork::Buffer::Parameters,dstType> {
 template <typename dstType>
 struct luna_caster<ork::FrameBuffer::Parameters,dstType> {
 	static inline dstType* cast(ork::FrameBuffer::Parameters* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::BasicViewHandler::Position,dstType> {
+	static inline dstType* cast(proland::BasicViewHandler::Position* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
@@ -41,6 +55,13 @@ struct luna_caster<TiXmlCursor,dstType> {
 template <typename dstType>
 struct luna_caster<TiXmlHandle,dstType> {
 	static inline dstType* cast(TiXmlHandle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<TwBar,dstType> {
+	static inline dstType* cast(TwBar* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
@@ -867,6 +888,111 @@ struct luna_caster<ork::quatf,dstType> {
 template <typename dstType>
 struct luna_caster<ork::quatd,dstType> {
 	static inline dstType* cast(ork::quatd* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::seg2< float >,dstType> {
+	static inline dstType* cast(proland::seg2< float >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::seg2< double >,dstType> {
+	static inline dstType* cast(proland::seg2< double >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::LifeCycleParticleLayer::LifeCycleParticle,dstType> {
+	static inline dstType* cast(proland::LifeCycleParticleLayer::LifeCycleParticle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::ParticleStorage::Particle,dstType> {
+	static inline dstType* cast(proland::ParticleStorage::Particle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::RandomParticleLayer::RandomParticle,dstType> {
+	static inline dstType* cast(proland::RandomParticleLayer::RandomParticle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::ScreenParticleLayer::ScreenParticle,dstType> {
+	static inline dstType* cast(proland::ScreenParticleLayer::ScreenParticle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TerrainParticleLayer::TerrainInfo,dstType> {
+	static inline dstType* cast(proland::TerrainParticleLayer::TerrainInfo* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TerrainParticleLayer::TerrainParticle,dstType> {
+	static inline dstType* cast(proland::TerrainParticleLayer::TerrainParticle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::WorldParticleLayer::WorldParticle,dstType> {
+	static inline dstType* cast(proland::WorldParticleLayer::WorldParticle* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TileCache::Tile,dstType> {
+	static inline dstType* cast(proland::TileCache::Tile* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<std::pair< int, std::pair< int, int > >,dstType> {
+	static inline dstType* cast(std::pair< int, std::pair< int, int > >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::EventRecorder::Event,dstType> {
+	static inline dstType* cast(proland::EventRecorder::Event* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TweakBarManager::BarData,dstType> {
+	static inline dstType* cast(proland::TweakBarManager::BarData* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TweakSceneGraph::TextureInfo,dstType> {
+	static inline dstType* cast(proland::TweakSceneGraph::TextureInfo* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TweakViewHandler::Position,dstType> {
+	static inline dstType* cast(proland::TweakViewHandler::Position* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
