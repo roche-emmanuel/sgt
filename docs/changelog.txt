@@ -73,3 +73,4 @@
 - Started compilation of plug_land with partial support for ork classes.
 - Added lua bindings for ork/render folder.
 - Added support for ork/resource folder.
+- Added bindings for ork scenegraph and taskgraph folders.

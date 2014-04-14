@@ -39,6 +39,7 @@ INSTALL(TARGETS ${TARGET_NAME}
 	RUNTIME DESTINATION ${TARGET_DIR}
 	LIBRARY DESTINATION ${TARGET_DIR})
 
+
 # reflection settings:	
 SET(INTF_FILES)
 
@@ -48,6 +49,8 @@ LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/math")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/render")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/util")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/resource")
+LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/taskgraph")
+LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/scenegraph")
 ADD_FILES(INTF_FILES "../include/plug_extensions.h")
 ADD_FILES(INTF_FILES "../interface/helpers.h")
 

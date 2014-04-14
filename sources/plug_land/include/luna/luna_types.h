@@ -4,10 +4,12 @@
 #include <plug_common.h>
 
 #include <ork/core/Object.h>
+#include <ork/taskgraph/Task.h>
 #include <ork/render/Buffer.h>
 #include <ork/render/FrameBuffer.h>
 #include <ork/resource/ResourceDescriptor.h>
 #include <ork/resource/CompiledResourceLoader.h>
+#include <ork/scenegraph/SetTargetTask.h>
 #include <ork/resource/tinyxml.h>
 #include <ork/util/Font.h>
 #include <plug_extensions.h>
@@ -55,6 +57,23 @@
 #include <ork/resource/ResourceCompiler.h>
 #include <ork/resource/ResourceFactory.h>
 #include <ork/resource/ResourceManager.h>
+#include <ork/taskgraph/Scheduler.h>
+#include <ork/taskgraph/MultithreadScheduler.h>
+#include <ork/taskgraph/TaskFactory.h>
+#include <ork/taskgraph/TaskGraph.h>
+#include <ork/scenegraph/AbstractTask.h>
+#include <ork/scenegraph/CallMethodTask.h>
+#include <ork/scenegraph/DrawMeshTask.h>
+#include <ork/scenegraph/LoopTask.h>
+#include <ork/scenegraph/Method.h>
+#include <ork/scenegraph/SceneManager.h>
+#include <ork/scenegraph/SceneNode.h>
+#include <ork/scenegraph/SequenceTask.h>
+#include <ork/scenegraph/SetProgramTask.h>
+#include <ork/scenegraph/SetStateTask.h>
+#include <ork/scenegraph/SetTransformsTask.h>
+#include <ork/scenegraph/ShowInfoTask.h>
+#include <ork/scenegraph/ShowLogTask.h>
 
 // Class: ork::Object
 template<>
@@ -72,6 +91,25 @@ public:
 	static void _bind_dtor(ork::Object* obj);
 	typedef ork::Object parent_t;
 	typedef ork::Object base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::Task
+template<>
+class LunaTraits< ork::Task > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Task* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Task* obj);
+	typedef ork::Object parent_t;
+	typedef ork::Task base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -167,6 +205,25 @@ public:
 	static void _bind_dtor(ork::CompiledResourceLoader::StaticResourceDescriptor* obj);
 	typedef ork::Object parent_t;
 	typedef ork::CompiledResourceLoader::StaticResourceDescriptor base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetTargetTask::Target
+template<>
+class LunaTraits< ork::SetTargetTask::Target > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetTargetTask::Target* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetTargetTask::Target* obj);
+	typedef ork::SetTargetTask::Target parent_t;
+	typedef ork::SetTargetTask::Target base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -2811,6 +2868,538 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: ork::Scheduler
+template<>
+class LunaTraits< ork::Scheduler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Scheduler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Scheduler* obj);
+	typedef ork::Object parent_t;
+	typedef ork::Scheduler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MultithreadScheduler
+template<>
+class LunaTraits< ork::MultithreadScheduler > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MultithreadScheduler* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MultithreadScheduler* obj);
+	typedef ork::Object parent_t;
+	typedef ork::MultithreadScheduler base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::TaskListener
+template<>
+class LunaTraits< ork::TaskListener > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::TaskListener* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::TaskListener* obj);
+	typedef ork::TaskListener parent_t;
+	typedef ork::TaskListener base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::TaskFactory
+template<>
+class LunaTraits< ork::TaskFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::TaskFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::TaskFactory* obj);
+	typedef ork::Object parent_t;
+	typedef ork::TaskFactory base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::TaskGraph
+template<>
+class LunaTraits< ork::TaskGraph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::TaskGraph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::TaskGraph* obj);
+	typedef ork::Object parent_t;
+	typedef ork::TaskGraph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetIterator< ork::ptr< ork::Task > >
+template<>
+class LunaTraits< ork::SetIterator< ork::ptr< ork::Task > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetIterator< ork::ptr< ork::Task > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetIterator< ork::ptr< ork::Task > >* obj);
+	typedef ork::SetIterator< ork::ptr< ork::Task > > parent_t;
+	typedef ork::SetIterator< ork::ptr< ork::Task > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::AbstractTask
+template<>
+class LunaTraits< ork::AbstractTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::AbstractTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::AbstractTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::AbstractTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::CallMethodTask
+template<>
+class LunaTraits< ork::CallMethodTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::CallMethodTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::CallMethodTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::CallMethodTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::DrawMeshTask
+template<>
+class LunaTraits< ork::DrawMeshTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::DrawMeshTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::DrawMeshTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::DrawMeshTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::LoopTask
+template<>
+class LunaTraits< ork::LoopTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::LoopTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::LoopTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::LoopTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::Method
+template<>
+class LunaTraits< ork::Method > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Method* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Method* obj);
+	typedef ork::Object parent_t;
+	typedef ork::Method base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SceneManager
+template<>
+class LunaTraits< ork::SceneManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SceneManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SceneManager* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SceneManager base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >
+template<>
+class LunaTraits< ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* obj);
+	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > parent_t;
+	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SceneNode
+template<>
+class LunaTraits< ork::SceneNode > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SceneNode* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SceneNode* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SceneNode base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetIterator< std::string >
+template<>
+class LunaTraits< ork::SetIterator< std::string > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetIterator< std::string >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetIterator< std::string >* obj);
+	typedef ork::SetIterator< std::string > parent_t;
+	typedef ork::SetIterator< std::string > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MapIterator< std::string, ork::ptr< ork::Value > >
+template<>
+class LunaTraits< ork::MapIterator< std::string, ork::ptr< ork::Value > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MapIterator< std::string, ork::ptr< ork::Value > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MapIterator< std::string, ork::ptr< ork::Value > >* obj);
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Value > > parent_t;
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Value > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MapIterator< std::string, ork::ptr< ork::Module > >
+template<>
+class LunaTraits< ork::MapIterator< std::string, ork::ptr< ork::Module > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MapIterator< std::string, ork::ptr< ork::Module > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MapIterator< std::string, ork::ptr< ork::Module > >* obj);
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Module > > parent_t;
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Module > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > >
+template<>
+class LunaTraits< ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > >* obj);
+	typedef ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > > parent_t;
+	typedef ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MapIterator< std::string, ork::ptr< ork::Object > >
+template<>
+class LunaTraits< ork::MapIterator< std::string, ork::ptr< ork::Object > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MapIterator< std::string, ork::ptr< ork::Object > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MapIterator< std::string, ork::ptr< ork::Object > >* obj);
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Object > > parent_t;
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Object > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::MapIterator< std::string, ork::ptr< ork::Method > >
+template<>
+class LunaTraits< ork::MapIterator< std::string, ork::ptr< ork::Method > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MapIterator< std::string, ork::ptr< ork::Method > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MapIterator< std::string, ork::ptr< ork::Method > >* obj);
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Method > > parent_t;
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Method > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SequenceTask
+template<>
+class LunaTraits< ork::SequenceTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SequenceTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SequenceTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SequenceTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetProgramTask
+template<>
+class LunaTraits< ork::SetProgramTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetProgramTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetProgramTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SetProgramTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetStateTask
+template<>
+class LunaTraits< ork::SetStateTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetStateTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetStateTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SetStateTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetStateTask::Runnable
+template<>
+class LunaTraits< ork::SetStateTask::Runnable > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetStateTask::Runnable* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetStateTask::Runnable* obj);
+	typedef ork::SetStateTask::Runnable parent_t;
+	typedef ork::SetStateTask::Runnable base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetTargetTask
+template<>
+class LunaTraits< ork::SetTargetTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetTargetTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetTargetTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SetTargetTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::SetTransformsTask
+template<>
+class LunaTraits< ork::SetTransformsTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::SetTransformsTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::SetTransformsTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::SetTransformsTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ShowInfoTask
+template<>
+class LunaTraits< ork::ShowInfoTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ShowInfoTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ShowInfoTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::ShowInfoTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ShowLogTask
+template<>
+class LunaTraits< ork::ShowLogTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ShowLogTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ShowLogTask* obj);
+	typedef ork::Object parent_t;
+	typedef ork::ShowLogTask base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: ork::vec2h
 template<>
 class LunaTraits< ork::vec2h > {
@@ -3362,6 +3951,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: std::type_info
+template<>
+class LunaTraits< std::type_info > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::type_info* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::type_info* obj);
+	typedef std::type_info parent_t;
+	typedef std::type_info base_t;
+	static luna_ConverterType converters[];
+};
+
 
 // Mapped type: std::vector< ork::ptr< ork::Module > >
 template<>
@@ -3379,6 +3987,63 @@ public:
 	static void _bind_dtor(std::vector< ork::ptr< ork::Module > >* obj);
 	typedef std::vector< ork::ptr< ork::Module > > parent_t;
 	typedef std::vector< ork::ptr< ork::Module > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::vector< ork::ptr< ork::TaskFactory > >
+template<>
+class LunaTraits< std::vector< ork::ptr< ork::TaskFactory > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< ork::ptr< ork::TaskFactory > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< ork::ptr< ork::TaskFactory > >* obj);
+	typedef std::vector< ork::ptr< ork::TaskFactory > > parent_t;
+	typedef std::vector< ork::ptr< ork::TaskFactory > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::vector< ork::SetTargetTask::Target >
+template<>
+class LunaTraits< std::vector< ork::SetTargetTask::Target > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< ork::SetTargetTask::Target >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< ork::SetTargetTask::Target >* obj);
+	typedef std::vector< ork::SetTargetTask::Target > parent_t;
+	typedef std::vector< ork::SetTargetTask::Target > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::set< ork::Task * >
+template<>
+class LunaTraits< std::set< ork::Task * > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::set< ork::Task * >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::set< ork::Task * >* obj);
+	typedef std::set< ork::Task * > parent_t;
+	typedef std::set< ork::Task * > base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -3474,6 +4139,25 @@ public:
 	static void _bind_dtor(uint64_t* obj);
 	typedef uint64_t parent_t;
 	typedef uint64_t base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::set< ork::ptr< ork::Task > >
+template<>
+class LunaTraits< std::set< ork::ptr< ork::Task > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::set< ork::ptr< ork::Task > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::set< ork::ptr< ork::Task > >* obj);
+	typedef std::set< ork::ptr< ork::Task > > parent_t;
+	typedef std::set< ork::ptr< ork::Task > > base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -3598,6 +4282,13 @@ template<>
 class LunaType< 68271247 > {
 public:
 	typedef ork::Object::static_ref type;
+	
+};
+
+template<>
+class LunaType< 89018139 > {
+public:
+	typedef ork::SetTargetTask::Target type;
 	
 };
 
@@ -4428,6 +5119,83 @@ public:
 };
 
 template<>
+class LunaType< 59816505 > {
+public:
+	typedef ork::TaskListener type;
+	
+};
+
+template<>
+class LunaType< 78577615 > {
+public:
+	typedef ork::TaskGraph::TaskIterator type;
+	
+};
+
+template<>
+class LunaType< 34309417 > {
+public:
+	typedef ork::SceneManager::NodeIterator type;
+	
+};
+
+template<>
+class LunaType< 4424 > {
+public:
+	typedef ork::SceneNode::FlagIterator type;
+	
+};
+
+template<>
+class LunaType< 16772875 > {
+public:
+	typedef ork::SceneNode::ValueIterator type;
+	
+};
+
+template<>
+class LunaType< 91055201 > {
+public:
+	typedef ork::SceneNode::ModuleIterator type;
+	
+};
+
+template<>
+class LunaType< 25036990 > {
+public:
+	typedef ork::SceneNode::MeshIterator type;
+	
+};
+
+template<>
+class LunaType< 7296908 > {
+public:
+	typedef ork::SceneNode::FieldIterator type;
+	
+};
+
+template<>
+class LunaType< 70636246 > {
+public:
+	typedef ork::SceneNode::MethodIterator type;
+	
+};
+
+template<>
+class LunaType< 52646128 > {
+public:
+	typedef ork::SetStateTask::Runnable type;
+	
+};
+
+template<>
+class LunaType< 79829375 > {
+public:
+	typedef std::type_info type;
+	
+};
+
+template<>
 class LunaType< 4487619 > {
 public:
 	typedef ork::Uniform1< ork::VEC1F, float, float, ork::uniform1f, ork::value1f > type;
@@ -4960,9 +5728,86 @@ public:
 };
 
 template<>
+class LunaType< 16689971 > {
+public:
+	typedef ork::SetIterator< ork::ptr< ork::Task > > type;
+	
+};
+
+template<>
+class LunaType< 94394620 > {
+public:
+	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > type;
+	
+};
+
+template<>
+class LunaType< 82903998 > {
+public:
+	typedef ork::SetIterator< std::string > type;
+	
+};
+
+template<>
+class LunaType< 26450461 > {
+public:
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Value > > type;
+	
+};
+
+template<>
+class LunaType< 46817549 > {
+public:
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Module > > type;
+	
+};
+
+template<>
+class LunaType< 99850653 > {
+public:
+	typedef ork::MapIterator< std::string, ork::ptr< ork::MeshBuffers > > type;
+	
+};
+
+template<>
+class LunaType< 17237157 > {
+public:
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Object > > type;
+	
+};
+
+template<>
+class LunaType< 89970006 > {
+public:
+	typedef ork::MapIterator< std::string, ork::ptr< ork::Method > > type;
+	
+};
+
+template<>
 class LunaType< 8893137 > {
 public:
 	typedef std::vector< ork::ptr< ork::Module > > type;
+	
+};
+
+template<>
+class LunaType< 41801658 > {
+public:
+	typedef std::vector< ork::ptr< ork::TaskFactory > > type;
+	
+};
+
+template<>
+class LunaType< 35026174 > {
+public:
+	typedef std::vector< ork::SetTargetTask::Target > type;
+	
+};
+
+template<>
+class LunaType< 86321452 > {
+public:
+	typedef std::set< ork::Task * > type;
 	
 };
 
@@ -4998,6 +5843,13 @@ template<>
 class LunaType< 21564657 > {
 public:
 	typedef uint64_t type;
+	
+};
+
+template<>
+class LunaType< 71786532 > {
+public:
+	typedef std::set< ork::ptr< ork::Task > > type;
 	
 };
 

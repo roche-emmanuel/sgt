@@ -115,6 +115,8 @@ ReflectionGenerator.generate{
 		"TiXmlParsingData",
 		"FILE %*",
 		"std::string %*",
+
+		"QualifiedName",
 	},
 	ignoreClasses={
 		"box2<",
@@ -126,6 +128,7 @@ ReflectionGenerator.generate{
 		"mat3<",
 		"mat4<",
 		"quat<",	
+		"QualifiedName",
 	},
 	ignoreClassDeclarations={
 		"box2<",
@@ -136,7 +139,8 @@ ReflectionGenerator.generate{
 		"mat2<",
 		"mat3<",
 		"mat4<",
-		"quat<",		
+		"quat<",	
+		"QualifiedName",	
 	},
 	ignoreConverters={},
 	ignoreHeaders = { "helpers%.h" },

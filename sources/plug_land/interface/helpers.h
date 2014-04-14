@@ -1,4 +1,9 @@
 
+namespace std {
+
+class type_info {};
+}
+
 #define VEC2_CLASS(cname,type) class cname { \
 public: \
     type x; \

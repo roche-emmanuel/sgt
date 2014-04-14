@@ -51,7 +51,6 @@ public:
      */
     virtual ~AbstractTask();
 
-protected:
     /**
      * A qualified name of the form <i>target</i>.<i>name</i>.
      */

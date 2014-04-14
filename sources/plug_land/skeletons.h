@@ -4,6 +4,9 @@
 class FrameBufferMap: public ork::Object {
 };
 
+class Impl: public ork::Task {
+};
+
 class Parameters {
 };
 
@@ -14,6 +17,18 @@ class static_ref {
 };
 
 class StaticResourceDescriptor: public ork::ResourceDescriptor {
+};
+
+class Target {
+};
+
+class taskKeySort {
+};
+
+class taskSort {
+};
+
+class TaskStatistics {
 };
 
 class TiXmlAttribute: public TiXmlBase {
@@ -63,6 +78,9 @@ class TiXmlVisitor {
 };
 
 class Type {
+};
+
+class TypeInfoSort {
 };
 
 class Vertex {
@@ -642,6 +660,119 @@ namespace ork {
 	class XMLResourceLoader: public ork::ResourceLoader {
 	};
 
+	class MultithreadScheduler: public ork::Scheduler {
+	public:
+	};
+
+	class Scheduler: public ork::Object {
+	};
+
+	class Task: public ork::Object {
+	public:
+	};
+
+	class TaskListener {
+	};
+
+	class TaskFactory: public ork::Object {
+	};
+
+	class TaskGraph: public ork::Task, public ork::TaskListener {
+	public:
+		class TaskIterator {
+		};
+
+	};
+
+	class AbstractTask: public ork::TaskFactory {
+	};
+
+	class CallMethodTask: public ork::AbstractTask {
+	};
+
+	class DrawMeshTask: public ork::AbstractTask {
+	public:
+	};
+
+	class LoopTask: public ork::AbstractTask {
+	};
+
+	class Method: public ork::Object {
+	};
+
+	class SceneManager: public ork::Object {
+	public:
+		class NodeIterator {
+		};
+
+	};
+
+	class SceneNode: public ork::Object {
+	public:
+		class FlagIterator {
+		};
+
+		class ValueIterator {
+		};
+
+		class ModuleIterator {
+		};
+
+		class MeshIterator {
+		};
+
+		class FieldIterator {
+		};
+
+		class MethodIterator {
+		};
+
+	};
+
+	class SequenceTask: public ork::AbstractTask {
+	};
+
+	class SetProgramTask: public ork::AbstractTask {
+	public:
+		class Impl: public ork::Task {
+		};
+
+	};
+
+	class SetStateTask: public ork::AbstractTask {
+	public:
+		class Impl: public ork::Task {
+		};
+
+		class Runnable {
+		};
+
+	};
+
+	class SetTargetTask: public ork::AbstractTask {
+	public:
+		class Impl: public ork::Task {
+		};
+
+	};
+
+	class SetTransformsTask: public ork::AbstractTask {
+	public:
+		class Impl: public ork::Task {
+		};
+
+	};
+
+	class ShowInfoTask: public ork::AbstractTask {
+	public:
+		class Impl: public ork::Task {
+		};
+
+	};
+
+	class ShowLogTask: public ork::ShowInfoTask {
+	};
+
 	class vec2h {
 	};
 
@@ -732,6 +863,9 @@ namespace ork {
 };
 
 namespace std {
+	class type_info {
+	};
+
 };
 
 

@@ -40,7 +40,7 @@ public:
     /**
      * A 'subtask' of this task.
      */
-    class Runnable
+    class ORK_API Runnable
     {
     protected:
         /**
