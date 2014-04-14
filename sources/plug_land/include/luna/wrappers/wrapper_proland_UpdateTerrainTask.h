@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/UpdateTerrainTask.h>
+#include <proland/terrain/UpdateTerrainTask.h>
 
 class wrapper_proland_UpdateTerrainTask : public proland::UpdateTerrainTask, public luna_wrapper_base {
 

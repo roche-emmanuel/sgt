@@ -42,9 +42,9 @@ using namespace ork;
 namespace proland
 {
 
-class AbstractTileCache {
+class PROLAND_API AbstractTileCache {
 public:
-    struct Tile
+    struct PROLAND_API Tile
     {
         int tx, ty;
 

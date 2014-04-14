@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/CylinderViewController.h>
+#include <proland/util/CylinderViewController.h>
 
 class wrapper_proland_CylinderViewController : public proland::CylinderViewController, public luna_wrapper_base {
 

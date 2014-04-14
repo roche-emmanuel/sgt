@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/EventRecorder.h>
+#include <proland/ui/EventRecorder.h>
 
 class wrapper_proland_EventRecorder : public proland::EventRecorder, public luna_wrapper_base {
 

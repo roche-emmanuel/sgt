@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/CylindricalDeformation.h>
+#include <proland/terrain/CylindricalDeformation.h>
 
 class wrapper_proland_CylindricalDeformation : public proland::CylindricalDeformation, public luna_wrapper_base {
 

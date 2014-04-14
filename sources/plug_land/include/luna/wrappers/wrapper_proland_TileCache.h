@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileCache.h>
+#include <proland/producer/TileCache.h>
 
 class wrapper_proland_TileCache : public proland::TileCache, public luna_wrapper_base {
 

@@ -190,14 +190,6 @@ public:
 		return true;
 	}
 
-	inline static bool _lg_typecheck_QueryFloatAttribute(lua_State *L) {
-		if( lua_gettop(L)!=3 ) return false;
-
-		if( lua_type(L,2)!=LUA_TSTRING ) return false;
-		if( (lua_isnil(L,3)==0 && !Luna<void>::has_uniqueid(L,3,3625364)) ) return false;
-		return true;
-	}
-
 	inline static bool _lg_typecheck_SetAttribute_overload_1(lua_State *L) {
 		if( lua_gettop(L)!=3 ) return false;
 
@@ -651,25 +643,6 @@ public:
 
 		luaL_error(L, "error in function QueryDoubleAttribute, cannot match any of the overloads for function QueryDoubleAttribute:\n  QueryDoubleAttribute(const char *, double *)\n  QueryDoubleAttribute(const std::string &, double *)\n");
 		return 0;
-	}
-
-	// int TiXmlElement::QueryFloatAttribute(const char * name, float * _value) const
-	static int _bind_QueryFloatAttribute(lua_State *L) {
-		if (!_lg_typecheck_QueryFloatAttribute(L)) {
-			luaL_error(L, "luna typecheck failed in int TiXmlElement::QueryFloatAttribute(const char * name, float * _value) const function, expected prototype:\nint TiXmlElement::QueryFloatAttribute(const char * name, float * _value) const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const char * name=(const char *)lua_tostring(L,2);
-		float* _value=(float*)Luna< void >::check(L,3);
-
-		TiXmlElement* self=Luna< TiXmlBase >::checkSubType< TiXmlElement >(L,1);
-		if(!self) {
-			luaL_error(L, "Invalid object in function call int TiXmlElement::QueryFloatAttribute(const char *, float *) const. Got : '%s'\n%s",typeid(Luna< TiXmlBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		int lret = self->QueryFloatAttribute(name, _value);
-		lua_pushnumber(L,lret);
-
-		return 1;
 	}
 
 	// void TiXmlElement::SetAttribute(const char * name, const char * _value)
@@ -1375,7 +1348,6 @@ luna_RegType LunaTraits< TiXmlElement >::methods[] = {
 	{"Attribute", &luna_wrapper_TiXmlElement::_bind_Attribute},
 	{"QueryIntAttribute", &luna_wrapper_TiXmlElement::_bind_QueryIntAttribute},
 	{"QueryDoubleAttribute", &luna_wrapper_TiXmlElement::_bind_QueryDoubleAttribute},
-	{"QueryFloatAttribute", &luna_wrapper_TiXmlElement::_bind_QueryFloatAttribute},
 	{"SetAttribute", &luna_wrapper_TiXmlElement::_bind_SetAttribute},
 	{"SetDoubleAttribute", &luna_wrapper_TiXmlElement::_bind_SetDoubleAttribute},
 	{"RemoveAttribute", &luna_wrapper_TiXmlElement::_bind_RemoveAttribute},

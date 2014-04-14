@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/DrawTweakBarTask.h>
+#include <proland/ui/twbar/DrawTweakBarTask.h>
 
 class wrapper_proland_DrawTweakBarTask : public proland::DrawTweakBarTask, public luna_wrapper_base {
 

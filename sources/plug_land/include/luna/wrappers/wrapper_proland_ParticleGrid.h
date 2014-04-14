@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/screen/ParticleGrid.h>
+#include <proland/particles/screen/ParticleGrid.h>
 
 class wrapper_proland_ParticleGrid : public proland::ParticleGrid, public luna_wrapper_base {
 

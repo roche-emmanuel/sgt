@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakSceneGraph.h>
+#include <proland/ui/twbar/TweakSceneGraph.h>
 
 class wrapper_proland_TweakSceneGraph : public proland::TweakSceneGraph, public luna_wrapper_base {
 

@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/terrain/TerrainParticleLayer.h>
+#include <proland/particles/terrain/TerrainParticleLayer.h>
 
 class wrapper_proland_TerrainParticleLayer : public proland::TerrainParticleLayer, public luna_wrapper_base {
 

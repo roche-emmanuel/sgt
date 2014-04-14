@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/terrain/FlowTile.h>
+#include <proland/particles/terrain/FlowTile.h>
 
 class wrapper_proland_FlowTile : public proland::FlowTile, public luna_wrapper_base {
 

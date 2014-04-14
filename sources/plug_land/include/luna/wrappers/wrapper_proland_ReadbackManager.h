@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/ReadbackManager.h>
+#include <proland/terrain/ReadbackManager.h>
 
 class wrapper_proland_ReadbackManager : public proland::ReadbackManager, public luna_wrapper_base {
 

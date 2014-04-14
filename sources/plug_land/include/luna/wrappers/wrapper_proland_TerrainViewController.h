@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/TerrainViewController.h>
+#include <proland/util/TerrainViewController.h>
 
 class wrapper_proland_TerrainViewController : public proland::TerrainViewController, public luna_wrapper_base {
 

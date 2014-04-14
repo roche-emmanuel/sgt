@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/SceneVisitor.h>
+#include <proland/ui/SceneVisitor.h>
 
 class wrapper_proland_SceneVisitor : public proland::SceneVisitor, public luna_wrapper_base {
 

@@ -4,7 +4,7 @@
 #include <ork/core/Object.h>
 #include <ork/core/pstdint.h>
 #include <ork/render/Texture.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/WorldParticleLayer.h>
+#include <proland/particles/WorldParticleLayer.h>
 
 #ifdef __cplusplus
 extern "C" {

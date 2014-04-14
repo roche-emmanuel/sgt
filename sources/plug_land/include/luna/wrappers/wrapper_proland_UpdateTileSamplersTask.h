@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/UpdateTileSamplersTask.h>
+#include <proland/terrain/UpdateTileSamplersTask.h>
 
 class wrapper_proland_UpdateTileSamplersTask : public proland::UpdateTileSamplersTask, public luna_wrapper_base {
 

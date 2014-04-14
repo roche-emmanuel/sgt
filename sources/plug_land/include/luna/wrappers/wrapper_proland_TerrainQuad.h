@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TerrainQuad.h>
+#include <proland/terrain/TerrainQuad.h>
 
 class wrapper_proland_TerrainQuad : public proland::TerrainQuad, public luna_wrapper_base {
 

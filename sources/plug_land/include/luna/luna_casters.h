@@ -39,6 +39,13 @@ struct luna_caster<ork::SetTargetTask::Target,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<proland::AbstractTileCache::Tile,dstType> {
+	static inline dstType* cast(proland::AbstractTileCache::Tile* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<TiXmlAttributeSet,dstType> {
 	static inline dstType* cast(TiXmlAttributeSet* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -993,6 +1000,34 @@ struct luna_caster<proland::TweakSceneGraph::TextureInfo,dstType> {
 template <typename dstType>
 struct luna_caster<proland::TweakViewHandler::Position,dstType> {
 	static inline dstType* cast(proland::TweakViewHandler::Position* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TextureLayer::BlendParams,dstType> {
+	static inline dstType* cast(proland::TextureLayer::BlendParams* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::FloatTileCache::FloatTile,dstType> {
+	static inline dstType* cast(proland::FloatTileCache::FloatTile* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::PlanetElevationTileCache,dstType> {
+	static inline dstType* cast(proland::PlanetElevationTileCache* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::ApertureMipmap,dstType> {
+	static inline dstType* cast(proland::ApertureMipmap* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

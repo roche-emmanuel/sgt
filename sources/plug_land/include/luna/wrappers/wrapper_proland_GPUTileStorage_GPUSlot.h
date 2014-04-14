@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/GPUTileStorage.h>
+#include <proland/producer/GPUTileStorage.h>
 
 class wrapper_proland_GPUTileStorage_GPUSlot : public proland::GPUTileStorage::GPUSlot, public luna_wrapper_base {
 

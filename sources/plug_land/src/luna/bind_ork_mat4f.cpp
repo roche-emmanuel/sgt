@@ -104,19 +104,12 @@ public:
 	inline static bool _lg_typecheck_ctor_overload_3(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
-		if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3625364)) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck_ctor_overload_4(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
 		if( !Luna<void>::has_uniqueid(L,1,72889755) ) return false;
 		if( (!(Luna< ork::mat3f >::check(L,1))) ) return false;
 		return true;
 	}
 
-	inline static bool _lg_typecheck_ctor_overload_5(lua_State *L) {
+	inline static bool _lg_typecheck_ctor_overload_4(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		if( !Luna<void>::has_uniqueid(L,1,18903838) ) return false;
@@ -126,12 +119,6 @@ public:
 
 
 	// Function checkers:
-	inline static bool _lg_typecheck_coefficients(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		return true;
-	}
-
 	inline static bool _lg_typecheck_transpose(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -227,21 +214,7 @@ public:
 
 
 	// Operator checkers:
-	// (found 12 valid operators)
-	inline static bool _lg_typecheck_op_index_overload_1(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck_op_index_overload_2(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		return true;
-	}
-
+	// (found 10 valid operators)
 	inline static bool _lg_typecheck_op_assign(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -354,20 +327,9 @@ public:
 		return new ork::mat4f(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
 	}
 
-	// ork::mat4f::mat4f(const float * array)
+	// ork::mat4f::mat4f(const ork::mat3f & m3x3)
 	static ork::mat4f* _bind_ctor_overload_3(lua_State *L) {
 		if (!_lg_typecheck_ctor_overload_3(L)) {
-			luaL_error(L, "luna typecheck failed in ork::mat4f::mat4f(const float * array) function, expected prototype:\nork::mat4f::mat4f(const float * array)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const float* array=(const float*)Luna< void >::check(L,1);
-
-		return new ork::mat4f(array);
-	}
-
-	// ork::mat4f::mat4f(const ork::mat3f & m3x3)
-	static ork::mat4f* _bind_ctor_overload_4(lua_State *L) {
-		if (!_lg_typecheck_ctor_overload_4(L)) {
 			luaL_error(L, "luna typecheck failed in ork::mat4f::mat4f(const ork::mat3f & m3x3) function, expected prototype:\nork::mat4f::mat4f(const ork::mat3f & m3x3)\nClass arguments details:\narg 1 ID = 72889755\n\n%s",luna_dumpStack(L).c_str());
 		}
 
@@ -381,8 +343,8 @@ public:
 	}
 
 	// ork::mat4f::mat4f(const osg::Matrixd & mat)
-	static ork::mat4f* _bind_ctor_overload_5(lua_State *L) {
-		if (!_lg_typecheck_ctor_overload_5(L)) {
+	static ork::mat4f* _bind_ctor_overload_4(lua_State *L) {
+		if (!_lg_typecheck_ctor_overload_4(L)) {
 			luaL_error(L, "luna typecheck failed in ork::mat4f::mat4f(const osg::Matrixd & mat) function, expected prototype:\nork::mat4f::mat4f(const osg::Matrixd & mat)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
 		}
 
@@ -401,31 +363,13 @@ public:
 		if (_lg_typecheck_ctor_overload_2(L)) return _bind_ctor_overload_2(L);
 		if (_lg_typecheck_ctor_overload_3(L)) return _bind_ctor_overload_3(L);
 		if (_lg_typecheck_ctor_overload_4(L)) return _bind_ctor_overload_4(L);
-		if (_lg_typecheck_ctor_overload_5(L)) return _bind_ctor_overload_5(L);
 
-		luaL_error(L, "error in function mat4f, cannot match any of the overloads for function mat4f:\n  mat4f()\n  mat4f(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)\n  mat4f(const float *)\n  mat4f(const ork::mat3f &)\n  mat4f(const osg::Matrixd &)\n");
+		luaL_error(L, "error in function mat4f, cannot match any of the overloads for function mat4f:\n  mat4f()\n  mat4f(float, float, float, float, float, float, float, float, float, float, float, float, float, float, float, float)\n  mat4f(const ork::mat3f &)\n  mat4f(const osg::Matrixd &)\n");
 		return NULL;
 	}
 
 
 	// Function binds:
-	// const float * ork::mat4f::coefficients() const
-	static int _bind_coefficients(lua_State *L) {
-		if (!_lg_typecheck_coefficients(L)) {
-			luaL_error(L, "luna typecheck failed in const float * ork::mat4f::coefficients() const function, expected prototype:\nconst float * ork::mat4f::coefficients() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		ork::mat4f* self=(Luna< ork::mat4f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call const float * ork::mat4f::coefficients() const. Got : '%s'\n%s",typeid(Luna< ork::mat4f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		const float * lret = self->coefficients();
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
 	// ork::mat4f ork::mat4f::transpose() const
 	static int _bind_transpose(lua_State *L) {
 		if (!_lg_typecheck_transpose(L)) {
@@ -680,51 +624,6 @@ public:
 
 
 	// Operator binds:
-	// const float * ork::mat4f::operator[](int iRow) const
-	static int _bind_op_index_overload_1(lua_State *L) {
-		if (!_lg_typecheck_op_index_overload_1(L)) {
-			luaL_error(L, "luna typecheck failed in const float * ork::mat4f::operator[](int iRow) const function, expected prototype:\nconst float * ork::mat4f::operator[](int iRow) const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		int iRow=(int)lua_tointeger(L,2);
-
-		ork::mat4f* self=(Luna< ork::mat4f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call const float * ork::mat4f::operator[](int) const. Got : '%s'\n%s",typeid(Luna< ork::mat4f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		const float * lret = self->operator[](iRow);
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
-	// float * ork::mat4f::operator[](int iRow)
-	static int _bind_op_index_overload_2(lua_State *L) {
-		if (!_lg_typecheck_op_index_overload_2(L)) {
-			luaL_error(L, "luna typecheck failed in float * ork::mat4f::operator[](int iRow) function, expected prototype:\nfloat * ork::mat4f::operator[](int iRow)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		int iRow=(int)lua_tointeger(L,2);
-
-		ork::mat4f* self=(Luna< ork::mat4f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call float * ork::mat4f::operator[](int). Got : '%s'\n%s",typeid(Luna< ork::mat4f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		float * lret = self->operator[](iRow);
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
-	// Overload binder for ork::mat4f::operator[]
-	static int _bind_op_index(lua_State *L) {
-		if (_lg_typecheck_op_index_overload_1(L)) return _bind_op_index_overload_1(L);
-		if (_lg_typecheck_op_index_overload_2(L)) return _bind_op_index_overload_2(L);
-
-		luaL_error(L, "error in function operator[], cannot match any of the overloads for function operator[]:\n  operator[](int)\n  operator[](int)\n");
-		return 0;
-	}
-
 	// void ork::mat4f::operator=(const ork::mat3f & m3)
 	static int _bind_op_assign(lua_State *L) {
 		if (!_lg_typecheck_op_assign(L)) {
@@ -992,7 +891,6 @@ const int LunaTraits< ork::mat4f >::hash = 72889786;
 const int LunaTraits< ork::mat4f >::uniqueIDs[] = {72889786,0};
 
 luna_RegType LunaTraits< ork::mat4f >::methods[] = {
-	{"coefficients", &luna_wrapper_ork_mat4f::_bind_coefficients},
 	{"transpose", &luna_wrapper_ork_mat4f::_bind_transpose},
 	{"adjoint", &luna_wrapper_ork_mat4f::_bind_adjoint},
 	{"inverse", &luna_wrapper_ork_mat4f::_bind_inverse},
@@ -1006,7 +904,6 @@ luna_RegType LunaTraits< ork::mat4f >::methods[] = {
 	{"rotatez", &luna_wrapper_ork_mat4f::_bind_rotatez},
 	{"perspectiveProjection", &luna_wrapper_ork_mat4f::_bind_perspectiveProjection},
 	{"orthoProjection", &luna_wrapper_ork_mat4f::_bind_orthoProjection},
-	{"op_index", &luna_wrapper_ork_mat4f::_bind_op_index},
 	{"op_assign", &luna_wrapper_ork_mat4f::_bind_op_assign},
 	{"__eq", &luna_wrapper_ork_mat4f::_bind___eq},
 	{"op_neq", &luna_wrapper_ork_mat4f::_bind_op_neq},

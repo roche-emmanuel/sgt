@@ -43,6 +43,12 @@ class taskSort {
 class TaskStatistics {
 };
 
+class Tile {
+};
+
+class Tile {
+};
+
 class TiXmlAttribute: public TiXmlBase {
 };
 
@@ -1128,6 +1134,78 @@ namespace proland {
 	};
 
 	class TerrainViewController: public ork::Object {
+	};
+
+	class CPUElevationProducer: public proland::TileProducer {
+	};
+
+	class ElevationProducer: public proland::TileProducer {
+	};
+
+	class NormalProducer: public proland::TileProducer {
+	};
+
+	class ResidualProducer: public proland::TileProducer {
+	};
+
+	class EmptyOrthoLayer: public proland::TileLayer {
+	};
+
+	class OrthoCPUProducer: public proland::TileProducer {
+	};
+
+	class OrthoGPUProducer: public proland::TileProducer {
+	};
+
+	class OrthoProducer: public proland::TileProducer {
+	};
+
+	class TextureLayer: public proland::TileLayer {
+	public:
+		class BlendParams {
+		};
+
+	};
+
+	class AbstractTileCache {
+	public:
+	};
+
+	class FloatTileCache {
+	public:
+		class FloatTile {
+		};
+
+	};
+
+	class DemTileCache: public proland::FloatTileCache {
+	};
+
+	class ElevationTileCache: public proland::FloatTileCache {
+	};
+
+	class PlanetElevationTileCache {
+	};
+
+	class ApertureMipmap {
+	};
+
+	class ColorMipmap: public proland::AbstractTileCache {
+	public:
+		class ColorFunction {
+		};
+
+	};
+
+	class HeightMipmap: public proland::AbstractTileCache {
+	public:
+		class HeightFunction {
+		};
+
+	};
+
+	class InputMap {
+	public:
 	};
 
 };

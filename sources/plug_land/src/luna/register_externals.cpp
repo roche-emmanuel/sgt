@@ -24,6 +24,12 @@ const char LunaTraits< std::vector< int > >::moduleName[] = "sgt";
 const int LunaTraits< std::vector< int > >::hash = 92299338;
 const int LunaTraits< std::vector< int > >::uniqueIDs[] = {92299338,0};
 
+const char LunaTraits< std::vector< float > >::className[] = "std_vector_float";
+const char LunaTraits< std::vector< float > >::fullName[] = "std::vector< float >";
+const char LunaTraits< std::vector< float > >::moduleName[] = "sgt";
+const int LunaTraits< std::vector< float > >::hash = 77249888;
+const int LunaTraits< std::vector< float > >::uniqueIDs[] = {77249888,0};
+
 const char LunaTraits< osg::Matrixd >::className[] = "Matrixd";
 const char LunaTraits< osg::Matrixd >::fullName[] = "osg::Matrixd";
 const char LunaTraits< osg::Matrixd >::moduleName[] = "osg";

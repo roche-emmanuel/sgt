@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/DrawTerrainTask.h>
+#include <proland/terrain/DrawTerrainTask.h>
 
 class wrapper_proland_DrawTerrainTask : public proland::DrawTerrainTask, public luna_wrapper_base {
 

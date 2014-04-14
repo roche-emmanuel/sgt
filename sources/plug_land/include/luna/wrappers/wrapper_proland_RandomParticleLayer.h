@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/RandomParticleLayer.h>
+#include <proland/particles/RandomParticleLayer.h>
 
 class wrapper_proland_RandomParticleLayer : public proland::RandomParticleLayer, public luna_wrapper_base {
 

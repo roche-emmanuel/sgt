@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TerrainNode.h>
+#include <proland/terrain/TerrainNode.h>
 
 class wrapper_proland_TerrainNode : public proland::TerrainNode, public luna_wrapper_base {
 

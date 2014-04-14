@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/SphericalDeformation.h>
+#include <proland/terrain/SphericalDeformation.h>
 
 class wrapper_proland_SphericalDeformation : public proland::SphericalDeformation, public luna_wrapper_base {
 

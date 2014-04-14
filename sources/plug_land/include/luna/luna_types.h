@@ -5,13 +5,14 @@
 
 #include <ork/core/Object.h>
 #include <ork/taskgraph/Task.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/mfs.h>
+#include <proland/util/mfs.h>
 #include <ork/render/Buffer.h>
 #include <ork/render/FrameBuffer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/BasicViewHandler.h>
+#include <proland/ui/BasicViewHandler.h>
 #include <ork/resource/ResourceDescriptor.h>
 #include <ork/resource/CompiledResourceLoader.h>
 #include <ork/scenegraph/SetTargetTask.h>
+#include <proland/preprocess/terrain/AbstractTileCache.h>
 #include <ork/resource/tinyxml.h>
 #include <ork/util/Font.h>
 #include <plug_extensions.h>
@@ -79,46 +80,59 @@
 #include <ork/ui/EventHandler.h>
 #include <ork/ui/Window.h>
 #include <ork/ui/GlutWindow.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/math/seg2.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/LifeCycleParticleLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleProducer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleStorage.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/RandomParticleLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/screen/ParticleGrid.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/screen/ScreenParticleLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/terrain/FlowTile.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/terrain/TerrainParticleLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/WorldParticleLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileStorage.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/GPUTileStorage.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/ObjectTileStorage.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileCache.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileLayer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileProducer.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/Deformation.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/CylindricalDeformation.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/DrawTerrainTask.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/ReadbackManager.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/SphericalDeformation.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TerrainNode.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TerrainQuad.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TileSampler.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TileSamplerZ.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/UpdateTerrainTask.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/UpdateTileSamplersTask.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/EventRecorder.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/MousePositionHandler.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/SceneVisitor.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/DrawTweakBarTask.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakBarHandler.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakBarManager.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakResource.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakSceneGraph.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakViewHandler.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/TerrainViewController.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/CylinderViewController.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/PlanetViewController.h>
+#include <proland/math/seg2.h>
+#include <proland/particles/ParticleLayer.h>
+#include <proland/particles/LifeCycleParticleLayer.h>
+#include <proland/particles/ParticleProducer.h>
+#include <proland/particles/ParticleStorage.h>
+#include <proland/particles/RandomParticleLayer.h>
+#include <proland/particles/screen/ParticleGrid.h>
+#include <proland/particles/screen/ScreenParticleLayer.h>
+#include <proland/particles/terrain/FlowTile.h>
+#include <proland/particles/terrain/TerrainParticleLayer.h>
+#include <proland/particles/WorldParticleLayer.h>
+#include <proland/producer/TileStorage.h>
+#include <proland/producer/GPUTileStorage.h>
+#include <proland/producer/ObjectTileStorage.h>
+#include <proland/producer/TileCache.h>
+#include <proland/producer/TileLayer.h>
+#include <proland/producer/TileProducer.h>
+#include <proland/terrain/Deformation.h>
+#include <proland/terrain/CylindricalDeformation.h>
+#include <proland/terrain/DrawTerrainTask.h>
+#include <proland/terrain/ReadbackManager.h>
+#include <proland/terrain/SphericalDeformation.h>
+#include <proland/terrain/TerrainNode.h>
+#include <proland/terrain/TerrainQuad.h>
+#include <proland/terrain/TileSampler.h>
+#include <proland/terrain/TileSamplerZ.h>
+#include <proland/terrain/UpdateTerrainTask.h>
+#include <proland/terrain/UpdateTileSamplersTask.h>
+#include <proland/ui/EventRecorder.h>
+#include <proland/ui/MousePositionHandler.h>
+#include <proland/ui/SceneVisitor.h>
+#include <proland/ui/twbar/DrawTweakBarTask.h>
+#include <proland/ui/twbar/TweakBarHandler.h>
+#include <proland/ui/twbar/TweakBarManager.h>
+#include <proland/ui/twbar/TweakResource.h>
+#include <proland/ui/twbar/TweakSceneGraph.h>
+#include <proland/ui/twbar/TweakViewHandler.h>
+#include <proland/util/TerrainViewController.h>
+#include <proland/util/CylinderViewController.h>
+#include <proland/util/PlanetViewController.h>
+#include <proland/dem/CPUElevationProducer.h>
+#include <proland/dem/ElevationProducer.h>
+#include <proland/dem/NormalProducer.h>
+#include <proland/dem/ResidualProducer.h>
+#include <proland/ortho/EmptyOrthoLayer.h>
+#include <proland/ortho/OrthoCPUProducer.h>
+#include <proland/ortho/OrthoGPUProducer.h>
+#include <proland/ortho/OrthoProducer.h>
+#include <proland/ortho/TextureLayer.h>
+#include <proland/preprocess/terrain/ApertureMipmap.h>
+#include <proland/preprocess/terrain/ColorMipmap.h>
+#include <proland/preprocess/terrain/HeightMipmap.h>
+#include <proland/preprocess/terrain/Preprocess.h>
 
 // Class: ork::Object
 template<>
@@ -307,6 +321,25 @@ public:
 	static void _bind_dtor(ork::SetTargetTask::Target* obj);
 	typedef ork::SetTargetTask::Target parent_t;
 	typedef ork::SetTargetTask::Target base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::AbstractTileCache::Tile
+template<>
+class LunaTraits< proland::AbstractTileCache::Tile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::AbstractTileCache::Tile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::AbstractTileCache::Tile* obj);
+	typedef proland::AbstractTileCache::Tile parent_t;
+	typedef proland::AbstractTileCache::Tile base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -5326,6 +5359,424 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::CPUElevationProducer
+template<>
+class LunaTraits< proland::CPUElevationProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CPUElevationProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CPUElevationProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::CPUElevationProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ElevationProducer
+template<>
+class LunaTraits< proland::ElevationProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ElevationProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ElevationProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ElevationProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::NormalProducer
+template<>
+class LunaTraits< proland::NormalProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::NormalProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::NormalProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::NormalProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ResidualProducer
+template<>
+class LunaTraits< proland::ResidualProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ResidualProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ResidualProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ResidualProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::EmptyOrthoLayer
+template<>
+class LunaTraits< proland::EmptyOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::EmptyOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::EmptyOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::EmptyOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::OrthoCPUProducer
+template<>
+class LunaTraits< proland::OrthoCPUProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::OrthoCPUProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::OrthoCPUProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::OrthoCPUProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::OrthoGPUProducer
+template<>
+class LunaTraits< proland::OrthoGPUProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::OrthoGPUProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::OrthoGPUProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::OrthoGPUProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::OrthoProducer
+template<>
+class LunaTraits< proland::OrthoProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::OrthoProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::OrthoProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::OrthoProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TextureLayer
+template<>
+class LunaTraits< proland::TextureLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TextureLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TextureLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TextureLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TextureLayer::BlendParams
+template<>
+class LunaTraits< proland::TextureLayer::BlendParams > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TextureLayer::BlendParams* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TextureLayer::BlendParams* obj);
+	typedef proland::TextureLayer::BlendParams parent_t;
+	typedef proland::TextureLayer::BlendParams base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::AbstractTileCache
+template<>
+class LunaTraits< proland::AbstractTileCache > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::AbstractTileCache* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::AbstractTileCache* obj);
+	typedef proland::AbstractTileCache parent_t;
+	typedef proland::AbstractTileCache base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::FloatTileCache
+template<>
+class LunaTraits< proland::FloatTileCache > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::FloatTileCache* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::FloatTileCache* obj);
+	typedef proland::FloatTileCache parent_t;
+	typedef proland::FloatTileCache base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::FloatTileCache::FloatTile
+template<>
+class LunaTraits< proland::FloatTileCache::FloatTile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::FloatTileCache::FloatTile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::FloatTileCache::FloatTile* obj);
+	typedef proland::FloatTileCache::FloatTile parent_t;
+	typedef proland::FloatTileCache::FloatTile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DemTileCache
+template<>
+class LunaTraits< proland::DemTileCache > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DemTileCache* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DemTileCache* obj);
+	typedef proland::FloatTileCache parent_t;
+	typedef proland::DemTileCache base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ElevationTileCache
+template<>
+class LunaTraits< proland::ElevationTileCache > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ElevationTileCache* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ElevationTileCache* obj);
+	typedef proland::FloatTileCache parent_t;
+	typedef proland::ElevationTileCache base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::PlanetElevationTileCache
+template<>
+class LunaTraits< proland::PlanetElevationTileCache > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::PlanetElevationTileCache* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::PlanetElevationTileCache* obj);
+	typedef proland::PlanetElevationTileCache parent_t;
+	typedef proland::PlanetElevationTileCache base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ApertureMipmap
+template<>
+class LunaTraits< proland::ApertureMipmap > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ApertureMipmap* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ApertureMipmap* obj);
+	typedef proland::ApertureMipmap parent_t;
+	typedef proland::ApertureMipmap base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ColorMipmap
+template<>
+class LunaTraits< proland::ColorMipmap > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ColorMipmap* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ColorMipmap* obj);
+	typedef proland::AbstractTileCache parent_t;
+	typedef proland::ColorMipmap base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ColorMipmap::ColorFunction
+template<>
+class LunaTraits< proland::ColorMipmap::ColorFunction > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ColorMipmap::ColorFunction* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ColorMipmap::ColorFunction* obj);
+	typedef proland::ColorMipmap::ColorFunction parent_t;
+	typedef proland::ColorMipmap::ColorFunction base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HeightMipmap
+template<>
+class LunaTraits< proland::HeightMipmap > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HeightMipmap* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HeightMipmap* obj);
+	typedef proland::AbstractTileCache parent_t;
+	typedef proland::HeightMipmap base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HeightMipmap::HeightFunction
+template<>
+class LunaTraits< proland::HeightMipmap::HeightFunction > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HeightMipmap::HeightFunction* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HeightMipmap::HeightFunction* obj);
+	typedef proland::HeightMipmap::HeightFunction parent_t;
+	typedef proland::HeightMipmap::HeightFunction base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::InputMap
+template<>
+class LunaTraits< proland::InputMap > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::InputMap* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::InputMap* obj);
+	typedef proland::InputMap parent_t;
+	typedef proland::InputMap base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: std::type_info
 template<>
 class LunaTraits< std::type_info > {
@@ -5746,6 +6197,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Referenced external: std::vector< float >
+template<>
+class LunaTraits< std::vector< float > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< float >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< float >* obj);
+	typedef std::vector< float > parent_t;
+	typedef std::vector< float > base_t;
+	static luna_ConverterType converters[];
+};
+
 // Referenced external: osg::Matrixd
 template<>
 class LunaTraits< osg::Matrixd > {
@@ -5811,6 +6281,13 @@ template<>
 class LunaType< 89018139 > {
 public:
 	typedef ork::SetTargetTask::Target type;
+	
+};
+
+template<>
+class LunaType< 99111272 > {
+public:
+	typedef proland::AbstractTileCache::Tile type;
 	
 };
 
@@ -6872,6 +7349,69 @@ public:
 };
 
 template<>
+class LunaType< 11252811 > {
+public:
+	typedef proland::TextureLayer::BlendParams type;
+	
+};
+
+template<>
+class LunaType< 98663171 > {
+public:
+	typedef proland::AbstractTileCache type;
+	
+};
+
+template<>
+class LunaType< 69405840 > {
+public:
+	typedef proland::FloatTileCache type;
+	
+};
+
+template<>
+class LunaType< 66358430 > {
+public:
+	typedef proland::FloatTileCache::FloatTile type;
+	
+};
+
+template<>
+class LunaType< 68434075 > {
+public:
+	typedef proland::PlanetElevationTileCache type;
+	
+};
+
+template<>
+class LunaType< 6950945 > {
+public:
+	typedef proland::ApertureMipmap type;
+	
+};
+
+template<>
+class LunaType< 14812871 > {
+public:
+	typedef proland::ColorMipmap::ColorFunction type;
+	
+};
+
+template<>
+class LunaType< 3347220 > {
+public:
+	typedef proland::HeightMipmap::HeightFunction type;
+	
+};
+
+template<>
+class LunaType< 3893247 > {
+public:
+	typedef proland::InputMap type;
+	
+};
+
+template<>
 class LunaType< 79829375 > {
 public:
 	typedef std::type_info type;
@@ -7631,6 +8171,13 @@ template<>
 class LunaType< 92299338 > {
 public:
 	typedef std::vector< int > type;
+	
+};
+
+template<>
+class LunaType< 77249888 > {
+public:
+	typedef std::vector< float > type;
 	
 };
 

@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileStorage.h>
+#include <proland/producer/TileStorage.h>
 
 class wrapper_proland_TileStorage : public proland::TileStorage, public luna_wrapper_base {
 

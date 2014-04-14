@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/terrain/TileSampler.h>
+#include <proland/terrain/TileSampler.h>
 
 class wrapper_proland_TileSampler_TileFilter : public proland::TileSampler::TileFilter, public luna_wrapper_base {
 

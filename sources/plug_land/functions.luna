@@ -25,5 +25,7 @@ proland::frandom
 proland::grandom
 proland::cnoise
 proland::snoise
-proland::buildFbm4NoiseTexture2D
-proland::buildFbm1NoiseTexture3D
+proland::preprocessDem
+proland::preprocessSphericalDem
+proland::preprocessSphericalAperture
+proland::initTerrainPlugin

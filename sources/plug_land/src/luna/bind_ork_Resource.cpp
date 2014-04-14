@@ -187,17 +187,6 @@ public:
 		return true;
 	}
 
-	inline static bool _lg_typecheck_getFloatParameter(lua_State *L) {
-		if( lua_gettop(L)!=4 ) return false;
-
-		if( !Luna<void>::has_uniqueid(L,1,1381405) ) return false;
-		if( !Luna< ork::Object >::checkSubType< ork::ResourceDescriptor >(L,1) ) return false;
-		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,89852901)) ) return false;
-		if( lua_type(L,3)!=LUA_TSTRING ) return false;
-		if( (lua_isnil(L,4)==0 && !Luna<void>::has_uniqueid(L,4,3625364)) ) return false;
-		return true;
-	}
-
 	inline static bool _lg_typecheck_getParameter(lua_State *L) {
 		if( lua_gettop(L)!=3 ) return false;
 
@@ -388,23 +377,6 @@ public:
 		return 0;
 	}
 
-	// static bool ork::Resource::getFloatParameter(const ork::ptr< ork::ResourceDescriptor > desc, const TiXmlElement * e, const std::string & name, float * value)
-	static int _bind_getFloatParameter(lua_State *L) {
-		if (!_lg_typecheck_getFloatParameter(L)) {
-			luaL_error(L, "luna typecheck failed in static bool ork::Resource::getFloatParameter(const ork::ptr< ork::ResourceDescriptor > desc, const TiXmlElement * e, const std::string & name, float * value) function, expected prototype:\nstatic bool ork::Resource::getFloatParameter(const ork::ptr< ork::ResourceDescriptor > desc, const TiXmlElement * e, const std::string & name, float * value)\nClass arguments details:\narg 1 ID = [unknown]\narg 2 ID = 89852901\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		ork::ptr< ork::ResourceDescriptor > desc = Luna< ork::Object >::checkSubType< ork::ResourceDescriptor >(L,1);
-		const TiXmlElement* e=(Luna< TiXmlBase >::checkSubType< TiXmlElement >(L,2));
-		std::string name(lua_tostring(L,3),lua_objlen(L,3));
-		float* value=(float*)Luna< void >::check(L,4);
-
-		bool lret = ork::Resource::getFloatParameter(desc, e, name, value);
-		lua_pushboolean(L,lret?1:0);
-
-		return 1;
-	}
-
 	// static std::string ork::Resource::getParameter(ork::ptr< ork::ResourceDescriptor > desc, const TiXmlElement * e, const char * name)
 	static int _bind_getParameter(lua_State *L) {
 		if (!_lg_typecheck_getParameter(L)) {
@@ -545,7 +517,6 @@ luna_RegType LunaTraits< ork::Resource >::methods[] = {
 	{"changed", &luna_wrapper_ork_Resource::_bind_changed},
 	{"checkParameters", &luna_wrapper_ork_Resource::_bind_checkParameters},
 	{"getIntParameter", &luna_wrapper_ork_Resource::_bind_getIntParameter},
-	{"getFloatParameter", &luna_wrapper_ork_Resource::_bind_getFloatParameter},
 	{"getParameter", &luna_wrapper_ork_Resource::_bind_getParameter},
 	{"log", &luna_wrapper_ork_Resource::_bind_log},
 	{"base_getName", &luna_wrapper_ork_Resource::_bind_base_getName},

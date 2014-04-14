@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/MousePositionHandler.h>
+#include <proland/ui/MousePositionHandler.h>
 
 class wrapper_proland_MousePositionHandler : public proland::MousePositionHandler, public luna_wrapper_base {
 

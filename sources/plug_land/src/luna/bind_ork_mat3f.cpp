@@ -97,13 +97,6 @@ public:
 	inline static bool _lg_typecheck_ctor_overload_3(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
-		if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3625364)) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck_ctor_overload_4(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
 		if( !Luna<void>::has_uniqueid(L,1,72889755) ) return false;
 		if( (!(Luna< ork::mat3f >::check(L,1))) ) return false;
 		return true;
@@ -111,12 +104,6 @@ public:
 
 
 	// Function checkers:
-	inline static bool _lg_typecheck_coefficients(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		return true;
-	}
-
 	inline static bool _lg_typecheck_getColumn(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -179,14 +166,7 @@ public:
 
 
 	// Operator checkers:
-	// (found 12 valid operators)
-	inline static bool _lg_typecheck_op_index(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		return true;
-	}
-
+	// (found 11 valid operators)
 	inline static bool _lg_typecheck_op_assign(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -298,20 +278,9 @@ public:
 		return new ork::mat3f(m00, m01, m02, m10, m11, m12, m20, m21, m22);
 	}
 
-	// ork::mat3f::mat3f(const float * array)
+	// ork::mat3f::mat3f(const ork::mat3f & mat)
 	static ork::mat3f* _bind_ctor_overload_3(lua_State *L) {
 		if (!_lg_typecheck_ctor_overload_3(L)) {
-			luaL_error(L, "luna typecheck failed in ork::mat3f::mat3f(const float * array) function, expected prototype:\nork::mat3f::mat3f(const float * array)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const float* array=(const float*)Luna< void >::check(L,1);
-
-		return new ork::mat3f(array);
-	}
-
-	// ork::mat3f::mat3f(const ork::mat3f & mat)
-	static ork::mat3f* _bind_ctor_overload_4(lua_State *L) {
-		if (!_lg_typecheck_ctor_overload_4(L)) {
 			luaL_error(L, "luna typecheck failed in ork::mat3f::mat3f(const ork::mat3f & mat) function, expected prototype:\nork::mat3f::mat3f(const ork::mat3f & mat)\nClass arguments details:\narg 1 ID = 72889755\n\n%s",luna_dumpStack(L).c_str());
 		}
 
@@ -329,31 +298,13 @@ public:
 		if (_lg_typecheck_ctor_overload_1(L)) return _bind_ctor_overload_1(L);
 		if (_lg_typecheck_ctor_overload_2(L)) return _bind_ctor_overload_2(L);
 		if (_lg_typecheck_ctor_overload_3(L)) return _bind_ctor_overload_3(L);
-		if (_lg_typecheck_ctor_overload_4(L)) return _bind_ctor_overload_4(L);
 
-		luaL_error(L, "error in function mat3f, cannot match any of the overloads for function mat3f:\n  mat3f()\n  mat3f(float, float, float, float, float, float, float, float, float)\n  mat3f(const float *)\n  mat3f(const ork::mat3f &)\n");
+		luaL_error(L, "error in function mat3f, cannot match any of the overloads for function mat3f:\n  mat3f()\n  mat3f(float, float, float, float, float, float, float, float, float)\n  mat3f(const ork::mat3f &)\n");
 		return NULL;
 	}
 
 
 	// Function binds:
-	// const float * ork::mat3f::coefficients() const
-	static int _bind_coefficients(lua_State *L) {
-		if (!_lg_typecheck_coefficients(L)) {
-			luaL_error(L, "luna typecheck failed in const float * ork::mat3f::coefficients() const function, expected prototype:\nconst float * ork::mat3f::coefficients() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		ork::mat3f* self=(Luna< ork::mat3f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call const float * ork::mat3f::coefficients() const. Got : '%s'\n%s",typeid(Luna< ork::mat3f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		const float * lret = self->coefficients();
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
 	// ork::vec3f ork::mat3f::getColumn(int iCol) const
 	static int _bind_getColumn(lua_State *L) {
 		if (!_lg_typecheck_getColumn(L)) {
@@ -541,24 +492,6 @@ public:
 
 
 	// Operator binds:
-	// float * ork::mat3f::operator[](int iRow)
-	static int _bind_op_index(lua_State *L) {
-		if (!_lg_typecheck_op_index(L)) {
-			luaL_error(L, "luna typecheck failed in float * ork::mat3f::operator[](int iRow) function, expected prototype:\nfloat * ork::mat3f::operator[](int iRow)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		int iRow=(int)lua_tointeger(L,2);
-
-		ork::mat3f* self=(Luna< ork::mat3f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call float * ork::mat3f::operator[](int). Got : '%s'\n%s",typeid(Luna< ork::mat3f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		float * lret = self->operator[](iRow);
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
 	// ork::mat3f & ork::mat3f::operator=(const ork::mat3f & mat)
 	static int _bind_op_assign(lua_State *L) {
 		if (!_lg_typecheck_op_assign(L)) {
@@ -849,7 +782,6 @@ const int LunaTraits< ork::mat3f >::hash = 72889755;
 const int LunaTraits< ork::mat3f >::uniqueIDs[] = {72889755,0};
 
 luna_RegType LunaTraits< ork::mat3f >::methods[] = {
-	{"coefficients", &luna_wrapper_ork_mat3f::_bind_coefficients},
 	{"getColumn", &luna_wrapper_ork_mat3f::_bind_getColumn},
 	{"setColumn", &luna_wrapper_ork_mat3f::_bind_setColumn},
 	{"fromAxes", &luna_wrapper_ork_mat3f::_bind_fromAxes},
@@ -857,7 +789,6 @@ luna_RegType LunaTraits< ork::mat3f >::methods[] = {
 	{"inverse", &luna_wrapper_ork_mat3f::_bind_inverse},
 	{"determinant", &luna_wrapper_ork_mat3f::_bind_determinant},
 	{"trace", &luna_wrapper_ork_mat3f::_bind_trace},
-	{"op_index", &luna_wrapper_ork_mat3f::_bind_op_index},
 	{"op_assign", &luna_wrapper_ork_mat3f::_bind_op_assign},
 	{"__eq", &luna_wrapper_ork_mat3f::_bind___eq},
 	{"op_neq", &luna_wrapper_ork_mat3f::_bind_op_neq},

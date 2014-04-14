@@ -41,10 +41,10 @@
 namespace proland
 {
 
-class HeightMipmap : public AbstractTileCache
+class PROLAND_API HeightMipmap : public AbstractTileCache
 {
 public:
-    class HeightFunction
+    class PROLAND_API HeightFunction
     {
     public:
         virtual float getHeight(int x, int y) = 0;

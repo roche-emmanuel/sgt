@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/PlanetViewController.h>
+#include <proland/util/PlanetViewController.h>
 
 class wrapper_proland_PlanetViewController : public proland::PlanetViewController, public luna_wrapper_base {
 

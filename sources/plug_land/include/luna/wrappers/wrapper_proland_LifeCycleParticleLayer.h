@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/LifeCycleParticleLayer.h>
+#include <proland/particles/LifeCycleParticleLayer.h>
 
 class wrapper_proland_LifeCycleParticleLayer : public proland::LifeCycleParticleLayer, public luna_wrapper_base {
 

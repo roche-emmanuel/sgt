@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakBarHandler.h>
+#include <proland/ui/twbar/TweakBarHandler.h>
 
 class wrapper_proland_TweakBarHandler : public proland::TweakBarHandler, public luna_wrapper_base {
 

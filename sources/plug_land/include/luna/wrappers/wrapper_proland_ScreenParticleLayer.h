@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/screen/ScreenParticleLayer.h>
+#include <proland/particles/screen/ScreenParticleLayer.h>
 
 class wrapper_proland_ScreenParticleLayer : public proland::ScreenParticleLayer, public luna_wrapper_base {
 

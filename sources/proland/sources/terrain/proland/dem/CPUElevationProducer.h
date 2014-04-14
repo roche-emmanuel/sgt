@@ -28,8 +28,8 @@
  * Authors: Eric Bruneton, Antoine Begault, Guillaume Piolat.
  */
 
-#ifndef _PROLAND_ELEVATION_PRODUCER_H_
-#define _PROLAND_ELEVATION_PRODUCER_H_
+#ifndef _PROLAND_CPU_ELEVATION_PRODUCER_H_
+#define _PROLAND_CPU_ELEVATION_PRODUCER_H_
 
 #include "proland/producer/TileProducer.h"
 

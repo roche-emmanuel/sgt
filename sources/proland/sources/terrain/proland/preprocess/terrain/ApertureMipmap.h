@@ -44,9 +44,9 @@ using namespace ork;
 namespace proland
 {
 
-class FloatTileCache {
+class PROLAND_API FloatTileCache {
 public:
-    struct FloatTile
+    struct PROLAND_API FloatTile
     {
         int level, tx, ty;
 
@@ -100,7 +100,7 @@ private:
 	list<FloatTile*> tileCacheOrder;
 };
 
-class DemTileCache : public FloatTileCache
+class PROLAND_API DemTileCache : public FloatTileCache
 {
 public:
     FILE *tileFile;
@@ -142,7 +142,7 @@ public:
 	int getTileSize(int level);
 };
 
-class ElevationTileCache : public FloatTileCache
+class PROLAND_API ElevationTileCache : public FloatTileCache
 {
 public:
     DemTileCache *r;
@@ -158,7 +158,7 @@ public:
     float getHeight(int level, int x, int y, float dx, float dy);
 };
 
-class PlanetElevationTileCache
+class PROLAND_API PlanetElevationTileCache
 {
 public:
     ElevationTileCache **faces;
@@ -172,7 +172,7 @@ public:
     float getHeight(double sx, double sy, double sz);
 };
 
-class ApertureMipmap
+class PROLAND_API ApertureMipmap
 {
 public:
     typedef void (*projFun)(double x, double y, double w, double &sx, double &sy, double &sz);

@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/BasicViewHandler.h>
+#include <proland/ui/BasicViewHandler.h>
 
 class wrapper_proland_ViewManager : public proland::ViewManager, public luna_wrapper_base {
 

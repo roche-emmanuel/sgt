@@ -99,12 +99,6 @@ public:
 
 
 	// Function checkers:
-	inline static bool _lg_typecheck_coefficients(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		return true;
-	}
-
 	inline static bool _lg_typecheck_getColumn(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -158,14 +152,7 @@ public:
 
 
 	// Operator checkers:
-	// (found 10 valid operators)
-	inline static bool _lg_typecheck_op_index(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		return true;
-	}
-
+	// (found 9 valid operators)
 	inline static bool _lg_typecheck_op_assign(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -283,23 +270,6 @@ public:
 
 
 	// Function binds:
-	// const float * ork::mat2f::coefficients() const
-	static int _bind_coefficients(lua_State *L) {
-		if (!_lg_typecheck_coefficients(L)) {
-			luaL_error(L, "luna typecheck failed in const float * ork::mat2f::coefficients() const function, expected prototype:\nconst float * ork::mat2f::coefficients() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		ork::mat2f* self=(Luna< ork::mat2f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call const float * ork::mat2f::coefficients() const. Got : '%s'\n%s",typeid(Luna< ork::mat2f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		const float * lret = self->coefficients();
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
 	// ork::vec2f ork::mat2f::getColumn(int iCol) const
 	static int _bind_getColumn(lua_State *L) {
 		if (!_lg_typecheck_getColumn(L)) {
@@ -456,24 +426,6 @@ public:
 
 
 	// Operator binds:
-	// float * ork::mat2f::operator[](int iRow)
-	static int _bind_op_index(lua_State *L) {
-		if (!_lg_typecheck_op_index(L)) {
-			luaL_error(L, "luna typecheck failed in float * ork::mat2f::operator[](int iRow) function, expected prototype:\nfloat * ork::mat2f::operator[](int iRow)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		int iRow=(int)lua_tointeger(L,2);
-
-		ork::mat2f* self=(Luna< ork::mat2f >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call float * ork::mat2f::operator[](int). Got : '%s'\n%s",typeid(Luna< ork::mat2f >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		float * lret = self->operator[](iRow);
-		lua_pushnumber(L,*lret);
-
-		return 1;
-	}
-
 	// ork::mat2f & ork::mat2f::operator=(const ork::mat2f & mat)
 	static int _bind_op_assign(lua_State *L) {
 		if (!_lg_typecheck_op_assign(L)) {
@@ -712,14 +664,12 @@ const int LunaTraits< ork::mat2f >::hash = 72889724;
 const int LunaTraits< ork::mat2f >::uniqueIDs[] = {72889724,0};
 
 luna_RegType LunaTraits< ork::mat2f >::methods[] = {
-	{"coefficients", &luna_wrapper_ork_mat2f::_bind_coefficients},
 	{"getColumn", &luna_wrapper_ork_mat2f::_bind_getColumn},
 	{"setColumn", &luna_wrapper_ork_mat2f::_bind_setColumn},
 	{"transpose", &luna_wrapper_ork_mat2f::_bind_transpose},
 	{"inverse", &luna_wrapper_ork_mat2f::_bind_inverse},
 	{"determinant", &luna_wrapper_ork_mat2f::_bind_determinant},
 	{"trace", &luna_wrapper_ork_mat2f::_bind_trace},
-	{"op_index", &luna_wrapper_ork_mat2f::_bind_op_index},
 	{"op_assign", &luna_wrapper_ork_mat2f::_bind_op_assign},
 	{"__eq", &luna_wrapper_ork_mat2f::_bind___eq},
 	{"op_neq", &luna_wrapper_ork_mat2f::_bind_op_neq},

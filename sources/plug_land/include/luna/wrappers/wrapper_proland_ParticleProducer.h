@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleProducer.h>
+#include <proland/particles/ParticleProducer.h>
 
 class wrapper_proland_ParticleProducer : public proland::ParticleProducer, public luna_wrapper_base {
 

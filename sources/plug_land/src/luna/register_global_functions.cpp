@@ -1,10 +1,12 @@
 #include <plug_common.h>
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/util/mfs.h>
+#include <proland/util/mfs.h>
 #include <ork/math/pmath.h>
 #include <ork/math/half.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/math/color.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/math/noise.h>
+#include <proland/math/color.h>
+#include <proland/math/noise.h>
+#include <proland/preprocess/terrain/Preprocess.h>
+#include <proland/TerrainPlugin.h>
 
 // Function checkers:
 inline static bool _lg_typecheck_isFinite_overload_1(lua_State *L) {
@@ -735,25 +737,47 @@ inline static bool _lg_typecheck_snoise_overload_3(lua_State *L) {
 	return true;
 }
 
-inline static bool _lg_typecheck_buildFbm4NoiseTexture2D(lua_State *L) {
-	if( lua_gettop(L)!=5 ) return false;
+inline static bool _lg_typecheck_preprocessDem(lua_State *L) {
+	if( lua_gettop(L)!=7 ) return false;
 
-	if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3893247)) ) return false;
 	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
 	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
 	if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
-	if( lua_type(L,5)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,5)!=LUA_TSTRING ) return false;
+	if( lua_type(L,6)!=LUA_TSTRING ) return false;
+	if( lua_type(L,7)!=LUA_TNUMBER ) return false;
 	return true;
 }
 
-inline static bool _lg_typecheck_buildFbm1NoiseTexture3D(lua_State *L) {
-	if( lua_gettop(L)!=5 ) return false;
+inline static bool _lg_typecheck_preprocessSphericalDem(lua_State *L) {
+	if( lua_gettop(L)!=7 ) return false;
 
-	if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3893247)) ) return false;
 	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
 	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
 	if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
-	if( lua_type(L,5)!=LUA_TNUMBER ) return false;
+	if( lua_type(L,5)!=LUA_TSTRING ) return false;
+	if( lua_type(L,6)!=LUA_TSTRING ) return false;
+	if( lua_type(L,7)!=LUA_TNUMBER ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_preprocessSphericalAperture(lua_State *L) {
+	if( lua_gettop(L)!=6 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	if( lua_type(L,5)!=LUA_TSTRING ) return false;
+	if( lua_type(L,6)!=LUA_TSTRING ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_initTerrainPlugin(lua_State *L) {
+	if( lua_gettop(L)!=0 ) return false;
+
 	return true;
 }
 
@@ -986,40 +1010,72 @@ static int _bind_snoise(lua_State *L) {
 	return 0;
 }
 
-// float * proland::buildFbm4NoiseTexture2D(int size, int freq, int octaves, int lacunarity, float gain)
-static int _bind_buildFbm4NoiseTexture2D(lua_State *L) {
-	if (!_lg_typecheck_buildFbm4NoiseTexture2D(L)) {
-		luaL_error(L, "luna typecheck failed in float * proland::buildFbm4NoiseTexture2D(int size, int freq, int octaves, int lacunarity, float gain) function, expected prototype:\nfloat * proland::buildFbm4NoiseTexture2D(int size, int freq, int octaves, int lacunarity, float gain)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+// void proland::preprocessDem(proland::InputMap * src, int dstMinTileSize, int dstTileSize, int dstMaxLevel, const string & dstFolder, const string & tmpFolder, float residualScale)
+static int _bind_preprocessDem(lua_State *L) {
+	if (!_lg_typecheck_preprocessDem(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::preprocessDem(proland::InputMap * src, int dstMinTileSize, int dstTileSize, int dstMaxLevel, const string & dstFolder, const string & tmpFolder, float residualScale) function, expected prototype:\nvoid proland::preprocessDem(proland::InputMap * src, int dstMinTileSize, int dstTileSize, int dstMaxLevel, const string & dstFolder, const string & tmpFolder, float residualScale)\nClass arguments details:\narg 1 ID = 3893247\n\n%s",luna_dumpStack(L).c_str());
 	}
 
-	int size=(int)lua_tointeger(L,1);
-	int freq=(int)lua_tointeger(L,2);
-	int octaves=(int)lua_tointeger(L,3);
-	int lacunarity=(int)lua_tointeger(L,4);
-	float gain=(float)lua_tonumber(L,5);
+	proland::InputMap* src=(Luna< proland::InputMap >::check(L,1));
+	int dstMinTileSize=(int)lua_tointeger(L,2);
+	int dstTileSize=(int)lua_tointeger(L,3);
+	int dstMaxLevel=(int)lua_tointeger(L,4);
+	std::string dstFolder(lua_tostring(L,5),lua_objlen(L,5));
+	std::string tmpFolder(lua_tostring(L,6),lua_objlen(L,6));
+	float residualScale=(float)lua_tonumber(L,7);
 
-	float * lret = proland::buildFbm4NoiseTexture2D(size, freq, octaves, lacunarity, gain);
-	lua_pushnumber(L,*lret);
+	proland::preprocessDem(src, dstMinTileSize, dstTileSize, dstMaxLevel, dstFolder, tmpFolder, residualScale);
 
-	return 1;
+	return 0;
 }
 
-// float * proland::buildFbm1NoiseTexture3D(int size, int freq, int octaves, int lacunarity, float gain)
-static int _bind_buildFbm1NoiseTexture3D(lua_State *L) {
-	if (!_lg_typecheck_buildFbm1NoiseTexture3D(L)) {
-		luaL_error(L, "luna typecheck failed in float * proland::buildFbm1NoiseTexture3D(int size, int freq, int octaves, int lacunarity, float gain) function, expected prototype:\nfloat * proland::buildFbm1NoiseTexture3D(int size, int freq, int octaves, int lacunarity, float gain)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+// void proland::preprocessSphericalDem(proland::InputMap * src, int dstMinTileSize, int dstTileSize, int dstMaxLevel, const string & dstFolder, const string & tmpFolder, float residualScale)
+static int _bind_preprocessSphericalDem(lua_State *L) {
+	if (!_lg_typecheck_preprocessSphericalDem(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::preprocessSphericalDem(proland::InputMap * src, int dstMinTileSize, int dstTileSize, int dstMaxLevel, const string & dstFolder, const string & tmpFolder, float residualScale) function, expected prototype:\nvoid proland::preprocessSphericalDem(proland::InputMap * src, int dstMinTileSize, int dstTileSize, int dstMaxLevel, const string & dstFolder, const string & tmpFolder, float residualScale)\nClass arguments details:\narg 1 ID = 3893247\n\n%s",luna_dumpStack(L).c_str());
 	}
 
-	int size=(int)lua_tointeger(L,1);
-	int freq=(int)lua_tointeger(L,2);
-	int octaves=(int)lua_tointeger(L,3);
-	int lacunarity=(int)lua_tointeger(L,4);
-	float gain=(float)lua_tonumber(L,5);
+	proland::InputMap* src=(Luna< proland::InputMap >::check(L,1));
+	int dstMinTileSize=(int)lua_tointeger(L,2);
+	int dstTileSize=(int)lua_tointeger(L,3);
+	int dstMaxLevel=(int)lua_tointeger(L,4);
+	std::string dstFolder(lua_tostring(L,5),lua_objlen(L,5));
+	std::string tmpFolder(lua_tostring(L,6),lua_objlen(L,6));
+	float residualScale=(float)lua_tonumber(L,7);
 
-	float * lret = proland::buildFbm1NoiseTexture3D(size, freq, octaves, lacunarity, gain);
-	lua_pushnumber(L,*lret);
+	proland::preprocessSphericalDem(src, dstMinTileSize, dstTileSize, dstMaxLevel, dstFolder, tmpFolder, residualScale);
 
-	return 1;
+	return 0;
+}
+
+// void proland::preprocessSphericalAperture(const string & srcFolder, int minLevel, int maxLevel, int samples, const string & dstFolder, const string & tmpFolder)
+static int _bind_preprocessSphericalAperture(lua_State *L) {
+	if (!_lg_typecheck_preprocessSphericalAperture(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::preprocessSphericalAperture(const string & srcFolder, int minLevel, int maxLevel, int samples, const string & dstFolder, const string & tmpFolder) function, expected prototype:\nvoid proland::preprocessSphericalAperture(const string & srcFolder, int minLevel, int maxLevel, int samples, const string & dstFolder, const string & tmpFolder)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	std::string srcFolder(lua_tostring(L,1),lua_objlen(L,1));
+	int minLevel=(int)lua_tointeger(L,2);
+	int maxLevel=(int)lua_tointeger(L,3);
+	int samples=(int)lua_tointeger(L,4);
+	std::string dstFolder(lua_tostring(L,5),lua_objlen(L,5));
+	std::string tmpFolder(lua_tostring(L,6),lua_objlen(L,6));
+
+	proland::preprocessSphericalAperture(srcFolder, minLevel, maxLevel, samples, dstFolder, tmpFolder);
+
+	return 0;
+}
+
+// void proland::initTerrainPlugin()
+static int _bind_initTerrainPlugin(lua_State *L) {
+	if (!_lg_typecheck_initTerrainPlugin(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::initTerrainPlugin() function, expected prototype:\nvoid proland::initTerrainPlugin()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+
+	proland::initTerrainPlugin();
+
+	return 0;
 }
 
 
@@ -1057,8 +1113,10 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_grandom); lua_setfield(L,-2,"grandom");
 	lua_pushcfunction(L, _bind_cnoise); lua_setfield(L,-2,"cnoise");
 	lua_pushcfunction(L, _bind_snoise); lua_setfield(L,-2,"snoise");
-	lua_pushcfunction(L, _bind_buildFbm4NoiseTexture2D); lua_setfield(L,-2,"buildFbm4NoiseTexture2D");
-	lua_pushcfunction(L, _bind_buildFbm1NoiseTexture3D); lua_setfield(L,-2,"buildFbm1NoiseTexture3D");
+	lua_pushcfunction(L, _bind_preprocessDem); lua_setfield(L,-2,"preprocessDem");
+	lua_pushcfunction(L, _bind_preprocessSphericalDem); lua_setfield(L,-2,"preprocessSphericalDem");
+	lua_pushcfunction(L, _bind_preprocessSphericalAperture); lua_setfield(L,-2,"preprocessSphericalAperture");
+	lua_pushcfunction(L, _bind_initTerrainPlugin); lua_setfield(L,-2,"initTerrainPlugin");
 	luna_popModule(L);
 }
 

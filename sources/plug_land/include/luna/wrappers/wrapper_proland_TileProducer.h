@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileProducer.h>
+#include <proland/producer/TileProducer.h>
 
 class wrapper_proland_TileProducer : public proland::TileProducer, public luna_wrapper_base {
 

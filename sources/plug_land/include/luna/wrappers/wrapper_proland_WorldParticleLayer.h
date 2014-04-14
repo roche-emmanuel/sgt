@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/WorldParticleLayer.h>
+#include <proland/particles/WorldParticleLayer.h>
 
 class wrapper_proland_WorldParticleLayer : public proland::WorldParticleLayer, public luna_wrapper_base {
 

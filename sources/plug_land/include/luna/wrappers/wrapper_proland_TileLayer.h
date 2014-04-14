@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/producer/TileLayer.h>
+#include <proland/producer/TileLayer.h>
 
 class wrapper_proland_TileLayer : public proland::TileLayer, public luna_wrapper_base {
 

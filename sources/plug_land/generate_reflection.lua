@@ -134,6 +134,19 @@ ReflectionGenerator.generate{
 
 		-- For readback manager callback:
 		"ReadbackManager::Callback::dataRead",
+
+		-- For ColorMipmap:
+		"TIFF %*",
+
+		-- For DemTileCache:
+		"float %*",
+
+		-- global functions:
+		"fexists",
+		"flog",
+		"CompressImageDXT1",
+		"CompressImageDXT5",
+		"proland::id%(",
 	},
 	ignoreClasses={
 		"box2<",
@@ -166,5 +179,9 @@ ReflectionGenerator.generate{
 		type_name = {
 		},
 	},
-	locationPrefixes={dest_path.."interface/","W:/Cloud/Projects/sgt/sources/ork/"}
+	locationPrefixes={dest_path.."interface/",
+		"W:/Cloud/Projects/sgt/sources/ork/",
+		"W:/Cloud/Projects/sgt/sources/proland/sources/core/",
+		"W:/Cloud/Projects/sgt/sources/proland/sources/terrain/",
+	}
 }

@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/particles/ParticleStorage.h>
+#include <proland/particles/ParticleStorage.h>
 
 class wrapper_proland_ParticleStorage : public proland::ParticleStorage, public luna_wrapper_base {
 

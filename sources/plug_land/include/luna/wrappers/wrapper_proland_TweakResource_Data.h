@@ -5,7 +5,7 @@
 
 #include "lua/LuaObject.h"
 
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/core/proland/ui/twbar/TweakResource.h>
+#include <proland/ui/twbar/TweakResource.h>
 
 class wrapper_proland_TweakResource_Data : public proland::TweakResource::Data, public luna_wrapper_base {
 

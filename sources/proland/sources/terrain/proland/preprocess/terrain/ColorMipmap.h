@@ -43,10 +43,10 @@ using namespace std;
 namespace proland
 {
 
-class ColorMipmap : public AbstractTileCache
+class PROLAND_API ColorMipmap : public AbstractTileCache
 {
 public:
-    class ColorFunction
+    class PROLAND_API ColorFunction
     {
     public:
         virtual vec4f getColor(int x, int y) = 0;
