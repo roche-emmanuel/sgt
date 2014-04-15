@@ -29,3 +29,4 @@ proland::preprocessDem
 proland::preprocessSphericalDem
 proland::preprocessSphericalAperture
 proland::initTerrainPlugin
+proland::preprocessAtmo

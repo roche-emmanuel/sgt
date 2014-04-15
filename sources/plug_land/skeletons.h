@@ -1208,6 +1208,9 @@ namespace proland {
 	public:
 	};
 
+	class AtmoParameters {
+	};
+
 };
 
 namespace std {

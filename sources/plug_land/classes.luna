@@ -315,6 +315,7 @@ proland::ColorMipmap::ColorFunction => proland::ColorMipmap::ColorFunction
 proland::HeightMipmap => proland::AbstractTileCache
 proland::HeightMipmap::HeightFunction => proland::HeightMipmap::HeightFunction
 proland::InputMap => proland::InputMap
+proland::AtmoParameters => proland::AtmoParameters
 module=std
 std::type_info => std::type_info
 module=land

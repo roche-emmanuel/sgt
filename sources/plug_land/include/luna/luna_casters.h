@@ -1033,6 +1033,13 @@ struct luna_caster<proland::ApertureMipmap,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<proland::AtmoParameters,dstType> {
+	static inline dstType* cast(proland::AtmoParameters* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<std::type_info,dstType> {
 	static inline dstType* cast(std::type_info* ptr) {
 		return static_cast<dstType*>(ptr);

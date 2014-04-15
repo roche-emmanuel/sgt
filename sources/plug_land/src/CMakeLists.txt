@@ -12,6 +12,7 @@ INCLUDE_DIRECTORIES(../../ork/libraries)
 INCLUDE_DIRECTORIES(../../proland/sources)
 INCLUDE_DIRECTORIES(../../proland/sources/core)
 INCLUDE_DIRECTORIES(../../proland/sources/terrain)
+INCLUDE_DIRECTORIES(../../proland/sources/atmo)
 
 #INCLUDE_DIRECTORIES(${MYDEP_INC_DIR})
 #LINK_DIRECTORIES (${MYDEP_LIB_DIR})
@@ -51,6 +52,7 @@ INSTALL(TARGETS ${TARGET_NAME}
 # reflection settings:	
 SET(INTF_FILES)
 
+
 # LIST(APPEND INTF_FILES "${MYDEP_INC_DIR}")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork")
 # LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/core")
@@ -63,6 +65,7 @@ LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork")
 # LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/ork/ork/ui")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/core")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/terrain")
+LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/atmo")
 ADD_FILES(INTF_FILES "../include/plug_extensions.h")
 ADD_FILES(INTF_FILES "../interface/helpers.h")
 
@@ -73,7 +76,7 @@ SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
 
 SET(DOXY_PREDEFINED ORK_API NDEBUG TIXML_USE_STL PROLAND_API) 
 SET(FILE_PATTERNS "*.h")
-SET(INCLUDE_PATH "../../ork" "../../proland/sources" "../../proland/sources/core" "../../proland/sources/terrain")
+SET(INCLUDE_PATH "../../ork" "../../proland/sources" "../../proland/sources/core" "../../proland/sources/terrain" "../../proland/sources/atmo")
 
 GENERATE_REFLECTION(${TARGET_NAME} INTF_FILES)
 

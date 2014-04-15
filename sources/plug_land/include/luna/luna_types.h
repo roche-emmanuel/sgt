@@ -133,6 +133,7 @@
 #include <proland/preprocess/terrain/ColorMipmap.h>
 #include <proland/preprocess/terrain/HeightMipmap.h>
 #include <proland/preprocess/terrain/Preprocess.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/atmo/proland/preprocess/atmo/PreprocessAtmo.h>
 
 // Class: ork::Object
 template<>
@@ -5777,6 +5778,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::AtmoParameters
+template<>
+class LunaTraits< proland::AtmoParameters > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::AtmoParameters* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::AtmoParameters* obj);
+	typedef proland::AtmoParameters parent_t;
+	typedef proland::AtmoParameters base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: std::type_info
 template<>
 class LunaTraits< std::type_info > {
@@ -7408,6 +7428,13 @@ template<>
 class LunaType< 3893247 > {
 public:
 	typedef proland::InputMap type;
+	
+};
+
+template<>
+class LunaType< 84217978 > {
+public:
+	typedef proland::AtmoParameters type;
 	
 };
 

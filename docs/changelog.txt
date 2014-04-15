@@ -78,3 +78,4 @@
 - Added binding for proland core in lang plugin.
 - Rebuilt land plug with proland core bindings.
 - Added support for proland terrain bindings.
+- Added support for proland atmo bindings.

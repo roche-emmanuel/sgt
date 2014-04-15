@@ -349,6 +349,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::HeightMipmap >::Register(L);
 	Luna< proland::HeightMipmap::HeightFunction >::Register(L);
 	Luna< proland::InputMap >::Register(L);
+	Luna< proland::AtmoParameters >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"std");
 	Luna< std::type_info >::Register(L);

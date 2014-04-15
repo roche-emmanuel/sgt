@@ -7,6 +7,7 @@
 #include <proland/math/noise.h>
 #include <proland/preprocess/terrain/Preprocess.h>
 #include <proland/TerrainPlugin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/atmo/proland/preprocess/atmo/PreprocessAtmo.h>
 
 // Function checkers:
 inline static bool _lg_typecheck_isFinite_overload_1(lua_State *L) {
@@ -781,6 +782,14 @@ inline static bool _lg_typecheck_initTerrainPlugin(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_preprocessAtmo(lua_State *L) {
+	if( lua_gettop(L)!=2 ) return false;
+
+	if( !Luna<void>::has_uniqueid(L,1,84217978) ) return false;
+	if( lua_type(L,2)!=LUA_TSTRING ) return false;
+	return true;
+}
+
 
 // Function binds:
 // ork::vec3f proland::rgb2hsl(const ork::vec3f & rgb)
@@ -1078,6 +1087,24 @@ static int _bind_initTerrainPlugin(lua_State *L) {
 	return 0;
 }
 
+// void proland::preprocessAtmo(const proland::AtmoParameters & params, const char * output)
+static int _bind_preprocessAtmo(lua_State *L) {
+	if (!_lg_typecheck_preprocessAtmo(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::preprocessAtmo(const proland::AtmoParameters & params, const char * output) function, expected prototype:\nvoid proland::preprocessAtmo(const proland::AtmoParameters & params, const char * output)\nClass arguments details:\narg 1 ID = 84217978\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	const proland::AtmoParameters* params_ptr=(Luna< proland::AtmoParameters >::check(L,1));
+	if( !params_ptr ) {
+		luaL_error(L, "Dereferencing NULL pointer for arg params in proland::preprocessAtmo function");
+	}
+	const proland::AtmoParameters & params=*params_ptr;
+	const char * output=(const char *)lua_tostring(L,2);
+
+	proland::preprocessAtmo(params, output);
+
+	return 0;
+}
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -1117,6 +1144,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_preprocessSphericalDem); lua_setfield(L,-2,"preprocessSphericalDem");
 	lua_pushcfunction(L, _bind_preprocessSphericalAperture); lua_setfield(L,-2,"preprocessSphericalAperture");
 	lua_pushcfunction(L, _bind_initTerrainPlugin); lua_setfield(L,-2,"initTerrainPlugin");
+	lua_pushcfunction(L, _bind_preprocessAtmo); lua_setfield(L,-2,"preprocessAtmo");
 	luna_popModule(L);
 }
 
