@@ -74,6 +74,13 @@ struct luna_caster<TwBar,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<proland::TreeMesh::Vertex,dstType> {
+	static inline dstType* cast(proland::TreeMesh::Vertex* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<ork::Font::Vertex,dstType> {
 	static inline dstType* cast(ork::Font::Vertex* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -1035,6 +1042,13 @@ struct luna_caster<proland::ApertureMipmap,dstType> {
 template <typename dstType>
 struct luna_caster<proland::AtmoParameters,dstType> {
 	static inline dstType* cast(proland::AtmoParameters* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::TreeMesh,dstType> {
+	static inline dstType* cast(proland::TreeMesh* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

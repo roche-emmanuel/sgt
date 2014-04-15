@@ -362,6 +362,11 @@ int Plants::getMaxLevel()
     return maxLevel;
 }
 
+int Plants::getMinDensity()
+{
+    return minDensity;
+}
+
 int Plants::getMaxDensity()
 {
     return maxDensity;

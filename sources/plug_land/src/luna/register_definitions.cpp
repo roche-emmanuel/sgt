@@ -1,5 +1,6 @@
 #include <plug_common.h>
 
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/DrawPlantsShadowTask.h>
 #include <ork/core/FileLogger.h>
 #include <ork/core/Object.h>
 #include <ork/core/pstdint.h>
@@ -11,6 +12,7 @@ extern "C" {
 #endif
 
 void register_defines(lua_State* L) {
+	lua_pushnumber(L,MAX_SHADOW_MAPS); lua_setfield(L,-2,"MAX_SHADOW_MAPS");
 	lua_pushnumber(L,BUFFER_SIZE); lua_setfield(L,-2,"BUFFER_SIZE");
 	lua_pushnumber(L,NULL); lua_setfield(L,-2,"NULL");
 	lua_pushnumber(L,UINT8_MAX); lua_setfield(L,-2,"UINT8_MAX");

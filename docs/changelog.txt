@@ -79,3 +79,4 @@
 - Rebuilt land plug with proland core bindings.
 - Added support for proland terrain bindings.
 - Added support for proland atmo bindings.
+- Added bindings for proland ocean and forest plugins.

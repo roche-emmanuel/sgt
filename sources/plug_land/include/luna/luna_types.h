@@ -14,6 +14,7 @@
 #include <ork/scenegraph/SetTargetTask.h>
 #include <proland/preprocess/terrain/AbstractTileCache.h>
 #include <ork/resource/tinyxml.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
 #include <ork/util/Font.h>
 #include <plug_extensions.h>
 #include <ork/math/box2.h>
@@ -134,6 +135,13 @@
 #include <proland/preprocess/terrain/HeightMipmap.h>
 #include <proland/preprocess/terrain/Preprocess.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/atmo/proland/preprocess/atmo/PreprocessAtmo.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/ocean/proland/ocean/DrawOceanFFTTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/ocean/proland/ocean/DrawOceanTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/DrawPlantsShadowTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/DrawPlantsTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/LccProducer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/Plants.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/PlantsProducer.h>
 
 // Class: ork::Object
 template<>
@@ -626,6 +634,25 @@ public:
 	static void _bind_dtor(TwBar* obj);
 	typedef TwBar parent_t;
 	typedef TwBar base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TreeMesh::Vertex
+template<>
+class LunaTraits< proland::TreeMesh::Vertex > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TreeMesh::Vertex* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TreeMesh::Vertex* obj);
+	typedef proland::TreeMesh::Vertex parent_t;
+	typedef proland::TreeMesh::Vertex base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -5797,6 +5824,158 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::DrawOceanFFTTask
+template<>
+class LunaTraits< proland::DrawOceanFFTTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawOceanFFTTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawOceanFFTTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawOceanFFTTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawOceanTask
+template<>
+class LunaTraits< proland::DrawOceanTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawOceanTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawOceanTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawOceanTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawPlantsShadowTask
+template<>
+class LunaTraits< proland::DrawPlantsShadowTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawPlantsShadowTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawPlantsShadowTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawPlantsShadowTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawPlantsTask
+template<>
+class LunaTraits< proland::DrawPlantsTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawPlantsTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawPlantsTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawPlantsTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LccProducer
+template<>
+class LunaTraits< proland::LccProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LccProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LccProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LccProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Plants
+template<>
+class LunaTraits< proland::Plants > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Plants* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Plants* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Plants base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::PlantsProducer
+template<>
+class LunaTraits< proland::PlantsProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::PlantsProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::PlantsProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::PlantsProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TreeMesh
+template<>
+class LunaTraits< proland::TreeMesh > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TreeMesh* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TreeMesh* obj);
+	typedef proland::TreeMesh parent_t;
+	typedef proland::TreeMesh base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: std::type_info
 template<>
 class LunaTraits< std::type_info > {
@@ -6140,6 +6319,44 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Mapped type: vector< ork::vec4d >
+template<>
+class LunaTraits< vector< ork::vec4d > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< ork::vec4d >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< ork::vec4d >* obj);
+	typedef vector< ork::vec4d > parent_t;
+	typedef vector< ork::vec4d > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: vector< ork::ptr< proland::PlantsProducer > >
+template<>
+class LunaTraits< vector< ork::ptr< proland::PlantsProducer > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< ork::ptr< proland::PlantsProducer > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< ork::ptr< proland::PlantsProducer > >* obj);
+	typedef vector< ork::ptr< proland::PlantsProducer > > parent_t;
+	typedef vector< ork::ptr< proland::PlantsProducer > > base_t;
+	static luna_ConverterType converters[];
+};
+
 
 // Referenced external: void
 template<>
@@ -6350,6 +6567,13 @@ template<>
 class LunaType< 81187440 > {
 public:
 	typedef TwBar type;
+	
+};
+
+template<>
+class LunaType< 75726744 > {
+public:
+	typedef proland::TreeMesh::Vertex type;
 	
 };
 
@@ -7439,6 +7663,13 @@ public:
 };
 
 template<>
+class LunaType< 61781926 > {
+public:
+	typedef proland::TreeMesh type;
+	
+};
+
+template<>
 class LunaType< 79829375 > {
 public:
 	typedef std::type_info type;
@@ -8170,6 +8401,20 @@ template<>
 class LunaType< 22464234 > {
 public:
 	typedef std::vector< proland::TweakViewHandler::Position > type;
+	
+};
+
+template<>
+class LunaType< 55852521 > {
+public:
+	typedef vector< ork::vec4d > type;
+	
+};
+
+template<>
+class LunaType< 33653159 > {
+public:
+	typedef vector< ork::ptr< proland::PlantsProducer > > type;
 	
 };
 

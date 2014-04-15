@@ -53,6 +53,9 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< TiXmlUnknown >::Register(L);
 	Luna< TwBar >::Register(L);
 	luna_popModule(L);
+	luna_pushModule(L,"proland");
+	Luna< proland::TreeMesh::Vertex >::Register(L);
+	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::Font::Vertex >::Register(L);
 	luna_popModule(L);
@@ -350,6 +353,14 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::HeightMipmap::HeightFunction >::Register(L);
 	Luna< proland::InputMap >::Register(L);
 	Luna< proland::AtmoParameters >::Register(L);
+	Luna< proland::DrawOceanFFTTask >::Register(L);
+	Luna< proland::DrawOceanTask >::Register(L);
+	Luna< proland::DrawPlantsShadowTask >::Register(L);
+	Luna< proland::DrawPlantsTask >::Register(L);
+	Luna< proland::LccProducer >::Register(L);
+	Luna< proland::Plants >::Register(L);
+	Luna< proland::PlantsProducer >::Register(L);
+	Luna< proland::TreeMesh >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"std");
 	Luna< std::type_info >::Register(L);
@@ -372,6 +383,8 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< std::vector< proland::ParticleStorage::Particle * >::iterator >::Register(L);
 	Luna< std::pair< int, std::pair< int, std::pair< int, int > > > >::Register(L);
 	Luna< std::vector< proland::TweakViewHandler::Position > >::Register(L);
+	Luna< vector< ork::vec4d > >::Register(L);
+	Luna< vector< ork::ptr< proland::PlantsProducer > > >::Register(L);
 	luna_popModule(L);
 
 	luna_pushModule(L,"land");

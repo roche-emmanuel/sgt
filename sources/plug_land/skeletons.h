@@ -13,6 +13,18 @@ class Impl: public ork::Task {
 class Impl: public ork::Task {
 };
 
+class Impl: public ork::Task {
+};
+
+class Impl: public ork::Task {
+};
+
+class Impl: public ork::Task {
+};
+
+class Impl: public ork::Task {
+};
+
 class mfs_file {
 };
 
@@ -98,6 +110,9 @@ class TiXmlVisitor {
 class Tree {
 };
 
+class Tree {
+};
+
 class TreeZ {
 };
 
@@ -111,6 +126,9 @@ class Type {
 };
 
 class TypeInfoSort {
+};
+
+class Vertex {
 };
 
 class Vertex {
@@ -912,6 +930,9 @@ namespace proland {
 	class seg2d {
 	};
 
+	class loadTreeViewsFunction {
+	};
+
 	class seg2 {
 	};
 
@@ -1209,6 +1230,36 @@ namespace proland {
 	};
 
 	class AtmoParameters {
+	};
+
+	class DrawOceanFFTTask: public ork::AbstractTask {
+	public:
+	};
+
+	class DrawOceanTask: public ork::AbstractTask {
+	public:
+	};
+
+	class DrawPlantsShadowTask: public ork::AbstractTask {
+	public:
+	};
+
+	class DrawPlantsTask: public ork::AbstractTask {
+	public:
+	};
+
+	class LccProducer: public proland::TileProducer {
+	};
+
+	class Plants: public ork::Object {
+	};
+
+	class PlantsProducer: public proland::TileProducer {
+	public:
+	};
+
+	class TreeMesh {
+	public:
 	};
 
 };

@@ -147,6 +147,9 @@ ReflectionGenerator.generate{
 		"CompressImageDXT1",
 		"CompressImageDXT5",
 		"proland::id%(",
+
+		-- treemesh:
+		"TreeMesh::"
 	},
 	ignoreClasses={
 		"box2<",
@@ -159,6 +162,7 @@ ReflectionGenerator.generate{
 		"mat4<",
 		"quat<",	
 		"QualifiedName",
+		"^vector< ork::ptr< proland::TileProducer >",
 	},
 	ignoreClassDeclarations={
 		"box2<",
@@ -172,6 +176,7 @@ ReflectionGenerator.generate{
 		"quat<",	
 		"QualifiedName",
 		"std::pair< int, proland::TileCache::Tile::Id >",
+		"^vector< ork::ptr< proland::TileProducer >",		
 	},
 	ignoreConverters={},
 	ignoreHeaders = { "helpers%.h" },

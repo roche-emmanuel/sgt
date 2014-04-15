@@ -55,7 +55,7 @@ public:
 
     virtual ~LccProducer();
 
-    ptr<TileProducer> getDelegate();
+    //ptr<TileProducer> getDelegate();
 
     virtual void setRootQuadSize(float size);
 

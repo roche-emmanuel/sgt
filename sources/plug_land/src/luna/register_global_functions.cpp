@@ -8,6 +8,9 @@
 #include <proland/preprocess/terrain/Preprocess.h>
 #include <proland/TerrainPlugin.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/atmo/proland/preprocess/atmo/PreprocessAtmo.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/ocean/proland/OceanPlugin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/ForestPlugin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
 
 // Function checkers:
 inline static bool _lg_typecheck_isFinite_overload_1(lua_State *L) {
@@ -790,6 +793,34 @@ inline static bool _lg_typecheck_preprocessAtmo(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_initOceanPlugin(lua_State *L) {
+	if( lua_gettop(L)!=0 ) return false;
+
+	return true;
+}
+
+inline static bool _lg_typecheck_initForestPlugin(lua_State *L) {
+	if( lua_gettop(L)!=0 ) return false;
+
+	return true;
+}
+
+inline static bool _lg_typecheck_mergeTreeTables(lua_State *L) {
+	if( lua_gettop(L)!=3 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	if( lua_type(L,2)!=LUA_TSTRING ) return false;
+	if( lua_type(L,3)!=LUA_TSTRING ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_preprocessMultisample(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	return true;
+}
+
 
 // Function binds:
 // ork::vec3f proland::rgb2hsl(const ork::vec3f & rgb)
@@ -1105,6 +1136,58 @@ static int _bind_preprocessAtmo(lua_State *L) {
 	return 0;
 }
 
+// void proland::initOceanPlugin()
+static int _bind_initOceanPlugin(lua_State *L) {
+	if (!_lg_typecheck_initOceanPlugin(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::initOceanPlugin() function, expected prototype:\nvoid proland::initOceanPlugin()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+
+	proland::initOceanPlugin();
+
+	return 0;
+}
+
+// void proland::initForestPlugin()
+static int _bind_initForestPlugin(lua_State *L) {
+	if (!_lg_typecheck_initForestPlugin(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::initForestPlugin() function, expected prototype:\nvoid proland::initForestPlugin()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+
+	proland::initForestPlugin();
+
+	return 0;
+}
+
+// void proland::mergeTreeTables(const char * input1, const char * input2, const char * output)
+static int _bind_mergeTreeTables(lua_State *L) {
+	if (!_lg_typecheck_mergeTreeTables(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::mergeTreeTables(const char * input1, const char * input2, const char * output) function, expected prototype:\nvoid proland::mergeTreeTables(const char * input1, const char * input2, const char * output)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	const char * input1=(const char *)lua_tostring(L,1);
+	const char * input2=(const char *)lua_tostring(L,2);
+	const char * output=(const char *)lua_tostring(L,3);
+
+	proland::mergeTreeTables(input1, input2, output);
+
+	return 0;
+}
+
+// void proland::preprocessMultisample(const char * output)
+static int _bind_preprocessMultisample(lua_State *L) {
+	if (!_lg_typecheck_preprocessMultisample(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::preprocessMultisample(const char * output) function, expected prototype:\nvoid proland::preprocessMultisample(const char * output)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	const char * output=(const char *)lua_tostring(L,1);
+
+	proland::preprocessMultisample(output);
+
+	return 0;
+}
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -1145,6 +1228,10 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_preprocessSphericalAperture); lua_setfield(L,-2,"preprocessSphericalAperture");
 	lua_pushcfunction(L, _bind_initTerrainPlugin); lua_setfield(L,-2,"initTerrainPlugin");
 	lua_pushcfunction(L, _bind_preprocessAtmo); lua_setfield(L,-2,"preprocessAtmo");
+	lua_pushcfunction(L, _bind_initOceanPlugin); lua_setfield(L,-2,"initOceanPlugin");
+	lua_pushcfunction(L, _bind_initForestPlugin); lua_setfield(L,-2,"initForestPlugin");
+	lua_pushcfunction(L, _bind_mergeTreeTables); lua_setfield(L,-2,"mergeTreeTables");
+	lua_pushcfunction(L, _bind_preprocessMultisample); lua_setfield(L,-2,"preprocessMultisample");
 	luna_popModule(L);
 }
 
