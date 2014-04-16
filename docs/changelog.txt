@@ -83,3 +83,4 @@
 - Added support for proland graph plugin bindings.
 - Added support for proland river plugin bindings.
 - Added support for proland edit plugin bindings.
+- Rebuilt with complete prolant bindings.
