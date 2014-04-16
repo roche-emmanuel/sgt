@@ -61,7 +61,7 @@ public:
     /**
      * Data for a given Vertex. Used to pass arguments in TweakBar Callbacks (Creates a link between edited Data and the TweakBar).
      */
-    struct VertexData
+    struct PROLAND_API VertexData
     {
         /**
          * Index of this Data in EditGraphOrthoLayer#selectedCurveData.
@@ -132,7 +132,7 @@ public:
     /**
      * Contains Data on the current selection. Creates a link between TweakBar and the edited Curve.
      */
-    struct SelectionData
+    struct PROLAND_API SelectionData
     {
         /**
          * Displayed name of the selected Curve.
@@ -208,7 +208,7 @@ public:
     /**
      * The EventHandler associated to EditGraphOrthoLayer.
      */
-    class EditGraphHandler : public EventHandler
+    class PROLAND_API EditGraphHandler : public EventHandler
     {
     public:
         /**
@@ -363,7 +363,7 @@ public:
      * Handles the multiple EditGraphHandlers associated to each EditGraphOrthoLayer.
      * There should only be one static instance of this object.
      */
-    class EditGraphHandlerList : public EventHandler
+    class PROLAND_API EditGraphHandlerList : public EventHandler
     {
     public:
         /**

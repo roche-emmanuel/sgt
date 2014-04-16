@@ -13,6 +13,11 @@ class AreaId {};
 
 }
 
+namespace ork {
+
+class Mesh<vec3f, unsigned int> {};
+
+}
 class TwBar {};
 
 #define VEC2_CLASS(cname,type) class cname { \

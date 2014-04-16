@@ -32,6 +32,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::BasicViewHandler::Position >::Register(L);
 	Luna< proland::Margin >::Register(L);
 	Luna< proland::HydroFlowProducer::RiverMargin >::Register(L);
+	Luna< proland::EditGraphOrthoLayer::SelectionData >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::ResourceDescriptor >::Register(L);
@@ -65,6 +66,9 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::Font::Vertex >::Register(L);
+	luna_popModule(L);
+	luna_pushModule(L,"proland");
+	Luna< proland::EditGraphOrthoLayer::VertexData >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"land");
 	Luna< land::ProlandDrawable >::Register(L);
@@ -232,6 +236,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< ork::GlutWindow >::Register(L);
 	Luna< ork::Window::Parameters >::Register(L);
 	Luna< ork::Font >::Register(L);
+	Luna< ork::Mesh< vec3f, unsigned int > >::Register(L);
 	Luna< ork::vec2h >::Register(L);
 	Luna< ork::vec2f >::Register(L);
 	Luna< ork::vec2d >::Register(L);
@@ -428,6 +433,21 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::PerlinWaveTile >::Register(L);
 	Luna< proland::UpdateRiversTask >::Register(L);
 	Luna< proland::TweakRivers >::Register(L);
+	Luna< proland::Editor >::Register(L);
+	Luna< proland::EditElevationProducer >::Register(L);
+	Luna< proland::EditGraphOrthoLayer >::Register(L);
+	Luna< proland::EditGraphOrthoLayer::EditGraphHandler >::Register(L);
+	Luna< proland::EditGraphOrthoLayer::EditGraphHandlerList >::Register(L);
+	Luna< proland::EditHydroGraphOrthoLayer >::Register(L);
+	Luna< proland::EditHydroGraphOrthoLayer::EditHydroGraphHandler >::Register(L);
+	Luna< proland::EditorHandler >::Register(L);
+	Luna< proland::EditOrthoCPUProducer >::Register(L);
+	Luna< proland::EditOrthoProducer >::Register(L);
+	Luna< proland::EditResidualProducer >::Register(L);
+	Luna< proland::TweakDemEditor >::Register(L);
+	Luna< proland::TweakGraphLayer >::Register(L);
+	Luna< proland::TweakHydroGraphLayer >::Register(L);
+	Luna< proland::TweakOrthoEditor >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"std");
 	Luna< std::type_info >::Register(L);
@@ -441,6 +461,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< vector< proland::TweakBarManager::BarData > >::Register(L);
 	Luna< set< int > >::Register(L);
 	Luna< std::set< ork::Task * > >::Register(L);
+	Luna< vector< proland::EditGraphOrthoLayer::VertexData > >::Register(L);
 	Luna< osg::BoundingBox >::Register(L);
 	Luna< ork::static_ptr< ork::Logger > >::Register(L);
 	Luna< std::set< ork::Program * > >::Register(L);
@@ -468,6 +489,13 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< std::set< proland::CurveId > >::Register(L);
 	Luna< list< proland::AreaId > >::Register(L);
 	Luna< vector< ork::ptr< proland::HydroCurve > > >::Register(L);
+	Luna< vector< ork::ptr< proland::GraphProducer > > >::Register(L);
+	Luna< ork::static_ptr< proland::EditGraphOrthoLayer::EditGraphHandlerList > >::Register(L);
+	Luna< ork::static_ptr< ork::Mesh< ork::vec3f, unsigned int > > >::Register(L);
+	Luna< vector< ork::vec2i > >::Register(L);
+	Luna< ork::static_ptr< ork::Program > >::Register(L);
+	Luna< ork::static_ptr< ork::Uniform2f > >::Register(L);
+	Luna< map< proland::EditGraphOrthoLayer *, proland::EditGraphOrthoLayer::EditGraphHandler * > >::Register(L);
 	luna_popModule(L);
 
 	luna_pushModule(L,"land");

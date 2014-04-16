@@ -52,7 +52,7 @@ public:
      * new Functionnality: adding a river to a given Curve. Just drag and drop.
      * Displays more info on Curve than the basic TweakGraphLayer (HydroCurve related info).
      */
-    class EditHydroGraphHandler : public EditGraphOrthoLayer::EditGraphHandler
+    class PROLAND_API EditHydroGraphHandler : public EditGraphOrthoLayer::EditGraphHandler
     {
     public:
 

@@ -32,6 +32,13 @@ struct luna_caster<proland::BasicViewHandler::Position,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<proland::EditGraphOrthoLayer::SelectionData,dstType> {
+	static inline dstType* cast(proland::EditGraphOrthoLayer::SelectionData* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<ork::SetTargetTask::Target,dstType> {
 	static inline dstType* cast(ork::SetTargetTask::Target* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -97,6 +104,13 @@ struct luna_caster<proland::TreeMesh::Vertex,dstType> {
 template <typename dstType>
 struct luna_caster<ork::Font::Vertex,dstType> {
 	static inline dstType* cast(ork::Font::Vertex* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::EditGraphOrthoLayer::VertexData,dstType> {
+	static inline dstType* cast(proland::EditGraphOrthoLayer::VertexData* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
@@ -706,6 +720,13 @@ struct luna_caster<ork::SetIterator< ork::ptr< ork::Task > >,dstType> {
 template <typename dstType>
 struct luna_caster<ork::Window::Parameters,dstType> {
 	static inline dstType* cast(ork::Window::Parameters* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::Mesh< vec3f, unsigned int >,dstType> {
+	static inline dstType* cast(ork::Mesh< vec3f, unsigned int >* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

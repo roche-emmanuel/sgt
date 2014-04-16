@@ -52,6 +52,9 @@ class Position {
 class RiverMargin: public proland::Margin {
 };
 
+class SelectionData {
+};
+
 class StaticResourceDescriptor: public ork::ResourceDescriptor {
 };
 
@@ -150,6 +153,9 @@ class Vertex {
 };
 
 class Vertex {
+};
+
+class VertexData {
 };
 
 namespace land {
@@ -851,6 +857,9 @@ namespace ork {
 	public:
 	};
 
+	class Mesh< vec3f, unsigned int > {
+	};
+
 	class vec2h {
 	};
 
@@ -1525,6 +1534,53 @@ namespace proland {
 	};
 
 	class TweakRivers: public proland::TweakBarHandler {
+	};
+
+	class EditElevationProducer: public proland::ElevationProducer, public proland::Editor {
+	};
+
+	class EditGraphOrthoLayer: public proland::TileLayer {
+	public:
+		class EditGraphHandler: public ork::EventHandler {
+		};
+
+		class EditGraphHandlerList: public ork::EventHandler {
+		};
+
+	};
+
+	class EditHydroGraphOrthoLayer: public proland::EditGraphOrthoLayer {
+	public:
+		class EditHydroGraphHandler: public proland::EditGraphOrthoLayer::EditGraphHandler {
+		};
+
+	};
+
+	class Editor {
+	};
+
+	class EditorHandler: public ork::EventHandler {
+	};
+
+	class EditOrthoCPUProducer: public proland::OrthoCPUProducer {
+	};
+
+	class EditOrthoProducer: public proland::OrthoProducer, public proland::Editor {
+	};
+
+	class EditResidualProducer: public proland::ResidualProducer {
+	};
+
+	class TweakDemEditor: public proland::TweakBarHandler {
+	};
+
+	class TweakGraphLayer: public proland::TweakBarHandler {
+	};
+
+	class TweakHydroGraphLayer: public proland::TweakGraphLayer {
+	};
+
+	class TweakOrthoEditor: public proland::TweakBarHandler {
 	};
 
 };

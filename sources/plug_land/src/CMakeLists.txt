@@ -17,6 +17,7 @@ INCLUDE_DIRECTORIES(../../proland/sources/ocean)
 INCLUDE_DIRECTORIES(../../proland/sources/forest)
 INCLUDE_DIRECTORIES(../../proland/sources/graph)
 INCLUDE_DIRECTORIES(../../proland/sources/river)
+INCLUDE_DIRECTORIES(../../proland/sources/edit)
 
 #INCLUDE_DIRECTORIES(${MYDEP_INC_DIR})
 #LINK_DIRECTORIES (${MYDEP_LIB_DIR})
@@ -73,8 +74,10 @@ LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/ocean")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/forest")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/graph")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/river")
+LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/edit")
 ADD_FILES(INTF_FILES "../include/plug_extensions.h")
 ADD_FILES(INTF_FILES "../interface/helpers.h")
+
 
 
 SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES 
@@ -94,6 +97,7 @@ SET(INCLUDE_PATH
 	"../../proland/sources/forest"
 	"../../proland/sources/graph"
 	"../../proland/sources/river"
+	"../../proland/sources/edit"
 )
 
 GENERATE_REFLECTION(${TARGET_NAME} INTF_FILES)

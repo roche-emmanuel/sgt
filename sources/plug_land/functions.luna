@@ -36,3 +36,4 @@ proland::mergeTreeTables
 proland::preprocessMultisample
 proland::initGraphPlugin
 proland::initRiverPlugin
+proland::initEditPlugin
