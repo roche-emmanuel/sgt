@@ -88,7 +88,7 @@ public:
      * Information about a terrainNode, such as the corresponding
      * particleProducer, elevation cache, display informations etc..
      */
-    struct TerrainInfo
+    struct PROLAND_API TerrainInfo
     {
         /**
          * Id of this terrain.
@@ -116,7 +116,7 @@ public:
 
     };
 
-    struct vecParticle{
+    struct PROLAND_API vecParticle{
 
         float x, y, tx, ty, ox, oy, i, r, id;
 

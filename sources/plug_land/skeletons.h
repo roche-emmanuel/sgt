@@ -25,10 +25,16 @@ class Impl: public ork::Task {
 class Impl: public ork::Task {
 };
 
+class Impl: public ork::Task {
+};
+
 class LazyGraphFactory: public proland::GraphProducer::GraphFactory {
 };
 
 class mfs_file {
+};
+
+class Noise {
 };
 
 class Object {
@@ -41,6 +47,9 @@ class Parameters {
 };
 
 class Position {
+};
+
+class RiverMargin: public proland::Margin {
 };
 
 class StaticResourceDescriptor: public ork::ResourceDescriptor {
@@ -56,6 +65,9 @@ class taskSort {
 };
 
 class TaskStatistics {
+};
+
+class TerrainInfo {
 };
 
 class Tile {
@@ -129,6 +141,9 @@ class Type {
 };
 
 class TypeInfoSort {
+};
+
+class vecParticle {
 };
 
 class Vertex {
@@ -1447,6 +1462,69 @@ namespace proland {
 	};
 
 	class WaterOrthoLayer: public proland::GraphLayer {
+	};
+
+	class AnimatedPerlinWaveTile: public proland::WaveTile {
+	public:
+	};
+
+	class DrawRiversTask: public ork::AbstractTask {
+	public:
+	};
+
+	class HydroCurve: public proland::Curve {
+	};
+
+	class HydroGraph: public proland::BasicGraph {
+	};
+
+	class HydroGraphFactory: public proland::GraphProducer::GraphFactory {
+	};
+
+	class LazyHydroCurve: public proland::HydroCurve {
+	};
+
+	class LazyHydroGraph: public proland::LazyGraph {
+	};
+
+	class LazyHydroGraphFactory: public proland::GraphProducer::GraphFactory {
+	};
+
+	class HydroFlowProducer: public proland::TileProducer, public proland::CurveDataFactory {
+	public:
+	};
+
+	class HydroFlowTile: public proland::FlowTile {
+	public:
+		class DistCell {
+		};
+
+	};
+
+	class PerlinWaveTile: public proland::WaveTile {
+	public:
+		class Noise {
+		};
+
+	};
+
+	class UpdateRiversTask: public ork::AbstractTask {
+	public:
+		class Impl: public ork::Task {
+		};
+
+		class TerrainInfo {
+		};
+
+		class TileInfo {
+		};
+
+	};
+
+	class WaveTile: public ork::Object {
+	};
+
+	class TweakRivers: public proland::TweakBarHandler {
 	};
 
 };

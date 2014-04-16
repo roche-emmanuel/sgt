@@ -54,7 +54,7 @@ public:
     /**
      * A Margin adapted for river graphs.
      */
-    class RiverMargin : public Margin
+    class PROLAND_API RiverMargin : public Margin
     {
     public:
         /**

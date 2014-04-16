@@ -12,6 +12,7 @@
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/ForestPlugin.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/GraphPlugin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/RiverPlugin.h>
 
 // Function checkers:
 inline static bool _lg_typecheck_isFinite_overload_1(lua_State *L) {
@@ -828,6 +829,12 @@ inline static bool _lg_typecheck_initGraphPlugin(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_initRiverPlugin(lua_State *L) {
+	if( lua_gettop(L)!=0 ) return false;
+
+	return true;
+}
+
 
 // Function binds:
 // ork::vec3f proland::rgb2hsl(const ork::vec3f & rgb)
@@ -1207,6 +1214,18 @@ static int _bind_initGraphPlugin(lua_State *L) {
 	return 0;
 }
 
+// void proland::initRiverPlugin()
+static int _bind_initRiverPlugin(lua_State *L) {
+	if (!_lg_typecheck_initRiverPlugin(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::initRiverPlugin() function, expected prototype:\nvoid proland::initRiverPlugin()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+
+	proland::initRiverPlugin();
+
+	return 0;
+}
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -1252,6 +1271,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_mergeTreeTables); lua_setfield(L,-2,"mergeTreeTables");
 	lua_pushcfunction(L, _bind_preprocessMultisample); lua_setfield(L,-2,"preprocessMultisample");
 	lua_pushcfunction(L, _bind_initGraphPlugin); lua_setfield(L,-2,"initGraphPlugin");
+	lua_pushcfunction(L, _bind_initRiverPlugin); lua_setfield(L,-2,"initRiverPlugin");
 	luna_popModule(L);
 }
 

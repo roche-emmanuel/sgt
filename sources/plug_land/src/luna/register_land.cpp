@@ -30,6 +30,8 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
 	Luna< proland::BasicViewHandler::Position >::Register(L);
+	Luna< proland::Margin >::Register(L);
+	Luna< proland::HydroFlowProducer::RiverMargin >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::ResourceDescriptor >::Register(L);
@@ -37,6 +39,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< ork::SetTargetTask::Target >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
+	Luna< proland::DrawRiversTask::TerrainInfo >::Register(L);
 	Luna< proland::AbstractTileCache::Tile >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"land");
@@ -57,6 +60,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< TwBar >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
+	Luna< proland::DrawRiversTask::vecParticle >::Register(L);
 	Luna< proland::TreeMesh::Vertex >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
@@ -385,7 +389,6 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< multimap< proland::CurveId, proland::CurvePtr > >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
-	Luna< proland::Margin >::Register(L);
 	Luna< proland::ComposedMargin >::Register(L);
 	Luna< proland::Vertex >::Register(L);
 	Luna< proland::Curve >::Register(L);
@@ -411,6 +414,20 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::OrthoMargin >::Register(L);
 	Luna< proland::RoadOrthoLayer >::Register(L);
 	Luna< proland::WaterOrthoLayer >::Register(L);
+	Luna< proland::WaveTile >::Register(L);
+	Luna< proland::AnimatedPerlinWaveTile >::Register(L);
+	Luna< proland::DrawRiversTask >::Register(L);
+	Luna< proland::HydroCurve >::Register(L);
+	Luna< proland::HydroGraph >::Register(L);
+	Luna< proland::HydroGraphFactory >::Register(L);
+	Luna< proland::LazyHydroCurve >::Register(L);
+	Luna< proland::LazyHydroGraph >::Register(L);
+	Luna< proland::LazyHydroGraphFactory >::Register(L);
+	Luna< proland::HydroFlowProducer >::Register(L);
+	Luna< proland::HydroFlowTile >::Register(L);
+	Luna< proland::PerlinWaveTile >::Register(L);
+	Luna< proland::UpdateRiversTask >::Register(L);
+	Luna< proland::TweakRivers >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"std");
 	Luna< std::type_info >::Register(L);
@@ -450,6 +467,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< vector< ork::vec2d > >::Register(L);
 	Luna< std::set< proland::CurveId > >::Register(L);
 	Luna< list< proland::AreaId > >::Register(L);
+	Luna< vector< ork::ptr< proland::HydroCurve > > >::Register(L);
 	luna_popModule(L);
 
 	luna_pushModule(L,"land");

@@ -11,9 +11,12 @@
 #include <ork/render/Buffer.h>
 #include <ork/render/FrameBuffer.h>
 #include <proland/ui/BasicViewHandler.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Margin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/HydroFlowProducer.h>
 #include <ork/resource/ResourceDescriptor.h>
 #include <ork/resource/CompiledResourceLoader.h>
 #include <ork/scenegraph/SetTargetTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/DrawRiversTask.h>
 #include <proland/preprocess/terrain/AbstractTileCache.h>
 #include <ork/resource/tinyxml.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
@@ -156,7 +159,6 @@
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/CurvePart.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/BasicCurvePart.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/BasicGraph.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Margin.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/ComposedMargin.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Curve.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/FileReader.h>
@@ -175,6 +177,18 @@
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/OrthoMargin.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/RoadOrthoLayer.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/WaterOrthoLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/WaveTile.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/AnimatedPerlinWaveTile.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/graph/HydroCurve.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/graph/HydroGraph.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/graph/HydroGraphFactory.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/graph/LazyHydroCurve.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/graph/LazyHydroGraph.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/graph/LazyHydroGraphFactory.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/HydroFlowTile.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/PerlinWaveTile.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/UpdateRiversTask.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/ui/twbar/TweakRivers.h>
 
 // Class: ork::Object
 template<>
@@ -328,6 +342,44 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::Margin
+template<>
+class LunaTraits< proland::Margin > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Margin* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Margin* obj);
+	typedef proland::Margin parent_t;
+	typedef proland::Margin base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HydroFlowProducer::RiverMargin
+template<>
+class LunaTraits< proland::HydroFlowProducer::RiverMargin > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HydroFlowProducer::RiverMargin* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HydroFlowProducer::RiverMargin* obj);
+	typedef proland::Margin parent_t;
+	typedef proland::HydroFlowProducer::RiverMargin base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: ork::ResourceDescriptor
 template<>
 class LunaTraits< ork::ResourceDescriptor > {
@@ -382,6 +434,25 @@ public:
 	static void _bind_dtor(ork::SetTargetTask::Target* obj);
 	typedef ork::SetTargetTask::Target parent_t;
 	typedef ork::SetTargetTask::Target base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawRiversTask::TerrainInfo
+template<>
+class LunaTraits< proland::DrawRiversTask::TerrainInfo > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawRiversTask::TerrainInfo* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawRiversTask::TerrainInfo* obj);
+	typedef proland::DrawRiversTask::TerrainInfo parent_t;
+	typedef proland::DrawRiversTask::TerrainInfo base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -686,6 +757,25 @@ public:
 	static void _bind_dtor(TwBar* obj);
 	typedef TwBar parent_t;
 	typedef TwBar base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawRiversTask::vecParticle
+template<>
+class LunaTraits< proland::DrawRiversTask::vecParticle > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawRiversTask::vecParticle* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawRiversTask::vecParticle* obj);
+	typedef proland::DrawRiversTask::vecParticle parent_t;
+	typedef proland::DrawRiversTask::vecParticle base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -6427,25 +6517,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: proland::Margin
-template<>
-class LunaTraits< proland::Margin > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static proland::Margin* _bind_ctor(lua_State *L);
-	static void _bind_dtor(proland::Margin* obj);
-	typedef proland::Margin parent_t;
-	typedef proland::Margin base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: proland::ComposedMargin
 template<>
 class LunaTraits< proland::ComposedMargin > {
@@ -6918,6 +6989,272 @@ public:
 	static void _bind_dtor(proland::WaterOrthoLayer* obj);
 	typedef ork::Object parent_t;
 	typedef proland::WaterOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::WaveTile
+template<>
+class LunaTraits< proland::WaveTile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::WaveTile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::WaveTile* obj);
+	typedef ork::Object parent_t;
+	typedef proland::WaveTile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::AnimatedPerlinWaveTile
+template<>
+class LunaTraits< proland::AnimatedPerlinWaveTile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::AnimatedPerlinWaveTile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::AnimatedPerlinWaveTile* obj);
+	typedef ork::Object parent_t;
+	typedef proland::AnimatedPerlinWaveTile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::DrawRiversTask
+template<>
+class LunaTraits< proland::DrawRiversTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::DrawRiversTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::DrawRiversTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::DrawRiversTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HydroCurve
+template<>
+class LunaTraits< proland::HydroCurve > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HydroCurve* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HydroCurve* obj);
+	typedef ork::Object parent_t;
+	typedef proland::HydroCurve base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HydroGraph
+template<>
+class LunaTraits< proland::HydroGraph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HydroGraph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HydroGraph* obj);
+	typedef ork::Object parent_t;
+	typedef proland::HydroGraph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HydroGraphFactory
+template<>
+class LunaTraits< proland::HydroGraphFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HydroGraphFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HydroGraphFactory* obj);
+	typedef ork::Object parent_t;
+	typedef proland::HydroGraphFactory base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyHydroCurve
+template<>
+class LunaTraits< proland::LazyHydroCurve > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyHydroCurve* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyHydroCurve* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyHydroCurve base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyHydroGraph
+template<>
+class LunaTraits< proland::LazyHydroGraph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyHydroGraph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyHydroGraph* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyHydroGraph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyHydroGraphFactory
+template<>
+class LunaTraits< proland::LazyHydroGraphFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyHydroGraphFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyHydroGraphFactory* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyHydroGraphFactory base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HydroFlowProducer
+template<>
+class LunaTraits< proland::HydroFlowProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HydroFlowProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HydroFlowProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::HydroFlowProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::HydroFlowTile
+template<>
+class LunaTraits< proland::HydroFlowTile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::HydroFlowTile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::HydroFlowTile* obj);
+	typedef ork::Object parent_t;
+	typedef proland::HydroFlowTile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::PerlinWaveTile
+template<>
+class LunaTraits< proland::PerlinWaveTile > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::PerlinWaveTile* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::PerlinWaveTile* obj);
+	typedef ork::Object parent_t;
+	typedef proland::PerlinWaveTile base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::UpdateRiversTask
+template<>
+class LunaTraits< proland::UpdateRiversTask > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::UpdateRiversTask* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::UpdateRiversTask* obj);
+	typedef ork::Object parent_t;
+	typedef proland::UpdateRiversTask base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TweakRivers
+template<>
+class LunaTraits< proland::TweakRivers > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TweakRivers* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TweakRivers* obj);
+	typedef ork::Object parent_t;
+	typedef proland::TweakRivers base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -7587,6 +7924,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Mapped type: vector< ork::ptr< proland::HydroCurve > >
+template<>
+class LunaTraits< vector< ork::ptr< proland::HydroCurve > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< ork::ptr< proland::HydroCurve > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< ork::ptr< proland::HydroCurve > >* obj);
+	typedef vector< ork::ptr< proland::HydroCurve > > parent_t;
+	typedef vector< ork::ptr< proland::HydroCurve > > base_t;
+	static luna_ConverterType converters[];
+};
+
 
 // Referenced external: void
 template<>
@@ -7738,9 +8094,23 @@ public:
 };
 
 template<>
+class LunaType< 30968597 > {
+public:
+	typedef proland::Margin type;
+	
+};
+
+template<>
 class LunaType< 89018139 > {
 public:
 	typedef ork::SetTargetTask::Target type;
+	
+};
+
+template<>
+class LunaType< 10738453 > {
+public:
+	typedef proland::DrawRiversTask::TerrainInfo type;
 	
 };
 
@@ -7790,6 +8160,13 @@ template<>
 class LunaType< 81187440 > {
 public:
 	typedef TwBar type;
+	
+};
+
+template<>
+class LunaType< 10375505 > {
+public:
+	typedef proland::DrawRiversTask::vecParticle type;
 	
 };
 
@@ -8963,13 +9340,6 @@ public:
 };
 
 template<>
-class LunaType< 30968597 > {
-public:
-	typedef proland::Margin type;
-	
-};
-
-template<>
 class LunaType< 30462081 > {
 public:
 	typedef proland::FileReader type;
@@ -9918,6 +10288,13 @@ template<>
 class LunaType< 63279285 > {
 public:
 	typedef list< proland::AreaId > type;
+	
+};
+
+template<>
+class LunaType< 54471397 > {
+public:
+	typedef vector< ork::ptr< proland::HydroCurve > > type;
 	
 };
 

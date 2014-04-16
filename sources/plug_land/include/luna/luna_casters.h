@@ -39,6 +39,13 @@ struct luna_caster<ork::SetTargetTask::Target,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<proland::DrawRiversTask::TerrainInfo,dstType> {
+	static inline dstType* cast(proland::DrawRiversTask::TerrainInfo* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<proland::AbstractTileCache::Tile,dstType> {
 	static inline dstType* cast(proland::AbstractTileCache::Tile* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -69,6 +76,13 @@ struct luna_caster<TiXmlHandle,dstType> {
 template <typename dstType>
 struct luna_caster<TwBar,dstType> {
 	static inline dstType* cast(TwBar* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::DrawRiversTask::vecParticle,dstType> {
+	static inline dstType* cast(proland::DrawRiversTask::vecParticle* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
