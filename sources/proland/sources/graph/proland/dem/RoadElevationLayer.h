@@ -49,7 +49,7 @@ public:
     /**
      * An ElevationCurveData for road elevation profiles.
      */
-    class RoadElevationCurveData : public ElevationCurveData
+    class PROLAND_API RoadElevationCurveData : public ElevationCurveData
     {
     public:
         /**

@@ -5,7 +5,9 @@
 
 #include <ork/core/Object.h>
 #include <ork/taskgraph/Task.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/producer/GraphProducer.h>
 #include <proland/util/mfs.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Graph.h>
 #include <ork/render/Buffer.h>
 #include <ork/render/FrameBuffer.h>
 #include <proland/ui/BasicViewHandler.h>
@@ -142,6 +144,37 @@
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/LccProducer.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/Plants.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/plants/PlantsProducer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/producer/CurveData.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/dem/ElevationCurveData.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/GraphListener.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/producer/CurveDataFactory.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/producer/GraphLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/dem/ElevationGraphLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/dem/RoadElevationLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/dem/WaterElevationLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Area.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/CurvePart.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/BasicCurvePart.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/BasicGraph.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Margin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/ComposedMargin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Curve.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/FileReader.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/FileWriter.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/LazyArea.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/LazyCurve.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/LazyGraph.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Node.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/LazyNode.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/LineCurvePart.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/producer/Tesselator.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/FieldsOrthoLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/ForestOrthoLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/LineOrthoLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/MaskOrthoLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/OrthoMargin.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/RoadOrthoLayer.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/ortho/WaterOrthoLayer.h>
 
 // Class: ork::Object
 template<>
@@ -178,6 +211,44 @@ public:
 	static void _bind_dtor(ork::Task* obj);
 	typedef ork::Object parent_t;
 	typedef ork::Task base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GraphProducer::GraphFactory
+template<>
+class LunaTraits< proland::GraphProducer::GraphFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GraphProducer::GraphFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GraphProducer::GraphFactory* obj);
+	typedef ork::Object parent_t;
+	typedef proland::GraphProducer::GraphFactory base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GraphProducer::LazyGraphFactory
+template<>
+class LunaTraits< proland::GraphProducer::LazyGraphFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GraphProducer::LazyGraphFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GraphProducer::LazyGraphFactory* obj);
+	typedef ork::Object parent_t;
+	typedef proland::GraphProducer::LazyGraphFactory base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -254,25 +325,6 @@ public:
 	static void _bind_dtor(proland::BasicViewHandler::Position* obj);
 	typedef proland::BasicViewHandler::Position parent_t;
 	typedef proland::BasicViewHandler::Position base_t;
-	static luna_ConverterType converters[];
-};
-
-// Class: ork::Object::static_ref
-template<>
-class LunaTraits< ork::Object::static_ref > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static ork::Object::static_ref* _bind_ctor(lua_State *L);
-	static void _bind_dtor(ork::Object::static_ref* obj);
-	typedef ork::Object::static_ref parent_t;
-	typedef ork::Object::static_ref base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -3145,25 +3197,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >
-template<>
-class LunaTraits< ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* _bind_ctor(lua_State *L);
-	static void _bind_dtor(ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* obj);
-	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > parent_t;
-	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: ork::SceneNode
 template<>
 class LunaTraits< ork::SceneNode > {
@@ -4228,6 +4261,101 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: ork::ptr< proland::Graph >
+template<>
+class LunaTraits< ork::ptr< proland::Graph > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ptr< proland::Graph >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ptr< proland::Graph >* obj);
+	typedef ork::ptr< proland::Graph > parent_t;
+	typedef ork::ptr< proland::Graph > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ptr< proland::Node >
+template<>
+class LunaTraits< ork::ptr< proland::Node > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ptr< proland::Node >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ptr< proland::Node >* obj);
+	typedef ork::ptr< proland::Node > parent_t;
+	typedef ork::ptr< proland::Node > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ptr< proland::Curve >
+template<>
+class LunaTraits< ork::ptr< proland::Curve > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ptr< proland::Curve >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ptr< proland::Curve >* obj);
+	typedef ork::ptr< proland::Curve > parent_t;
+	typedef ork::ptr< proland::Curve > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::static_ptr< proland::Curve >
+template<>
+class LunaTraits< ork::static_ptr< proland::Curve > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::static_ptr< proland::Curve >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::static_ptr< proland::Curve >* obj);
+	typedef ork::static_ptr< proland::Curve > parent_t;
+	typedef ork::static_ptr< proland::Curve > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::ptr< proland::Area >
+template<>
+class LunaTraits< ork::ptr< proland::Area > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::ptr< proland::Area >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::ptr< proland::Area >* obj);
+	typedef ork::ptr< proland::Area > parent_t;
+	typedef ork::ptr< proland::Area > base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: proland::ParticleLayer
 template<>
 class LunaTraits< proland::ParticleLayer > {
@@ -4660,7 +4788,7 @@ public:
 	static luna_RegEnumType enumValues[];
 	static proland::ObjectTileStorage::ObjectSlot* _bind_ctor(lua_State *L);
 	static void _bind_dtor(proland::ObjectTileStorage::ObjectSlot* obj);
-	typedef proland::TileStorage::Slot parent_t;
+	typedef proland::ObjectTileStorage::ObjectSlot parent_t;
 	typedef proland::ObjectTileStorage::ObjectSlot base_t;
 	static luna_ConverterType converters[];
 };
@@ -5976,6 +6104,823 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::CurveData
+template<>
+class LunaTraits< proland::CurveData > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CurveData* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CurveData* obj);
+	typedef proland::CurveData parent_t;
+	typedef proland::CurveData base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ElevationCurveData
+template<>
+class LunaTraits< proland::ElevationCurveData > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ElevationCurveData* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ElevationCurveData* obj);
+	typedef proland::CurveData parent_t;
+	typedef proland::ElevationCurveData base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GraphListener
+template<>
+class LunaTraits< proland::GraphListener > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GraphListener* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GraphListener* obj);
+	typedef proland::GraphListener parent_t;
+	typedef proland::GraphListener base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::CurveDataFactory
+template<>
+class LunaTraits< proland::CurveDataFactory > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CurveDataFactory* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CurveDataFactory* obj);
+	typedef proland::GraphListener parent_t;
+	typedef proland::CurveDataFactory base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GraphLayer
+template<>
+class LunaTraits< proland::GraphLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GraphLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GraphLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::GraphLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ElevationGraphLayer
+template<>
+class LunaTraits< proland::ElevationGraphLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ElevationGraphLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ElevationGraphLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ElevationGraphLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::RoadElevationLayer
+template<>
+class LunaTraits< proland::RoadElevationLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::RoadElevationLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::RoadElevationLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::RoadElevationLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::RoadElevationLayer::RoadElevationCurveData
+template<>
+class LunaTraits< proland::RoadElevationLayer::RoadElevationCurveData > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::RoadElevationLayer::RoadElevationCurveData* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::RoadElevationLayer::RoadElevationCurveData* obj);
+	typedef proland::CurveData parent_t;
+	typedef proland::RoadElevationLayer::RoadElevationCurveData base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::WaterElevationLayer
+template<>
+class LunaTraits< proland::WaterElevationLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::WaterElevationLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::WaterElevationLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::WaterElevationLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::WaterElevationLayer::WaterElevationCurveData
+template<>
+class LunaTraits< proland::WaterElevationLayer::WaterElevationCurveData > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::WaterElevationLayer::WaterElevationCurveData* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::WaterElevationLayer::WaterElevationCurveData* obj);
+	typedef proland::CurveData parent_t;
+	typedef proland::WaterElevationLayer::WaterElevationCurveData base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Area
+template<>
+class LunaTraits< proland::Area > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Area* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Area* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Area base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::CurvePart
+template<>
+class LunaTraits< proland::CurvePart > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CurvePart* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CurvePart* obj);
+	typedef proland::CurvePart parent_t;
+	typedef proland::CurvePart base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::BasicCurvePart
+template<>
+class LunaTraits< proland::BasicCurvePart > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::BasicCurvePart* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::BasicCurvePart* obj);
+	typedef proland::CurvePart parent_t;
+	typedef proland::BasicCurvePart base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Graph
+template<>
+class LunaTraits< proland::Graph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Graph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Graph* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Graph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::BasicGraph
+template<>
+class LunaTraits< proland::BasicGraph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::BasicGraph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::BasicGraph* obj);
+	typedef ork::Object parent_t;
+	typedef proland::BasicGraph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::BasicGraph::BasicCurveIterator
+template<>
+class LunaTraits< proland::BasicGraph::BasicCurveIterator > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::BasicGraph::BasicCurveIterator* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::BasicGraph::BasicCurveIterator* obj);
+	typedef proland::BasicGraph::BasicCurveIterator parent_t;
+	typedef proland::BasicGraph::BasicCurveIterator base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: multimap< proland::CurveId, proland::CurvePtr >
+template<>
+class LunaTraits< multimap< proland::CurveId, proland::CurvePtr > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static multimap< proland::CurveId, proland::CurvePtr >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(multimap< proland::CurveId, proland::CurvePtr >* obj);
+	typedef multimap< proland::CurveId, proland::CurvePtr > parent_t;
+	typedef multimap< proland::CurveId, proland::CurvePtr > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Margin
+template<>
+class LunaTraits< proland::Margin > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Margin* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Margin* obj);
+	typedef proland::Margin parent_t;
+	typedef proland::Margin base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ComposedMargin
+template<>
+class LunaTraits< proland::ComposedMargin > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ComposedMargin* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ComposedMargin* obj);
+	typedef proland::Margin parent_t;
+	typedef proland::ComposedMargin base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Vertex
+template<>
+class LunaTraits< proland::Vertex > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Vertex* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Vertex* obj);
+	typedef ork::vec2d parent_t;
+	typedef proland::Vertex base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Curve
+template<>
+class LunaTraits< proland::Curve > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Curve* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Curve* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Curve base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::FileReader
+template<>
+class LunaTraits< proland::FileReader > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::FileReader* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::FileReader* obj);
+	typedef proland::FileReader parent_t;
+	typedef proland::FileReader base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::FileWriter
+template<>
+class LunaTraits< proland::FileWriter > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::FileWriter* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::FileWriter* obj);
+	typedef proland::FileWriter parent_t;
+	typedef proland::FileWriter base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::NodeId
+template<>
+class LunaTraits< proland::NodeId > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::NodeId* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::NodeId* obj);
+	typedef proland::NodeId parent_t;
+	typedef proland::NodeId base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::CurveId
+template<>
+class LunaTraits< proland::CurveId > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::CurveId* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::CurveId* obj);
+	typedef proland::CurveId parent_t;
+	typedef proland::CurveId base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::AreaId
+template<>
+class LunaTraits< proland::AreaId > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::AreaId* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::AreaId* obj);
+	typedef proland::AreaId parent_t;
+	typedef proland::AreaId base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Graph::Changes
+template<>
+class LunaTraits< proland::Graph::Changes > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Graph::Changes* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Graph::Changes* obj);
+	typedef proland::Graph::Changes parent_t;
+	typedef proland::Graph::Changes base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyArea
+template<>
+class LunaTraits< proland::LazyArea > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyArea* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyArea* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyArea base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyCurve
+template<>
+class LunaTraits< proland::LazyCurve > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyCurve* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyCurve* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyCurve base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyGraph
+template<>
+class LunaTraits< proland::LazyGraph > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyGraph* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyGraph* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyGraph base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Node
+template<>
+class LunaTraits< proland::Node > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Node* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Node* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Node base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LazyNode
+template<>
+class LunaTraits< proland::LazyNode > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LazyNode* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LazyNode* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LazyNode base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LineCurvePart
+template<>
+class LunaTraits< proland::LineCurvePart > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LineCurvePart* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LineCurvePart* obj);
+	typedef proland::CurvePart parent_t;
+	typedef proland::LineCurvePart base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::GraphProducer
+template<>
+class LunaTraits< proland::GraphProducer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::GraphProducer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::GraphProducer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::GraphProducer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::Tesselator
+template<>
+class LunaTraits< proland::Tesselator > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::Tesselator* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::Tesselator* obj);
+	typedef ork::Object parent_t;
+	typedef proland::Tesselator base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::FieldsOrthoLayer
+template<>
+class LunaTraits< proland::FieldsOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::FieldsOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::FieldsOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::FieldsOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ForestOrthoLayer
+template<>
+class LunaTraits< proland::ForestOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ForestOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ForestOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::ForestOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::LineOrthoLayer
+template<>
+class LunaTraits< proland::LineOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::LineOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::LineOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::LineOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::MaskOrthoLayer
+template<>
+class LunaTraits< proland::MaskOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::MaskOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::MaskOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::MaskOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::MaskOrthoLayer::BlendParams
+template<>
+class LunaTraits< proland::MaskOrthoLayer::BlendParams > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::MaskOrthoLayer::BlendParams* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::MaskOrthoLayer::BlendParams* obj);
+	typedef proland::MaskOrthoLayer::BlendParams parent_t;
+	typedef proland::MaskOrthoLayer::BlendParams base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::OrthoMargin
+template<>
+class LunaTraits< proland::OrthoMargin > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::OrthoMargin* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::OrthoMargin* obj);
+	typedef proland::Margin parent_t;
+	typedef proland::OrthoMargin base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::RoadOrthoLayer
+template<>
+class LunaTraits< proland::RoadOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::RoadOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::RoadOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::RoadOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::WaterOrthoLayer
+template<>
+class LunaTraits< proland::WaterOrthoLayer > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::WaterOrthoLayer* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::WaterOrthoLayer* obj);
+	typedef ork::Object parent_t;
+	typedef proland::WaterOrthoLayer base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: std::type_info
 template<>
 class LunaTraits< std::type_info > {
@@ -6110,6 +7055,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Mapped type: set< int >
+template<>
+class LunaTraits< set< int > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static set< int >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(set< int >* obj);
+	typedef set< int > parent_t;
+	typedef set< int > base_t;
+	static luna_ConverterType converters[];
+};
+
 // Mapped type: std::set< ork::Task * >
 template<>
 class LunaTraits< std::set< ork::Task * > > {
@@ -6221,6 +7185,25 @@ public:
 	static void _bind_dtor(uint64_t* obj);
 	typedef uint64_t parent_t;
 	typedef uint64_t base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >
+template<>
+class LunaTraits< ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* obj);
+	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > parent_t;
+	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -6354,6 +7337,253 @@ public:
 	static void _bind_dtor(vector< ork::ptr< proland::PlantsProducer > >* obj);
 	typedef vector< ork::ptr< proland::PlantsProducer > > parent_t;
 	typedef vector< ork::ptr< proland::PlantsProducer > > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: set< proland::TileCache::Tile::Id >
+template<>
+class LunaTraits< set< proland::TileCache::Tile::Id > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static set< proland::TileCache::Tile::Id >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(set< proland::TileCache::Tile::Id >* obj);
+	typedef set< proland::TileCache::Tile::Id > parent_t;
+	typedef set< proland::TileCache::Tile::Id > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: ork::Mesh< ork::vec4f, unsigned int >
+template<>
+class LunaTraits< ork::Mesh< ork::vec4f, unsigned int > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Mesh< ork::vec4f, unsigned int >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Mesh< ork::vec4f, unsigned int >* obj);
+	typedef ork::Mesh< ork::vec4f, unsigned int > parent_t;
+	typedef ork::Mesh< ork::vec4f, unsigned int > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: ork::Mesh< ork::vec2f, unsigned int >
+template<>
+class LunaTraits< ork::Mesh< ork::vec2f, unsigned int > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Mesh< ork::vec2f, unsigned int >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Mesh< ork::vec2f, unsigned int >* obj);
+	typedef ork::Mesh< ork::vec2f, unsigned int > parent_t;
+	typedef ork::Mesh< ork::vec2f, unsigned int > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: set< proland::TileCache::Tile * >
+template<>
+class LunaTraits< set< proland::TileCache::Tile * > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static set< proland::TileCache::Tile * >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(set< proland::TileCache::Tile * >* obj);
+	typedef set< proland::TileCache::Tile * > parent_t;
+	typedef set< proland::TileCache::Tile * > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: set< proland::NodeId >
+template<>
+class LunaTraits< set< proland::NodeId > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static set< proland::NodeId >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(set< proland::NodeId >* obj);
+	typedef set< proland::NodeId > parent_t;
+	typedef set< proland::NodeId > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: vector< proland::Vertex >
+template<>
+class LunaTraits< vector< proland::Vertex > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< proland::Vertex >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< proland::Vertex >* obj);
+	typedef vector< proland::Vertex > parent_t;
+	typedef vector< proland::Vertex > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: vector< proland::CurvePart * >
+template<>
+class LunaTraits< vector< proland::CurvePart * > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< proland::CurvePart * >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< proland::CurvePart * >* obj);
+	typedef vector< proland::CurvePart * > parent_t;
+	typedef vector< proland::CurvePart * > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: set< proland::AreaId >
+template<>
+class LunaTraits< set< proland::AreaId > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static set< proland::AreaId >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(set< proland::AreaId >* obj);
+	typedef set< proland::AreaId > parent_t;
+	typedef set< proland::AreaId > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: vector< proland::CurveId >
+template<>
+class LunaTraits< vector< proland::CurveId > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< proland::CurveId >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< proland::CurveId >* obj);
+	typedef vector< proland::CurveId > parent_t;
+	typedef vector< proland::CurveId > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: map< proland::CurveId, int >
+template<>
+class LunaTraits< map< proland::CurveId, int > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static map< proland::CurveId, int >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(map< proland::CurveId, int >* obj);
+	typedef map< proland::CurveId, int > parent_t;
+	typedef map< proland::CurveId, int > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: vector< ork::vec2d >
+template<>
+class LunaTraits< vector< ork::vec2d > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static vector< ork::vec2d >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(vector< ork::vec2d >* obj);
+	typedef vector< ork::vec2d > parent_t;
+	typedef vector< ork::vec2d > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: std::set< proland::CurveId >
+template<>
+class LunaTraits< std::set< proland::CurveId > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::set< proland::CurveId >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::set< proland::CurveId >* obj);
+	typedef std::set< proland::CurveId > parent_t;
+	typedef std::set< proland::CurveId > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Mapped type: list< proland::AreaId >
+template<>
+class LunaTraits< list< proland::AreaId > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static list< proland::AreaId >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(list< proland::AreaId >* obj);
+	typedef list< proland::AreaId > parent_t;
+	typedef list< proland::AreaId > base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -6504,13 +7734,6 @@ template<>
 class LunaType< 6582046 > {
 public:
 	typedef proland::BasicViewHandler::Position type;
-	
-};
-
-template<>
-class LunaType< 68271247 > {
-public:
-	typedef ork::Object::static_ref type;
 	
 };
 
@@ -7369,13 +8592,6 @@ public:
 };
 
 template<>
-class LunaType< 34309417 > {
-public:
-	typedef ork::SceneManager::NodeIterator type;
-	
-};
-
-template<>
 class LunaType< 4424 > {
 public:
 	typedef ork::SceneNode::FlagIterator type;
@@ -7460,6 +8676,41 @@ public:
 };
 
 template<>
+class LunaType< 94278244 > {
+public:
+	typedef proland::GraphPtr type;
+	
+};
+
+template<>
+class LunaType< 35325349 > {
+public:
+	typedef proland::NodePtr type;
+	
+};
+
+template<>
+class LunaType< 98496290 > {
+public:
+	typedef proland::CurvePtr type;
+	
+};
+
+template<>
+class LunaType< 26005569 > {
+public:
+	typedef proland::StaticCurvePtr type;
+	
+};
+
+template<>
+class LunaType< 84471053 > {
+public:
+	typedef proland::AreaPtr type;
+	
+};
+
+template<>
 class LunaType< 49055864 > {
 public:
 	typedef proland::LifeCycleParticleLayer::LifeCycleParticle type;
@@ -7519,6 +8770,13 @@ template<>
 class LunaType< 71475540 > {
 public:
 	typedef proland::GPUTileStorage::GPUSlot type;
+	
+};
+
+template<>
+class LunaType< 51023118 > {
+public:
+	typedef proland::ObjectTileStorage::ObjectSlot type;
 	
 };
 
@@ -7666,6 +8924,111 @@ template<>
 class LunaType< 61781926 > {
 public:
 	typedef proland::TreeMesh type;
+	
+};
+
+template<>
+class LunaType< 53008858 > {
+public:
+	typedef proland::CurveData type;
+	
+};
+
+template<>
+class LunaType< 23314933 > {
+public:
+	typedef proland::GraphListener type;
+	
+};
+
+template<>
+class LunaType< 53366307 > {
+public:
+	typedef proland::CurvePart type;
+	
+};
+
+template<>
+class LunaType< 38054140 > {
+public:
+	typedef proland::BasicGraph::BasicCurveIterator type;
+	
+};
+
+template<>
+class LunaType< 70488134 > {
+public:
+	typedef proland::BasicGraph::BasicCurveIterator::T type;
+	
+};
+
+template<>
+class LunaType< 30968597 > {
+public:
+	typedef proland::Margin type;
+	
+};
+
+template<>
+class LunaType< 30462081 > {
+public:
+	typedef proland::FileReader type;
+	
+};
+
+template<>
+class LunaType< 85867294 > {
+public:
+	typedef proland::FileWriter type;
+	
+};
+
+template<>
+class LunaType< 72107044 > {
+public:
+	typedef proland::NodeId type;
+	
+};
+
+template<>
+class LunaType< 58015782 > {
+public:
+	typedef proland::CurveId type;
+	
+};
+
+template<>
+class LunaType< 2724636 > {
+public:
+	typedef proland::AreaId type;
+	
+};
+
+template<>
+class LunaType< 81964795 > {
+public:
+	typedef proland::Graph::CurveIterator type;
+	
+};
+
+template<>
+class LunaType< 47132056 > {
+public:
+	typedef proland::Graph::Changes type;
+	
+};
+
+template<>
+class LunaType< 54645187 > {
+public:
+	typedef proland::LazyGraph::LazyCurveIterator type;
+	
+};
+
+template<>
+class LunaType< 50727209 > {
+public:
+	typedef proland::MaskOrthoLayer::BlendParams type;
 	
 };
 
@@ -8209,13 +9572,6 @@ public:
 };
 
 template<>
-class LunaType< 94394620 > {
-public:
-	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > type;
-	
-};
-
-template<>
 class LunaType< 82903998 > {
 public:
 	typedef ork::SetIterator< std::string > type;
@@ -8279,9 +9635,51 @@ public:
 };
 
 template<>
+class LunaType< 65799894 > {
+public:
+	typedef ork::ptr< proland::Graph > type;
+	
+};
+
+template<>
+class LunaType< 41768114 > {
+public:
+	typedef ork::ptr< proland::Node > type;
+	
+};
+
+template<>
+class LunaType< 17549196 > {
+public:
+	typedef ork::ptr< proland::Curve > type;
+	
+};
+
+template<>
+class LunaType< 5904718 > {
+public:
+	typedef ork::static_ptr< proland::Curve > type;
+	
+};
+
+template<>
+class LunaType< 72385761 > {
+public:
+	typedef ork::ptr< proland::Area > type;
+	
+};
+
+template<>
 class LunaType< 67383368 > {
 public:
 	typedef std::pair< int, std::pair< int, int > > type;
+	
+};
+
+template<>
+class LunaType< 46585073 > {
+public:
+	typedef multimap< proland::CurveId, proland::CurvePtr > type;
 	
 };
 
@@ -8328,6 +9726,13 @@ public:
 };
 
 template<>
+class LunaType< 13198241 > {
+public:
+	typedef set< int > type;
+	
+};
+
+template<>
 class LunaType< 86321452 > {
 public:
 	typedef std::set< ork::Task * > type;
@@ -8366,6 +9771,13 @@ template<>
 class LunaType< 21564657 > {
 public:
 	typedef uint64_t type;
+	
+};
+
+template<>
+class LunaType< 94394620 > {
+public:
+	typedef ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > > type;
 	
 };
 
@@ -8415,6 +9827,97 @@ template<>
 class LunaType< 33653159 > {
 public:
 	typedef vector< ork::ptr< proland::PlantsProducer > > type;
+	
+};
+
+template<>
+class LunaType< 69005068 > {
+public:
+	typedef set< proland::TileCache::Tile::Id > type;
+	
+};
+
+template<>
+class LunaType< 5903696 > {
+public:
+	typedef ork::Mesh< ork::vec4f, unsigned int > type;
+	
+};
+
+template<>
+class LunaType< 1443305 > {
+public:
+	typedef ork::Mesh< ork::vec2f, unsigned int > type;
+	
+};
+
+template<>
+class LunaType< 96783188 > {
+public:
+	typedef set< proland::TileCache::Tile * > type;
+	
+};
+
+template<>
+class LunaType< 99348114 > {
+public:
+	typedef set< proland::NodeId > type;
+	
+};
+
+template<>
+class LunaType< 49338298 > {
+public:
+	typedef vector< proland::Vertex > type;
+	
+};
+
+template<>
+class LunaType< 60197354 > {
+public:
+	typedef vector< proland::CurvePart * > type;
+	
+};
+
+template<>
+class LunaType< 22882411 > {
+public:
+	typedef set< proland::AreaId > type;
+	
+};
+
+template<>
+class LunaType< 61157517 > {
+public:
+	typedef vector< proland::CurveId > type;
+	
+};
+
+template<>
+class LunaType< 87264125 > {
+public:
+	typedef map< proland::CurveId, int > type;
+	
+};
+
+template<>
+class LunaType< 55792939 > {
+public:
+	typedef vector< ork::vec2d > type;
+	
+};
+
+template<>
+class LunaType< 31876471 > {
+public:
+	typedef std::set< proland::CurveId > type;
+	
+};
+
+template<>
+class LunaType< 63279285 > {
+public:
+	typedef list< proland::AreaId > type;
 	
 };
 

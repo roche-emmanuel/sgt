@@ -641,13 +641,6 @@ struct luna_caster<ork::ResourceFactory,dstType> {
 };
 
 template <typename dstType>
-struct luna_caster<ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >,dstType> {
-	static inline dstType* cast(ork::MultiMapIterator< std::string, ork::ptr< ork::SceneNode > >* ptr) {
-		return static_cast<dstType*>(ptr);
-	};
-};
-
-template <typename dstType>
 struct luna_caster<ork::SetIterator< std::string >,dstType> {
 	static inline dstType* cast(ork::SetIterator< std::string >* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -921,6 +914,41 @@ struct luna_caster<proland::seg2< double >,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<ork::ptr< proland::Graph >,dstType> {
+	static inline dstType* cast(ork::ptr< proland::Graph >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::ptr< proland::Node >,dstType> {
+	static inline dstType* cast(ork::ptr< proland::Node >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::ptr< proland::Curve >,dstType> {
+	static inline dstType* cast(ork::ptr< proland::Curve >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::static_ptr< proland::Curve >,dstType> {
+	static inline dstType* cast(ork::static_ptr< proland::Curve >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<ork::ptr< proland::Area >,dstType> {
+	static inline dstType* cast(ork::ptr< proland::Area >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<proland::LifeCycleParticleLayer::LifeCycleParticle,dstType> {
 	static inline dstType* cast(proland::LifeCycleParticleLayer::LifeCycleParticle* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -1049,6 +1077,76 @@ struct luna_caster<proland::AtmoParameters,dstType> {
 template <typename dstType>
 struct luna_caster<proland::TreeMesh,dstType> {
 	static inline dstType* cast(proland::TreeMesh* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::BasicGraph::BasicCurveIterator,dstType> {
+	static inline dstType* cast(proland::BasicGraph::BasicCurveIterator* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<multimap< proland::CurveId, proland::CurvePtr >,dstType> {
+	static inline dstType* cast(multimap< proland::CurveId, proland::CurvePtr >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::Vertex,dstType> {
+	static inline dstType* cast(proland::Vertex* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::FileReader,dstType> {
+	static inline dstType* cast(proland::FileReader* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::FileWriter,dstType> {
+	static inline dstType* cast(proland::FileWriter* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::NodeId,dstType> {
+	static inline dstType* cast(proland::NodeId* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::CurveId,dstType> {
+	static inline dstType* cast(proland::CurveId* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::AreaId,dstType> {
+	static inline dstType* cast(proland::AreaId* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::Graph::Changes,dstType> {
+	static inline dstType* cast(proland::Graph::Changes* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::MaskOrthoLayer::BlendParams,dstType> {
+	static inline dstType* cast(proland::MaskOrthoLayer::BlendParams* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

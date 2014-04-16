@@ -23,6 +23,10 @@
 
 #include "plug_extensions.h"
 
+#include "proland/terrain/Deformation.h"
+
+using namespace proland;
+
 #include <luna/luna.h>
 #include <luna/luna_types.h>
 
@@ -34,6 +38,7 @@ LUNA_DEFINE_DIRECT_CAST(MyNamespace::MyNonPolymorphicBaseClass)
 */
 
 LUNA_DEFINE_DIRECT_CAST(proland::BasicViewHandler::Position)
+LUNA_DEFINE_DIRECT_CAST(ork::vec2d)
 
 // Insert any specific value getter/setter here.
 // - use "arg" as a valid pointer on the class.

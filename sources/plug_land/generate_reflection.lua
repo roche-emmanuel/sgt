@@ -12,7 +12,9 @@ tm:setTypeConstructor("^ork::Uniform[0-9]*<.->$","NULL;")
 tm:setTypeConstructor("^ork::UniformMatrix[0-9]*<.->$","NULL;")
 tm:setTypeConstructor("^ork::Value[0-9]*<.->$","NULL;")
 tm:setTypeConstructor("^ork::ValueMatrix[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^ork::Mesh<.->$","NULL;")
 tm:setTypeConstructor("^proland::seg[0-9]*<.->$","NULL;")
+tm:setTypeConstructor("^proland::LazyGraph::GraphCache<.->$","NULL;")
 
 local tc = require "bindings.TypeConverter"
 local utils = require "utils"
@@ -149,7 +151,19 @@ ReflectionGenerator.generate{
 		"proland::id%(",
 
 		-- treemesh:
-		"TreeMesh::"
+		"TreeMesh::",
+
+		"GraphIterator",
+		"NodeIterator",
+		"AreaIterator",
+		"CurveIterator",
+		"streampos",
+		"streamoff",
+		"streamsize",
+		"GraphCache",
+		"LazyGraph::getNodeOffsets",
+		"LazyGraph::getCurveOffsets",
+		"LazyGraph::getAreaOffsets",
 	},
 	ignoreClasses={
 		"box2<",
@@ -163,6 +177,18 @@ ReflectionGenerator.generate{
 		"quat<",	
 		"QualifiedName",
 		"^vector< ork::ptr< proland::TileProducer >",
+		-- "^Object",
+		"static_ref$",
+		"GraphIterator",
+		"NodeIterator",
+		"AreaIterator",
+		"map< T, U >",
+		"T::const_iterator",
+		"streampos",
+		"set< CurveId >$",
+		"^set< proland::CurveId >$",
+		"ElevationMargin",
+		"GraphCache",				
 	},
 	ignoreClassDeclarations={
 		"box2<",
@@ -177,6 +203,18 @@ ReflectionGenerator.generate{
 		"QualifiedName",
 		"std::pair< int, proland::TileCache::Tile::Id >",
 		"^vector< ork::ptr< proland::TileProducer >",		
+		"^Object$",
+		"static_ref$",
+		"GraphIterator",
+		"NodeIterator",
+		"AreaIterator",	
+		"map< T, U >",
+		"T::const_iterator",
+		"streampos",
+		"set< CurveId >$",
+		"^set< proland::CurveId >$",	
+		"ElevationMargin",
+		"GraphCache",			
 	},
 	ignoreConverters={},
 	ignoreHeaders = { "helpers%.h" },

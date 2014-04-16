@@ -2,6 +2,15 @@
 namespace std {
 
 class type_info {};
+
+}
+
+namespace proland {
+
+class CurveId {};
+class NodeId {};
+class AreaId {};
+
 }
 
 class TwBar {};

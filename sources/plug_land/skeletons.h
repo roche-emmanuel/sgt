@@ -25,7 +25,13 @@ class Impl: public ork::Task {
 class Impl: public ork::Task {
 };
 
+class LazyGraphFactory: public proland::GraphProducer::GraphFactory {
+};
+
 class mfs_file {
+};
+
+class Object {
 };
 
 class Parameters {
@@ -35,9 +41,6 @@ class Parameters {
 };
 
 class Position {
-};
-
-class static_ref {
 };
 
 class StaticResourceDescriptor: public ork::ResourceDescriptor {
@@ -482,7 +485,6 @@ namespace ork {
 	};
 
 	class Object {
-	public:
 	};
 
 	class ptr {
@@ -933,6 +935,21 @@ namespace proland {
 	class loadTreeViewsFunction {
 	};
 
+	class GraphPtr {
+	};
+
+	class NodePtr {
+	};
+
+	class CurvePtr {
+	};
+
+	class StaticCurvePtr {
+	};
+
+	class AreaPtr {
+	};
+
 	class seg2 {
 	};
 
@@ -1009,7 +1026,7 @@ namespace proland {
 
 	class ObjectTileStorage: public proland::TileStorage {
 	public:
-		class ObjectSlot: public proland::TileStorage::Slot {
+		class ObjectSlot {
 		};
 
 	};
@@ -1260,6 +1277,176 @@ namespace proland {
 
 	class TreeMesh {
 	public:
+	};
+
+	class ElevationCurveData: public proland::CurveData {
+	};
+
+	class ElevationGraphLayer: public proland::GraphLayer, public proland::CurveDataFactory {
+	};
+
+	class RoadElevationLayer: public proland::ElevationGraphLayer {
+	public:
+		class RoadElevationCurveData: public proland::ElevationCurveData {
+		};
+
+	};
+
+	class WaterElevationLayer: public proland::ElevationGraphLayer {
+	public:
+		class WaterElevationCurveData: public proland::ElevationCurveData {
+		};
+
+	};
+
+	class Area: public ork::Object {
+	};
+
+	class BasicCurvePart: public proland::CurvePart {
+	};
+
+	class BasicGraph: public proland::Graph {
+	public:
+		class BasicNodeIterator {
+		};
+
+		class BasicAreaIterator {
+		};
+
+		class BasicCurveIterator {
+		public:
+			class T {
+			};
+
+		};
+
+	};
+
+	class ComposedMargin: public proland::Margin {
+	};
+
+	class Vertex: public ork::vec2d {
+	};
+
+	class Curve: public ork::Object {
+	};
+
+	class CurvePart {
+	};
+
+	class FileReader {
+	};
+
+	class FileWriter {
+	};
+
+	class NodeId {
+	};
+
+	class CurveId {
+	};
+
+	class AreaId {
+	};
+
+	class Graph: public ork::Object {
+	public:
+		class NodeIterator {
+		};
+
+		class CurveIterator {
+		};
+
+		class AreaIterator {
+		};
+
+		class Changes {
+		};
+
+		class Cmp {
+		};
+
+	};
+
+	class GraphListener {
+	};
+
+	class LazyArea: public proland::Area {
+	};
+
+	class LazyCurve: public proland::Curve {
+	};
+
+	class LazyGraph: public proland::Graph {
+	public:
+		class LazyNodeIterator {
+		};
+
+		class LazyCurveIterator {
+		};
+
+		class LazyAreaIterator {
+		};
+
+	};
+
+	class LazyNode: public proland::Node {
+	};
+
+	class LineCurvePart: public proland::CurvePart {
+	};
+
+	class Margin {
+	};
+
+	class Node: public ork::Object {
+	};
+
+	class CurveData {
+	};
+
+	class CurveDataFactory: public proland::GraphListener {
+	};
+
+	class GetCurveDatasTask: public ork::Task {
+	};
+
+	class GraphLayer: public proland::TileLayer {
+	};
+
+	class GraphProducer: public proland::TileProducer, public proland::GraphListener {
+	public:
+		class GraphFactory: public ork::Object {
+		};
+
+	};
+
+	class Tesselator: public ork::Object {
+	};
+
+	class FieldsOrthoLayer: public proland::GraphLayer {
+	};
+
+	class ForestOrthoLayer: public proland::GraphLayer {
+	};
+
+	class LineOrthoLayer: public proland::GraphLayer {
+	};
+
+	class MaskOrthoLayer: public proland::GraphLayer {
+	public:
+		class BlendParams {
+		};
+
+	};
+
+	class OrthoMargin: public proland::Margin {
+	};
+
+	class RoadOrthoLayer: public proland::GraphLayer, public proland::CurveDataFactory {
+	};
+
+	class WaterOrthoLayer: public proland::GraphLayer {
 	};
 
 };

@@ -141,13 +141,6 @@ public:
 		return true;
 	}
 
-	inline static bool _lg_typecheck_getNodes(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( lua_type(L,2)!=LUA_TSTRING ) return false;
-		return true;
-	}
-
 	inline static bool _lg_typecheck_getNodeVar(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -454,27 +447,6 @@ public:
 		self->setCameraMethod(method);
 
 		return 0;
-	}
-
-	// ork::SceneManager::NodeIterator ork::SceneManager::getNodes(const std::string & flag)
-	static int _bind_getNodes(lua_State *L) {
-		if (!_lg_typecheck_getNodes(L)) {
-			luaL_error(L, "luna typecheck failed in ork::SceneManager::NodeIterator ork::SceneManager::getNodes(const std::string & flag) function, expected prototype:\nork::SceneManager::NodeIterator ork::SceneManager::getNodes(const std::string & flag)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		std::string flag(lua_tostring(L,2),lua_objlen(L,2));
-
-		ork::SceneManager* self=Luna< ork::Object >::checkSubType< ork::SceneManager >(L,1);
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::SceneManager::NodeIterator ork::SceneManager::getNodes(const std::string &). Got : '%s'\n%s",typeid(Luna< ork::Object >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::SceneManager::NodeIterator stack_lret = self->getNodes(flag);
-		ork::SceneManager::NodeIterator* lret = new ork::SceneManager::NodeIterator(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::SceneManager::NodeIterator >::push(L,lret,true);
-
-		return 1;
 	}
 
 	// ork::ptr< ork::SceneNode > ork::SceneManager::getNodeVar(const std::string & name)
@@ -935,7 +907,6 @@ luna_RegType LunaTraits< ork::SceneManager >::methods[] = {
 	{"setCameraNode", &luna_wrapper_ork_SceneManager::_bind_setCameraNode},
 	{"getCameraMethod", &luna_wrapper_ork_SceneManager::_bind_getCameraMethod},
 	{"setCameraMethod", &luna_wrapper_ork_SceneManager::_bind_setCameraMethod},
-	{"getNodes", &luna_wrapper_ork_SceneManager::_bind_getNodes},
 	{"getNodeVar", &luna_wrapper_ork_SceneManager::_bind_getNodeVar},
 	{"setNodeVar", &luna_wrapper_ork_SceneManager::_bind_setNodeVar},
 	{"getResourceManager", &luna_wrapper_ork_SceneManager::_bind_getResourceManager},

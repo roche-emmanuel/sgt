@@ -129,7 +129,7 @@ public:
     /**
      * Returns this Curve's flattened Size.
      */
-    int getSize();
+    //int getSize(); // not implemented.
 
     /**
      * Returns the pseudo curvilinear coordinate of a selected vertex in the flattened Curve.

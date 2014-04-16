@@ -16,17 +16,40 @@ public:
 			luaL_error(L, "luna typecheck failed in getTable function, expected prototype:\ngetTable(). Got arguments:\n%s",luna_dumpStack(L).c_str());
 		}
 
-		proland::TileStorage::Slot* self=(Luna< proland::TileStorage::Slot >::check(L,1));
+		proland::ObjectTileStorage::ObjectSlot* self=(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1));
 		if(!self) {
 			luaL_error(L, "Invalid object in function call getTable()");
 		}
 		
-		luna_wrapper_base* wrapper = luna_caster<proland::TileStorage::Slot,luna_wrapper_base>::cast(self); //dynamic_cast<luna_wrapper_base*>(self);
+		luna_wrapper_base* wrapper = luna_caster<proland::ObjectTileStorage::ObjectSlot,luna_wrapper_base>::cast(self); //dynamic_cast<luna_wrapper_base*>(self);
 		if(wrapper) {
 			CHECK_RET(wrapper->pushTable(),0,"Cannot push table from value wrapper.");
 			return 1;
 		}
 		return 0;
+	}
+
+	inline static bool _lg_typecheck___eq(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( !Luna<void>::has_uniqueid(L,1,51023118) ) return false;
+		return true;
+	}
+	
+	static int _bind___eq(lua_State *L) {
+		if (!_lg_typecheck___eq(L)) {
+			luaL_error(L, "luna typecheck failed in __eq function, expected prototype:\n__eq(proland::ObjectTileStorage::ObjectSlot*). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		proland::ObjectTileStorage::ObjectSlot* rhs =(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,2));
+		proland::ObjectTileStorage::ObjectSlot* self=(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call __eq(...)");
+		}
+		
+		lua_pushboolean(L,self==rhs?1:0);
+
+		return 1;
 	}
 
 	inline static bool _lg_typecheck_fromVoid(lua_State *L) {
@@ -53,7 +76,7 @@ public:
 	inline static bool _lg_typecheck_asVoid(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,1,72091111) ) return false;
+		if( !Luna<void>::has_uniqueid(L,1,51023118) ) return false;
 		return true;
 	}
 	
@@ -62,7 +85,7 @@ public:
 			luaL_error(L, "luna typecheck failed in fromVoid function, expected prototype:\nasVoid(). Got arguments:\n%s",luna_dumpStack(L).c_str());
 		}
 
-		void* self= (void*)(Luna< proland::TileStorage::Slot >::check(L,1));
+		void* self= (void*)(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1));
 		if(!self) {
 			luaL_error(L, "Invalid object in function call asVoid(...)");
 		}
@@ -71,18 +94,30 @@ public:
 		return 1;
 	}	
 
-	// Derived class converters:
-	static int _cast_from_Slot(lua_State *L) {
-		// all checked are already performed before reaching this point.
-		//proland::ObjectTileStorage::ObjectSlot* ptr= dynamic_cast< proland::ObjectTileStorage::ObjectSlot* >(Luna< proland::TileStorage::Slot >::check(L,1));
-		proland::ObjectTileStorage::ObjectSlot* ptr= luna_caster< proland::TileStorage::Slot, proland::ObjectTileStorage::ObjectSlot >::cast(Luna< proland::TileStorage::Slot >::check(L,1));
-		if(!ptr)
-			return 0;
+	// Base class dynamic cast support:
+	inline static bool _lg_typecheck_dynCast(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_type(L,2)!=LUA_TSTRING ) return false;
+		return true;
+	}
+	
+	static int _bind_dynCast(lua_State *L) {
+		if (!_lg_typecheck_dynCast(L)) {
+			luaL_error(L, "luna typecheck failed in dynCast function, expected prototype:\ndynCast(const std::string &). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		std::string name(lua_tostring(L,2),lua_objlen(L,2));
+
+		proland::ObjectTileStorage::ObjectSlot* self=(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call dynCast(...)");
+		}
 		
-		// Otherwise push the pointer:
-		Luna< proland::ObjectTileStorage::ObjectSlot >::push(L,ptr,false);
-		return 1;
-	};
+		static LunaConverterMap& converters = luna_getConverterMap("proland::ObjectTileStorage::ObjectSlot");
+		
+		return luna_dynamicCast(L,converters,"proland::ObjectTileStorage::ObjectSlot",name);
+	}
 
 
 	// Constructor checkers:
@@ -164,9 +199,9 @@ public:
 		}
 
 
-		proland::ObjectTileStorage::ObjectSlot* self=Luna< proland::TileStorage::Slot >::checkSubType< proland::ObjectTileStorage::ObjectSlot >(L,1);
+		proland::ObjectTileStorage::ObjectSlot* self=(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::ptr< ork::Object > proland::ObjectTileStorage::ObjectSlot::data(). Got : '%s'\n%s",typeid(Luna< proland::TileStorage::Slot >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call ork::ptr< ork::Object > proland::ObjectTileStorage::ObjectSlot::data(). Got : '%s'\n%s",typeid(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		ork::ptr< ork::Object > lret = self->data;
 		Luna< ork::Object >::push(L,lret.get(),false);
@@ -182,9 +217,9 @@ public:
 
 		ork::ptr< ork::Object > value = Luna< ork::Object >::checkSubType< ork::Object >(L,2);
 
-		proland::ObjectTileStorage::ObjectSlot* self=Luna< proland::TileStorage::Slot >::checkSubType< proland::ObjectTileStorage::ObjectSlot >(L,1);
+		proland::ObjectTileStorage::ObjectSlot* self=(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call void proland::ObjectTileStorage::ObjectSlot::data(ork::ptr< ork::Object >). Got : '%s'\n%s",typeid(Luna< proland::TileStorage::Slot >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call void proland::ObjectTileStorage::ObjectSlot::data(ork::ptr< ork::Object >). Got : '%s'\n%s",typeid(Luna< proland::ObjectTileStorage::ObjectSlot >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		self->data = value;
 
@@ -207,13 +242,15 @@ void LunaTraits< proland::ObjectTileStorage::ObjectSlot >::_bind_dtor(proland::O
 const char LunaTraits< proland::ObjectTileStorage::ObjectSlot >::className[] = "ObjectTileStorage_ObjectSlot";
 const char LunaTraits< proland::ObjectTileStorage::ObjectSlot >::fullName[] = "proland::ObjectTileStorage::ObjectSlot";
 const char LunaTraits< proland::ObjectTileStorage::ObjectSlot >::moduleName[] = "proland";
-const char* LunaTraits< proland::ObjectTileStorage::ObjectSlot >::parents[] = {"proland.TileStorage_Slot", 0};
+const char* LunaTraits< proland::ObjectTileStorage::ObjectSlot >::parents[] = {0};
 const int LunaTraits< proland::ObjectTileStorage::ObjectSlot >::hash = 51023118;
-const int LunaTraits< proland::ObjectTileStorage::ObjectSlot >::uniqueIDs[] = {72091111,0};
+const int LunaTraits< proland::ObjectTileStorage::ObjectSlot >::uniqueIDs[] = {51023118,0};
 
 luna_RegType LunaTraits< proland::ObjectTileStorage::ObjectSlot >::methods[] = {
 	{"getData", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind_getData},
 	{"setData", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind_setData},
+	{"dynCast", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind_dynCast},
+	{"__eq", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind___eq},
 	{"fromVoid", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind_fromVoid},
 	{"asVoid", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind_asVoid},
 	{"getTable", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_bind_getTable},
@@ -221,7 +258,6 @@ luna_RegType LunaTraits< proland::ObjectTileStorage::ObjectSlot >::methods[] = {
 };
 
 luna_ConverterType LunaTraits< proland::ObjectTileStorage::ObjectSlot >::converters[] = {
-	{"proland::TileStorage::Slot", &luna_wrapper_proland_ObjectTileStorage_ObjectSlot::_cast_from_Slot},
 	{0,0}
 };
 

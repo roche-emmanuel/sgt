@@ -49,7 +49,7 @@ public:
     /**
      * An ElevationCurveData for river elevation profiles.
      */
-    class WaterElevationCurveData : public ElevationCurveData
+    class PROLAND_API WaterElevationCurveData : public ElevationCurveData
     {
     public:
         /**

@@ -227,7 +227,7 @@ public:
      * created when a Graph is modified, and they are used in #clipUpdate
      * to update a clipped graph incrementally, without doing a full #clip.
      */
-    struct Changes
+    struct PROLAND_API Changes
     {
         list<AreaId> changedArea;
 
@@ -646,7 +646,7 @@ public:
      * @param subgraph the graph whose connex components must be added as
      * subgraphs of this graph.
      */
-    void buildSubgraphs(const Graph &subgraphs);
+    //void buildSubgraphs(const Graph &subgraphs); // not implemented.
 
     /**
      * Build the maximal curves and the areas of this graph. The result is
