@@ -17,6 +17,15 @@
 // prevent inclusion of windef here:
 #include "lunaCommon.h"
 
+#include <assert.h>
+#include <cassert>
+
+#ifdef assert
+#undef assert
+#endif
+
+#define assert(e) ASSERT(e)
+
 typedef boost::uint8_t uint8_t;
 typedef boost::int8_t int8_t;
 typedef boost::uint16_t uint16_t;

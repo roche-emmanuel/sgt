@@ -1511,15 +1511,12 @@ GLint FrameBuffer::getMinorVersion()
 
 GLenum FrameBuffer::getError()
 {
+    trDEBUG("FrameBuffer","Calling glGetError()")
     GLenum error = glGetError();
-    if ((error != GL_NO_ERROR) && (Logger::ERROR_LOGGER != NULL)) {
-        ostringstream oss;
-        oss << "OpenGL error " << error << ", returned string '" << gluErrorString(error) << "'";
-        Logger::ERROR_LOGGER->log("RENDER", oss.str());
-        Logger::ERROR_LOGGER->flush();
-    }
+
     if (error != GL_NO_ERROR) {
-        printf("%s\n", gluErrorString(error));
+        trERROR("FrameBuffer","OpenGL error " << error << ", returned string '" << gluErrorString(error) << "'")
+        // printf("%s\n", gluErrorString(error));
     }
     return error;
 }

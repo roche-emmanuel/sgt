@@ -43,8 +43,8 @@ function Class:initialize()
   manager:setScheduler(sch)
   local obj = resManager:loadResource("scene")
   manager:setRoot(obj:dynCast("ork::SceneNode"))
-  -- manager:setCameraNode("camera")
-  -- manager:setCameraMethod("draw")
+  manager:setCameraNode("camera")
+  manager:setCameraMethod("draw")
 
   self:debug("App initialized.")
 end

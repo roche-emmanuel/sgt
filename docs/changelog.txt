@@ -86,3 +86,4 @@
 - Rebuilt with complete prolant bindings.
 - Refactoring code to add support for sgtLuna in ork and proland.
 - Rebuilt removing most warnings in sources.
+- Fixed crash issue on glGenBuffer due to static glew link in ork and land plugins.

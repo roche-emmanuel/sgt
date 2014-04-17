@@ -45,6 +45,7 @@ ResourceFactory *ResourceFactory::getInstance()
 
 void ResourceFactory::addType(const string &type, createFunc f)
 {
+    trDEBUG("ResourceFactory","Registering create function for resource type '" << type <<"'")
     types[type] = f;
 }
 
@@ -54,11 +55,10 @@ ptr<Object> ResourceFactory::create(ptr<ResourceManager> manager, const string &
     e = e == NULL ? desc->descriptor : e;
     map<string, createFunc>::iterator i = types.find(e->ValueStr());
     if (i != types.end()) {
+        trDEBUG("ResourceFactory","Calling create function for resource of type '"<< e->ValueStr() << "'")
         return i->second(manager, name, desc, e);
     } else {
-        if (Logger::ERROR_LOGGER != NULL) {
-            Resource::log(Logger::ERROR_LOGGER, desc, e, "Unknown resource type '" + e->ValueStr() + "'");
-        }
+        trERROR("ResourceFactory","Unknown resource type '" << e->ValueStr() << "'")
         throw exception();
     }
 }

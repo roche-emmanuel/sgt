@@ -773,6 +773,8 @@ public:
     MeshResource(ptr<ResourceManager> manager, const string &name, ptr<ResourceDescriptor> desc, const TiXmlElement *e = NULL) :
         ResourceTemplate<0, MeshBuffers>(manager, name, desc)
     {
+        trDEBUG("MeshResource","Starting construction")
+
         char buf[256];
         istringstream in(string((char*) desc->getData(), desc->getSize()));
         e = e == NULL ? desc->descriptor : e;
@@ -787,6 +789,7 @@ public:
 
             in >> buf;
 
+            trDEBUG("MeshResource", "Setting mode...")
             if (strcmp(buf, "points") == 0) {
                 mode = ORK_POINTS;
             } else if (strcmp(buf, "lines") == 0) {
@@ -808,12 +811,11 @@ public:
             } else if (strcmp(buf, "trianglefan") == 0) {
                 mode = TRIANGLE_FAN;
             } else {
-                if (Logger::ERROR_LOGGER != NULL) {
-                    log(Logger::ERROR_LOGGER, desc, e, "Invalid mesh topology '" + string(buf) + "'");
-                }
+                trERROR("MeshResource","Invalid mesh topology '" << string(buf) << "'")
                 throw exception();
             }
 
+            trDEBUG("MeshResource", "Retrieving attributes...")
             unsigned int attributeCount;
             in >> attributeCount;
 
@@ -854,9 +856,7 @@ public:
                         attributeTypes[i] = A64F;
                         vertexSize += attributeComponents[i] * 8;
                     } else {
-                        if (Logger::ERROR_LOGGER != NULL) {
-                            log(Logger::ERROR_LOGGER, desc, e, "Invalid mesh vertex component type '" + string(buf) + "'");
-                        }
+                        trERROR("MeshResource","Invalid mesh vertex component type '" << string(buf) << "'")
                         throw exception();
                     }
 
@@ -866,9 +866,7 @@ public:
                     } else if (strcmp(buf, "false") == 0) {
                         attributeNorms[i] = false;
                     } else {
-                        if (Logger::ERROR_LOGGER != NULL) {
-                            log(Logger::ERROR_LOGGER, desc, e, "Invalid mesh vertex normalization '" + string(buf) + "'");
-                        }
+                        trERROR("MeshResource","Invalid mesh vertex normalization '" << string(buf) << "'")
                         throw exception();
                     }
                 }
@@ -880,6 +878,7 @@ public:
                 throw exception();
             }
 
+            trDEBUG("MeshResource", "Adding attributes...")
             for (unsigned int i = 0; i < attributeCount; ++i) {
                 addAttributeBuffer(attributeIds[i], attributeComponents[i],
                     vertexSize, attributeTypes[i], attributeNorms[i]);
@@ -895,6 +894,8 @@ public:
 
             unsigned char* vertexBuffer = new unsigned char[vertexCount * vertexSize];
             unsigned int offset = 0;
+
+            trDEBUG("MeshResource", "Copying vertex buffer...")
 
             for (unsigned int i = 0; i < vertexCount; ++i) {
                 for (unsigned int j = 0; j < attributeCount; ++j) {
@@ -982,8 +983,11 @@ public:
                 }
             }
 
+            trDEBUG("MeshResource", "Building GPU buffer...")
             ptr<GPUBuffer> gpub = new GPUBuffer();
+            trDEBUG("MeshResource", "Setting GPU buffer data...")            
             gpub->setData(vertexCount * vertexSize, vertexBuffer, STATIC_DRAW);
+            trDEBUG("MeshResource", "Setting GPUBuffer for attributes...")
             for (int i = 0; i < getAttributeCount(); ++i) {
                 getAttributeBuffer(i)->setBuffer(gpub);
             }
@@ -992,6 +996,8 @@ public:
             unsigned int indiceCount;
             in >> indiceCount;
             nindices = indiceCount;
+
+            trDEBUG("MeshResource", "Retrieving indices...")
 
             if (nindices > 0) {
                 int indiceSize;
@@ -1044,6 +1050,8 @@ public:
             }
 
             desc->clearData();
+
+            trDEBUG("MeshResource", "Leaving constructor.")
         } catch (...) {
             desc->clearData();
             throw exception();

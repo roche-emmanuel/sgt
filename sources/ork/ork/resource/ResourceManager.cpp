@@ -74,22 +74,22 @@ ptr<Object> ResourceManager::loadResource(const string &name)
         // and we return the resource
         return dynamic_cast<Object*>(r);
     }
-    if (Logger::INFO_LOGGER != NULL) {
-        Logger::INFO_LOGGER->log("RESOURCE", "Loading resource '" + name + "'");
-    }
+    trDEBUG("ResourceManager","Loading resource '" << name << "'")
+
     // otherwise the resource is not already loaded; we first load its descriptor
     ptr<Object> r = NULL;
     ptr<ResourceDescriptor> d = loader->loadResource(name);
 
     if (d != NULL) {
         // then we create the actual resource from this descriptor
-        // if (Logger::INFO_LOGGER != NULL) {
-        //     Logger::INFO_LOGGER->log("RESOURCE", "Got valid descriptor for '" + name + "'");
-        // }
+        trDEBUG("ResourceManager","Received valid descriptor for resource '" << name << "'")
         try {
+            trDEBUG("ResourceManager","Trying to create instance for '" << name << "'")
             r = ResourceFactory::getInstance()->create(this, name, d).cast<Object>();
+            trDEBUG("ResourceManager","Created instance for '" << name << "'")
         } catch (...) {
         }
+
         if (r != NULL) {
             // and we register this resource with this manager
             Resource *res = dynamic_cast<Resource*>(r.get());

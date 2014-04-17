@@ -58,6 +58,10 @@ void test(bool result, const char* file, int line);
 
 #define TEST4(x) void x(); Test _##x(#x, x, 4); void x()
 
+#ifdef ASSERT
+#undef ASSERT
+#endif
+
 #define ASSERT(x) test(x, __FILE__, __LINE__)
 
 #endif

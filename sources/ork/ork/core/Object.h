@@ -65,11 +65,11 @@
 #define CONCAT(arg1, arg2) CONCATENATE(arg1, arg2)
 #define static_assert(cond) typedef int CONCAT(ASSERTION_FAILED_AT_LINE_, __LINE__)[(cond) ? 1 : -1]
 
-#ifndef NDEBUG
-#undef assert
-#define assert(e) if (!(e)) { ::assertAndSegfault(#e, __FILE__, __LINE__); }
-ORK_API void assertAndSegfault(const char* a, const char* f, int l);
-#endif
+// #ifndef NDEBUG
+// #undef assert
+// #define assert(e) if (!(e)) { ::assertAndSegfault(#e, __FILE__, __LINE__); }
+// ORK_API void assertAndSegfault(const char* a, const char* f, int l);
+// #endif
 
 // ---------------------------------------------------------------------------
 // Portable file functions

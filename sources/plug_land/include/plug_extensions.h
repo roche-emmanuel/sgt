@@ -23,10 +23,15 @@ typedef vec4<bool> vec4b;
 namespace land {
 
 inline void initGlew() {
+  logDEBUG("Trying to initialize Glew...")
   assert(glGetError() == 0);
   glewExperimental = GL_TRUE;
-  glewInit();
-  glGetError();
+  CHECK(glewInit()==GLEW_OK,"Glew initialization failed.");
+  int err = glGetError();
+  if (err != GL_NO_ERROR) {
+      THROW("OpenGL error " << err << ", returned string '" << gluErrorString(err) << "'")
+  }
+  logDEBUG("Glew initialized.")  
 }
 
 class ProlandDrawable : public osg::Drawable

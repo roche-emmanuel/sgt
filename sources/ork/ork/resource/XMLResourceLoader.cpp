@@ -268,7 +268,10 @@ ptr<ResourceDescriptor> XMLResourceLoader::loadResource(const string &name)
         try {
             unsigned int size = 0;
             unsigned char *data = loadData(desc, size, dataStamps);
-            return new XMLResourceDescriptor(desc, data, size, stamp, dataStamps);
+            trDEBUG("RESOURCE","Creating new descriptor for resource "<<name<< " with data="<<(const void*)data)
+            XMLResourceDescriptor* res = new XMLResourceDescriptor(desc, data, size, stamp, dataStamps);
+            trDEBUG("RESOURCE","Returning new descriptor for resource "<<name<< " desc"<<(const void*)res)
+            return res;
         } catch (...) {
             delete desc;
         }
@@ -306,9 +309,14 @@ ptr<ResourceDescriptor> XMLResourceLoader::reloadResource(const string &name, pt
         unsigned int size = 0;
         // we now test if the ASCII or binary part has changed
         unsigned char* data = loadData(desc, size, dataStamps);
+        trDEBUG("RESOURCE","Reloaded data for resource " << name << ", current: " << (const void*)(cur.get()));
+
         if (!cur->equal(desc, stamp, dataStamps)) {
             // if the XML part and/or the binary part has changed
-            return new XMLResourceDescriptor(desc, data, size, stamp, dataStamps);
+            trDEBUG("RESOURCE","Re-creating XMLResoruce Descriptor for resource " << name);
+            XMLResourceDescriptor* res =  new XMLResourceDescriptor(desc, data, size, stamp, dataStamps);
+            trDEBUG("RESOURCE","Returning renewed descriptor " << (const void*)res);
+            return res;
         }
     } catch (...) {
         delete desc;
@@ -343,9 +351,7 @@ unsigned char *XMLResourceLoader::loadFile(const string &file, unsigned int &siz
     fs.read((char*) data, size);
     fs.close();
     data[size] = 0;
-    if (Logger::INFO_LOGGER != NULL) {
-        Logger::INFO_LOGGER->log("RESOURCE", "(loadFile) Loaded file '" + file + "'");
-    }
+    trDEBUG("RESOURCE","(loadFile) Loaded file '" << file << "'")
     return data;
 }
 
@@ -409,25 +415,24 @@ TiXmlElement *XMLResourceLoader::findDescriptor(const string &name, time_t &t, b
             }
             unsigned int size = 0;
             unsigned char *data = loadFile(n, size);
+            trDEBUG("RESOURCE","Creating TIXmlDoc from data...")
+
             TiXmlDocument doc(n);
             if (doc.Parse((const char*) data)) {
-                if (Logger::INFO_LOGGER != NULL) {
-                    Logger::INFO_LOGGER->log("RESOURCE", "Loaded file '" + n + "'");
-                }
+                trDEBUG("RESOURCE","(findDescriptor) Loaded file '" << n << "'")
+
                 delete[] data;
                 return doc.RootElement()->Clone()->ToElement();
             } else {
                 if (data != NULL) {
                     delete[] data;
                 }
-                if (Logger::ERROR_LOGGER != NULL) {
-                    Logger::ERROR_LOGGER->log("RESOURCE", "Syntax error in '" + n + "'");
-                }
+                trERROR("RESOURCE","Syntax error in '" << n << "'")
             }
         }
     }
-    if (log && Logger::ERROR_LOGGER != NULL) {
-        Logger::ERROR_LOGGER->log("RESOURCE", "Cannot find resource '" + name + "'");
+    if (log) {
+        trERROR("RESOURCE", "Cannot find resource '" << name << "'");
     }
     // resource not found, return NULL
     return NULL;
@@ -509,9 +514,8 @@ TiXmlDocument *XMLResourceLoader::loadArchive(const string &name, time_t &t)
     TiXmlDocument *doc = new TiXmlDocument(name);
     if (doc->Parse((const char*) data)) {
         delete[] data;
-        if (Logger::INFO_LOGGER != NULL) {
-            Logger::INFO_LOGGER->log("RESOURCE", "Loaded file '" + name + "'");
-        }
+        trDEBUG("RESOURCE","(loadArchive) Loaded file '" << name << "'")
+
         if (i != cache.end()) {
             // if the cache already contains a value for this name, delete it
             delete i->second.first;
@@ -616,6 +620,7 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
             if (desc->Attribute("vertex") != NULL) {
                 string path = findFile(desc, paths, desc->Attribute("vertex"));
                 unsigned char *data = loadFile(path, vertexSize);
+                trDEBUG("RESOURCE","Loading vertex shader...")
                 vertexData = loadShaderData(desc, paths, path, data, vertexSize, stamps);
             }
             unsigned char *tessControlData = NULL;
@@ -623,6 +628,7 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
             if (desc->Attribute("tessControl") != NULL) {
                 string path = findFile(desc, paths, desc->Attribute("tessControl"));
                 unsigned char *data = loadFile(path, tessControlSize);
+                trDEBUG("RESOURCE","Loading tesselation shader...")
                 tessControlData = loadShaderData(desc, paths, path, data, tessControlSize, stamps);
             }
             unsigned char *tessEvalData = NULL;
@@ -630,6 +636,7 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
             if (desc->Attribute("tessEvaluation") != NULL) {
                 string path = findFile(desc, paths, desc->Attribute("tessEvaluation"));
                 unsigned char *data = loadFile(path, tessEvalSize);
+                trDEBUG("RESOURCE","Loading tessEval shader...")
                 tessEvalData = loadShaderData(desc, paths, path, data, tessEvalSize, stamps);
             }
             unsigned char *geometryData = NULL;
@@ -637,6 +644,7 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
             if (desc->Attribute("geometry") != NULL) {
                 string path = findFile(desc, paths, desc->Attribute("geometry"));
                 unsigned char *data = loadFile(path, geometrySize);
+                trDEBUG("RESOURCE","Loading geometry shader...")
                 geometryData = loadShaderData(desc, paths, path, data, geometrySize, stamps);
             }
             unsigned char *fragmentData = NULL;
@@ -644,6 +652,7 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
             if (desc->Attribute("fragment") != NULL) {
                 string path = findFile(desc, paths, desc->Attribute("fragment"));
                 unsigned char *data = loadFile(path, fragmentSize);
+                trDEBUG("RESOURCE","Loading fragment shader...")
                 fragmentData = loadShaderData(desc, paths, path, data, fragmentSize, stamps);
             }
             size = vertexSize + tessControlSize + tessEvalSize + geometrySize + fragmentSize + 5;
@@ -685,6 +694,7 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
         // then we load the raw ASCII or binary part
         string path = stamps.size() == 0 ? findFile(desc, paths, file) : stamps[0].first;
         unsigned char *data = loadFile(path, size);
+        trDEBUG("RESOURCE","Loaded raw data.")
 
         stamps.clear();
 
@@ -701,6 +711,8 @@ unsigned char* XMLResourceLoader::loadData(TiXmlElement *desc, unsigned int &siz
             time_t t;
             getTimeStamp(path, t);
             stamps.push_back(make_pair(path, t));
+            trDEBUG("RESOURCE","Returning mesh or program data.")
+
             return data;
         } else {
             // for a texture we need to decompress the file (PNG, JPG, etc)

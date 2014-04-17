@@ -207,11 +207,18 @@ static UniformBufferManager* UNIFORM_BUFFER_MANAGER = NULL;
 GPUBuffer::GPUBuffer() : size(0), mappedData(NULL), cpuData(NULL), isDirty(false), currentUniformUnit(-1)
 {
     if (UNIFORM_BUFFER_MANAGER == NULL) {
+        trDEBUG("GPUBuffer","Generating UniformBufferManager")
         UNIFORM_BUFFER_MANAGER = new UniformBufferManager();
+        trDEBUG("GPUBuffer","UniformBufferManager ready.")        
     }
 
+    trDEBUG("GPUBuffer","Generating gl buffer...")
     glGenBuffers(1, &bufferId);
-    assert(FrameBuffer::getError() == GL_NO_ERROR);
+    trDEBUG("GPUBuffer","Calling FrameBuffer::getError()")
+    int err = FrameBuffer::getError();
+    trDEBUG("GPUBuffer","Checking assertion")
+    assert(err == GL_NO_ERROR);
+    trDEBUG("GPUBuffer","Assertion checked.")
 }
 
 GPUBuffer::~GPUBuffer()

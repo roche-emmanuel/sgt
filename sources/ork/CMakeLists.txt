@@ -34,6 +34,8 @@ link_directories(${GLEW_LIB_DIR})
 
 # set(EXECUTABLE_OUTPUT_PATH ${CMAKE_INSTALL_PREFIX}/ork)
 add_definitions("-DTIXML_USE_STL" "-D_CRT_SECURE_NO_WARNINGS") #"-fPIC"
+add_definitions(-DNDEBUG)
+
 add_definitions(${GLUT_FLAGS})
 add_definitions(${GLEW_FLAGS})
 
