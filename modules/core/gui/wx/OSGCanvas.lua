@@ -45,6 +45,10 @@ function Class:getGLCanvas()
 	return self._window
 end
 
+function Class:getGraphicsWindow()
+	return self._gw
+end
+
 function Class:buildInstance()
 	self:info("Building OSGCanvas instance...")
 	

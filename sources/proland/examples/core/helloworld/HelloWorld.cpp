@@ -48,10 +48,10 @@ public:
 
     HelloWorld() : GlutWindow(Window::Parameters().size(1024, 768))
     {
-        FileLogger::File *out = new FileLogger::File("log.html");
-        Logger::INFO_LOGGER = new FileLogger("INFO", out, Logger::INFO_LOGGER);
-        Logger::WARNING_LOGGER = new FileLogger("WARNING", out, Logger::WARNING_LOGGER);
-        Logger::ERROR_LOGGER = new FileLogger("ERROR", out, Logger::ERROR_LOGGER);
+        // FileLogger::File *out = new FileLogger::File("log.html");
+        // Logger::INFO_LOGGER = new FileLogger("INFO", out, Logger::INFO_LOGGER);
+        // Logger::WARNING_LOGGER = new FileLogger("WARNING", out, Logger::WARNING_LOGGER);
+        // Logger::ERROR_LOGGER = new FileLogger("ERROR", out, Logger::ERROR_LOGGER);
 
         ptr<XMLResourceLoader> resLoader = new XMLResourceLoader();
         resLoader->addPath("./proland_samples/core");

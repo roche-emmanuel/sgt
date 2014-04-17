@@ -1,3 +1,6 @@
+// Common precompile header
+#include "ork_common.h"
+
 /*
  * Ork: a small object-oriented OpenGL Rendering Kernel.
  * Copyright (c) 2008-2010 INRIA
@@ -24,7 +27,7 @@
 #ifndef _ORK_TYPES_H_
 #define _ORK_TYPES_H_
 
-#include <ork/core/pstdint.h>
+// #include <ork/core/pstdint.h>
 #include <ork/math/vec2.h>
 
 /**

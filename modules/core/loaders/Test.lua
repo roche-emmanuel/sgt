@@ -20,8 +20,12 @@ Create a new instance of the class. See <loaders.LoaderBase.LoaderBase> for deta
 function TestLoader(options)
 ]=]
 function Class:initialize(options)
-	-- require the test package:
-	requirePackage 'tests'
+	local mpath = os.getenv("SGT_MODULE_PATH")
+
+	if not mpath then
+		-- require the test package only if we do not specify a module path:
+		requirePackage 'tests'
+	end
 
 	_G.profiler = require "debugging.Profiler"	
 end

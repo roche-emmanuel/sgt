@@ -24,6 +24,8 @@
 #ifndef _ORK_TEST_
 #define _ORK_TEST_
 
+#include "ork_common.h"
+ 
 #include <string>
 #include <vector>
 

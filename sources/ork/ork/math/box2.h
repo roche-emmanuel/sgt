@@ -1,3 +1,6 @@
+// Common precompile header
+#include "ork_common.h"
+
 /*
  * Ork: a small object-oriented OpenGL Rendering Kernel.
  * Copyright (c) 2008-2010 INRIA
@@ -28,15 +31,6 @@
 
 #include "pmath.h"
 #include "ork/math/vec2.h"
-
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
-
 #include <algorithm>
 
 using namespace std;

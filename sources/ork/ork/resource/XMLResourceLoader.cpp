@@ -1,3 +1,6 @@
+// Common precompile header
+#include "ork_common.h"
+
 /*
  * Ork: a small object-oriented OpenGL Rendering Kernel.
  * Copyright (c) 2008-2010 INRIA
@@ -341,7 +344,7 @@ unsigned char *XMLResourceLoader::loadFile(const string &file, unsigned int &siz
     fs.close();
     data[size] = 0;
     if (Logger::INFO_LOGGER != NULL) {
-        Logger::INFO_LOGGER->log("RESOURCE", "Loaded file '" + file + "'");
+        Logger::INFO_LOGGER->log("RESOURCE", "(loadFile) Loaded file '" + file + "'");
     }
     return data;
 }

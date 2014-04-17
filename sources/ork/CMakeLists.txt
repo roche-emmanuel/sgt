@@ -23,6 +23,8 @@ endif(NOT CMAKE_BUILD_TYPE)
 # find_package(PkgConfig)
 
 # PKG_CHECK_MODULES(Glew glew REQUIRED)
+include_directories(../sgtLuna/include)
+
 include_directories(${GLEW_INC_DIR})
 link_directories(${GLEW_LIB_DIR})
 
@@ -31,7 +33,7 @@ link_directories(${GLEW_LIB_DIR})
 # set(LIB_INSTALL_DIR "lib" CACHE STRING "Library directory name (lib/lib32/lib64)" )
 
 # set(EXECUTABLE_OUTPUT_PATH ${CMAKE_INSTALL_PREFIX}/ork)
-add_definitions("-DORK_API=" "-DTIXML_USE_STL" "-D_CRT_SECURE_NO_WARNINGS") #"-fPIC"
+add_definitions("-DTIXML_USE_STL" "-D_CRT_SECURE_NO_WARNINGS") #"-fPIC"
 add_definitions(${GLUT_FLAGS})
 add_definitions(${GLEW_FLAGS})
 

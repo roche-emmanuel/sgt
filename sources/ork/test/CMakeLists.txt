@@ -9,8 +9,6 @@ link_directories(${PTHREADS_LIB_DIR})
 include_directories("../" "../libraries" "${CMAKE_CURRENT_SOURCE_DIR}")
 file(GLOB SOURCE_FILES *.cpp)
 
-add_definitions("-DORK_API=__declspec(dllimport)")
-
 add_executable(${TARGET_NAME} ${SOURCE_FILES})
 target_link_libraries(${TARGET_NAME} ork)
 

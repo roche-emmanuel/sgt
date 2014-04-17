@@ -2,11 +2,17 @@
 #define _PLUG_EXTENSION_H_
 
 #include "luna/luna.h"
+#include <GL/glew.h>
+
 #include "osg/Drawable"
 
 #include "ork/math/vec2.h"
 #include "ork/math/vec3.h"
 #include "ork/math/vec4.h"
+
+#include "ork/render/FrameBuffer.h"
+#include "ork/resource/XMLResourceLoader.h"
+#include "ork/scenegraph/SceneManager.h"
 
 namespace ork {
 typedef vec2<bool> vec2b;
@@ -15,6 +21,13 @@ typedef vec4<bool> vec4b;
 }
 
 namespace land {
+
+inline void initGlew() {
+  assert(glGetError() == 0);
+  glewExperimental = GL_TRUE;
+  glewInit();
+  glGetError();
+}
 
 class ProlandDrawable : public osg::Drawable
 {

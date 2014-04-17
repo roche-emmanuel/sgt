@@ -1,3 +1,6 @@
+// Common precompile header
+#include "ork_common.h"
+
 /*
  * Ork: a small object-oriented OpenGL Rendering Kernel.
  * Copyright (c) 2008-2010 INRIA
@@ -422,7 +425,7 @@ public:
                                 v = new Value1i(n, GLint(x));
                                 break;
                             case 'b':
-                                v = new Value1b(n, x);
+                                v = new Value1b(n, x!=0.0);
                                 break;
                             case 'v':
                                 if (type[9] == 'i') {
@@ -453,7 +456,7 @@ public:
                                 v = new Value2i(n, vec2<GLint>(GLint(x), GLint(y)));
                                 break;
                             case 'b':
-                                v = new Value2b(n, vec2<bool>(x, y));
+                                v = new Value2b(n, vec2<bool>(x!=0.0, y!=0.0));
                                 break;
                             case 'v':
                                 if (type[9] == 'i') {
@@ -486,7 +489,7 @@ public:
                                 v = new Value3i(n, vec3<GLint>(GLint(x), GLint(y), GLint(z)));
                                 break;
                             case 'b':
-                                v = new Value3b(n, vec3<bool>(x, y, z));
+                                v = new Value3b(n, vec3<bool>(x!=0.0, y!=0.0, z!=0.0));
                                 break;
                             case 'v':
                                 if (type[9] == 'i') {
@@ -521,7 +524,7 @@ public:
                                 v = new Value4i(n, vec4<GLint>(GLint(x), GLint(y), GLint(z), GLint(w)));
                                 break;
                             case 'b':
-                                v = new Value4b(n, vec4<bool>(x, y, z, w));
+                                v = new Value4b(n, vec4<bool>(x!=0.0, y!=0.0, z!=0.0, w!=0.0));
                                 break;
                             case 'v':
                                 if (type[9] == 'i') {

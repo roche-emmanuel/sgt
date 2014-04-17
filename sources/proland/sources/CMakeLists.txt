@@ -35,9 +35,6 @@ ADD_DEFINITIONS(-DPROLAND_LIBRARY)
 ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS)
 ADD_DEFINITIONS(-DTIXML_USE_STL)
 
-ADD_DEFINITIONS("-DORK_API=__declspec(dllimport)")
-# ADD_DEFINITIONS("-DPROLAND_API=__declspec(dllexport)")
-
 FILE(GLOB_RECURSE PUBLIC_HEADERS "core/*.h" "terrain/*.h" "atmo/*.h" "ocean/*.h" "edit/*.h" "graph/*.h" "river/*.h" "forest/*.h")
 
 FILE(GLOB_RECURSE SOURCE_FILES "core/*.cpp" "terrain/*.cpp" "atmo/*.cpp" "ocean/*.cpp" "edit/*.cpp" "graph/*.cpp" "river/*.cpp" "forest/*.cpp")

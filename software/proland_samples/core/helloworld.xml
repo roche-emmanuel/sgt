@@ -61,7 +61,7 @@
             <mesh id="grid" value="quad.mesh"/>
             <method id="update" value="updateTerrainMethod"/>
             <method id="draw" value="drawTerrainMethod"/>
-            <module id="material" value="terrainShader"/>
+            <!-- <module id="material" value="terrainShader"/> -->
         </node>
     </node>
 </archive>

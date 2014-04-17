@@ -2,6 +2,7 @@
 
 #include <proland/util/mfs.h>
 #include <ork/math/pmath.h>
+#include <plug_extensions.h>
 #include <ork/math/half.h>
 #include <proland/math/color.h>
 #include <proland/math/noise.h>
@@ -593,6 +594,28 @@ static int _bind_radians(lua_State *L) {
 	if (_lg_typecheck_radians_overload_3(L)) return _bind_radians_overload_3(L);
 
 	luaL_error(L, "error in function radians, cannot match any of the overloads for function radians:\n  radians(float)\n  radians(double)\n  radians(long double)\n");
+	return 0;
+}
+
+
+// Function checkers:
+inline static bool _lg_typecheck_initGlew(lua_State *L) {
+	if( lua_gettop(L)!=0 ) return false;
+
+	return true;
+}
+
+
+// Function binds:
+// void land::initGlew()
+static int _bind_initGlew(lua_State *L) {
+	if (!_lg_typecheck_initGlew(L)) {
+		luaL_error(L, "luna typecheck failed in void land::initGlew() function, expected prototype:\nvoid land::initGlew()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+
+	land::initGlew();
+
 	return 0;
 }
 
@@ -1266,6 +1289,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_alignPointer); lua_setfield(L,-2,"alignPointer");
 	lua_pushcfunction(L, _bind_degrees); lua_setfield(L,-2,"degrees");
 	lua_pushcfunction(L, _bind_radians); lua_setfield(L,-2,"radians");
+	lua_pushcfunction(L, _bind_initGlew); lua_setfield(L,-2,"initGlew");
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	lua_pushcfunction(L, _bind_floatToHalf); lua_setfield(L,-2,"floatToHalf");

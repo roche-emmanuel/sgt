@@ -23,6 +23,7 @@
 
 #include "plug_extensions.h"
 
+#include "ork/core/Object.h"
 #include "proland/terrain/Deformation.h"
 
 using namespace proland;
@@ -61,4 +62,23 @@ LUNA_BEGIN_GETTER(osg::BoundingBox)
 	// Retrieve the result from the stack:
 	return *(Luna< osg::BoundingBox >::check(L,index));
 LUNA_END_GETTER(osg::BoundingBox)
+
+// container specialization for ork::Object
+template <>
+struct luna_container<ork::Object> {
+	typedef ork::ptr<ork::Object> container_type;
+	
+	static inline ork::Object* get(const container_type& cont) {
+		return cont.get();
+	};
+
+	static inline void set(container_type& cont, ork::Object* ptr) {
+		cont = ptr;
+	};
+	
+	static inline void release(container_type& cont) {
+			cont = NULL;		
+	};
+};
+
 #endif

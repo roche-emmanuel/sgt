@@ -282,7 +282,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ReflectionMap.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ReflectionMap.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/ClassHierarchy.lua	1346246904	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/docgen/ClassHierarchy.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ClassWriter.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/ClassWriter.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/OSGCanvas.lua	1379661530	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/OSGCanvas.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/OSGCanvas.lua	1397686101	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/OSGCanvas.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Define.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Define.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/classBuilder.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/classBuilder.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/BasicGroup.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/BasicGroup.lua
@@ -306,7 +306,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/std/DMap.lua	1365488987	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/std/DMap.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/LunaWriter.lua	1358293914	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/LunaWriter.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/components/LogPanel.lua	1383343226	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/components/LogPanel.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/loaders/Test.lua	1395351161	1	loaders.test
+/cygdrive/w/Cloud/Projects/sgt/modules/core/loaders/Test.lua	1397681801	1	loaders.test
 /cygdrive/w/Cloud/Projects/sgt/modules/core/base/Event.lua	1360068290	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/base/Event.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/LuaNameValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/LuaNameValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/LicensedPage.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/LicensedPage.lua

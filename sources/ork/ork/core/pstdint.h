@@ -1,3 +1,6 @@
+// Common precompile header
+#include "ork_common.h"
+
 /*  A portable stdint.h
  ****************************************************************************
  *  BSD License:

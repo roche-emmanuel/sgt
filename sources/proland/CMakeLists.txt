@@ -1,7 +1,7 @@
 SET(TARGET_NAME "proland")
 SET(TARGET_DIR "./")
 
-# INCLUDE_DIRECTORIES(../../sgtLuna/include)
+INCLUDE_DIRECTORIES(../sgtLuna/include)
 INCLUDE_DIRECTORIES(../ork/libraries)
 INCLUDE_DIRECTORIES(../ork)
 

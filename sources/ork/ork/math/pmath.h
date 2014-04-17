@@ -1,3 +1,6 @@
+// Common precompile header
+#include "ork_common.h"
+
 #ifndef _PORTABLE_MATH_H_
 #define _PORTABLE_MATH_H_
 
