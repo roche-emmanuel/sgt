@@ -558,7 +558,7 @@ public:
         for (int i = 0; i < patternCount; ++i) {
             ptr< Mesh<vec3f, unsigned short> > pattern;
             int density = minDensity + int((maxDensity - minDensity) * frandom(&rand));
-            pattern = new Mesh<vec3f, unsigned short>(POINTS, GPU_STATIC, density, 0);
+            pattern = new Mesh<vec3f, unsigned short>(ORK_POINTS, GPU_STATIC, density, 0);
             pattern->addAttributeType(0, 3, A32F, false);
 
             radius = 1.0 / sqrt(density * M_PI / POISSON_COVERAGE);

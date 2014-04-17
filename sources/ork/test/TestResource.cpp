@@ -66,7 +66,7 @@ TEST(testModuleResource)
     ptr<ResourceManager> resManager = new ResourceManager(resLoader);
     ptr<Program> p = resManager->loadResource("test;").cast<Program>();
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::RGBA32F, 1, 1);
-    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(POINTS, GPU_STATIC);
+    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(ORK_POINTS, GPU_STATIC);
     pt->addAttributeType(0, 4, A32F, false);
     pt->addVertex(vec4f(1.0, 2.0, 3.0, 4.0));
     ptr<TransformFeedback> tfb = TransformFeedback::getDefault();
@@ -75,7 +75,7 @@ TEST(testModuleResource)
     b->setData(128, NULL, STREAM_COPY);
     tfb->setVertexBuffer(0, b);
     q->begin();
-    TransformFeedback::begin(fb, p, POINTS, tfb, false);
+    TransformFeedback::begin(fb, p, ORK_POINTS, tfb, false);
     TransformFeedback::transform(*(pt->getBuffers()), 0, 1);
     TransformFeedback::end();
     q->end();
@@ -110,7 +110,7 @@ TEST(textureResourceUpdate)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixel1));
+    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixel1));
 
     unsigned char img2[] = { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 24, 0, 5, 4, 3 };
     createFile("test.tga", 25, img2);
@@ -118,7 +118,7 @@ TEST(textureResourceUpdate)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixel2));
+    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixel2));
 
     ASSERT(pixel1[0] == 0 && pixel1[1] == 1 && pixel1[2] == 2 &&
         pixel2[0] == 3 && pixel2[1] == 4 && pixel2[2] == 5);
@@ -146,26 +146,26 @@ TEST(moduleResourceUpdate)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel1));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel1));
 
     u->set(2);
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel2));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel2));
 
     createFile("test.glsl", "#ifdef _FRAGMENT_\nlayout(location=0) out ivec4 color;\nuniform int u;\nvoid main() { color = ivec4(u + 1); }\n#endif\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel3));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel3));
 
     u->set(3);
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel4));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel4));
 
     ASSERT(pixel1 == 1 && pixel2 == 2 && pixel3 == 3 && pixel4 == 4);
 
@@ -196,14 +196,14 @@ TEST(moduleResourceUpdateWithUniformSamplers)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel1));
+    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel1));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\nuniform isampler2D u1;\nuniform isampler2D u2;\nvoid main() { color = texture(u1, vec2(0.5)) + texture(u2, vec2(0.5)) + ivec4(1); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel2));
+    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel2));
 
     ASSERT(pixel1[0] == 3 && pixel1[1] == 5 && pixel1[2] == 7 &&
         pixel2[0] == 4 && pixel2[1] == 6 && pixel2[2] == 8);
@@ -234,14 +234,14 @@ TEST4(moduleResourceUpdateWithUniformSubroutines)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel1));
+    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel1));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\nsubroutine int sr(int x);\nsubroutine (sr) int sr1(int x) { return x + 2; }\nsubroutine (sr) int sr2(int x) { return x + 3; }\nsubroutine uniform sr u;\nvoid main() { color = ivec4(u(0)); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel2));
+    fb->readPixels(0, 0, 1, 1, RGB_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel2));
 
     ASSERT(pixel1[0] == 1 && pixel2[0] == 3);
 
@@ -270,27 +270,27 @@ TEST(moduleResourceUpdateRemovedUniform)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel1));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel1));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\n\nvoid main() { color = ivec4(2); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel2));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel2));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\nuniform int u;\nvoid main() { color = ivec4(u + 2); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel3));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel3));
 
     u->set(2);
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel4));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel4));
 
     ASSERT(pixel1 == 1 && pixel2 == 2 && pixel3 == 3 && pixel4 == 4);
 
@@ -319,27 +319,27 @@ TEST4(moduleResourceUpdateRemovedUniformSubroutine)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel1));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel1));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\nvoid main() { color = ivec4(1); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel2));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel2));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\nsubroutine int sr(int x);\nsubroutine (sr) int sr1(int x) { return x; }\nsubroutine (sr) int sr2(int x) { return x + 1; }\nsubroutine uniform sr u;\nvoid main() { color = ivec4(u(0)); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel3));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel3));
 
     u->setSubroutine("sr2");
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel4));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel4));
 
     ASSERT(pixel1 == 0 && pixel2 == 1 && pixel3 == 0 && pixel4 == 1);
 
@@ -366,26 +366,26 @@ TEST(moduleResourceUpdateUniformBlock)
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel1));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel1));
 
     u->set(2);
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel2));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel2));
 
     createFile("test.glsl", "layout(location=0) out ivec4 color;\nuniform b { int u; };\nvoid main() { color = ivec4(u + 1); }\n");
     resManager->updateResources();
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel3));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel3));
 
     u->set(3);
 
     fb->clear(true, true, true);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel4));
+    fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel4));
 
     ASSERT(pixel1 == 1 && pixel2 == 2 && pixel3 == 3 && pixel4 == 4);
 

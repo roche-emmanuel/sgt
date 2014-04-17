@@ -44,7 +44,7 @@ TEST(textureBuffer)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 4, 1);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 4, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 4, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 1 && out[1] == 2 && out[2] == 3 && out[3] == 4);
 }
 
@@ -52,7 +52,7 @@ TEST(texture1D)
 {
     GLint in[4] = { 1, 2, 3, 4 };
     GLint out[4];
-    ptr<Texture> t = new Texture1D(4, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new Texture1D(4, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isampler1D tex;\n\
@@ -61,7 +61,7 @@ TEST(texture1D)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 4, 1);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 4, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 4, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 1 && out[1] == 2 && out[2] == 3 && out[3] == 4);
 }
 
@@ -69,7 +69,7 @@ TEST(texture1DArray)
 {
     GLint in[4] = { 1, 2, 3, 4 };
     GLint out[4];
-    ptr<Texture> t = new Texture1DArray(2, 2, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new Texture1DArray(2, 2, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isampler1DArray tex;\n\
@@ -78,7 +78,7 @@ TEST(texture1DArray)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 2, 2);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 2, 2, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 2, 2, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 1 && out[1] == 2 && out[2] == 3 && out[3] == 4);
 }
 
@@ -86,7 +86,7 @@ TEST(texture2D)
 {
     GLint in[4] = { 1, 2, 3, 4 };
     GLint out[4];
-    ptr<Texture> t = new Texture2D(2, 2, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new Texture2D(2, 2, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isampler2D tex;\n\
@@ -95,7 +95,7 @@ TEST(texture2D)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 2, 2);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 2, 2, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 2, 2, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 1 && out[1] == 2 && out[2] == 3 && out[3] == 4);
 }
 
@@ -103,7 +103,7 @@ TEST(textureRectangle)
 {
     GLint in[4] = { 1, 2, 3, 4 };
     GLint out[4];
-    ptr<Texture> t = new TextureRectangle(2, 2, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new TextureRectangle(2, 2, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isampler2DRect tex;\n\
@@ -112,7 +112,7 @@ TEST(textureRectangle)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 2, 2);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 2, 2, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 2, 2, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 1 && out[1] == 2 && out[2] == 3 && out[3] == 4);
 }
 
@@ -120,7 +120,7 @@ TEST(texture2DArray)
 {
     GLint in[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
     GLint out[4];
-    ptr<Texture> t = new Texture2DArray(2, 2, 2, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new Texture2DArray(2, 2, 2, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isampler2DArray tex;\n\
@@ -129,7 +129,7 @@ TEST(texture2DArray)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 2, 2);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 2, 2, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 2, 2, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 5 && out[1] == 6 && out[2] == 7 && out[3] == 8);
 }
 
@@ -137,7 +137,7 @@ TEST(texture3D)
 {
     GLint in[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
     GLint out[4];
-    ptr<Texture> t = new Texture3D(2, 2, 2, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new Texture3D(2, 2, 2, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isampler3D tex;\n\
@@ -146,7 +146,7 @@ TEST(texture3D)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 2, 2);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 2, 2, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 2, 2, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 5 && out[1] == 6 && out[2] == 7 && out[3] == 8);
 }
 
@@ -170,7 +170,7 @@ TEST(textureCube)
         new CPUBuffer(in + 4),
         new CPUBuffer(in + 5)
     };
-    ptr<Texture> t = new TextureCube(1, 1, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new TextureCube(1, 1, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST), params, buffers);
     ptr<Program> p = new Program(new Module(330, NULL, "\
         uniform isamplerCube tex;\n\
@@ -180,7 +180,7 @@ TEST(textureCube)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 6, 1);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 6, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 6, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 1 && out[1] == 2 && out[2] == 3 && out[3] == 4 && out[4] == 5 && out[5] == 6);
 }
 
@@ -188,7 +188,7 @@ TEST4(textureCubeArray)
 {
     GLint in[12] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
     GLint out[6];
-    ptr<Texture> t = new TextureCubeArray(1, 1, 2, R8I, RED_INTEGER, INT,
+    ptr<Texture> t = new TextureCubeArray(1, 1, 2, R8I, RED_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(in));
     ptr<Program> p = new Program(new Module(400, NULL, "\
         #extension GL_ARB_texture_cube_map_array : enable\n\
@@ -199,7 +199,7 @@ TEST4(textureCubeArray)
     p->getUniformSampler("tex")->set(t);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::R32I, 6, 1);
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 6, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(out));
+    fb->readPixels(0, 0, 6, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(out));
     ASSERT(out[0] == 7 && out[1] == 8 && out[2] == 9 && out[3] == 10 && out[4] == 11 && out[5] == 12);
 }
 
@@ -207,7 +207,7 @@ TEST(automaticTextureBinding)
 {
     vector< ptr<Texture2D> > textures;
     for (int i = 0; i < 128; ++i) {
-        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, INT,
+        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, ORK_INT,
             Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(&i)));
     }
     vector< ptr<Program> > programs;
@@ -233,7 +233,7 @@ TEST(automaticTextureBinding)
         GLint pixel;
         fb->clear(true, true, true);
         fb->drawQuad(programs[p]);
-        fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel));
+        fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel));
         ok = ok && (pixel == v);
     }
     ASSERT(ok);
@@ -243,7 +243,7 @@ TEST(automaticSamplerBinding)
 {
     vector< ptr<Texture2D> > textures;
     for (int i = 0; i < 8; ++i) {
-        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, INT,
+        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, ORK_INT,
             Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)));
     }
     vector< ptr<Sampler> > samplers;
@@ -277,7 +277,7 @@ TEST(automaticSamplerBinding)
         GLint pixel;
         fb->clear(true, true, true);
         fb->drawQuad(programs[p]);
-        fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel));
+        fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel));
         ok = ok && (pixel == v);
     }
     ASSERT(ok);

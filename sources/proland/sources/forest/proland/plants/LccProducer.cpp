@@ -310,7 +310,7 @@ bool LccProducer::doCreateTile(int level, int tx, int ty, TileStorage::Slot *dat
             ptr<MeshBuffers> pattern = plants->getPattern(patternId);
             int nSeeds = int(pattern->nvertices);
 
-            frameBuffer->draw(dots, *pattern, POINTS, 0, nSeeds);
+            frameBuffer->draw(dots, *pattern, ORK_POINTS, 0, nSeeds);
         }
     }
 

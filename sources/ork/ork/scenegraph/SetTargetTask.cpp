@@ -91,7 +91,7 @@ ptr<Task> SetTargetTask::getTask(ptr<Object> context)
                 ptr<Texture2D> t = textures[i].cast<Texture2D>();
                 assert(t != NULL);
                 if (t->getWidth() != viewport.z || t->getHeight() != viewport.w) {
-                    t->setImage(viewport.z, viewport.w, t->getFormat(), FLOAT, CPUBuffer(NULL));
+                    t->setImage(viewport.z, viewport.w, t->getFormat(), ORK_FLOAT, CPUBuffer(NULL));
                 }
             }
         }

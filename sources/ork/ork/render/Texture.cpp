@@ -291,9 +291,9 @@ ORK_API void getParameters(const ptr<ResourceDescriptor> desc, const TiXmlElemen
     } else if (strncmp(v, "UNSIGNED_INT", 12) == 0) {
         t = UNSIGNED_INT;
     } else if (strcmp(v, "INT") == 0) {
-        t = INT;
+        t = ORK_INT;
     } else if (strcmp(v, "FLOAT") == 0) {
-        t = FLOAT;
+        t = ORK_FLOAT;
     } else if (strcmp(v, "HALF") == 0) {
         t = HALF;
     } else {

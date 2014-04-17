@@ -271,7 +271,7 @@ void RoadOrthoLayer::drawRoadEnd(const vec3d &tileOffset, ptr<FrameBuffer> fb, c
     stripeSizeU->set(vec3f::ZERO);
     meshuv->setMode(TRIANGLE_STRIP);
     meshuv->clear();
-    float dx, dy;
+    // float dx, dy; unused variables.
     if (isDeformed()) {
         double dx1 = nx->x * n.y + ny->x * -n.x;
         double dy1 = nx->y * n.y + ny->y * -n.x;

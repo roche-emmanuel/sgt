@@ -246,7 +246,7 @@ bool EditorHandler::mouseClick(button b, state s, modifier m, int x, int y)
         ptr<FrameBuffer> fb = SceneManager::getCurrentFrameBuffer();
         vec4<GLint> vp = fb->getViewport();
         depthBuffer = new float[vp.z * vp.w];
-        fb->readPixels(vp.x, vp.y, vp.z, vp.w, DEPTH_COMPONENT, FLOAT, Buffer::Parameters(), CPUBuffer(depthBuffer));
+        fb->readPixels(vp.x, vp.y, vp.z, vp.w, DEPTH_COMPONENT, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(depthBuffer));
 
         paint = true;
         vec3d p = getPosition(x, y);
@@ -321,7 +321,7 @@ vec3d EditorHandler::getPosition(int x, int y)
     float width = (float) vp.z;
     float height = (float) vp.w;
     if (depthBuffer == NULL) {
-        fb->readPixels(x, vp.w - y, 1, 1, DEPTH_COMPONENT, FLOAT, Buffer::Parameters(), CPUBuffer(&winz));
+        fb->readPixels(x, vp.w - y, 1, 1, DEPTH_COMPONENT, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&winz));
     } else {
         winz = depthBuffer[x + (vp.w - y) * vp.z];
     }

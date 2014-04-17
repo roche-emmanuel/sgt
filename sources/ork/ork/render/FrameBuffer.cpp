@@ -224,7 +224,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glClearDepth(p.clearDepth);
         glClearStencil(p.clearStencil);
     }
-    // POINTS -------------
+    // ORK_POINTS -------------
     if (pointId != p.pointId)
     {
         glEnable(GL_PROGRAM_POINT_SIZE, p.pointSize <= 0.0f);

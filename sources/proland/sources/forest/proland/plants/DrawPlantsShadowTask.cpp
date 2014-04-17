@@ -191,9 +191,9 @@ void DrawPlantsShadowTask::drawPlantsShadow(ptr<SceneNode> context)
         }
     }
 
-    int pid = 0;
+    unsigned int pid = 0;
     int maxSize = 0;
-    for (int i = 0; i < producers.size(); ++i) {
+    for (unsigned int i = 0; i < producers.size(); ++i) {
         int size = producers[i].cast<PlantsProducer>()->plantBounds.size();
         if (size > maxSize) {
             maxSize = size;
@@ -349,7 +349,7 @@ void DrawPlantsShadowTask::drawPlantsShadow(ptr<SceneNode> context)
             if (plantRadiusU != NULL) {
                 plantRadiusU->set(plants->getPoissonRadius() * p->terrain->root->l / (1 << plants->getMaxLevel()));
             }
-            frameBuffer->multiDraw(plants->shadowProg, *(p->getPlantsMesh()), POINTS, p->offsets, p->sizes, p->count);
+            frameBuffer->multiDraw(plants->shadowProg, *(p->getPlantsMesh()), ORK_POINTS, p->offsets, p->sizes, p->count);
         }
     }
 }

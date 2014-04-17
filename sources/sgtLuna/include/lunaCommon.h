@@ -77,6 +77,7 @@ typedef OpenThreads::ScopedLock<sgtMutex> sgtLock;
 #define DEBUG_MSG(msg) { std::ostringstream os; os << msg; MessageBox(NULL,os.str().c_str(),"Debug message",MB_OK);
 
 // Debugging macros:
+#define THROW(msg) { std::ostringstream os; os << msg; logERROR("Throwing exception: " << msg); throw sgtException(os.str()); }
 #define THROW_IF(cond,msg) if(cond) { std::ostringstream os; os << msg; logERROR("Throwing exception: " << msg); throw sgtException(os.str()); }
 #define CHECK_EQ(val,expected,msg) if((val)!=(expected)) { logERROR(msg << " (Expected: " << (expected) << " and got: " << (val) << ")"); return; }
 #define CHECK_EQ_RET(val,expected,ret,msg) if((val)!=(expected)) { logERROR(msg << " (Expected: " << (expected) << " and got: " << (val) << ")"); return ret; }

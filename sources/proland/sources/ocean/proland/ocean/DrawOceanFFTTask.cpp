@@ -51,23 +51,23 @@ const int N_SLOPE_VARIANCE = 10;
 // WAVES SPECTRUM GENERATION
 // ----------------------------------------------------------------------------
 
-float GRID1_SIZE = 5488.0; // size in meters (i.e. in spatial domain) of the first grid
+float GRID1_SIZE = 5488.0f; // size in meters (i.e. in spatial domain) of the first grid
 
-float GRID2_SIZE = 392.0; // size in meters (i.e. in spatial domain) of the second grid
+float GRID2_SIZE = 392.0f; // size in meters (i.e. in spatial domain) of the second grid
 
-float GRID3_SIZE = 28.0; // size in meters (i.e. in spatial domain) of the third grid
+float GRID3_SIZE = 28.0f; // size in meters (i.e. in spatial domain) of the third grid
 
-float GRID4_SIZE = 2.0; // size in meters (i.e. in spatial domain) of the fourth grid
+float GRID4_SIZE = 2.0f; // size in meters (i.e. in spatial domain) of the fourth grid
 
-float WIND = 5.0; // wind speed in meters per second (at 10m above surface)
+float WIND = 5.0f; // wind speed in meters per second (at 10m above surface)
 
-float OMEGA = 0.84; // sea state (inverse wave age)
+float OMEGA = 0.84f; // sea state (inverse wave age)
 
 bool propagate = true; // wave propagation?
 
 float A = 1.0; // wave amplitude factor (should be one)
 
-const float cm = 0.23; // Eq 59
+const float cm = 0.23f; // Eq 59
 
 const float km = 370.0; // Eq 59
 
@@ -181,8 +181,8 @@ void generateWavesSpectrum(ptr<Texture2D> spectrum12Tex, ptr<Texture2D> spectrum
         }
     }
 
-    spectrum12Tex->setSubImage(0, 0, 0, FFT_SIZE, FFT_SIZE, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(spectrum12));
-    spectrum34Tex->setSubImage(0, 0, 0, FFT_SIZE, FFT_SIZE, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(spectrum34));
+    spectrum12Tex->setSubImage(0, 0, 0, FFT_SIZE, FFT_SIZE, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(spectrum12));
+    spectrum34Tex->setSubImage(0, 0, 0, FFT_SIZE, FFT_SIZE, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(spectrum34));
 }
 
 float getSlopeVariance(float kx, float ky, float *spectrumSample)
@@ -199,7 +199,7 @@ void computeSlopeVariances(ptr<FrameBuffer> fbo, ptr<Program> variances, ptr<Tex
 {
     // slope variance due to all waves, by integrating over the full spectrum
     float theoreticSlopeVariance = 0.0;
-    float k = 5e-3;
+    float k = (float)5e-3;
     while (k < 1e3) {
         float nextK = k * 1.001;
         theoreticSlopeVariance += k * k * spectrum(k, 0, true) * (nextK - k);
@@ -237,7 +237,7 @@ void computeSlopeVariances(ptr<FrameBuffer> fbo, ptr<Program> variances, ptr<Tex
 
     maxSlopeVariance = 0.0;
     float *data = new float[N_SLOPE_VARIANCE * N_SLOPE_VARIANCE * N_SLOPE_VARIANCE];
-    variancesTex->getImage(0, RED, FLOAT, data);
+    variancesTex->getImage(0, RED, ORK_FLOAT, data);
     for (int i = 0; i < N_SLOPE_VARIANCE * N_SLOPE_VARIANCE * N_SLOPE_VARIANCE; ++i) {
         maxSlopeVariance = max(maxSlopeVariance, data[i]);
     }
@@ -374,23 +374,23 @@ void DrawOceanFFTTask::init(float radius, float zmin,
     this->ffty = ffty;
     this->variances = variances;
 
-    spectrum12 = new Texture2D(FFT_SIZE, FFT_SIZE, RGBA16F, RGBA, FLOAT,
+    spectrum12 = new Texture2D(FFT_SIZE, FFT_SIZE, RGBA16F, RGBA, ORK_FLOAT,
         Texture::Parameters().min(NEAREST).mag(NEAREST).wrapS(REPEAT).wrapT(REPEAT),
         Buffer::Parameters(), CPUBuffer(NULL));
-    spectrum34 = new Texture2D(FFT_SIZE, FFT_SIZE, RGBA16F, RGBA, FLOAT,
+    spectrum34 = new Texture2D(FFT_SIZE, FFT_SIZE, RGBA16F, RGBA, ORK_FLOAT,
         Texture::Parameters().min(NEAREST).mag(NEAREST).wrapS(REPEAT).wrapT(REPEAT),
         Buffer::Parameters(), CPUBuffer(NULL));
-    slopeVariances = new Texture3D(N_SLOPE_VARIANCE, N_SLOPE_VARIANCE, N_SLOPE_VARIANCE, R16F, RED, FLOAT,
+    slopeVariances = new Texture3D(N_SLOPE_VARIANCE, N_SLOPE_VARIANCE, N_SLOPE_VARIANCE, R16F, RED, ORK_FLOAT,
         Texture::Parameters().min(NEAREST).mag(NEAREST).wrapS(CLAMP_TO_EDGE).wrapT(CLAMP_TO_EDGE).wrapR(CLAMP_TO_EDGE),
         Buffer::Parameters(), CPUBuffer(NULL));
-    ffta = new Texture2DArray(FFT_SIZE, FFT_SIZE, 5, RGBA16F, RGBA, FLOAT,
+    ffta = new Texture2DArray(FFT_SIZE, FFT_SIZE, 5, RGBA16F, RGBA, ORK_FLOAT,
         Texture::Parameters().min(LINEAR_MIPMAP_LINEAR).mag(LINEAR).wrapS(REPEAT).wrapT(REPEAT).maxAnisotropyEXT(16.0f),
         Buffer::Parameters(), CPUBuffer(NULL));
-    fftb = new Texture2DArray(FFT_SIZE, FFT_SIZE, 5, RGBA16F, RGBA, FLOAT,
+    fftb = new Texture2DArray(FFT_SIZE, FFT_SIZE, 5, RGBA16F, RGBA, ORK_FLOAT,
         Texture::Parameters().min(LINEAR_MIPMAP_LINEAR).mag(LINEAR).wrapS(REPEAT).wrapT(REPEAT).maxAnisotropyEXT(16.0f),
         Buffer::Parameters(), CPUBuffer(NULL));
     float *data = computeButterflyLookupTexture();
-    ptr<Texture2D> butterfly = new Texture2D(FFT_SIZE, PASSES, RGBA16F, RGBA, FLOAT,
+    ptr<Texture2D> butterfly = new Texture2D(FFT_SIZE, PASSES, RGBA16F, RGBA, ORK_FLOAT,
         Texture::Parameters().min(NEAREST).mag(NEAREST).wrapS(CLAMP_TO_EDGE).wrapT(CLAMP_TO_EDGE),
         Buffer::Parameters(), CPUBuffer(data));
     delete[] data;

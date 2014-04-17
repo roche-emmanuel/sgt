@@ -586,7 +586,7 @@ vec3d EditGraphOrthoLayer::EditGraphHandler::getWorldCoordinates(int x, int y)
     vec4<GLint> vp = fb->getViewport();
     float width = (float) vp.z;
     float height = (float) vp.w;
-    fb->readPixels(x, vp.w - y, 1, 1, DEPTH_COMPONENT, FLOAT, Buffer::Parameters(), CPUBuffer(&winz));
+    fb->readPixels(x, vp.w - y, 1, 1, DEPTH_COMPONENT, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&winz));
 
     winx = (x * 2.0f) / width - 1.0f;
     winy = 1.0f - (y * 2.0f) / height;

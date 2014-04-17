@@ -347,7 +347,7 @@ void EditElevationProducer::update()
         map<Texture*, float*>::iterator j = textures.find(s->t.get());
         if (j == textures.end()) {
             values = new float[(int)( 3 * s->t->getWidth() * s->t->getHeight() * s->t->getLayers())];
-            s->t->getImage(0, RGB, FLOAT, values);
+            s->t->getImage(0, RGB, ORK_FLOAT, values);
             textures.insert(make_pair(s->t.get(), values));
         } else {
             values = j->second;

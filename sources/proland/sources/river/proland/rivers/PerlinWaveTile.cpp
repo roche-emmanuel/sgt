@@ -249,7 +249,7 @@ void PerlinWaveTile::init(ptr<Texture2D> tex, int size, int numLodLevel)
                 k++;
             }
         }
-        tex->setSubImage(level, 0, 0, nsize, nsize, RGB, FLOAT, Buffer::Parameters(), CPUBuffer(texData));
+        tex->setSubImage(level, 0, 0, nsize, nsize, RGB, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(texData));
 
         nsize /= 2;
     }
@@ -265,7 +265,7 @@ void PerlinWaveTile::init(string &name, int gridSize, int tileSize, float waveLe
     int size = gridSize;
     int numLodLevel = int(log((double)size) / log(2.0)) + 1;
 
-    ptr<Texture2D> t = new Texture2D(size, size, RGB16F, RGB, FLOAT, Texture::Parameters().wrapS(REPEAT).wrapT(REPEAT).min(LINEAR_MIPMAP_LINEAR).mag(LINEAR).lodMin(0).lodMax(numLodLevel).maxAnisotropyEXT(16.0f), Buffer::Parameters(), CPUBuffer(0));
+    ptr<Texture2D> t = new Texture2D(size, size, RGB16F, RGB, ORK_FLOAT, Texture::Parameters().wrapS(REPEAT).wrapT(REPEAT).min(LINEAR_MIPMAP_LINEAR).mag(LINEAR).lodMin(0).lodMax(numLodLevel).maxAnisotropyEXT(16.0f), Buffer::Parameters(), CPUBuffer(0));
 
     init(t, size, numLodLevel);
     WaveTile::init(name, t, gridSize, tileSize, waveLength, timeLoop);

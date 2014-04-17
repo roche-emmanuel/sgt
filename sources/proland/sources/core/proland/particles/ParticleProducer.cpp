@@ -161,7 +161,7 @@ ptr<Texture2D> ParticleProducer::copyToTexture(ptr<Texture2D> t, int paramCount,
     int height = getStorage()->getCapacity();
     if (t == NULL || t->getWidth() != width || t->getHeight() != height) {
         t = new Texture2D(width, height, RGBA16F,
-            RGBA, FLOAT, Texture::Parameters().wrapS(CLAMP_TO_BORDER).wrapT(CLAMP_TO_BORDER).min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL));
+            RGBA, ORK_FLOAT, Texture::Parameters().wrapS(CLAMP_TO_BORDER).wrapT(CLAMP_TO_BORDER).min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL));
     }
     if (params == NULL || paramSize < 4 * width * height) {
         if (params != NULL) {
@@ -186,7 +186,7 @@ ptr<Texture2D> ParticleProducer::copyToTexture(ptr<Texture2D> t, int paramCount,
     }
 
     if (maxHeight > 0) {
-        t->setSubImage(0, 0, 0, width, maxHeight, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(params));
+        t->setSubImage(0, 0, 0, width, maxHeight, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(params));
     }
     return t;
 }

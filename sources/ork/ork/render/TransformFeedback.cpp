@@ -96,7 +96,7 @@ void TransformFeedback::setVertexBuffer(int index, ptr<GPUBuffer> b, GLuint offs
 
 void TransformFeedback::begin(ptr<FrameBuffer> fb, ptr<Program> transform, MeshMode m, ptr<TransformFeedback> tfb, bool rasterize)
 {
-    assert(m == POINTS || m == LINES || m == TRIANGLES);
+    assert(m == ORK_POINTS || m == LINES || m == TRIANGLES);
     TRANSFORMFEEDBACK_FRAMEBUFFER = fb;
     TRANSFORM = transform;
     MODE = m;

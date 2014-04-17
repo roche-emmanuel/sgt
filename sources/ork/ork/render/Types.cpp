@@ -112,7 +112,7 @@ GLenum getAttributeType(AttributeType t)
 GLenum getMeshMode(MeshMode m)
 {
     switch (m) {
-    case POINTS:
+    case ORK_POINTS:
         return GL_POINTS;
     case LINE_STRIP:
         return GL_LINE_STRIP;
@@ -576,11 +576,11 @@ GLenum getPixelType(PixelType t)
         return GL_SHORT;
     case UNSIGNED_INT:
         return GL_UNSIGNED_INT;
-    case INT:
+    case ORK_INT:
         return GL_INT;
     case HALF:
         return GL_HALF_FLOAT;
-    case FLOAT:
+    case ORK_FLOAT:
         return GL_FLOAT;
     case UNSIGNED_BYTE_3_3_2:
         return GL_UNSIGNED_BYTE_3_3_2;
@@ -663,8 +663,8 @@ unsigned int getFormatSize(TextureFormat f, PixelType t)
     case HALF:
         return 2 * components;
     case UNSIGNED_INT:
-    case INT:
-    case FLOAT:
+    case ORK_INT:
+    case ORK_FLOAT:
         return 4 * components;
     case UNSIGNED_BYTE_3_3_2:
     case UNSIGNED_BYTE_2_3_3_REV:

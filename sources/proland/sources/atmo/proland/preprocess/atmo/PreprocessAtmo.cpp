@@ -94,9 +94,9 @@ AtmoParameters::AtmoParameters() : Rg(6360.0), Rt(6420.0), RL(6421.0),
     TRANSMITTANCE_W(256), TRANSMITTANCE_H(64),
     SKY_W(64), SKY_H(16),
     RES_R(32), RES_MU(128), RES_MU_S(32), RES_NU(8),
-    AVERAGE_GROUND_REFLECTANCE(0.1),
-    HR(8.0), betaR(5.8e-3, 1.35e-2, 3.31e-2),
-    HM(1.2), betaMSca(4e-3, 4e-3, 4e-3), betaMEx(4.44e-3, 4.44e-3, 4.44e-3), mieG(0.8)
+    AVERAGE_GROUND_REFLECTANCE(0.1f),
+    HR(8.0), betaR(5.8e-3f, 1.35e-2f, 3.31e-2f),
+    HM(1.2f), betaMSca(4e-3f, 4e-3f, 4e-3f), betaMEx(4.44e-3f, 4.44e-3f, 4.44e-3f), mieG(0.8f)
 {
 }
 
@@ -131,19 +131,19 @@ public:
         Logger::INFO_LOGGER = NULL;
 
         transmittanceT = new Texture2D(params.TRANSMITTANCE_W, params.TRANSMITTANCE_H, RGB16F,
-            RGB, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGB, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
         irradianceT = new Texture2D(params.SKY_W, params.SKY_H, RGB16F,
-            RGB, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGB, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
         inscatterT = new Texture3D(params.RES_MU_S * params.RES_NU, params.RES_MU, params.RES_R, RGBA16F,
-            RGBA, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGBA, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
         deltaET = new Texture2D(params.SKY_W, params.SKY_H, RGB16F,
-            RGB, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGB, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
         deltaSRT = new Texture3D(params.RES_MU_S * params.RES_NU, params.RES_MU, params.RES_R, RGB16F,
-            RGB, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGB, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
         deltaSMT = new Texture3D(params.RES_MU_S * params.RES_NU, params.RES_MU, params.RES_R, RGB16F,
-            RGB, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGB, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
         deltaJT = new Texture3D(params.RES_MU_S * params.RES_NU, params.RES_MU, params.RES_R, RGB16F,
-            RGB, FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
+            RGB, ORK_FLOAT, Texture::Parameters().min(LINEAR).mag(LINEAR), Buffer::Parameters(), CPUBuffer(NULL));
 
         copyInscatter1 = new Program(new Module(330,
             (string(constantsAtmoShader) + string(copyInscatter1Shader)).c_str()));
@@ -363,7 +363,7 @@ public:
             trailer[3] = 0;
             trailer[4] = 3;
             float *buf = new float[3 * params.TRANSMITTANCE_W * params.TRANSMITTANCE_H];
-            transmittanceT->getImage(0, RGB, FLOAT, buf);
+            transmittanceT->getImage(0, RGB, ORK_FLOAT, buf);
             char name[512];
             sprintf(name, "%s/transmittance.raw", output);
             FILE *f;
@@ -380,7 +380,7 @@ public:
             trailer[3] = 0;
             trailer[4] = 3;
             float *buf = new float[3 * params.SKY_W * params.SKY_H];
-            irradianceT->getImage(0, RGB, FLOAT, buf);
+            irradianceT->getImage(0, RGB, ORK_FLOAT, buf);
             char name[512];
             sprintf(name, "%s/irradiance.raw", output);
             FILE *f;
@@ -397,7 +397,7 @@ public:
             trailer[3] = params.RES_R;
             trailer[4] = 4;
             float *buf = new float[4 * params.RES_MU_S * params.RES_NU * params.RES_MU * params.RES_R];
-            inscatterT->getImage(0, RGBA, FLOAT, buf);
+            inscatterT->getImage(0, RGBA, ORK_FLOAT, buf);
             char name[512];
             sprintf(name, "%s/inscatter.raw", output);
             FILE *f;

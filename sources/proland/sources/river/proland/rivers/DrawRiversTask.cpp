@@ -125,11 +125,11 @@ void DrawRiversTask::init(ptr<Program> renderTexProg, ptr<Program> particlesProg
 
     this->initialized = false;
 
-    this->mesh = new Mesh<vec3f, unsigned int>(POINTS, GPU_DYNAMIC);
+    this->mesh = new Mesh<vec3f, unsigned int>(ORK_POINTS, GPU_DYNAMIC);
     this->mesh->addAttributeType(0, 3, A32F, false);
 
     if (renderTexProg != NULL) {
-        this->particleMesh = new Mesh<vecParticle, unsigned int>(POINTS, GPU_DYNAMIC);
+        this->particleMesh = new Mesh<vecParticle, unsigned int>(ORK_POINTS, GPU_DYNAMIC);
         this->particleMesh->addAttributeType(0, 2, A32F, false); // sPos
         this->particleMesh->addAttributeType(1, 2, A32F, false); // wPos
         this->particleMesh->addAttributeType(2, 2, A32F, false); // oPos
@@ -340,7 +340,7 @@ ptr<Task> DrawRiversTask::getTask(ptr<Object> context)
 
     vec4<GLint> vp = old->getViewport();
     if (advectedTex == NULL || advectedTex->getWidth() != vp.z || advectedTex->getHeight() != vp.w) {
-        advectedTex = new Texture2D(vp.z, vp.w, RGBA32F, RGBA, FLOAT,
+        advectedTex = new Texture2D(vp.z, vp.w, RGBA32F, RGBA, ORK_FLOAT,
             Texture::Parameters().wrapT(REPEAT).wrapS(REPEAT).min(LINEAR).mag(LINEAR),
             Buffer::Parameters(), CPUBuffer(NULL));
         if (frameBuffer == NULL) {
@@ -506,7 +506,7 @@ void DrawRiversTask::drawRivers()
         if (renderTexProg != NULL && drawMesh == PRE_ADVECTED) {
             if (!useOffscreenDepth) {
                 if (depthBuffer == NULL || depthBuffer->getWidth() != vp.z - vp.x || depthBuffer->getHeight() != vp.w - vp.y) {
-                    depthBuffer = new Texture2D(vp.z - vp.x, vp.w - vp.y, DEPTH_COMPONENT32F, DEPTH_COMPONENT, FLOAT,
+                    depthBuffer = new Texture2D(vp.z - vp.x, vp.w - vp.y, DEPTH_COMPONENT32F, DEPTH_COMPONENT, ORK_FLOAT,
                         Texture::Parameters().wrapS(CLAMP_TO_EDGE).wrapT(CLAMP_TO_EDGE).min(NEAREST).mag(NEAREST),
                         Buffer::Parameters(), CPUBuffer(NULL));
                 }

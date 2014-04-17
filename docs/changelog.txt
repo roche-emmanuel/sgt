@@ -85,3 +85,4 @@
 - Added support for proland edit plugin bindings.
 - Rebuilt with complete prolant bindings.
 - Refactoring code to add support for sgtLuna in ork and proland.
+- Rebuilt removing most warnings in sources.

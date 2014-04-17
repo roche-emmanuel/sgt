@@ -541,7 +541,7 @@ void ScreenParticleLayer::addNewParticles()
                 depthArray = new float[depthArraySize];
             }
             ptr<FrameBuffer> fb = SceneManager::getCurrentFrameBuffer();
-            fb->readPixels(0, 0, width, height, DEPTH_COMPONENT, FLOAT, Buffer::Parameters(), CPUBuffer(depthArray));
+            fb->readPixels(0, 0, width, height, DEPTH_COMPONENT, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(depthArray));
             depthBufferRead = true;
         }
     } else {
@@ -660,7 +660,7 @@ void ScreenParticleLayer::getParticleDepths(const vector<ScreenParticle*> &parti
     if (!useOffscreenDepthBuffer) {
         if (depthBuffer == NULL || depthBuffer->getWidth() != width || depthBuffer->getHeight() != height) {
             depthBuffer = new Texture2D(width, height, DEPTH_COMPONENT32F, DEPTH_COMPONENT,
-                FLOAT, Texture::Parameters().wrapS(CLAMP_TO_EDGE).wrapT(CLAMP_TO_EDGE).min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL));
+                ORK_FLOAT, Texture::Parameters().wrapS(CLAMP_TO_EDGE).wrapT(CLAMP_TO_EDGE).min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL));
         }
         fb->copyPixels(0, 0, 0, 0, width, height, *depthBuffer, 0);
     }
@@ -669,7 +669,7 @@ void ScreenParticleLayer::getParticleDepths(const vector<ScreenParticle*> &parti
     if (frameBuffer == NULL) {
         int maxParticles = getOwner()->getStorage()->getCapacity();
         ptr<Texture2D> result = new Texture2D(maxParticles, 1, R32F,
-            RED, FLOAT, Texture::Parameters().wrapS(CLAMP_TO_BORDER).wrapT(CLAMP_TO_BORDER).min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL));
+            RED, ORK_FLOAT, Texture::Parameters().wrapS(CLAMP_TO_BORDER).wrapT(CLAMP_TO_BORDER).min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL));
 
         frameBuffer = new FrameBuffer();
         frameBuffer->setReadBuffer(COLOR0);
@@ -682,7 +682,7 @@ void ScreenParticleLayer::getParticleDepths(const vector<ScreenParticle*> &parti
 
         packer = new Program(new Module(330, packerShader));
 
-        mesh = new Mesh<vec3f, unsigned int>(POINTS, CPU, maxParticles);
+        mesh = new Mesh<vec3f, unsigned int>(ORK_POINTS, CPU, maxParticles);
         mesh->addAttributeType(0, 3, A32F, false);
 
         depthTextureU = packer->getUniformSampler("depthTexture");
@@ -714,7 +714,7 @@ void ScreenParticleLayer::getParticleDepths(const vector<ScreenParticle*> &parti
         depthArraySize = count;
         depthArray = new float[depthArraySize];
     }
-    frameBuffer->readPixels(0, 0, count, 1, RED, FLOAT, Buffer::Parameters(), CPUBuffer(depthArray));
+    frameBuffer->readPixels(0, 0, count, 1, RED, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(depthArray));
 }
 
 void ScreenParticleLayer::swap(ptr<ScreenParticleLayer> p)

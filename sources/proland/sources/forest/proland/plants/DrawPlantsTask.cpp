@@ -166,7 +166,7 @@ void DrawPlantsTask::drawPlants(ptr<SceneNode> context)
 
         totalTiles += p->count;
         totalTrees += p->total;
-        fb->multiDraw(plants->renderProg, *(p->getPlantsMesh()), POINTS, p->offsets, p->sizes, p->count);
+        fb->multiDraw(plants->renderProg, *(p->getPlantsMesh()), ORK_POINTS, p->offsets, p->sizes, p->count);
     }
     q->end();
 

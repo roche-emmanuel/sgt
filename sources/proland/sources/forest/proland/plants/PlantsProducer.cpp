@@ -287,7 +287,7 @@ bool PlantsProducer::doCreateTile(int level, int tx, int ty, TileStorage::Slot *
     slot->size = -1;
     slot->query = new Query(PRIMITIVES_GENERATED);
     slot->query->begin();
-    TransformFeedback::begin(SceneManager::getCurrentFrameBuffer(), plants->selectProg, POINTS, tfb, false);
+    TransformFeedback::begin(SceneManager::getCurrentFrameBuffer(), plants->selectProg, ORK_POINTS, tfb, false);
     TransformFeedback::transform(*pattern, 0, nSeeds);
     TransformFeedback::end();
     slot->query->end();

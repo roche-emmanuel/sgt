@@ -115,7 +115,7 @@ TwBar* LunaTraits< TwBar >::_bind_ctor(lua_State *L) {
 }
 
 void LunaTraits< TwBar >::_bind_dtor(TwBar* obj) {
-	delete obj;
+	//delete obj; // destructor protected.
 }
 
 const char LunaTraits< TwBar >::className[] = "TwBar";

@@ -40,7 +40,7 @@ TEST(testProgramBinary)
     p->getUniform1f("u")->set(1.0f);
     GLfloat pixels1[4];
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(&pixels1));
+    fb->readPixels(0, 0, 1, 1, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&pixels1));
     GLsizei length;
     GLenum format;
     unsigned char *binary = p->getBinary(length, format);
@@ -48,7 +48,7 @@ TEST(testProgramBinary)
     p->getUniform1f("u")->set(2.0f);
     GLfloat pixels2[4];
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(&pixels2));
+    fb->readPixels(0, 0, 1, 1, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&pixels2));
     ASSERT(pixels1[0] == 1.0f && pixels2[0] == 2.0f);
 }
 
@@ -70,7 +70,7 @@ TEST(testProgramPipeline)
     fragment->getUniform1f("u")->set(2.0f);
     GLfloat pixels[4];
     fb->drawQuad(p);
-    fb->readPixels(0, 0, 1, 1, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(&pixels));
+    fb->readPixels(0, 0, 1, 1, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&pixels));
     ASSERT(pixels[0] == 1.0f && pixels[1] == 2.0f);
 }
 
@@ -78,7 +78,7 @@ TEST(testProgramPipelineAutomaticTextureBinding)
 {
     vector< ptr<Texture2D> > textures;
     for (int i = 0; i < 128; ++i) {
-        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, INT,
+        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, ORK_INT,
             Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(&i)));
     }
     vector< ptr<Program> > programs;
@@ -112,7 +112,7 @@ TEST(testProgramPipelineAutomaticTextureBinding)
         GLint pixel;
         fb->clear(true, true, true);
         fb->drawQuad(programs[p]);
-        fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel));
+        fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel));
         ok = ok && (pixel == v);
     }
     ASSERT(ok);
@@ -122,7 +122,7 @@ TEST(testProgramPipelineAutomaticSamplerBinding)
 {
     vector< ptr<Texture2D> > textures;
     for (int i = 0; i < 8; ++i) {
-        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, INT,
+        textures.push_back(new Texture2D(1, 1, R32I, RED_INTEGER, ORK_INT,
             Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)));
     }
     vector< ptr<Sampler> > samplers;
@@ -164,7 +164,7 @@ TEST(testProgramPipelineAutomaticSamplerBinding)
         GLint pixel;
         fb->clear(true, true, true);
         fb->drawQuad(programs[p]);
-        fb->readPixels(0, 0, 1, 1, RED_INTEGER, INT, Buffer::Parameters(), CPUBuffer(&pixel));
+        fb->readPixels(0, 0, 1, 1, RED_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(&pixel));
         ok = ok && (pixel == v);
     }
     ASSERT(ok);
@@ -180,7 +180,7 @@ TEST(testTransformFeedback)
     m->addFeedbackVarying("q");
     ptr<Program> p = new Program(m, NULL);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::RGBA32F, 1, 1);
-    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(POINTS, GPU_STATIC);
+    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(ORK_POINTS, GPU_STATIC);
     pt->addAttributeType(0, 4, A32F, false);
     pt->addVertex(vec4f(1.0, 2.0, 3.0, 4.0));
     ptr<TransformFeedback> tfb = TransformFeedback::getDefault();
@@ -189,7 +189,7 @@ TEST(testTransformFeedback)
     b->setData(128, NULL, STREAM_COPY);
     tfb->setVertexBuffer(0, b);
     q->begin();
-    TransformFeedback::begin(fb, p, POINTS, tfb, false);
+    TransformFeedback::begin(fb, p, ORK_POINTS, tfb, false);
     TransformFeedback::transform(*(pt->getBuffers()), 0, 1);
     TransformFeedback::end();
     q->end();
@@ -209,14 +209,14 @@ TEST(testTransformFeedback2)
     m->addFeedbackVarying("q");
     ptr<Program> p = new Program(m, NULL);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::RGBA32F, 1, 1);
-    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(POINTS, GPU_STATIC);
+    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(ORK_POINTS, GPU_STATIC);
     pt->addAttributeType(0, 4, A32F, false);
     pt->addVertex(vec4f(1.0, 2.0, 3.0, 4.0));
     ptr<TransformFeedback> tfb = TransformFeedback::getDefault();
     ptr<GPUBuffer> b = new GPUBuffer();
     b->setData(128, NULL, STREAM_COPY);
     tfb->setVertexBuffer(0, b);
-    TransformFeedback::begin(fb, p, POINTS, tfb, false);
+    TransformFeedback::begin(fb, p, ORK_POINTS, tfb, false);
     TransformFeedback::transform(*(pt->getBuffers()), 0, 1);
     TransformFeedback::end();
     ptr<Program> r = new Program(new Module(330, "\
@@ -229,9 +229,9 @@ TEST(testTransformFeedback2)
     ptr<MeshBuffers> mb = new MeshBuffers();
     mb->addAttributeBuffer(0, 4, 16, A32F, false);
     mb->getAttributeBuffer(0)->setBuffer(b);
-    fb->draw(r, *mb, POINTS, 0, 1);
+    fb->draw(r, *mb, ORK_POINTS, 0, 1);
     float data[4];
-    fb->readPixels(0, 0, 1, 1, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(&data));
+    fb->readPixels(0, 0, 1, 1, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&data));
     ASSERT(data[0] == 1.0f && data[1] == 2.0f && data[2] == 3.0f && data[3] == 4.0f);
 }
 
@@ -245,14 +245,14 @@ TEST4(testTransformFeedback3)
     m->addFeedbackVarying("q");
     ptr<Program> p = new Program(m, NULL);
     ptr<FrameBuffer> fb = getFrameBuffer(RenderBuffer::RGBA32F, 1, 1);
-    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(POINTS, GPU_STATIC);
+    ptr< Mesh<vec4f, unsigned int> > pt = new Mesh<vec4f, unsigned int>(ORK_POINTS, GPU_STATIC);
     pt->addAttributeType(0, 4, A32F, false);
     pt->addVertex(vec4f(1.0, 2.0, 3.0, 4.0));
     ptr<TransformFeedback> tfb = new TransformFeedback();
     ptr<GPUBuffer> b = new GPUBuffer();
     b->setData(128, NULL, STREAM_COPY);
     tfb->setVertexBuffer(0, b);
-    TransformFeedback::begin(fb, p, POINTS, tfb, false);
+    TransformFeedback::begin(fb, p, ORK_POINTS, tfb, false);
     TransformFeedback::transform(*(pt->getBuffers()), 0, 1);
     TransformFeedback::end();
     ptr<Program> r = new Program(new Module(330, "\
@@ -265,8 +265,8 @@ TEST4(testTransformFeedback3)
     ptr<MeshBuffers> mb = new MeshBuffers();
     mb->addAttributeBuffer(0, 4, 16, A32F, false);
     mb->getAttributeBuffer(0)->setBuffer(b);
-    fb->drawFeedback(r, *mb, POINTS, *tfb);
+    fb->drawFeedback(r, *mb, ORK_POINTS, *tfb);
     float data[4];
-    fb->readPixels(0, 0, 1, 1, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(&data));
+    fb->readPixels(0, 0, 1, 1, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(&data));
     ASSERT(data[0] == 1.0f && data[1] == 2.0f && data[2] == 3.0f && data[3] == 4.0f);
 }

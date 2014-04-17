@@ -31,13 +31,13 @@
 #include <windows.h> 
 #endif
 
-#ifdef FLOAT
-#undef FLOAT
-#endif
+// #ifdef ORK_FLOAT
+// #undef ORK_FLOAT
+// #endif
 
-#ifdef BYTE
-#undef BYTE
-#endif
+// #ifdef BYTE
+// #undef BYTE
+// #endif
 
 #include "proland/graph/producer/Tesselator.h"
 

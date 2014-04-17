@@ -18,14 +18,18 @@ namespace ork {
 class Mesh<vec3f, unsigned int> {};
 
 }
-class TwBar {};
+
+class TwBar {
+protected:
+    ~TwBar();
+};
 
 #define VEC2_CLASS(cname,type) class cname { \
 public: \
     type x; \
     type y; \
-	 \
-	cname(); \
+     \
+    cname(); \
     cname(type xi, type yi); \
     cname(const cname& v); \
  \
@@ -40,15 +44,15 @@ public: \
     cname operator/(const cname& v) const; \
     cname operator/(const type scalar) const; \
     cname operator-() const; \
-	 \
+     \
     bool operator<(const cname& v) const; \
-	 \
-	type length() const; \
-	type squaredLength() const; \
+     \
+    type length() const; \
+    type squaredLength() const; \
     cname normalize() const; \
     cname normalize(type l) const; \
-	type distanceTo(const cname& v) const; \
-	type squaredDistanceTo(const cname& v) const; \
+    type distanceTo(const cname& v) const; \
+    type squaredDistanceTo(const cname& v) const; \
     type dot(const cname& v) const; \
 };
 
@@ -58,8 +62,8 @@ public: \
     type x; \
     type y; \
     type z; \
-	 \
-	cname(); \
+     \
+    cname(); \
     cname(type xi, type yi, type zi); \
     cname(const cname& v); \
  \
@@ -74,21 +78,21 @@ public: \
     cname operator/(const cname& v) const; \
     cname operator/(const type scalar) const; \
     cname operator-() const; \
-	 \
+     \
     bool operator<(const cname& v) const; \
-	 \
-	type length() const; \
-	type squaredLength() const; \
+     \
+    type length() const; \
+    type squaredLength() const; \
     cname normalize() const; \
     cname normalize(type l) const; \
     cname2 xy() const;\
 };
 
 /*
-	type distanceTo(const cname& v) const; \
-	type squaredDistanceTo(const cname& v) const; \
+    type distanceTo(const cname& v) const; \
+    type squaredDistanceTo(const cname& v) const; \
     type dot(const cname& v) const; \
-	cname cross(const cname& v) const; \
+    cname cross(const cname& v) const; \
 */
 
 #define VEC4_CLASS(cname,type,cname2,cname3) class cname { \
@@ -97,8 +101,8 @@ public: \
     type y; \
     type z; \
     type w; \
-	 \
-	cname(); \
+     \
+    cname(); \
     cname(type xi, type yi, type zi, type wi); \
     cname(const cname& v); \
     cname(const cname3& v); \
@@ -115,10 +119,71 @@ public: \
     cname operator/(const cname& v) const; \
     cname operator/(const type scalar) const; \
     cname operator-() const; \
-	 \
+     \
     bool operator<(const cname& v) const; \
+     \
+    cname3 xyzw() const; \
+    cname3 xyz() const; \
+    cname2 xy() const;\
+};
+
+#define VEC2B_CLASS(cname,type) class cname { \
+public: \
+    type x; \
+    type y; \
 	 \
-	cname3 xyzw() const; \
+	cname(); \
+    cname(type xi, type yi); \
+    cname(const cname& v); \
+ \
+    type& operator[](const int i); \
+ \
+    bool operator==(const cname& v) const; \
+    bool operator!=(const cname& v) const; \
+};
+
+
+#define VEC3B_CLASS(cname,type,cname2) class cname { \
+public: \
+    type x; \
+    type y; \
+    type z; \
+	 \
+	cname(); \
+    cname(type xi, type yi, type zi); \
+    cname(const cname& v); \
+ \
+    type& operator[](const int i); \
+ \
+    bool operator==(const cname& v) const; \
+    bool operator!=(const cname& v) const; \
+    cname2 xy() const;\
+};
+
+/*
+	type distanceTo(const cname& v) const; \
+	type squaredDistanceTo(const cname& v) const; \
+    type dot(const cname& v) const; \
+	cname cross(const cname& v) const; \
+*/
+
+#define VEC4B_CLASS(cname,type,cname2,cname3) class cname { \
+public: \
+    type x; \
+    type y; \
+    type z; \
+    type w; \
+	 \
+	cname(); \
+    cname(type xi, type yi, type zi, type wi); \
+    cname(const cname& v); \
+    cname(const cname3& v); \
+    cname(const cname3& v, type wi); \
+ \
+    type& operator[](const int i); \
+ \
+    bool operator==(const cname& v) const; \
+    bool operator!=(const cname& v) const; \
     cname3 xyz() const; \
     cname2 xy() const;\
 };
@@ -307,20 +372,20 @@ VEC2_CLASS(vec2h,half);
 VEC2_CLASS(vec2f,float);
 VEC2_CLASS(vec2d,double);
 VEC2_CLASS(vec2i,int);
-VEC2_CLASS(vec2b,bool);
+VEC2B_CLASS(vec2b,bool);
 // VEC2_CLASS(vec2pm,ork::PolygonMode);
 
 VEC3_CLASS(vec3h,half,vec2h);
 VEC3_CLASS(vec3f,float,vec2f);
 VEC3_CLASS(vec3d,double,vec2d);
 VEC3_CLASS(vec3i,int,vec2i);
-VEC3_CLASS(vec3b,bool,vec2b);
+VEC3B_CLASS(vec3b,bool,vec2b);
 
 VEC4_CLASS(vec4h,half,vec2h,vec3h);
 VEC4_CLASS(vec4f,float,vec2f,vec3f);
 VEC4_CLASS(vec4d,double,vec2d,vec3d);
 VEC4_CLASS(vec4i,int,vec2i,vec3i);
-VEC4_CLASS(vec4b,bool,vec2b,vec3b);
+VEC4B_CLASS(vec4b,bool,vec2b,vec3b);
 
 BOX2_CLASS(box2f,float,vec2f);
 BOX2_CLASS(box2d,double,vec2d);

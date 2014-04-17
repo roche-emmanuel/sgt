@@ -105,7 +105,7 @@ void register_enums(lua_State* L) {
 
 	lua_newtable(L); // enum MeshMode
 
-	lua_pushnumber(L,ork::POINTS); lua_setfield(L,-2,"POINTS");
+	lua_pushnumber(L,ork::ORK_POINTS); lua_setfield(L,-2,"ORK_POINTS");
 	lua_pushnumber(L,ork::LINE_STRIP); lua_setfield(L,-2,"LINE_STRIP");
 	lua_pushnumber(L,ork::LINE_LOOP); lua_setfield(L,-2,"LINE_LOOP");
 	lua_pushnumber(L,ork::LINES); lua_setfield(L,-2,"LINES");
@@ -120,7 +120,7 @@ void register_enums(lua_State* L) {
 
 	lua_setfield(L,-2,"MeshMode");
 
-	lua_pushnumber(L,ork::POINTS); lua_setfield(L,-2,"POINTS");
+	lua_pushnumber(L,ork::ORK_POINTS); lua_setfield(L,-2,"ORK_POINTS");
 	lua_pushnumber(L,ork::LINE_STRIP); lua_setfield(L,-2,"LINE_STRIP");
 	lua_pushnumber(L,ork::LINE_LOOP); lua_setfield(L,-2,"LINE_LOOP");
 	lua_pushnumber(L,ork::LINES); lua_setfield(L,-2,"LINES");
@@ -397,9 +397,9 @@ void register_enums(lua_State* L) {
 	lua_pushnumber(L,ork::UNSIGNED_SHORT); lua_setfield(L,-2,"UNSIGNED_SHORT");
 	lua_pushnumber(L,ork::SHORT); lua_setfield(L,-2,"SHORT");
 	lua_pushnumber(L,ork::UNSIGNED_INT); lua_setfield(L,-2,"UNSIGNED_INT");
-	lua_pushnumber(L,ork::INT); lua_setfield(L,-2,"INT");
+	lua_pushnumber(L,ork::ORK_INT); lua_setfield(L,-2,"ORK_INT");
 	lua_pushnumber(L,ork::HALF); lua_setfield(L,-2,"HALF");
-	lua_pushnumber(L,ork::FLOAT); lua_setfield(L,-2,"FLOAT");
+	lua_pushnumber(L,ork::ORK_FLOAT); lua_setfield(L,-2,"ORK_FLOAT");
 	lua_pushnumber(L,ork::UNSIGNED_BYTE_3_3_2); lua_setfield(L,-2,"UNSIGNED_BYTE_3_3_2");
 	lua_pushnumber(L,ork::UNSIGNED_BYTE_2_3_3_REV); lua_setfield(L,-2,"UNSIGNED_BYTE_2_3_3_REV");
 	lua_pushnumber(L,ork::UNSIGNED_SHORT_5_6_5); lua_setfield(L,-2,"UNSIGNED_SHORT_5_6_5");
@@ -424,9 +424,9 @@ void register_enums(lua_State* L) {
 	lua_pushnumber(L,ork::UNSIGNED_SHORT); lua_setfield(L,-2,"UNSIGNED_SHORT");
 	lua_pushnumber(L,ork::SHORT); lua_setfield(L,-2,"SHORT");
 	lua_pushnumber(L,ork::UNSIGNED_INT); lua_setfield(L,-2,"UNSIGNED_INT");
-	lua_pushnumber(L,ork::INT); lua_setfield(L,-2,"INT");
+	lua_pushnumber(L,ork::ORK_INT); lua_setfield(L,-2,"ORK_INT");
 	lua_pushnumber(L,ork::HALF); lua_setfield(L,-2,"HALF");
-	lua_pushnumber(L,ork::FLOAT); lua_setfield(L,-2,"FLOAT");
+	lua_pushnumber(L,ork::ORK_FLOAT); lua_setfield(L,-2,"ORK_FLOAT");
 	lua_pushnumber(L,ork::UNSIGNED_BYTE_3_3_2); lua_setfield(L,-2,"UNSIGNED_BYTE_3_3_2");
 	lua_pushnumber(L,ork::UNSIGNED_BYTE_2_3_3_REV); lua_setfield(L,-2,"UNSIGNED_BYTE_2_3_3_REV");
 	lua_pushnumber(L,ork::UNSIGNED_SHORT_5_6_5); lua_setfield(L,-2,"UNSIGNED_SHORT_5_6_5");

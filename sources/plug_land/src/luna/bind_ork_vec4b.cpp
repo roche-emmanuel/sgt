@@ -116,12 +116,6 @@ public:
 
 
 	// Function checkers:
-	inline static bool _lg_typecheck_xyzw(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		return true;
-	}
-
 	inline static bool _lg_typecheck_xyz(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -188,7 +182,7 @@ public:
 
 
 	// Operator checkers:
-	// (found 11 valid operators)
+	// (found 3 valid operators)
 	inline static bool _lg_typecheck_op_index(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -204,63 +198,6 @@ public:
 	}
 
 	inline static bool _lg_typecheck_op_neq(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( !Luna<void>::has_uniqueid(L,2,81304298) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___add(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( !Luna<void>::has_uniqueid(L,2,81304298) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___sub(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( !Luna<void>::has_uniqueid(L,2,81304298) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___mul_overload_1(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( !Luna<void>::has_uniqueid(L,2,81304298) ) return false;
-		if( (!(Luna< ork::vec4b >::check(L,2))) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___mul_overload_2(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( lua_isboolean(L,2)==0 ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___div_overload_1(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( !Luna<void>::has_uniqueid(L,2,81304298) ) return false;
-		if( (!(Luna< ork::vec4b >::check(L,2))) ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___div_overload_2(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		if( lua_isboolean(L,2)==0 ) return false;
-		return true;
-	}
-
-	inline static bool _lg_typecheck___unm(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
-
-		return true;
-	}
-
-	inline static bool _lg_typecheck___lt(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
 		if( !Luna<void>::has_uniqueid(L,2,81304298) ) return false;
@@ -353,26 +290,6 @@ public:
 
 
 	// Function binds:
-	// ork::vec3b ork::vec4b::xyzw() const
-	static int _bind_xyzw(lua_State *L) {
-		if (!_lg_typecheck_xyzw(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec3b ork::vec4b::xyzw() const function, expected prototype:\nork::vec3b ork::vec4b::xyzw() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec3b ork::vec4b::xyzw() const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec3b stack_lret = self->xyzw();
-		ork::vec3b* lret = new ork::vec3b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec3b >::push(L,lret,true);
-
-		return 1;
-	}
-
 	// ork::vec3b ork::vec4b::xyz() const
 	static int _bind_xyz(lua_State *L) {
 		if (!_lg_typecheck_xyz(L)) {
@@ -613,208 +530,6 @@ public:
 		return 1;
 	}
 
-	// ork::vec4b ork::vec4b::operator+(const ork::vec4b & v) const
-	static int _bind___add(lua_State *L) {
-		if (!_lg_typecheck___add(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator+(const ork::vec4b & v) const function, expected prototype:\nork::vec4b ork::vec4b::operator+(const ork::vec4b & v) const\nClass arguments details:\narg 1 ID = 81304298\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const ork::vec4b* v_ptr=(Luna< ork::vec4b >::check(L,2));
-		if( !v_ptr ) {
-			luaL_error(L, "Dereferencing NULL pointer for arg v in ork::vec4b::operator+ function");
-		}
-		const ork::vec4b & v=*v_ptr;
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator+(const ork::vec4b &) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator+(v);
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// ork::vec4b ork::vec4b::operator-(const ork::vec4b & v) const
-	static int _bind___sub(lua_State *L) {
-		if (!_lg_typecheck___sub(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator-(const ork::vec4b & v) const function, expected prototype:\nork::vec4b ork::vec4b::operator-(const ork::vec4b & v) const\nClass arguments details:\narg 1 ID = 81304298\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const ork::vec4b* v_ptr=(Luna< ork::vec4b >::check(L,2));
-		if( !v_ptr ) {
-			luaL_error(L, "Dereferencing NULL pointer for arg v in ork::vec4b::operator- function");
-		}
-		const ork::vec4b & v=*v_ptr;
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator-(const ork::vec4b &) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator-(v);
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// ork::vec4b ork::vec4b::operator*(const ork::vec4b & v) const
-	static int _bind___mul_overload_1(lua_State *L) {
-		if (!_lg_typecheck___mul_overload_1(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator*(const ork::vec4b & v) const function, expected prototype:\nork::vec4b ork::vec4b::operator*(const ork::vec4b & v) const\nClass arguments details:\narg 1 ID = 81304298\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const ork::vec4b* v_ptr=(Luna< ork::vec4b >::check(L,2));
-		if( !v_ptr ) {
-			luaL_error(L, "Dereferencing NULL pointer for arg v in ork::vec4b::operator* function");
-		}
-		const ork::vec4b & v=*v_ptr;
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator*(const ork::vec4b &) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator*(v);
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// ork::vec4b ork::vec4b::operator*(const bool scalar) const
-	static int _bind___mul_overload_2(lua_State *L) {
-		if (!_lg_typecheck___mul_overload_2(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator*(const bool scalar) const function, expected prototype:\nork::vec4b ork::vec4b::operator*(const bool scalar) const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const bool scalar=(const bool)(lua_toboolean(L,2)==1);
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator*(const bool) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator*(scalar);
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// Overload binder for ork::vec4b::operator*
-	static int _bind___mul(lua_State *L) {
-		if (_lg_typecheck___mul_overload_1(L)) return _bind___mul_overload_1(L);
-		if (_lg_typecheck___mul_overload_2(L)) return _bind___mul_overload_2(L);
-
-		luaL_error(L, "error in function operator*, cannot match any of the overloads for function operator*:\n  operator*(const ork::vec4b &)\n  operator*(const bool)\n");
-		return 0;
-	}
-
-	// ork::vec4b ork::vec4b::operator/(const ork::vec4b & v) const
-	static int _bind___div_overload_1(lua_State *L) {
-		if (!_lg_typecheck___div_overload_1(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator/(const ork::vec4b & v) const function, expected prototype:\nork::vec4b ork::vec4b::operator/(const ork::vec4b & v) const\nClass arguments details:\narg 1 ID = 81304298\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const ork::vec4b* v_ptr=(Luna< ork::vec4b >::check(L,2));
-		if( !v_ptr ) {
-			luaL_error(L, "Dereferencing NULL pointer for arg v in ork::vec4b::operator/ function");
-		}
-		const ork::vec4b & v=*v_ptr;
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator/(const ork::vec4b &) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator/(v);
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// ork::vec4b ork::vec4b::operator/(const bool scalar) const
-	static int _bind___div_overload_2(lua_State *L) {
-		if (!_lg_typecheck___div_overload_2(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator/(const bool scalar) const function, expected prototype:\nork::vec4b ork::vec4b::operator/(const bool scalar) const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const bool scalar=(const bool)(lua_toboolean(L,2)==1);
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator/(const bool) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator/(scalar);
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// Overload binder for ork::vec4b::operator/
-	static int _bind___div(lua_State *L) {
-		if (_lg_typecheck___div_overload_1(L)) return _bind___div_overload_1(L);
-		if (_lg_typecheck___div_overload_2(L)) return _bind___div_overload_2(L);
-
-		luaL_error(L, "error in function operator/, cannot match any of the overloads for function operator/:\n  operator/(const ork::vec4b &)\n  operator/(const bool)\n");
-		return 0;
-	}
-
-	// ork::vec4b ork::vec4b::operator-() const
-	static int _bind___unm(lua_State *L) {
-		if (!_lg_typecheck___unm(L)) {
-			luaL_error(L, "luna typecheck failed in ork::vec4b ork::vec4b::operator-() const function, expected prototype:\nork::vec4b ork::vec4b::operator-() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call ork::vec4b ork::vec4b::operator-() const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		ork::vec4b stack_lret = self->operator-();
-		ork::vec4b* lret = new ork::vec4b(stack_lret);
-		if(!lret) return 0; // Do not write NULL pointers.
-
-		Luna< ork::vec4b >::push(L,lret,true);
-
-		return 1;
-	}
-
-	// bool ork::vec4b::operator<(const ork::vec4b & v) const
-	static int _bind___lt(lua_State *L) {
-		if (!_lg_typecheck___lt(L)) {
-			luaL_error(L, "luna typecheck failed in bool ork::vec4b::operator<(const ork::vec4b & v) const function, expected prototype:\nbool ork::vec4b::operator<(const ork::vec4b & v) const\nClass arguments details:\narg 1 ID = 81304298\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-		const ork::vec4b* v_ptr=(Luna< ork::vec4b >::check(L,2));
-		if( !v_ptr ) {
-			luaL_error(L, "Dereferencing NULL pointer for arg v in ork::vec4b::operator< function");
-		}
-		const ork::vec4b & v=*v_ptr;
-
-		ork::vec4b* self=(Luna< ork::vec4b >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call bool ork::vec4b::operator<(const ork::vec4b &) const. Got : '%s'\n%s",typeid(Luna< ork::vec4b >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		bool lret = self->operator<(v);
-		lua_pushboolean(L,lret?1:0);
-
-		return 1;
-	}
-
 
 };
 
@@ -834,7 +549,6 @@ const int LunaTraits< ork::vec4b >::hash = 81304298;
 const int LunaTraits< ork::vec4b >::uniqueIDs[] = {81304298,0};
 
 luna_RegType LunaTraits< ork::vec4b >::methods[] = {
-	{"xyzw", &luna_wrapper_ork_vec4b::_bind_xyzw},
 	{"xyz", &luna_wrapper_ork_vec4b::_bind_xyz},
 	{"xy", &luna_wrapper_ork_vec4b::_bind_xy},
 	{"getX", &luna_wrapper_ork_vec4b::_bind_getX},
@@ -848,12 +562,6 @@ luna_RegType LunaTraits< ork::vec4b >::methods[] = {
 	{"op_index", &luna_wrapper_ork_vec4b::_bind_op_index},
 	{"__eq", &luna_wrapper_ork_vec4b::_bind___eq},
 	{"op_neq", &luna_wrapper_ork_vec4b::_bind_op_neq},
-	{"__add", &luna_wrapper_ork_vec4b::_bind___add},
-	{"__sub", &luna_wrapper_ork_vec4b::_bind___sub},
-	{"__mul", &luna_wrapper_ork_vec4b::_bind___mul},
-	{"__div", &luna_wrapper_ork_vec4b::_bind___div},
-	{"__unm", &luna_wrapper_ork_vec4b::_bind___unm},
-	{"__lt", &luna_wrapper_ork_vec4b::_bind___lt},
 	{"dynCast", &luna_wrapper_ork_vec4b::_bind_dynCast},
 	{"fromVoid", &luna_wrapper_ork_vec4b::_bind_fromVoid},
 	{"asVoid", &luna_wrapper_ork_vec4b::_bind_asVoid},

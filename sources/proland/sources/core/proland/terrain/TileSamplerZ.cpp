@@ -194,9 +194,9 @@ TileSamplerZ::State::State(ptr<GPUTileStorage> storage) :
     int w = MAX_MIPMAP_PER_FRAME * h;
     fbo = new FrameBuffer();
     fbo->setViewport(vec4i(0, 0, w, h));
-    fbo->setTextureBuffer(COLOR0, new Texture2D(w, h, RG32F, RG, FLOAT,
+    fbo->setTextureBuffer(COLOR0, new Texture2D(w, h, RG32F, RG, ORK_FLOAT,
             Texture::Parameters().min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer()), 0);
-    fbo->setTextureBuffer(COLOR1, new Texture2D(w, h, RG32F, RG, FLOAT,
+    fbo->setTextureBuffer(COLOR1, new Texture2D(w, h, RG32F, RG, ORK_FLOAT,
             Texture::Parameters().min(NEAREST).mag(NEAREST), Buffer::Parameters(), CPUBuffer()), 0);
     int pass = 0;
     while (h != 1) {
@@ -348,7 +348,7 @@ ptr<Task> TileSamplerZ::update(ptr<SceneManager> scene, ptr<TerrainQuad> root)
     }
 
     assert(state->tileReadback->canReadback());
-    state->tileReadback->readback(state->fbo, 0, 0, MAX_MIPMAP_PER_FRAME, 1, RG, FLOAT, new TileCallback(targets, camera != vec2i::ZERO));
+    state->tileReadback->readback(state->fbo, 0, 0, MAX_MIPMAP_PER_FRAME, 1, RG, ORK_FLOAT, new TileCallback(targets, camera != vec2i::ZERO));
 
     return result;
 }

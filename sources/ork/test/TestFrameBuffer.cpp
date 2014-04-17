@@ -93,15 +93,15 @@ const char* DRAW_INSTANCING = "\
 TEST(texture1DAttachment)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture1D(32, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture1D(32, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 32, 1));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
     fb->drawQuad(p);
     int tPixels[4 * 32];
     int fbPixels[4 * 32];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 32, 1, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 32, 1, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4);
 }
@@ -109,7 +109,7 @@ TEST(texture1DAttachment)
 TEST(texture1DArrayAttachmentOneLayer)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture1DArray(32, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture1DArray(32, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST), Buffer::Parameters(), CPUBuffer(NULL)), 0, 3);
     fb->setViewport(vec4<GLint>(0, 0, 32, 1));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -117,8 +117,8 @@ TEST(texture1DArrayAttachmentOneLayer)
     int tPixels[4 * 32 * 8];
     int fbPixels[4 * 32];
     int l = 4 * 32 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 32, 1, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 32, 1, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -126,7 +126,7 @@ TEST(texture1DArrayAttachmentOneLayer)
 TEST(texture1DArrayAttachmentAllLayers)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture1DArray(32, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture1DArray(32, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 32, 1));
     ptr<Program> p = new Program(new Module(330, (LAYER_INSTANCING + FRAGMENT_SHADER).c_str()));
@@ -134,8 +134,8 @@ TEST(texture1DArrayAttachmentAllLayers)
     int tPixels[4 * 32 * 8];
     int fbPixels[4 * 32];
     int l = 4 * 32 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 32, 1, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 32, 1, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -143,15 +143,15 @@ TEST(texture1DArrayAttachmentAllLayers)
 TEST(texture2DAttachment)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(32, 32, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(32, 32, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 32, 32));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
     fb->drawQuad(p);
     int tPixels[4 * 32 * 32];
     int fbPixels[4 * 32 * 32];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 32, 32, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 32, 32, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4);
 }
@@ -159,15 +159,15 @@ TEST(texture2DAttachment)
 TEST(textureRectangleAttachment)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new TextureRectangle(32, 32, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new TextureRectangle(32, 32, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 32, 32));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
     fb->drawQuad(p);
     int tPixels[4 * 32 * 32];
     int fbPixels[4 * 32 * 32];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 32, 32, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 32, 32, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4);
 }
@@ -186,13 +186,13 @@ TEST(texture2DMultisampleAttachment)
         layout(location=0) out vec4 color;\n\
         void main() { color = texelFetch(sampler, ivec2(floor(gl_FragCoord.xy)), 0); }\n"));
     p->getUniformSampler("sampler")->set(fb->getTextureBuffer(COLOR0));
-    fb->setTextureBuffer(COLOR0, new Texture2D(32, 32, RGBA32F, RGBA, FLOAT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(32, 32, RGBA32F, RGBA, ORK_FLOAT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->drawQuad(p);
     float tPixels[4 * 32 * 32];
     float fbPixels[4 * 32 * 32];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA, FLOAT, tPixels);
-    fb->readPixels(0, 0, 32, 32, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA, ORK_FLOAT, tPixels);
+    fb->readPixels(0, 0, 32, 32, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1.0f && fbPixels[1] == 2.0f && fbPixels[2] == 3.0f && fbPixels[3] == 4.0f &&
         tPixels[0] == 1.0f && tPixels[1] == 2.0f && tPixels[2] == 3.0f && tPixels[3] == 4.0f);
 }
@@ -200,7 +200,7 @@ TEST(texture2DMultisampleAttachment)
 TEST(texture2DArrayAttachmentOneLayer)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2DArray(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2DArray(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, 3);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -208,8 +208,8 @@ TEST(texture2DArrayAttachmentOneLayer)
     int tPixels[4 * 8 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -217,7 +217,7 @@ TEST(texture2DArrayAttachmentOneLayer)
 TEST(texture2DArrayAttachmentAllLayers)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2DArray(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2DArray(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, (LAYER_INSTANCING + FRAGMENT_SHADER).c_str()));
@@ -225,8 +225,8 @@ TEST(texture2DArrayAttachmentAllLayers)
     int tPixels[4 * 8 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -245,13 +245,13 @@ TEST(texture2DMultisampleArrayAttachmentOneLayer)
         layout(location=0) out vec4 color;\n\
         void main() { color = texelFetch(sampler, ivec3(floor(gl_FragCoord.xy), 3), 0); }\n"));
     p->getUniformSampler("sampler")->set(fb->getTextureBuffer(COLOR0));
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA32F, RGBA, FLOAT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA32F, RGBA, ORK_FLOAT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->drawQuad(p);
     float tPixels[4 * 8 * 8];
     float fbPixels[4 * 8 * 8];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA, FLOAT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA, ORK_FLOAT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1.0f && fbPixels[1] == 2.0f && fbPixels[2] == 3.0f && fbPixels[3] == 4.0f &&
         tPixels[0] == 1.0f && tPixels[1] == 2.0f && tPixels[2] == 3.0f && tPixels[3] == 4.0f);
 }
@@ -270,13 +270,13 @@ TEST(texture2DMultisampleArrayAttachmentAllLayers)
         layout(location=0) out vec4 color;\n\
         void main() { color = texelFetch(sampler, ivec3(floor(gl_FragCoord.xy), 3), 0); }\n"));
     p->getUniformSampler("sampler")->set(fb->getTextureBuffer(COLOR0));
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA32F, RGBA, FLOAT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA32F, RGBA, ORK_FLOAT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->drawQuad(p);
     float tPixels[4 * 8 * 8];
     float fbPixels[4 * 8 * 8];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA, FLOAT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA, FLOAT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA, ORK_FLOAT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA, ORK_FLOAT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1.0f && fbPixels[1] == 2.0f && fbPixels[2] == 3.0f && fbPixels[3] == 4.0f &&
         tPixels[0] == 1.0f && tPixels[1] == 2.0f && tPixels[2] == 3.0f && tPixels[3] == 4.0f);
 }
@@ -284,7 +284,7 @@ TEST(texture2DMultisampleArrayAttachmentAllLayers)
 TEST(texture3DAttachmentOneLayer)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, 3);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -292,8 +292,8 @@ TEST(texture3DAttachmentOneLayer)
     int tPixels[4 * 8 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -301,7 +301,7 @@ TEST(texture3DAttachmentOneLayer)
 TEST(texture3DAttachmentAllLayers)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, (LAYER_INSTANCING + FRAGMENT_SHADER).c_str()));
@@ -309,8 +309,8 @@ TEST(texture3DAttachmentAllLayers)
     int tPixels[4 * 8 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -326,7 +326,7 @@ TEST(texture3DAttachmentAllLayers)
 TEST(draw)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -340,8 +340,8 @@ TEST(draw)
     fb->draw(p, *quad);
     int tPixels[4 * 8 * 8];
     int fbPixels[4 * 8 * 8];
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4);
 }
@@ -349,7 +349,7 @@ TEST(draw)
 TEST(drawInstancing)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -364,8 +364,8 @@ TEST(drawInstancing)
     int tPixels[4 * 8 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4);
 }
@@ -373,7 +373,7 @@ TEST(drawInstancing)
 TEST(drawPartDirect)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -391,8 +391,8 @@ TEST(drawPartDirect)
     int tPixels[4 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4 &&
         fbPixels[o] == 0 && fbPixels[o + 1] == 0 && fbPixels[o + 2] == 0 && fbPixels[o + 3] == 0 &&
@@ -402,7 +402,7 @@ TEST(drawPartDirect)
 TEST(drawPartInstancingDirect)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -421,8 +421,8 @@ TEST(drawPartInstancingDirect)
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4 &&
         fbPixels[o] == 0 && fbPixels[o + 1] == 0 && fbPixels[o + 2] == 0 && fbPixels[o + 3] == 0 &&
@@ -432,7 +432,7 @@ TEST(drawPartInstancingDirect)
 TEST(drawPartIndices)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -454,8 +454,8 @@ TEST(drawPartIndices)
     int tPixels[4 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[0] == 0 && tPixels[1] == 0 && tPixels[2] == 0 && tPixels[3] == 0 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -465,7 +465,7 @@ TEST(drawPartIndices)
 TEST(drawPartInstancingIndices)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -488,8 +488,8 @@ TEST(drawPartInstancingIndices)
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[l] == 0 && tPixels[l + 1] == 0 && tPixels[l + 2] == 0 && tPixels[l + 3] == 0 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -499,7 +499,7 @@ TEST(drawPartInstancingIndices)
 TEST(drawPartIndicesWithBase)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -521,8 +521,8 @@ TEST(drawPartIndicesWithBase)
     int tPixels[4 * 8 * 8];
     int fbPixels[4 * 8 * 8];
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[0] == 0 && tPixels[1] == 0 && tPixels[2] == 0 && tPixels[3] == 0 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -532,7 +532,7 @@ TEST(drawPartIndicesWithBase)
 TEST(drawPartInstancingIndicesWithBase)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -555,8 +555,8 @@ TEST(drawPartInstancingIndicesWithBase)
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[l] == 0 && tPixels[l + 1] == 0 && tPixels[l + 2] == 0 && tPixels[l + 3] == 0 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -566,7 +566,7 @@ TEST(drawPartInstancingIndicesWithBase)
 TEST(multiDrawInstancingDirect)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -606,8 +606,8 @@ TEST(multiDrawInstancingDirect)
     int o = 4 * (8 * 8 - 1);
     int a = 4 * (8 - 1);
     int b = 4 * (7 * 8);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -621,7 +621,7 @@ TEST(multiDrawInstancingDirect)
 TEST(multiDrawInstancingIndices)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -670,8 +670,8 @@ TEST(multiDrawInstancingIndices)
     int o = 4 * (8 * 8 - 1);
     int a = 4 * (8 - 1);
     int b = 4 * (7 * 8);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[0] == 1 && tPixels[1] == 2 && tPixels[2] == 3 && tPixels[3] == 4 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -685,7 +685,7 @@ TEST(multiDrawInstancingIndices)
 TEST(multiDrawInstancingIndicesWithBase)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -735,8 +735,8 @@ TEST(multiDrawInstancingIndicesWithBase)
     int o = 4 * (8 * 8 - 1);
     int a = 4 * (8 - 1);
     int b = 4 * (7 * 8);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[0] == 0 && tPixels[1] == 0 && tPixels[2] == 0 && tPixels[3] == 0 &&
         fbPixels[o] == 0 && fbPixels[o + 1] == 0 && fbPixels[o + 2] == 0 && fbPixels[o + 3] == 0 &&
@@ -750,7 +750,7 @@ TEST(multiDrawInstancingIndicesWithBase)
 TEST4(drawIndirectInstancingDirect)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -770,8 +770,8 @@ TEST4(drawIndirectInstancingDirect)
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         tPixels[l] == 1 && tPixels[l + 1] == 2 && tPixels[l + 2] == 3 && tPixels[l + 3] == 4 &&
         fbPixels[o] == 0 && fbPixels[o + 1] == 0 && fbPixels[o + 2] == 0 && fbPixels[o + 3] == 0 &&
@@ -781,7 +781,7 @@ TEST4(drawIndirectInstancingDirect)
 TEST4(drawIndirectInstancingIndices)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -805,8 +805,8 @@ TEST4(drawIndirectInstancingIndices)
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[l] == 0 && tPixels[l + 1] == 0 && tPixels[l + 2] == 0 && tPixels[l + 3] == 0 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -816,7 +816,7 @@ TEST4(drawIndirectInstancingIndices)
 TEST4(drawIndirectInstancingIndicesWithBase)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture3D(8, 8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0, -1);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, DRAW_INSTANCING));
@@ -840,8 +840,8 @@ TEST4(drawIndirectInstancingIndicesWithBase)
     int fbPixels[4 * 8 * 8];
     int l = 4 * 8 * 8 * 3;
     int o = 4 * (8 * 8 - 1);
-    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, INT, tPixels);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->getTextureBuffer(COLOR0)->getImage(0, RGBA_INTEGER, ORK_INT, tPixels);
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 0 && fbPixels[1] == 0 && fbPixels[2] == 0 && fbPixels[3] == 0 &&
         tPixels[l] == 0 && tPixels[l + 1] == 0 && tPixels[l + 2] == 0 && tPixels[l + 3] == 0 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
@@ -851,7 +851,7 @@ TEST4(drawIndirectInstancingIndicesWithBase)
 TEST(primitiveRestart)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -879,7 +879,7 @@ TEST(primitiveRestart)
     int fbPixels[4 * 8 * 8];
     int o = 4 * (8 * 8 - 1);
     int c = 4 * (8 * 3 + 3);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(fbPixels));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(fbPixels));
     ASSERT(fbPixels[0] == 1 && fbPixels[1] == 2 && fbPixels[2] == 3 && fbPixels[3] == 4 &&
         fbPixels[o] == 1 && fbPixels[o + 1] == 2 && fbPixels[o + 2] == 3 && fbPixels[o + 3] == 4 &&
         fbPixels[c] == 0 && fbPixels[c + 1] == 0 && fbPixels[c + 2] == 0 && fbPixels[c + 3] == 0);
@@ -888,7 +888,7 @@ TEST(primitiveRestart)
 TEST(cpuMeshModificationDirect)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -902,13 +902,13 @@ TEST(cpuMeshModificationDirect)
     int pixels1[4 * 8 * 8];
     int pixels2[4 * 8 * 8];
     int l = 4 * (8 * 8 - 1);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels1));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels1));
     quad->setVertex(0, vec4f(-1, 1, 0, 1));
     quad->setVertex(1, vec4f(1, -1, 0, 1));
     quad->setVertex(2, vec4f(1, 1, 0, 1));
     fb->clear(true, true, true);
     fb->draw(p, *quad);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels2));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels2));
     ASSERT(pixels1[0] == 1 && pixels1[1] == 2 && pixels1[2] == 3 && pixels1[3] == 4 &&
         pixels1[l] == 0 && pixels1[l + 1] == 0 && pixels1[l + 2] == 0 && pixels1[l + 3] == 0 &&
         pixels2[0] == 0 && pixels2[1] == 0 && pixels2[2] == 0 && pixels2[3] == 0 &&
@@ -918,7 +918,7 @@ TEST(cpuMeshModificationDirect)
 TEST(cpuMeshModificationIndices)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -936,13 +936,13 @@ TEST(cpuMeshModificationIndices)
     int pixels1[4 * 8 * 8];
     int pixels2[4 * 8 * 8];
     int l = 4 * (8 * 8 - 1);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels1));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels1));
     quad->setIndice(0, 2);
     quad->setIndice(1, 1);
     quad->setIndice(2, 3);
     fb->clear(true, true, true);
     fb->draw(p, *quad);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels2));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels2));
     ASSERT(pixels1[0] == 1 && pixels1[1] == 2 && pixels1[2] == 3 && pixels1[3] == 4 &&
         pixels1[l] == 0 && pixels1[l + 1] == 0 && pixels1[l + 2] == 0 && pixels1[l + 3] == 0 &&
         pixels2[0] == 0 && pixels2[1] == 0 && pixels2[2] == 0 && pixels2[3] == 0 &&
@@ -952,7 +952,7 @@ TEST(cpuMeshModificationIndices)
 TEST(gpuMeshModificationDirect)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -966,13 +966,13 @@ TEST(gpuMeshModificationDirect)
     int pixels1[4 * 8 * 8];
     int pixels2[4 * 8 * 8];
     int l = 4 * (8 * 8 - 1);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels1));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels1));
     quad->setVertex(0, vec4f(-1, 1, 0, 1));
     quad->setVertex(1, vec4f(1, -1, 0, 1));
     quad->setVertex(2, vec4f(1, 1, 0, 1));
     fb->clear(true, true, true);
     fb->draw(p, *quad);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels2));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels2));
     ASSERT(pixels1[0] == 1 && pixels1[1] == 2 && pixels1[2] == 3 && pixels1[3] == 4 &&
         pixels1[l] == 0 && pixels1[l + 1] == 0 && pixels1[l + 2] == 0 && pixels1[l + 3] == 0 &&
         pixels2[0] == 0 && pixels2[1] == 0 && pixels2[2] == 0 && pixels2[3] == 0 &&
@@ -982,7 +982,7 @@ TEST(gpuMeshModificationDirect)
 TEST(gpuMeshModificationIndices)
 {
     ptr<FrameBuffer> fb = new FrameBuffer();
-    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, INT,
+    fb->setTextureBuffer(COLOR0, new Texture2D(8, 8, RGBA8I, RGBA_INTEGER, ORK_INT,
         Texture::Parameters().mag(NEAREST),  Buffer::Parameters(), CPUBuffer(NULL)), 0);
     fb->setViewport(vec4<GLint>(0, 0, 8, 8));
     ptr<Program> p = new Program(new Module(330, FRAGMENT_SHADER));
@@ -1000,13 +1000,13 @@ TEST(gpuMeshModificationIndices)
     int pixels1[4 * 8 * 8];
     int pixels2[4 * 8 * 8];
     int l = 4 * (8 * 8 - 1);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels1));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels1));
     quad->setIndice(0, 2);
     quad->setIndice(1, 1);
     quad->setIndice(2, 3);
     fb->clear(true, true, true);
     fb->draw(p, *quad);
-    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, INT, Buffer::Parameters(), CPUBuffer(pixels2));
+    fb->readPixels(0, 0, 8, 8, RGBA_INTEGER, ORK_INT, Buffer::Parameters(), CPUBuffer(pixels2));
     ASSERT(pixels1[0] == 1 && pixels1[1] == 2 && pixels1[2] == 3 && pixels1[3] == 4 &&
         pixels1[l] == 0 && pixels1[l + 1] == 0 && pixels1[l + 2] == 0 && pixels1[l + 3] == 0 &&
         pixels2[0] == 0 && pixels2[1] == 0 && pixels2[2] == 0 && pixels2[3] == 0 &&

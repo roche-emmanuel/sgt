@@ -159,7 +159,7 @@ void DrawOceanTask::generateWaves()
     amplitudeMax = h1 - h0;
 
     ptr<Texture1D> wavesTexture = new Texture1D(nbWaves, RGBA32F, RGBA,
-            FLOAT, Texture::Parameters().wrapS(CLAMP_TO_BORDER).min(NEAREST).mag(NEAREST),
+            ORK_FLOAT, Texture::Parameters().wrapS(CLAMP_TO_BORDER).min(NEAREST).mag(NEAREST),
             Buffer::Parameters(), CPUBuffer(waves));
     delete[] waves;
 
