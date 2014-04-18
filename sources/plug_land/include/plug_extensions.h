@@ -14,6 +14,10 @@
 #include "ork/resource/XMLResourceLoader.h"
 #include "ork/scenegraph/SceneManager.h"
 
+#include "ork/scenegraph/SceneManager.h"
+#include "proland/util/TerrainViewController.h"
+#include "ork/core/Timer.h"
+
 namespace ork {
 typedef vec2<bool> vec2b;
 typedef vec3<bool> vec3b;
@@ -37,9 +41,20 @@ inline void initGlew() {
 class ProlandDrawable : public osg::Drawable
 {
 public:
-  ProlandDrawable() {
+  ProlandDrawable(ork::SceneManager* sman, proland::TerrainViewController* con) {
   	logDEBUG("Creating proland drawable object.")
+    manager = sman;
+    controller = con;
+
+    timer.start();
+    t = 0.0;
+    dt = 0.0;   
+
+    setUseDisplayList(false);
   }
+
+  /** LUNA_IGNORED */
+  ProlandDrawable() {}
 
   /** LUNA_IGNORED */
   ProlandDrawable(const ProlandDrawable& pld,const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY): osg::Drawable(pld,copyop) {}
@@ -50,14 +65,28 @@ public:
 
   // the draw immediate mode method is where the OSG wraps up the drawing of
   // of OpenGL primitives.
-  virtual void drawImplementation(osg::RenderInfo&) const
+  virtual void drawImplementation(osg::RenderInfo& renderInfo) const
   {
     // teapot(..) doens't use vertex arrays at all so we don't need to toggle their state
     // if we did we'd need to something like following call
-    // state.disableAllVertexArrays(), see src/osg/Geometry.cpp for the low down.
+    logDEBUG("In drawImplementation with t=" << t << ", dt=" << dt)
 
-    // just call the OpenGL code.
-    //teapot(14,GL_FILL);
+    osg::State* state = renderInfo.getState();
+    state->disableAllVertexArrays(); //, see src/osg/Geometry.cpp for the low down.
+
+    controller->update();
+    controller->setProjection();
+
+    // ptr<FrameBuffer> fb = FrameBuffer::getDefault();
+    // fb->setClearColor(ork::vec4f(0.0f,1.0f,0.0f,1.0f));
+    // fb->clear(true, false, true);
+
+    manager->update(t, dt);
+    manager->draw();
+
+    double newT = timer.end();
+    dt = newT - t;
+    t = newT;
   }
   
   
@@ -65,13 +94,20 @@ public:
   // objects is, for both positioning the camera at start up, and most importantly for culling.
   virtual osg::BoundingBox computeBound() const
   {
-    osg::BoundingBox bbox;
-
-    return bbox;
+    ork::box3d bounds = manager->getRoot()->getLocalBounds();
+    logDEBUG("Computed bounding box: min=("<<bounds.xmin<<", "<<bounds.ymin<<", "<<bounds.zmin<<"), max=("<<bounds.xmax<<", "<<bounds.ymax<<", "<<bounds.zmax<<")")
+    return osg::BoundingBox(bounds.xmin,bounds.ymin,bounds.zmin,bounds.xmax,bounds.ymax,bounds.zmax);
   }
 
 protected:
 	~ProlandDrawable() {};
+
+  ork::ptr<ork::SceneManager> manager;
+  ork::ptr<proland::TerrainViewController> controller; 
+
+  mutable double t;
+  mutable double dt;
+  mutable ork::Timer timer;
 };
 
 };

@@ -116,6 +116,20 @@ struct luna_caster<proland::EditGraphOrthoLayer::VertexData,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<osg::Referenced,dstType> {
+	static inline dstType* cast(osg::Referenced* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<osg::Drawable,dstType> {
+	static inline dstType* cast(osg::Drawable* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<ork::Uniform1< ork::VEC1F, float, float, ork::uniform1f, ork::value1f >,dstType> {
 	static inline dstType* cast(ork::Uniform1< ork::VEC1F, float, float, ork::uniform1f, ork::value1f >* ptr) {
 		return static_cast<dstType*>(ptr);
@@ -1112,13 +1126,6 @@ struct luna_caster<proland::AtmoParameters,dstType> {
 template <typename dstType>
 struct luna_caster<proland::TreeMesh,dstType> {
 	static inline dstType* cast(proland::TreeMesh* ptr) {
-		return static_cast<dstType*>(ptr);
-	};
-};
-
-template <typename dstType>
-struct luna_caster<proland::BasicGraph::BasicCurveIterator,dstType> {
-	static inline dstType* cast(proland::BasicGraph::BasicCurveIterator* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

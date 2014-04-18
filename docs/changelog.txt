@@ -87,3 +87,4 @@
 - Refactoring code to add support for sgtLuna in ork and proland.
 - Rebuilt removing most warnings in sources.
 - Fixed crash issue on glGenBuffer due to static glew link in ork and land plugins.
+- fixed binding for ork:vec4i and ork:vec4f proper usage.

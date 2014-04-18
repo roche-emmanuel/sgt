@@ -1329,9 +1329,7 @@ void FrameBuffer::setStencilMask(GLuint frontMask, GLuint backMask)
 
 void FrameBuffer::clear(bool color, bool stencil, bool depth)
 {
-    if (Logger::DEBUG_LOGGER != NULL) {
-        Logger::DEBUG_LOGGER->log("RENDER", "Clear FrameBuffer");
-    }
+    trDEBUG("FrameBuffer","Clearing framebuffer...")
     set();
     int buffers = 0;
     if (color) {

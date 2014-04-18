@@ -25,7 +25,8 @@ function TypeManager:__init()
 	object._registeredMappedTypeFunctions = Map()
 	object._typeConstructorMap = Map()
 	object._typeDestructorMap = Map()
-	
+	object._hashAliases = {}
+
     -- this is a mapping of the actual root namespace of a class to the lua module that will be used for it.
     -- if no such mapping is available then
     -- 1. The class is placed in the default module in case this root namespace is the default namespace.
@@ -284,6 +285,14 @@ end
 
 function TypeManager:getBaseTypeMapping(srcType)
 	return self._baseTypeMappings:get(srcType) or srcType
+end
+
+function TypeManager:setHashAlias(classname, alias)
+	self._hashAliases[classname] = alias
+end
+
+function TypeManager:getHashAlias(classname)
+	return self._hashAliases[classname] or classname
 end
 
 return TypeManager()

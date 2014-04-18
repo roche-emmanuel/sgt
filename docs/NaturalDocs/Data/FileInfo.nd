@@ -10,7 +10,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/NumericalEntry.lua	1374306040	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/NumericalEntry.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/utils/DataMap.lua	1394146498	1	utils.DataMap
 /cygdrive/w/Cloud/Projects/sgt/modules/core/utils/LuaCConverter.lua	1384528281	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/utils/LuaCConverter.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeCheckerBase.lua	1381692966	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeCheckerBase.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeCheckerBase.lua	1397804540	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeCheckerBase.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Enum.lua	1356819676	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/Enum.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/base/EventManager.lua	1353881888	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/base/EventManager.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/finance/StockRetrieverApp.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/finance/StockRetrieverApp.lua
@@ -311,7 +311,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/LuaNameValidator.lua	1353882396	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/LuaNameValidator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/LicensedPage.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/LicensedPage.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/serialization/SimpleSerializer.lua	1357853612	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/serialization/SimpleSerializer.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeManager.lua	1382511165	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeManager.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeManager.lua	1397805557	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeManager.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/jit.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/jit.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/i18n.lua	1339542351	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/i18n.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/sql.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/sql.lua

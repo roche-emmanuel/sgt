@@ -13,6 +13,14 @@ class AreaId {};
 
 }
 
+namespace osg {
+
+// external class:
+class Referenced {};
+class Drawable : public osg::Referenced {};
+
+}
+
 namespace ork {
 
 class Mesh<vec3f, unsigned int> {};

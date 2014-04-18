@@ -419,7 +419,7 @@ public:
 	inline static bool _lg_typecheck_getScissorTest_overload_3(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,3943576) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,81304305) ) return false;
 		if( (!(Luna< ork::vec4< int > >::check(L,2))) ) return false;
 		return true;
 	}
@@ -428,7 +428,7 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,3943576) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,81304305) ) return false;
 		if( (!(Luna< ork::vec4< int > >::check(L,3))) ) return false;
 		return true;
 	}
@@ -568,7 +568,7 @@ public:
 	inline static bool _lg_typecheck_setViewport_overload_1(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,3943576) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,81304305) ) return false;
 		if( (!(Luna< ork::vec4< int > >::check(L,2))) ) return false;
 		return true;
 	}
@@ -577,7 +577,7 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,67378769) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,81304302) ) return false;
 		if( (!(Luna< ork::vec4< float > >::check(L,3))) ) return false;
 		return true;
 	}
@@ -609,7 +609,7 @@ public:
 	inline static bool _lg_typecheck_setClearColor(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,67378769) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,81304302) ) return false;
 		return true;
 	}
 
@@ -766,7 +766,7 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( lua_isboolean(L,2)==0 ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,3943576) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,81304305) ) return false;
 		if( (!(Luna< ork::vec4< int > >::check(L,3))) ) return false;
 		return true;
 	}
@@ -776,7 +776,7 @@ public:
 
 		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
 		if( lua_isboolean(L,3)==0 ) return false;
-		if( !Luna<void>::has_uniqueid(L,4,3943576) ) return false;
+		if( !Luna<void>::has_uniqueid(L,4,81304305) ) return false;
 		if( (!(Luna< ork::vec4< int > >::check(L,4))) ) return false;
 		return true;
 	}
@@ -901,7 +901,7 @@ public:
 	inline static bool _lg_typecheck_setBlendColor(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,67378769) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,81304302) ) return false;
 		return true;
 	}
 

@@ -20,9 +20,9 @@ public:
 		}
 	};
 	
-	wrapper_land_ProlandDrawable(lua_State* L, lua_Table* dum) 
-		: land::ProlandDrawable(), luna_wrapper_base(L) { 
-		register_protected_methods(L); 
+	wrapper_land_ProlandDrawable(lua_State* L, lua_Table* dum, ork::SceneManager * sman, proland::TerrainViewController * con) 
+		: land::ProlandDrawable(sman, con), luna_wrapper_base(L) { 
+		register_protected_methods(L);
 		if(_obj.pushFunction("buildInstance")) {
 			_obj.pushArg((land::ProlandDrawable*)this);
 			_obj.callFunction<void>();

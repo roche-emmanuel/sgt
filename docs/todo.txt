@@ -1,4 +1,6 @@
 TODO:
+- in lunagen add support to specify hashcode manually
+- in lunagen for methods with overloads, avoid calling the typechecker method twice.
 - remove luadoc if we dont need it anymore.
 - remove lunatest if we do not need it anymore.
 - Add support for package generation in enigma.

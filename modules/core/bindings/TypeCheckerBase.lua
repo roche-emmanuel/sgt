@@ -96,7 +96,8 @@ function TypeCheckerBase:handle(writer,func,name, completeCheck)
 					writer:writeLine("////////////////////////////////////////////////////////////////////")
 					log:error("Unsupported type : ".. pt:getName().. " in type checker for function ".. func:getFullName()) --..". Type object:",pt)
 				else
-					local bhash = utils.getHash(bfname) --pt:getAbsoluteBaseHash()
+
+					local bhash = utils.getHash(tm:getHashAlias(bfname)) --pt:getAbsoluteBaseHash()
 					log:info("Using hash ".. bhash .. " for type ".. pt:getBaseName())
 					if pt:isPointer() then
 						-- we can accept a pointer to be nil, but not a reference.

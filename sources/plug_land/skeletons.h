@@ -159,7 +159,7 @@ class VertexData {
 };
 
 namespace land {
-	class ProlandDrawable {
+	class ProlandDrawable: public osg::Drawable {
 	};
 
 };
@@ -947,6 +947,9 @@ namespace ork {
 	class quatd {
 	};
 
+};
+
+namespace osg {
 };
 
 namespace proland {
