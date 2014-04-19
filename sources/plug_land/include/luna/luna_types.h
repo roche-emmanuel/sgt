@@ -20,8 +20,8 @@
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/DrawRiversTask.h>
 #include <proland/preprocess/terrain/AbstractTileCache.h>
 #include <ork/resource/tinyxml.h>
-#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
 #include <ork/util/Font.h>
+#include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
 #include <plug_extensions.h>
 #include <ork/math/box2.h>
 #include <ork/math/box3.h>
@@ -809,25 +809,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: proland::TreeMesh::Vertex
-template<>
-class LunaTraits< proland::TreeMesh::Vertex > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static proland::TreeMesh::Vertex* _bind_ctor(lua_State *L);
-	static void _bind_dtor(proland::TreeMesh::Vertex* obj);
-	typedef proland::TreeMesh::Vertex parent_t;
-	typedef proland::TreeMesh::Vertex base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: ork::Font::Vertex
 template<>
 class LunaTraits< ork::Font::Vertex > {
@@ -844,6 +825,25 @@ public:
 	static void _bind_dtor(ork::Font::Vertex* obj);
 	typedef ork::Font::Vertex parent_t;
 	typedef ork::Font::Vertex base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::TreeMesh::Vertex
+template<>
+class LunaTraits< proland::TreeMesh::Vertex > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::TreeMesh::Vertex* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::TreeMesh::Vertex* obj);
+	typedef proland::TreeMesh::Vertex parent_t;
+	typedef proland::TreeMesh::Vertex base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -901,6 +901,25 @@ public:
 	static void _bind_dtor(osg::Drawable* obj);
 	typedef osg::Referenced parent_t;
 	typedef osg::Drawable base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::ViewManager
+template<>
+class LunaTraits< proland::ViewManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::ViewManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::ViewManager* obj);
+	typedef proland::ViewManager parent_t;
+	typedef proland::ViewManager base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -5331,25 +5350,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: proland::ViewManager
-template<>
-class LunaTraits< proland::ViewManager > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static proland::ViewManager* _bind_ctor(lua_State *L);
-	static void _bind_dtor(proland::ViewManager* obj);
-	typedef proland::ViewManager parent_t;
-	typedef proland::ViewManager base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: proland::BasicViewHandler
 template<>
 class LunaTraits< proland::BasicViewHandler > {
@@ -8506,6 +8506,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Referenced external: osg::RenderInfo
+template<>
+class LunaTraits< osg::RenderInfo > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static osg::RenderInfo* _bind_ctor(lua_State *L);
+	static void _bind_dtor(osg::RenderInfo* obj);
+	typedef osg::RenderInfo parent_t;
+	typedef osg::RenderInfo base_t;
+	static luna_ConverterType converters[];
+};
+
 // Referenced external: std::vector< unsigned int >
 template<>
 class LunaTraits< std::vector< unsigned int > > {
@@ -8721,16 +8740,16 @@ public:
 };
 
 template<>
-class LunaType< 75726744 > {
+class LunaType< 35303943 > {
 public:
-	typedef proland::TreeMesh::Vertex type;
+	typedef ork::Font::Vertex type;
 	
 };
 
 template<>
-class LunaType< 35303943 > {
+class LunaType< 75726744 > {
 public:
-	typedef ork::Font::Vertex type;
+	typedef proland::TreeMesh::Vertex type;
 	
 };
 
@@ -8745,6 +8764,13 @@ template<>
 class LunaType< 50169651 > {
 public:
 	typedef osg::Referenced type;
+	
+};
+
+template<>
+class LunaType< 2915545 > {
+public:
+	typedef proland::ViewManager type;
 	
 };
 
@@ -9746,13 +9772,6 @@ template<>
 class LunaType< 89838339 > {
 public:
 	typedef proland::TileSampler::TileFilter type;
-	
-};
-
-template<>
-class LunaType< 2915545 > {
-public:
-	typedef proland::ViewManager type;
 	
 };
 
@@ -10929,6 +10948,13 @@ template<>
 class LunaType< 3625364 > {
 public:
 	typedef void type;
+	
+};
+
+template<>
+class LunaType< 2286263 > {
+public:
+	typedef osg::RenderInfo type;
 	
 };
 

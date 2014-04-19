@@ -62,13 +62,14 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
 	Luna< proland::DrawRiversTask::vecParticle >::Register(L);
-	Luna< proland::TreeMesh::Vertex >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::Font::Vertex >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
+	Luna< proland::TreeMesh::Vertex >::Register(L);
 	Luna< proland::EditGraphOrthoLayer::VertexData >::Register(L);
+	Luna< proland::ViewManager >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"land");
 	Luna< land::ProlandDrawable >::Register(L);
@@ -322,7 +323,6 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::TileSamplerZ >::Register(L);
 	Luna< proland::UpdateTerrainTask >::Register(L);
 	Luna< proland::UpdateTileSamplersTask >::Register(L);
-	Luna< proland::ViewManager >::Register(L);
 	Luna< proland::BasicViewHandler >::Register(L);
 	Luna< proland::Recordable >::Register(L);
 	Luna< proland::EventRecorder >::Register(L);

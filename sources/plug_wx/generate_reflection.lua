@@ -77,7 +77,7 @@ ReflectionGenerator.generate{
 		"wxItemContainer::Set",
 		"wxListBox::Set",
 		--"wxMouseState",
-		"Buffer",
+		-- "Buffer",
 		"wxNotebook::OnSelChange",
 		"wxMultiChoiceDialog::GetSelection",
 		"wxPathList",

@@ -95,15 +95,15 @@ struct luna_caster<proland::DrawRiversTask::vecParticle,dstType> {
 };
 
 template <typename dstType>
-struct luna_caster<proland::TreeMesh::Vertex,dstType> {
-	static inline dstType* cast(proland::TreeMesh::Vertex* ptr) {
+struct luna_caster<ork::Font::Vertex,dstType> {
+	static inline dstType* cast(ork::Font::Vertex* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
 
 template <typename dstType>
-struct luna_caster<ork::Font::Vertex,dstType> {
-	static inline dstType* cast(ork::Font::Vertex* ptr) {
+struct luna_caster<proland::TreeMesh::Vertex,dstType> {
+	static inline dstType* cast(proland::TreeMesh::Vertex* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };
@@ -1126,6 +1126,13 @@ struct luna_caster<proland::AtmoParameters,dstType> {
 template <typename dstType>
 struct luna_caster<proland::TreeMesh,dstType> {
 	static inline dstType* cast(proland::TreeMesh* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
+struct luna_caster<proland::BasicGraph::BasicCurveIterator,dstType> {
+	static inline dstType* cast(proland::BasicGraph::BasicCurveIterator* ptr) {
 		return static_cast<dstType*>(ptr);
 	};
 };

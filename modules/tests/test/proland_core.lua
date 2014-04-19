@@ -1,5 +1,3 @@
-#!/bin/sgt
-
 log:notice "Starting Proland core test."
 
 log:debug "Loading proland module..."
@@ -14,13 +12,15 @@ local Class = createClass{"ProlandCoreTest","osg.OSGTestApp"}
 function Class:initialize()
 	self:check(proland and ork,"Invalid proland or ork module")
 
-  self:createBase()
+  -- self:createBase()
 
 	self:debug("Using root path: ",root_path)
 	self:debug("Creating XMLResourceLoader...")
 	local resLoader = ork.XMLResourceLoader()
-	resLoader:addPath(root_path.."/proland_samples/core");
-  resLoader:addArchive(root_path.."/proland_samples/core/helloworld.xml");
+  -- resLoader:addPath(root_path.."/proland_samples/core");
+  -- resLoader:addArchive(root_path.."/proland_samples/core/helloworld.xml");
+	resLoader:addPath(root_path.."/proland_samples/terrain/terrain3");
+  resLoader:addArchive(root_path.."/proland_samples/terrain/terrain3/helloworld.xml");
 
   self:debug("Creating ResourceManager...")
   local resManager = ork.ResourceManager(resLoader, 8)
@@ -56,6 +56,8 @@ function Class:initialize()
   self:debug("Creating proland drawable:")
   local pdraw = land.ProlandDrawable(manager, self._controller)
 
+  self._drawable = pdraw
+
   self:debug("Creating render geode:")
   -- prepare the render geode:
   local geode = osg.Geode();
@@ -67,15 +69,11 @@ function Class:initialize()
 
   self:getViewer():addEventHandler( self._eventHandler );
 
+  self:home()
+
   self:debug("App initialized.")
 end
 
-function Class:resize(x,y)
-  self:debug("Updating frame buffer viewport to ",x,"x",y)
-  local fb = ork.FrameBuffer.getDefault();
-  fb:setDepthTest(true, land.LESS);
-  fb:setViewport(ork.vec4i(0, 0, x, y));
-end
 
 function Class:buildEventHandler()
   self._eventHandler = osgGA.GUIEventHandler{
@@ -103,7 +101,18 @@ function Class:buildEventHandler()
       -- end
       if etype == osgGA.GUIEventAdapter.RESIZE then
         self:debug("Should handle resize event here.")
-        self:resize(ea:getWindowWidth(),ea:getWindowHeight())
+        self._drawable:reshape(ea:getWindowWidth(),ea:getWindowHeight())
+      elseif etype == osgGA.GUIEventAdapter.SCROLL then
+        local sm = ea:getScrollingMotion()
+        if sm == osgGA.GUIEventAdapter.SCROLL_UP then
+          self:debug("Scrolling up...")
+          -- self._controller:setD(self._controller:getD()/1.1)
+          self._drawable:mouseWheel(0,0,ea:getX(),ea:getY())
+        elseif sm == osgGA.GUIEventAdapter.SCROLL_DOWN then
+          self:debug("Scrolling down...")
+          -- self._controller:setD(self._controller:getD()*1.1)
+          self._drawable:mouseWheel(1,0,ea:getX(),ea:getY())
+        end
       end
 
       return false;

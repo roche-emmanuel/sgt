@@ -159,7 +159,7 @@ class VertexData {
 };
 
 namespace land {
-	class ProlandDrawable: public osg::Drawable {
+	class ProlandDrawable: public osg::Drawable, public proland::ViewManager {
 	};
 
 };

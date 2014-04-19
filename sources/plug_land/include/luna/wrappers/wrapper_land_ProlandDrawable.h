@@ -35,6 +35,49 @@ public:
 	// Protected virtual methods:
 
 	// Public virtual methods:
+	// ork::vec3d land::ProlandDrawable::getWorldCoordinates(int x, int y)
+	ork::vec3d getWorldCoordinates(int x, int y) {
+		if(_obj.pushFunction("getWorldCoordinates")) {
+			_obj.pushArg((land::ProlandDrawable*)this);
+			_obj.pushArg(x);
+			_obj.pushArg(y);
+			return *(_obj.callFunction<ork::vec3d*>());
+		}
+
+		return ProlandDrawable::getWorldCoordinates(x, y);
+	};
+
+	// ork::ptr< proland::TerrainViewController > land::ProlandDrawable::getViewController()
+	ork::ptr< proland::TerrainViewController > getViewController() {
+		if(_obj.pushFunction("getViewController")) {
+			_obj.pushArg((land::ProlandDrawable*)this);
+			return _obj.callFunction< proland::TerrainViewController* >();
+		}
+
+		return ProlandDrawable::getViewController();
+	};
+
+	// ork::ptr< ork::SceneManager > land::ProlandDrawable::getScene()
+	ork::ptr< ork::SceneManager > getScene() {
+		if(_obj.pushFunction("getScene")) {
+			_obj.pushArg((land::ProlandDrawable*)this);
+			return _obj.callFunction< ork::SceneManager* >();
+		}
+
+		return ProlandDrawable::getScene();
+	};
+
+	// void land::ProlandDrawable::drawImplementation(osg::RenderInfo & renderInfo) const
+	void drawImplementation(osg::RenderInfo & renderInfo) const {
+		if(_obj.pushFunction("drawImplementation")) {
+			_obj.pushArg((land::ProlandDrawable*)this);
+			_obj.pushArg(&renderInfo);
+			return (_obj.callFunction<void>());
+		}
+
+		return ProlandDrawable::drawImplementation(renderInfo);
+	};
+
 	// osg::BoundingBox land::ProlandDrawable::computeBound() const
 	osg::BoundingBox computeBound() const {
 		if(_obj.pushFunction("computeBound")) {
