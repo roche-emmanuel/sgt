@@ -197,6 +197,19 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_SetDataBuffer(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,3625364)) ) return false;
+		return true;
+	}
+
+	inline static bool _lg_typecheck_GetDataBuffer(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_GetCacheFrom(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -525,6 +538,42 @@ public:
 		return 1;
 	}
 
+	// void wxDataViewEvent::SetDataBuffer(void * buf)
+	static int _bind_SetDataBuffer(lua_State *L) {
+		if (!_lg_typecheck_SetDataBuffer(L)) {
+			luaL_error(L, "luna typecheck failed in void wxDataViewEvent::SetDataBuffer(void * buf) function, expected prototype:\nvoid wxDataViewEvent::SetDataBuffer(void * buf)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		void* buf=(Luna< void >::check(L,2));
+
+		wxDataViewEvent* self=Luna< wxObject >::checkSubType< wxDataViewEvent >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void wxDataViewEvent::SetDataBuffer(void *). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->SetDataBuffer(buf);
+
+		return 0;
+	}
+
+	// void * wxDataViewEvent::GetDataBuffer() const
+	static int _bind_GetDataBuffer(lua_State *L) {
+		if (!_lg_typecheck_GetDataBuffer(L)) {
+			luaL_error(L, "luna typecheck failed in void * wxDataViewEvent::GetDataBuffer() const function, expected prototype:\nvoid * wxDataViewEvent::GetDataBuffer() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxDataViewEvent* self=Luna< wxObject >::checkSubType< wxDataViewEvent >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void * wxDataViewEvent::GetDataBuffer() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		void * lret = self->GetDataBuffer();
+		if(!lret) return 0; // Do not write NULL pointers.
+
+		Luna< void >::push(L,lret,false);
+
+		return 1;
+	}
+
 	// int wxDataViewEvent::GetCacheFrom() const
 	static int _bind_GetCacheFrom(lua_State *L) {
 		if (!_lg_typecheck_GetCacheFrom(L)) {
@@ -649,6 +698,8 @@ luna_RegType LunaTraits< wxDataViewEvent >::methods[] = {
 	{"GetDataFormat", &luna_wrapper_wxDataViewEvent::_bind_GetDataFormat},
 	{"SetDataSize", &luna_wrapper_wxDataViewEvent::_bind_SetDataSize},
 	{"GetDataSize", &luna_wrapper_wxDataViewEvent::_bind_GetDataSize},
+	{"SetDataBuffer", &luna_wrapper_wxDataViewEvent::_bind_SetDataBuffer},
+	{"GetDataBuffer", &luna_wrapper_wxDataViewEvent::_bind_GetDataBuffer},
 	{"GetCacheFrom", &luna_wrapper_wxDataViewEvent::_bind_GetCacheFrom},
 	{"GetCacheTo", &luna_wrapper_wxDataViewEvent::_bind_GetCacheTo},
 	{"base_GetClassInfo", &luna_wrapper_wxDataViewEvent::_bind_base_GetClassInfo},

@@ -739,13 +739,6 @@ struct luna_caster<ork::Window::Parameters,dstType> {
 };
 
 template <typename dstType>
-struct luna_caster<ork::Mesh< vec3f, unsigned int >,dstType> {
-	static inline dstType* cast(ork::Mesh< vec3f, unsigned int >* ptr) {
-		return static_cast<dstType*>(ptr);
-	};
-};
-
-template <typename dstType>
 struct luna_caster<ork::vec2h,dstType> {
 	static inline dstType* cast(ork::vec2h* ptr) {
 		return static_cast<dstType*>(ptr);

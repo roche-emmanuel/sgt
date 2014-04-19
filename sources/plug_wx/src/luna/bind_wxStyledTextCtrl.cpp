@@ -708,6 +708,12 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_EmptyUndoBuffer(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_EndUndoAction(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -779,6 +785,12 @@ public:
 	}
 
 	inline static bool _lg_typecheck_GetBackSpaceUnIndents(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_GetBufferedDraw(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		return true;
@@ -2040,6 +2052,13 @@ public:
 	}
 
 	inline static bool _lg_typecheck_SetBackSpaceUnIndents(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_isboolean(L,2)==0 ) return false;
+		return true;
+	}
+
+	inline static bool _lg_typecheck_SetBufferedDraw(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
 		if( lua_isboolean(L,2)==0 ) return false;
@@ -4392,6 +4411,12 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_base_IsDoubleBuffered(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_IsRetained(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -6118,6 +6143,22 @@ public:
 		return 0;
 	}
 
+	// void wxStyledTextCtrl::EmptyUndoBuffer()
+	static int _bind_EmptyUndoBuffer(lua_State *L) {
+		if (!_lg_typecheck_EmptyUndoBuffer(L)) {
+			luaL_error(L, "luna typecheck failed in void wxStyledTextCtrl::EmptyUndoBuffer() function, expected prototype:\nvoid wxStyledTextCtrl::EmptyUndoBuffer()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxStyledTextCtrl* self=Luna< wxObject >::checkSubType< wxStyledTextCtrl >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void wxStyledTextCtrl::EmptyUndoBuffer(). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->EmptyUndoBuffer();
+
+		return 0;
+	}
+
 	// void wxStyledTextCtrl::EndUndoAction()
 	static int _bind_EndUndoAction(lua_State *L) {
 		if (!_lg_typecheck_EndUndoAction(L)) {
@@ -6303,6 +6344,23 @@ public:
 			luaL_error(L, "Invalid object in function call bool wxStyledTextCtrl::GetBackSpaceUnIndents() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->GetBackSpaceUnIndents();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
+	// bool wxStyledTextCtrl::GetBufferedDraw() const
+	static int _bind_GetBufferedDraw(lua_State *L) {
+		if (!_lg_typecheck_GetBufferedDraw(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxStyledTextCtrl::GetBufferedDraw() const function, expected prototype:\nbool wxStyledTextCtrl::GetBufferedDraw() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxStyledTextCtrl* self=Luna< wxObject >::checkSubType< wxStyledTextCtrl >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxStyledTextCtrl::GetBufferedDraw() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->GetBufferedDraw();
 		lua_pushboolean(L,lret?1:0);
 
 		return 1;
@@ -9669,6 +9727,23 @@ public:
 			luaL_error(L, "Invalid object in function call void wxStyledTextCtrl::SetBackSpaceUnIndents(bool). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		self->SetBackSpaceUnIndents(bsUnIndents);
+
+		return 0;
+	}
+
+	// void wxStyledTextCtrl::SetBufferedDraw(bool buffered)
+	static int _bind_SetBufferedDraw(lua_State *L) {
+		if (!_lg_typecheck_SetBufferedDraw(L)) {
+			luaL_error(L, "luna typecheck failed in void wxStyledTextCtrl::SetBufferedDraw(bool buffered) function, expected prototype:\nvoid wxStyledTextCtrl::SetBufferedDraw(bool buffered)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		bool buffered=(bool)(lua_toboolean(L,2)==1);
+
+		wxStyledTextCtrl* self=Luna< wxObject >::checkSubType< wxStyledTextCtrl >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void wxStyledTextCtrl::SetBufferedDraw(bool). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->SetBufferedDraw(buffered);
 
 		return 0;
 	}
@@ -15662,6 +15737,23 @@ public:
 		return 0;
 	}
 
+	// bool wxStyledTextCtrl::base_IsDoubleBuffered() const
+	static int _bind_base_IsDoubleBuffered(lua_State *L) {
+		if (!_lg_typecheck_base_IsDoubleBuffered(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxStyledTextCtrl::base_IsDoubleBuffered() const function, expected prototype:\nbool wxStyledTextCtrl::base_IsDoubleBuffered() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxStyledTextCtrl* self=Luna< wxObject >::checkSubType< wxStyledTextCtrl >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxStyledTextCtrl::base_IsDoubleBuffered() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->wxStyledTextCtrl::IsDoubleBuffered();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
 	// bool wxStyledTextCtrl::base_IsRetained() const
 	static int _bind_base_IsRetained(lua_State *L) {
 		if (!_lg_typecheck_base_IsRetained(L)) {
@@ -16150,6 +16242,7 @@ luna_RegType LunaTraits< wxStyledTextCtrl >::methods[] = {
 	{"DocumentStart", &luna_wrapper_wxStyledTextCtrl::_bind_DocumentStart},
 	{"DocumentStartExtend", &luna_wrapper_wxStyledTextCtrl::_bind_DocumentStartExtend},
 	{"EditToggleOvertype", &luna_wrapper_wxStyledTextCtrl::_bind_EditToggleOvertype},
+	{"EmptyUndoBuffer", &luna_wrapper_wxStyledTextCtrl::_bind_EmptyUndoBuffer},
 	{"EndUndoAction", &luna_wrapper_wxStyledTextCtrl::_bind_EndUndoAction},
 	{"EnsureCaretVisible", &luna_wrapper_wxStyledTextCtrl::_bind_EnsureCaretVisible},
 	{"EnsureVisible", &luna_wrapper_wxStyledTextCtrl::_bind_EnsureVisible},
@@ -16160,6 +16253,7 @@ luna_RegType LunaTraits< wxStyledTextCtrl >::methods[] = {
 	{"FormatRange", &luna_wrapper_wxStyledTextCtrl::_bind_FormatRange},
 	{"GetAnchor", &luna_wrapper_wxStyledTextCtrl::_bind_GetAnchor},
 	{"GetBackSpaceUnIndents", &luna_wrapper_wxStyledTextCtrl::_bind_GetBackSpaceUnIndents},
+	{"GetBufferedDraw", &luna_wrapper_wxStyledTextCtrl::_bind_GetBufferedDraw},
 	{"GetCaretForeground", &luna_wrapper_wxStyledTextCtrl::_bind_GetCaretForeground},
 	{"GetCaretLineBackAlpha", &luna_wrapper_wxStyledTextCtrl::_bind_GetCaretLineBackAlpha},
 	{"GetCaretLineBackground", &luna_wrapper_wxStyledTextCtrl::_bind_GetCaretLineBackground},
@@ -16353,6 +16447,7 @@ luna_RegType LunaTraits< wxStyledTextCtrl >::methods[] = {
 	{"SelectionIsRectangle", &luna_wrapper_wxStyledTextCtrl::_bind_SelectionIsRectangle},
 	{"SetAnchor", &luna_wrapper_wxStyledTextCtrl::_bind_SetAnchor},
 	{"SetBackSpaceUnIndents", &luna_wrapper_wxStyledTextCtrl::_bind_SetBackSpaceUnIndents},
+	{"SetBufferedDraw", &luna_wrapper_wxStyledTextCtrl::_bind_SetBufferedDraw},
 	{"SetCaretForeground", &luna_wrapper_wxStyledTextCtrl::_bind_SetCaretForeground},
 	{"SetCaretLineBackAlpha", &luna_wrapper_wxStyledTextCtrl::_bind_SetCaretLineBackAlpha},
 	{"SetCaretLineBackground", &luna_wrapper_wxStyledTextCtrl::_bind_SetCaretLineBackground},
@@ -16687,6 +16782,7 @@ luna_RegType LunaTraits< wxStyledTextCtrl >::methods[] = {
 	{"base_HasMultiplePages", &luna_wrapper_wxStyledTextCtrl::_bind_base_HasMultiplePages},
 	{"base_InheritAttributes", &luna_wrapper_wxStyledTextCtrl::_bind_base_InheritAttributes},
 	{"base_InitDialog", &luna_wrapper_wxStyledTextCtrl::_bind_base_InitDialog},
+	{"base_IsDoubleBuffered", &luna_wrapper_wxStyledTextCtrl::_bind_base_IsDoubleBuffered},
 	{"base_IsRetained", &luna_wrapper_wxStyledTextCtrl::_bind_base_IsRetained},
 	{"base_IsTopLevel", &luna_wrapper_wxStyledTextCtrl::_bind_base_IsTopLevel},
 	{"base_MakeModal", &luna_wrapper_wxStyledTextCtrl::_bind_base_MakeModal},

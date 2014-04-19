@@ -1070,6 +1070,16 @@ public:
 		return wxMDIParentFrame::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxMDIParentFrame*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxMDIParentFrame::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

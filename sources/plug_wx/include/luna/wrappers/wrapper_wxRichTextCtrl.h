@@ -1094,6 +1094,16 @@ public:
 		return wxRichTextCtrl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxRichTextCtrl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxRichTextCtrl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

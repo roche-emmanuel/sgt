@@ -1811,6 +1811,19 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_IsDoubleBuffered(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_SetDoubleBuffered(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_isboolean(L,2)==0 ) return false;
+		return true;
+	}
+
 	inline static bool _lg_typecheck_IsRetained(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -2576,6 +2589,12 @@ public:
 	}
 
 	inline static bool _lg_typecheck_base_InitDialog(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_base_IsDoubleBuffered(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		return true;
@@ -7464,6 +7483,40 @@ public:
 		return 0;
 	}
 
+	// bool wxWindow::IsDoubleBuffered() const
+	static int _bind_IsDoubleBuffered(lua_State *L) {
+		if (!_lg_typecheck_IsDoubleBuffered(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxWindow::IsDoubleBuffered() const function, expected prototype:\nbool wxWindow::IsDoubleBuffered() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxWindow* self=Luna< wxObject >::checkSubType< wxWindow >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxWindow::IsDoubleBuffered() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->IsDoubleBuffered();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
+	// void wxWindow::SetDoubleBuffered(bool on)
+	static int _bind_SetDoubleBuffered(lua_State *L) {
+		if (!_lg_typecheck_SetDoubleBuffered(L)) {
+			luaL_error(L, "luna typecheck failed in void wxWindow::SetDoubleBuffered(bool on) function, expected prototype:\nvoid wxWindow::SetDoubleBuffered(bool on)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		bool on=(bool)(lua_toboolean(L,2)==1);
+
+		wxWindow* self=Luna< wxObject >::checkSubType< wxWindow >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void wxWindow::SetDoubleBuffered(bool). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->SetDoubleBuffered(on);
+
+		return 0;
+	}
+
 	// bool wxWindow::IsRetained() const
 	static int _bind_IsRetained(lua_State *L) {
 		if (!_lg_typecheck_IsRetained(L)) {
@@ -9510,6 +9563,23 @@ public:
 		return 0;
 	}
 
+	// bool wxWindow::base_IsDoubleBuffered() const
+	static int _bind_base_IsDoubleBuffered(lua_State *L) {
+		if (!_lg_typecheck_base_IsDoubleBuffered(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxWindow::base_IsDoubleBuffered() const function, expected prototype:\nbool wxWindow::base_IsDoubleBuffered() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxWindow* self=Luna< wxObject >::checkSubType< wxWindow >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxWindow::base_IsDoubleBuffered() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->wxWindow::IsDoubleBuffered();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
 	// bool wxWindow::base_IsRetained() const
 	static int _bind_base_IsRetained(lua_State *L) {
 		if (!_lg_typecheck_base_IsRetained(L)) {
@@ -9866,6 +9936,8 @@ luna_RegType LunaTraits< wxWindow >::methods[] = {
 	{"HasMultiplePages", &luna_wrapper_wxWindow::_bind_HasMultiplePages},
 	{"InheritAttributes", &luna_wrapper_wxWindow::_bind_InheritAttributes},
 	{"InitDialog", &luna_wrapper_wxWindow::_bind_InitDialog},
+	{"IsDoubleBuffered", &luna_wrapper_wxWindow::_bind_IsDoubleBuffered},
+	{"SetDoubleBuffered", &luna_wrapper_wxWindow::_bind_SetDoubleBuffered},
 	{"IsRetained", &luna_wrapper_wxWindow::_bind_IsRetained},
 	{"IsThisEnabled", &luna_wrapper_wxWindow::_bind_IsThisEnabled},
 	{"IsTopLevel", &luna_wrapper_wxWindow::_bind_IsTopLevel},
@@ -9975,6 +10047,7 @@ luna_RegType LunaTraits< wxWindow >::methods[] = {
 	{"base_HasMultiplePages", &luna_wrapper_wxWindow::_bind_base_HasMultiplePages},
 	{"base_InheritAttributes", &luna_wrapper_wxWindow::_bind_base_InheritAttributes},
 	{"base_InitDialog", &luna_wrapper_wxWindow::_bind_base_InitDialog},
+	{"base_IsDoubleBuffered", &luna_wrapper_wxWindow::_bind_base_IsDoubleBuffered},
 	{"base_IsRetained", &luna_wrapper_wxWindow::_bind_base_IsRetained},
 	{"base_IsTopLevel", &luna_wrapper_wxWindow::_bind_base_IsTopLevel},
 	{"base_MakeModal", &luna_wrapper_wxWindow::_bind_base_MakeModal},

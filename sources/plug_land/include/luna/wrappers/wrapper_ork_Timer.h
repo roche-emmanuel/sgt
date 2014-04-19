@@ -47,7 +47,7 @@ public:
 
 	// double ork::Timer::end()
 	double end() {
-		if(_obj.pushFunction("end")) {
+		if(_obj.pushFunction("elapsed")) {
 			_obj.pushArg((ork::Timer*)this);
 			return (_obj.callFunction<double>());
 		}

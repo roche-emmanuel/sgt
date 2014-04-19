@@ -1061,6 +1061,16 @@ public:
 		return wxFileDialog::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxFileDialog*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxFileDialog::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

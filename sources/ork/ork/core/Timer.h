@@ -53,7 +53,7 @@ public:
     virtual double start();
 
     /**
-     * Returns the delay since the last call to #start() in micro seconds.
+     * Returns the delay since the last call to #start() in micro seconds. LUNA_RENAME elapsed
      */
     virtual double end();
 

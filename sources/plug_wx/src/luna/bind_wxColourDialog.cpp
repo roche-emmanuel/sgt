@@ -715,6 +715,12 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_base_IsDoubleBuffered(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_IsRetained(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -2665,6 +2671,23 @@ public:
 		return 0;
 	}
 
+	// bool wxColourDialog::base_IsDoubleBuffered() const
+	static int _bind_base_IsDoubleBuffered(lua_State *L) {
+		if (!_lg_typecheck_base_IsDoubleBuffered(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxColourDialog::base_IsDoubleBuffered() const function, expected prototype:\nbool wxColourDialog::base_IsDoubleBuffered() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxColourDialog* self=Luna< wxObject >::checkSubType< wxColourDialog >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxColourDialog::base_IsDoubleBuffered() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->wxColourDialog::IsDoubleBuffered();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
 	// bool wxColourDialog::base_IsRetained() const
 	static int _bind_base_IsRetained(lua_State *L) {
 		if (!_lg_typecheck_base_IsRetained(L)) {
@@ -3474,6 +3497,7 @@ luna_RegType LunaTraits< wxColourDialog >::methods[] = {
 	{"base_HasMultiplePages", &luna_wrapper_wxColourDialog::_bind_base_HasMultiplePages},
 	{"base_InheritAttributes", &luna_wrapper_wxColourDialog::_bind_base_InheritAttributes},
 	{"base_InitDialog", &luna_wrapper_wxColourDialog::_bind_base_InitDialog},
+	{"base_IsDoubleBuffered", &luna_wrapper_wxColourDialog::_bind_base_IsDoubleBuffered},
 	{"base_IsRetained", &luna_wrapper_wxColourDialog::_bind_base_IsRetained},
 	{"base_IsTopLevel", &luna_wrapper_wxColourDialog::_bind_base_IsTopLevel},
 	{"base_MakeModal", &luna_wrapper_wxColourDialog::_bind_base_MakeModal},

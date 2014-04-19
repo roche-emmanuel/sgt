@@ -1077,6 +1077,16 @@ public:
 		return wxFontDialog::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxFontDialog*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxFontDialog::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

@@ -1125,6 +1125,16 @@ public:
 		return wxPickerBase::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxPickerBase*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxPickerBase::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

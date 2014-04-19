@@ -1133,6 +1133,16 @@ public:
 		return wxAnimationCtrl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxAnimationCtrl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxAnimationCtrl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

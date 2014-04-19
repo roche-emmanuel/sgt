@@ -514,6 +514,15 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_setUniform2fValue(lua_State *L) {
+		if( lua_gettop(L)!=3 ) return false;
+
+		if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,1381405)) ) return false;
+		if( lua_type(L,2)!=LUA_TSTRING ) return false;
+		if( (lua_isnil(L,3)==0 && !Luna<void>::has_uniqueid(L,3,81304240)) ) return false;
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_toString(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -1524,6 +1533,21 @@ public:
 		return 3;
 	}
 
+	// void ork::Program::program_setUniform2f(ork::Program * p, const std::string & uname, ork::vec2f * value)
+	static int _bind_setUniform2fValue(lua_State *L) {
+		if (!_lg_typecheck_setUniform2fValue(L)) {
+			luaL_error(L, "luna typecheck failed in void ork::Program::program_setUniform2f(ork::Program * p, const std::string & uname, ork::vec2f * value) function, expected prototype:\nvoid ork::Program::program_setUniform2f(ork::Program * p, const std::string & uname, ork::vec2f * value)\nClass arguments details:\narg 1 ID = 1381405\narg 3 ID = 81304240\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		ork::Program* p=(Luna< ork::Object >::checkSubType< ork::Program >(L,1));
+		std::string uname(lua_tostring(L,2),lua_objlen(L,2));
+		ork::vec2f* value=(Luna< ork::vec2f >::check(L,3));
+
+		program_setUniform2f(p, uname, value);
+
+		return 0;
+	}
+
 	// const char * ork::Program::base_toString()
 	static int _bind_base_toString(lua_State *L) {
 		if (!_lg_typecheck_base_toString(L)) {
@@ -1626,6 +1650,7 @@ luna_RegType LunaTraits< ork::Program >::methods[] = {
 	{"getUniformSubroutine", &luna_wrapper_ork_Program::_bind_getUniformSubroutine},
 	{"getUniformBlock", &luna_wrapper_ork_Program::_bind_getUniformBlock},
 	{"getBinary", &luna_wrapper_ork_Program::_bind_getBinary},
+	{"setUniform2fValue", &luna_wrapper_ork_Program::_bind_setUniform2fValue},
 	{"base_toString", &luna_wrapper_ork_Program::_bind_base_toString},
 	{"base_getId", &luna_wrapper_ork_Program::_bind_base_getId},
 	{"fromVoid", &luna_wrapper_ork_Program::_bind_fromVoid},

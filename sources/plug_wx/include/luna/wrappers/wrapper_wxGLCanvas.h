@@ -1154,6 +1154,16 @@ public:
 		return wxGLCanvas::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxGLCanvas*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxGLCanvas::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {
@@ -1228,6 +1238,16 @@ public:
 		}
 
 		return wxGLCanvas::UpdateWindowUI(flags);
+	};
+
+	// bool wxGLCanvas::SwapBuffers()
+	bool SwapBuffers() {
+		if(_obj.pushFunction("SwapBuffers")) {
+			_obj.pushArg((wxGLCanvas*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxGLCanvas::SwapBuffers();
 	};
 
 

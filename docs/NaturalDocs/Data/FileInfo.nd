@@ -68,7 +68,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/spark/RainKiller.lua	1357818088	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/spark/RainKiller.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/misc/RedBirdDumpApp.lua	1360071361	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/misc/RedBirdDumpApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/base/Thread.lua	1385634582	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/base/Thread.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/ControlInterface.lua	1380036762	1	gui.wx.ControlInterface
+/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/ControlInterface.lua	1397892297	1	gui.wx.ControlInterface
 /cygdrive/w/Cloud/Projects/sgt/modules/core/std/Iterator.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/std/Iterator.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/MainFrame.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/MainFrame.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ProtectedValidator.lua	1354312765	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/reflection/validators/ProtectedValidator.lua
@@ -155,6 +155,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/logging/LoggerBase.lua	1365488987	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/logging/LoggerBase.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/WebPanel.lua	1384330291	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/WebPanel.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeWriter.lua	1357079508	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TypeWriter.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/GLTestApp.lua	1397915629	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/GLTestApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/finance/StockRetrieverConsoleApp.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/finance/StockRetrieverConsoleApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/osg/OSGTestApp.lua	1379487206	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/osg/OSGTestApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/misc/RedBirdApp.lua	1358935095	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/misc/RedBirdApp.lua
@@ -172,6 +173,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tracer.lua	1394920652	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tracer.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/View.lua	1386947342	1	gui.web.View
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/gui.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/gui.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/GLCanvas.lua	1397908599	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/GLCanvas.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/helpers/wxDefineFinder.lua	1374251295	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/helpers/wxDefineFinder.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/misc/KLVControllerApp.lua	1390898872	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/misc/KLVControllerApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/logging/DefaultTracer.lua	1344261312	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/logging/DefaultTracer.lua
@@ -237,7 +239,7 @@ Lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TextCorrector.lua	1356778891	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/bindings/TextCorrector.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/base/EventCallback.lua	1380731061	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/base/EventCallback.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/reflection.lua	1365488831	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/tests/suites/reflection.lua
-/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/SimpleApp.lua	1397247081	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/SimpleApp.lua
+/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/SimpleApp.lua	1397907993	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/SimpleApp.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/DummyEntry.lua	1365492899	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/wx/entries/DummyEntry.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/std/Map.lua	1365493365	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/std/Map.lua
 /cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/BasicWebManager.lua	1379627455	0	/cygdrive/w/Cloud/Projects/sgt/modules/core/gui/web/BasicWebManager.lua

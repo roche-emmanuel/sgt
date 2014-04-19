@@ -132,4 +132,3 @@ createWxLogHandler
 wxIsEmpty
 wxStrlen
 wxStrlcpy
-wxStrrchr

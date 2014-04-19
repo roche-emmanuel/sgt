@@ -81,7 +81,6 @@ typedef OpenThreads::ScopedLock<sgtMutex> sgtLock;
 #define THROW_IF(cond,msg) if(cond) { std::ostringstream os; os << msg; logERROR("Throwing exception: " << msg); throw sgtException(os.str()); }
 #define CHECK_EQ(val,expected,msg) if((val)!=(expected)) { logERROR(msg << " (Expected: " << (expected) << " and got: " << (val) << ")"); return; }
 #define CHECK_EQ_RET(val,expected,ret,msg) if((val)!=(expected)) { logERROR(msg << " (Expected: " << (expected) << " and got: " << (val) << ")"); return ret; }
-#define ASSERT(val) THROW_IF(!(val),"Assertion failed at " <<  __FILE__ <<":"<< __LINE__)
 
 #define CHECK(val,msg) if(!(val)) { logERROR(msg); return; }
 #define CHECK_RET(val,ret,msg) if(!(val)) { logERROR(msg); return ret; }

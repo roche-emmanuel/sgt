@@ -9,6 +9,9 @@ mfs_write
 mfs_size
 mfs_unmap
 mfs_close
+createMeshVec2fUInt
+createCPUBuffer
+createFragmentModule
 isPointerAligned
 alignPointer
 degrees

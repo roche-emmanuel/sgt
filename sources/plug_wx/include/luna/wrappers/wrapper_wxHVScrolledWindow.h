@@ -1106,6 +1106,16 @@ public:
 		return wxHVScrolledWindow::InheritAttributes();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxHVScrolledWindow*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxHVScrolledWindow::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

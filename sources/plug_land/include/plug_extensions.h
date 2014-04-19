@@ -18,11 +18,47 @@
 #include "ork/scenegraph/SceneManager.h"
 #include "proland/util/TerrainViewController.h"
 #include "ork/core/Timer.h"
+#include "ork/render/Mesh.h"
+#include "ork/render/CPUBuffer.h"
+#include "ork/render/Module.h"
+#include "ork/render/FrameBuffer.h"
 
 namespace ork {
 typedef vec2<bool> vec2b;
 typedef vec3<bool> vec3b;
 typedef vec4<bool> vec4b;
+}
+
+inline ork::Mesh< ork::vec2f, unsigned int >* createMeshVec2fUInt(MeshMode m, MeshUsage usage, int vertexCount = 4, int indiceCount = 4) {
+  return new ork::Mesh< ork::vec2f, unsigned int >(m,usage,vertexCount,indiceCount);
+}
+
+/** LUNA_CLASS_EXTENSION LUNA_RENAME addVertex */
+inline void mesh_vec2f_uint_addVertex(ork::Mesh< ork::vec2f, unsigned int >* mesh, ork::vec2f* vec) {
+  mesh->addVertex(*vec);
+};
+
+/** LUNA_CLASS_EXTENSION LUNA_RENAME addAttributeType */
+inline void mesh_vec2f_uint_addAttributeType(ork::Mesh< ork::vec2f, unsigned int >* mesh, int id, int size, AttributeType type, bool norm) {
+  mesh->addAttributeType(id,size,type,norm);
+};
+
+inline ork::CPUBuffer* createCPUBuffer(const std::string& str) {
+  return new ork::CPUBuffer((const void*)str.data());
+};
+
+inline ork::Module* createFragmentModule(unsigned int version, const std::string& data) {
+  return new ork::Module(version,NULL,data.c_str());
+};
+
+/** LUNA_CLASS_EXTENSION LUNA_RENAME drawMesh */
+inline void framebuffer_draw(ork::FrameBuffer* fb, ork::Program* p, ork::Mesh< ork::vec2f, unsigned int >* mesh, int primCount = 1) {
+  fb->draw(p,*mesh,primCount);
+}
+
+/** LUNA_CLASS_EXTENSION LUNA_RENAME setUniform2fValue */
+inline void program_setUniform2f(ork::Program* p , const std::string& uname, ork::vec2f* value) {
+  p->getUniform2f(uname)->set(*value);
 }
 
 namespace land {

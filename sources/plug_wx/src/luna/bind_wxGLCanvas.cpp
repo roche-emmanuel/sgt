@@ -141,6 +141,12 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_SwapBuffers(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_IsDisplaySupported(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -805,6 +811,12 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_base_IsDoubleBuffered(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_IsRetained(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -852,6 +864,12 @@ public:
 		if( luatop<1 || luatop>2 ) return false;
 
 		if( luatop>1 && lua_type(L,2)!=LUA_TNUMBER ) return false;
+		return true;
+	}
+
+	inline static bool _lg_typecheck_base_SwapBuffers(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
 		return true;
 	}
 
@@ -970,6 +988,23 @@ public:
 			luaL_error(L, "Invalid object in function call bool wxGLCanvas::SetCurrent(const wxGLContext &) const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetCurrent(context);
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
+	// bool wxGLCanvas::SwapBuffers()
+	static int _bind_SwapBuffers(lua_State *L) {
+		if (!_lg_typecheck_SwapBuffers(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxGLCanvas::SwapBuffers() function, expected prototype:\nbool wxGLCanvas::SwapBuffers()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxGLCanvas* self=Luna< wxObject >::checkSubType< wxGLCanvas >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxGLCanvas::SwapBuffers(). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->SwapBuffers();
 		lua_pushboolean(L,lret?1:0);
 
 		return 1;
@@ -2768,6 +2803,23 @@ public:
 		return 0;
 	}
 
+	// bool wxGLCanvas::base_IsDoubleBuffered() const
+	static int _bind_base_IsDoubleBuffered(lua_State *L) {
+		if (!_lg_typecheck_base_IsDoubleBuffered(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxGLCanvas::base_IsDoubleBuffered() const function, expected prototype:\nbool wxGLCanvas::base_IsDoubleBuffered() const\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxGLCanvas* self=Luna< wxObject >::checkSubType< wxGLCanvas >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxGLCanvas::base_IsDoubleBuffered() const. Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->wxGLCanvas::IsDoubleBuffered();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
 	// bool wxGLCanvas::base_IsRetained() const
 	static int _bind_base_IsRetained(lua_State *L) {
 		if (!_lg_typecheck_base_IsRetained(L)) {
@@ -2894,6 +2946,23 @@ public:
 		return 0;
 	}
 
+	// bool wxGLCanvas::base_SwapBuffers()
+	static int _bind_base_SwapBuffers(lua_State *L) {
+		if (!_lg_typecheck_base_SwapBuffers(L)) {
+			luaL_error(L, "luna typecheck failed in bool wxGLCanvas::base_SwapBuffers() function, expected prototype:\nbool wxGLCanvas::base_SwapBuffers()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		wxGLCanvas* self=Luna< wxObject >::checkSubType< wxGLCanvas >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool wxGLCanvas::base_SwapBuffers(). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->wxGLCanvas::SwapBuffers();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
 
 	// Operator binds:
 
@@ -2917,6 +2986,7 @@ const int LunaTraits< wxGLCanvas >::uniqueIDs[] = {56813631, 53506535,0};
 luna_RegType LunaTraits< wxGLCanvas >::methods[] = {
 	{"SetColour", &luna_wrapper_wxGLCanvas::_bind_SetColour},
 	{"SetCurrent", &luna_wrapper_wxGLCanvas::_bind_SetCurrent},
+	{"SwapBuffers", &luna_wrapper_wxGLCanvas::_bind_SwapBuffers},
 	{"IsDisplaySupported", &luna_wrapper_wxGLCanvas::_bind_IsDisplaySupported},
 	{"IsExtensionSupported", &luna_wrapper_wxGLCanvas::_bind_IsExtensionSupported},
 	{"base_GetClassInfo", &luna_wrapper_wxGLCanvas::_bind_base_GetClassInfo},
@@ -3012,6 +3082,7 @@ luna_RegType LunaTraits< wxGLCanvas >::methods[] = {
 	{"base_HasMultiplePages", &luna_wrapper_wxGLCanvas::_bind_base_HasMultiplePages},
 	{"base_InheritAttributes", &luna_wrapper_wxGLCanvas::_bind_base_InheritAttributes},
 	{"base_InitDialog", &luna_wrapper_wxGLCanvas::_bind_base_InitDialog},
+	{"base_IsDoubleBuffered", &luna_wrapper_wxGLCanvas::_bind_base_IsDoubleBuffered},
 	{"base_IsRetained", &luna_wrapper_wxGLCanvas::_bind_base_IsRetained},
 	{"base_IsTopLevel", &luna_wrapper_wxGLCanvas::_bind_base_IsTopLevel},
 	{"base_MakeModal", &luna_wrapper_wxGLCanvas::_bind_base_MakeModal},
@@ -3019,6 +3090,7 @@ luna_RegType LunaTraits< wxGLCanvas >::methods[] = {
 	{"base_RegisterHotKey", &luna_wrapper_wxGLCanvas::_bind_base_RegisterHotKey},
 	{"base_UnregisterHotKey", &luna_wrapper_wxGLCanvas::_bind_base_UnregisterHotKey},
 	{"base_UpdateWindowUI", &luna_wrapper_wxGLCanvas::_bind_base_UpdateWindowUI},
+	{"base_SwapBuffers", &luna_wrapper_wxGLCanvas::_bind_base_SwapBuffers},
 	{"fromVoid", &luna_wrapper_wxGLCanvas::_bind_fromVoid},
 	{"asVoid", &luna_wrapper_wxGLCanvas::_bind_asVoid},
 	{"getTable", &luna_wrapper_wxGLCanvas::_bind_getTable},

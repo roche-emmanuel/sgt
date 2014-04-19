@@ -237,7 +237,6 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< ork::GlutWindow >::Register(L);
 	Luna< ork::Window::Parameters >::Register(L);
 	Luna< ork::Font >::Register(L);
-	Luna< ork::Mesh< vec3f, unsigned int > >::Register(L);
 	Luna< ork::vec2h >::Register(L);
 	Luna< ork::vec2f >::Register(L);
 	Luna< ork::vec2d >::Register(L);
@@ -453,6 +452,7 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< std::type_info >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"land");
+	Luna< ork::Mesh< ork::vec2f, unsigned int > >::Register(L);
 	Luna< std::vector< ork::ptr< ork::Module > > >::Register(L);
 	Luna< std::vector< ork::ptr< ork::TaskFactory > > >::Register(L);
 	Luna< std::vector< ork::SetTargetTask::Target > >::Register(L);
@@ -477,7 +477,6 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< vector< ork::ptr< proland::PlantsProducer > > >::Register(L);
 	Luna< set< proland::TileCache::Tile::Id > >::Register(L);
 	Luna< ork::Mesh< ork::vec4f, unsigned int > >::Register(L);
-	Luna< ork::Mesh< ork::vec2f, unsigned int > >::Register(L);
 	Luna< set< proland::TileCache::Tile * > >::Register(L);
 	Luna< set< proland::NodeId > >::Register(L);
 	Luna< vector< proland::Vertex > >::Register(L);

@@ -1203,6 +1203,17 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_drawMesh(lua_State *L) {
+		int luatop = lua_gettop(L);
+		if( luatop<3 || luatop>4 ) return false;
+
+		if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,1381405)) ) return false;
+		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,1381405)) ) return false;
+		if( (lua_isnil(L,3)==0 && !Luna<void>::has_uniqueid(L,3,1443305)) ) return false;
+		if( luatop>3 && (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_toString(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -3989,6 +4000,24 @@ public:
 		return 0;
 	}
 
+	// void ork::FrameBuffer::framebuffer_draw(ork::FrameBuffer * fb, ork::Program * p, ork::Mesh< ork::vec2f, unsigned int > * mesh, int primCount = 1)
+	static int _bind_drawMesh(lua_State *L) {
+		if (!_lg_typecheck_drawMesh(L)) {
+			luaL_error(L, "luna typecheck failed in void ork::FrameBuffer::framebuffer_draw(ork::FrameBuffer * fb, ork::Program * p, ork::Mesh< ork::vec2f, unsigned int > * mesh, int primCount = 1) function, expected prototype:\nvoid ork::FrameBuffer::framebuffer_draw(ork::FrameBuffer * fb, ork::Program * p, ork::Mesh< ork::vec2f, unsigned int > * mesh, int primCount = 1)\nClass arguments details:\narg 1 ID = 1381405\narg 2 ID = 1381405\narg 3 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		int luatop = lua_gettop(L);
+
+		ork::FrameBuffer* fb=(Luna< ork::Object >::checkSubType< ork::FrameBuffer >(L,1));
+		ork::Program* p=(Luna< ork::Object >::checkSubType< ork::Program >(L,2));
+		ork::Mesh< ork::vec2f, unsigned int >* mesh=(Luna< ork::Mesh< ork::vec2f, unsigned int > >::check(L,3));
+		int primCount=luatop>3 ? (int)lua_tointeger(L,4) : (int)1;
+
+		framebuffer_draw(fb, p, mesh, primCount);
+
+		return 0;
+	}
+
 	// const char * ork::FrameBuffer::base_toString()
 	static int _bind_base_toString(lua_State *L) {
 		if (!_lg_typecheck_base_toString(L)) {
@@ -4112,6 +4141,7 @@ luna_RegType LunaTraits< ork::FrameBuffer >::methods[] = {
 	{"getMinorVersion", &luna_wrapper_ork_FrameBuffer::_bind_getMinorVersion},
 	{"getError", &luna_wrapper_ork_FrameBuffer::_bind_getError},
 	{"resetAllStates", &luna_wrapper_ork_FrameBuffer::_bind_resetAllStates},
+	{"drawMesh", &luna_wrapper_ork_FrameBuffer::_bind_drawMesh},
 	{"base_toString", &luna_wrapper_ork_FrameBuffer::_bind_base_toString},
 	{"fromVoid", &luna_wrapper_ork_FrameBuffer::_bind_fromVoid},
 	{"asVoid", &luna_wrapper_ork_FrameBuffer::_bind_asVoid},

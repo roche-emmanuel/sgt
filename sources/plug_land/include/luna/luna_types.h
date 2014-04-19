@@ -3868,25 +3868,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: ork::Mesh< vec3f, unsigned int >
-template<>
-class LunaTraits< ork::Mesh< vec3f, unsigned int > > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static ork::Mesh< vec3f, unsigned int >* _bind_ctor(lua_State *L);
-	static void _bind_dtor(ork::Mesh< vec3f, unsigned int >* obj);
-	typedef ork::Mesh< vec3f, unsigned int > parent_t;
-	typedef ork::Mesh< vec3f, unsigned int > base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: ork::vec2h
 template<>
 class LunaTraits< ork::vec2h > {
@@ -7669,6 +7650,25 @@ public:
 };
 
 
+// Mapped type: ork::Mesh< ork::vec2f, unsigned int >
+template<>
+class LunaTraits< ork::Mesh< ork::vec2f, unsigned int > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Mesh< ork::vec2f, unsigned int >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Mesh< ork::vec2f, unsigned int >* obj);
+	typedef ork::Mesh< ork::vec2f, unsigned int > parent_t;
+	typedef ork::Mesh< ork::vec2f, unsigned int > base_t;
+	static luna_ConverterType converters[];
+};
+
 // Mapped type: std::vector< ork::ptr< ork::Module > >
 template<>
 class LunaTraits< std::vector< ork::ptr< ork::Module > > > {
@@ -8122,25 +8122,6 @@ public:
 	static void _bind_dtor(ork::Mesh< ork::vec4f, unsigned int >* obj);
 	typedef ork::Mesh< ork::vec4f, unsigned int > parent_t;
 	typedef ork::Mesh< ork::vec4f, unsigned int > base_t;
-	static luna_ConverterType converters[];
-};
-
-// Mapped type: ork::Mesh< ork::vec2f, unsigned int >
-template<>
-class LunaTraits< ork::Mesh< ork::vec2f, unsigned int > > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static ork::Mesh< ork::vec2f, unsigned int >* _bind_ctor(lua_State *L);
-	static void _bind_dtor(ork::Mesh< ork::vec2f, unsigned int >* obj);
-	typedef ork::Mesh< ork::vec2f, unsigned int > parent_t;
-	typedef ork::Mesh< ork::vec2f, unsigned int > base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -9622,13 +9603,6 @@ public:
 };
 
 template<>
-class LunaType< 7716379 > {
-public:
-	typedef ork::Mesh< vec3f, unsigned int > type;
-	
-};
-
-template<>
 class LunaType< 58780377 > {
 public:
 	typedef proland::seg2f type;
@@ -9996,6 +9970,13 @@ template<>
 class LunaType< 79829375 > {
 public:
 	typedef std::type_info type;
+	
+};
+
+template<>
+class LunaType< 1443305 > {
+public:
+	typedef ork::Mesh< ork::vec2f, unsigned int > type;
 	
 };
 
@@ -10808,13 +10789,6 @@ template<>
 class LunaType< 5903696 > {
 public:
 	typedef ork::Mesh< ork::vec4f, unsigned int > type;
-	
-};
-
-template<>
-class LunaType< 1443305 > {
-public:
-	typedef ork::Mesh< ork::vec2f, unsigned int > type;
 	
 };
 

@@ -857,9 +857,6 @@ namespace ork {
 	public:
 	};
 
-	class Mesh< vec3f, unsigned int > {
-	};
-
 	class vec2h {
 	};
 

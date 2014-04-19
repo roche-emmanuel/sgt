@@ -18,6 +18,7 @@ tools/*.log
 
 # Ignore compiled documentation:
 docs/manual.chm
+docs/NaturalDocs/Data/*
 
 # Ignore temp folder
 temp

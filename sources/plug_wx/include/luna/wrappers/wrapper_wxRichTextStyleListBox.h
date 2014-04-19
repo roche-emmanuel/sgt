@@ -1189,6 +1189,16 @@ public:
 		return wxRichTextStyleListBox::InheritAttributes();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxRichTextStyleListBox*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxRichTextStyleListBox::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

@@ -1141,6 +1141,16 @@ public:
 		return wxMediaCtrl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxMediaCtrl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxMediaCtrl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

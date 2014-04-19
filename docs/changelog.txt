@@ -89,3 +89,4 @@
 - Fixed crash issue on glGenBuffer due to static glew link in ork and land plugins.
 - fixed binding for ork:vec4i and ork:vec4f proper usage.
 - Trying to rebuild wx plugin.
+- Rebuilt wx plug with swapbuffers support. built minimal ork sample with GL and OSG. Building minimal proland core sample with OSG.

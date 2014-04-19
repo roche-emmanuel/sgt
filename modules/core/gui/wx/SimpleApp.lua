@@ -26,10 +26,11 @@ function Class:initialize(options)
 	
 	-- Set this frame as master application frame:
 	wx.wxGetApp():SetTopWindow(frame)
-    wx.wxGetApp():SetExitOnFrameDelete(true)
-    
-    self._frame:connect(wx.wxID_ANY,wx.wxEVT_CLOSE_WINDOW,function(event)
-		self:getEventManager():fireEvent(Event.APP_CLOSING)
+  wx.wxGetApp():SetExitOnFrameDelete(true)
+  
+  local eman = require("base.EventManager")
+  self._frame:connect(wx.wxID_ANY,wx.wxEVT_CLOSE_WINDOW,function(event)
+		eman:fireEvent(Event.APP_CLOSING)
 		self:debug("Destroying mainframe."); 
 		self._frame:Destroy();
 	end)

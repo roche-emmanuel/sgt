@@ -53,6 +53,10 @@ function Class:getGLCanvas()
 	return self._window
 end
 
+function Class:makeCurrentContext()
+	self:check(self._context:SetCurrent(self._window),"Cannot set current context.")
+end
+
 function Class:buildInstance()
 	self:info("Building GLCanvas instance...")
 	

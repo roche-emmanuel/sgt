@@ -1230,38 +1230,6 @@ inline static bool _lg_typecheck_wxStrlcpy(lua_State *L) {
 	return true;
 }
 
-inline static bool _lg_typecheck_wxStrrchr_overload_1(lua_State *L) {
-	if( lua_gettop(L)!=2 ) return false;
-
-	if( lua_type(L,1)!=LUA_TSTRING ) return false;
-	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-	return true;
-}
-
-inline static bool _lg_typecheck_wxStrrchr_overload_2(lua_State *L) {
-	if( lua_gettop(L)!=2 ) return false;
-
-	if( lua_type(L,1)!=LUA_TSTRING ) return false;
-	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-	return true;
-}
-
-inline static bool _lg_typecheck_wxStrrchr_overload_3(lua_State *L) {
-	if( lua_gettop(L)!=2 ) return false;
-
-	if( lua_type(L,1)!=LUA_TSTRING ) return false;
-	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-	return true;
-}
-
-inline static bool _lg_typecheck_wxStrrchr_overload_4(lua_State *L) {
-	if( lua_gettop(L)!=2 ) return false;
-
-	if( lua_type(L,1)!=LUA_TSTRING ) return false;
-	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-	return true;
-}
-
 
 // Function binds:
 // void wxAboutBox(const wxAboutDialogInfo & info, wxWindow * parent = NULL)
@@ -3730,77 +3698,6 @@ static int _bind_wxStrlcpy(lua_State *L) {
 	return 1;
 }
 
-// const char * wxStrrchr(const char * s, char c)
-static int _bind_wxStrrchr_overload_1(lua_State *L) {
-	if (!_lg_typecheck_wxStrrchr_overload_1(L)) {
-		luaL_error(L, "luna typecheck failed in const char * wxStrrchr(const char * s, char c) function, expected prototype:\nconst char * wxStrrchr(const char * s, char c)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-	}
-
-	const char * s=(const char *)lua_tostring(L,1);
-	char c=(char)lua_tointeger(L,2);
-
-	const char * lret = ::wxStrrchr(s, c);
-	lua_pushstring(L,lret);
-
-	return 1;
-}
-
-// const char * wxStrrchr(const wxString & s, char c)
-static int _bind_wxStrrchr_overload_2(lua_State *L) {
-	if (!_lg_typecheck_wxStrrchr_overload_2(L)) {
-		luaL_error(L, "luna typecheck failed in const char * wxStrrchr(const wxString & s, char c) function, expected prototype:\nconst char * wxStrrchr(const wxString & s, char c)\nClass arguments details:\narg 1 ID = 88196105\n\n%s",luna_dumpStack(L).c_str());
-	}
-
-	wxString s(lua_tostring(L,1),lua_objlen(L,1));
-	char c=(char)lua_tointeger(L,2);
-
-	const char * lret = ::wxStrrchr(s, c);
-	lua_pushstring(L,lret);
-
-	return 1;
-}
-
-// const char * wxStrrchr(const wxString & s, int c)
-static int _bind_wxStrrchr_overload_3(lua_State *L) {
-	if (!_lg_typecheck_wxStrrchr_overload_3(L)) {
-		luaL_error(L, "luna typecheck failed in const char * wxStrrchr(const wxString & s, int c) function, expected prototype:\nconst char * wxStrrchr(const wxString & s, int c)\nClass arguments details:\narg 1 ID = 88196105\n\n%s",luna_dumpStack(L).c_str());
-	}
-
-	wxString s(lua_tostring(L,1),lua_objlen(L,1));
-	int c=(int)lua_tointeger(L,2);
-
-	const char * lret = ::wxStrrchr(s, c);
-	lua_pushstring(L,lret);
-
-	return 1;
-}
-
-// char * wxStrrchr(char * s, char c)
-static int _bind_wxStrrchr_overload_4(lua_State *L) {
-	if (!_lg_typecheck_wxStrrchr_overload_4(L)) {
-		luaL_error(L, "luna typecheck failed in char * wxStrrchr(char * s, char c) function, expected prototype:\nchar * wxStrrchr(char * s, char c)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-	}
-
-	char* s=(char*)Luna< void >::check(L,1);
-	char c=(char)lua_tointeger(L,2);
-
-	char * lret = ::wxStrrchr(s, c);
-	lua_pushnumber(L,*lret);
-
-	return 1;
-}
-
-// Overload binder for wxStrrchr
-static int _bind_wxStrrchr(lua_State *L) {
-	if (_lg_typecheck_wxStrrchr_overload_1(L)) return _bind_wxStrrchr_overload_1(L);
-	if (_lg_typecheck_wxStrrchr_overload_2(L)) return _bind_wxStrrchr_overload_2(L);
-	if (_lg_typecheck_wxStrrchr_overload_3(L)) return _bind_wxStrrchr_overload_3(L);
-	if (_lg_typecheck_wxStrrchr_overload_4(L)) return _bind_wxStrrchr_overload_4(L);
-
-	luaL_error(L, "error in function wxStrrchr, cannot match any of the overloads for function wxStrrchr:\n  wxStrrchr(const char *, char)\n  wxStrrchr(const wxString &, char)\n  wxStrrchr(const wxString &, int)\n  wxStrrchr(char *, char)\n");
-	return 0;
-}
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -3941,7 +3838,6 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_wxIsEmpty); lua_setfield(L,-2,"wxIsEmpty");
 	lua_pushcfunction(L, _bind_wxStrlen); lua_setfield(L,-2,"wxStrlen");
 	lua_pushcfunction(L, _bind_wxStrlcpy); lua_setfield(L,-2,"wxStrlcpy");
-	lua_pushcfunction(L, _bind_wxStrrchr); lua_setfield(L,-2,"wxStrrchr");
 	luna_popModule(L);
 }
 

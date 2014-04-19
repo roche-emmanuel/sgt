@@ -249,6 +249,7 @@ ReflectionGenerator.generate{
 		"wxView::m_viewDocument",
 		"wxView::m_viewTypeName",
 		"wxView::m_viewFrame",
+		"wxStrrchr",
 	},
 	ignoreWrappers={
 		"wxBitmapComboBox::IsEmpty",
@@ -309,6 +310,7 @@ ReflectionGenerator.generate{
         "wxArchive",
         "wxWebView",
         "<",
+        "^T$",
         "wxFileStream",
         "wxFFileStream",
         "wxVarHVScrollHelper",
@@ -336,7 +338,9 @@ ReflectionGenerator.generate{
         -- "wxThreadHelper",   
     },
 	ignoreHeaders={"helpers%.h"}, --,"wx_events%.h","wx_defines%.h","wx_enums%.h"},
-	ignoreClassDeclarations={},
+	ignoreClassDeclarations={
+		"^T$",
+	},
 	mappedBaseTypes={
 		wxKeyboardState="wxObject",
 		wxMouseState="wxObject",

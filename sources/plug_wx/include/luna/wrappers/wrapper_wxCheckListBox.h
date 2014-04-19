@@ -1161,6 +1161,16 @@ public:
 		return wxCheckListBox::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxCheckListBox*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxCheckListBox::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

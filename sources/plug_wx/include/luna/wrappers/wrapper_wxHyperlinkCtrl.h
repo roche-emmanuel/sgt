@@ -1133,6 +1133,16 @@ public:
 		return wxHyperlinkCtrl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxHyperlinkCtrl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxHyperlinkCtrl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

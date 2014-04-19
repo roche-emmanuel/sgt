@@ -17,6 +17,9 @@
 // prevent inclusion of windef here:
 #include "lunaCommon.h"
 
+// Redefine Assert here.
+#define ASSERT(val) THROW_IF(!(val),"Assertion failed at " <<  __FILE__ <<":"<< __LINE__)
+
 #include <assert.h>
 #include <cassert>
 

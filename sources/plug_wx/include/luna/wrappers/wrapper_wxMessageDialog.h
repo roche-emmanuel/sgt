@@ -1061,6 +1061,16 @@ public:
 		return wxMessageDialog::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxMessageDialog*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxMessageDialog::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

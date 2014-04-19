@@ -1165,6 +1165,16 @@ public:
 		return wxRibbonControl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxRibbonControl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxRibbonControl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

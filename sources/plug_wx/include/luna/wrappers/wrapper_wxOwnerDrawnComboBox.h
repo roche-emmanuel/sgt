@@ -1226,6 +1226,16 @@ public:
 		return wxOwnerDrawnComboBox::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxOwnerDrawnComboBox*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxOwnerDrawnComboBox::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

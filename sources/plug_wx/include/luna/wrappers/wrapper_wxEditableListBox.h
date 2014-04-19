@@ -1122,6 +1122,16 @@ public:
 		return wxEditableListBox::InheritAttributes();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxEditableListBox*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxEditableListBox::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

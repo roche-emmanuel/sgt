@@ -13,14 +13,18 @@ function Class:initialize()
 	self:check(proland and ork,"Invalid proland or ork module")
 
   -- self:createBase()
+  self._t = 0
+  self._dt = 0
+  self._timer = ork.Timer()
+  self._timer:start()
 
 	self:debug("Using root path: ",root_path)
 	self:debug("Creating XMLResourceLoader...")
 	local resLoader = ork.XMLResourceLoader()
-  -- resLoader:addPath(root_path.."/proland_samples/core");
-  -- resLoader:addArchive(root_path.."/proland_samples/core/helloworld.xml");
-	resLoader:addPath(root_path.."/proland_samples/terrain/terrain3");
-  resLoader:addArchive(root_path.."/proland_samples/terrain/terrain3/helloworld.xml");
+  resLoader:addPath(root_path.."/proland_samples/core");
+  resLoader:addArchive(root_path.."/proland_samples/core/helloworld.xml");
+	-- resLoader:addPath(root_path.."/proland_samples/terrain/terrain3");
+ --  resLoader:addArchive(root_path.."/proland_samples/terrain/terrain3/helloworld.xml");
 
   self:debug("Creating ResourceManager...")
   local resManager = ork.ResourceManager(resLoader, 8)
@@ -35,6 +39,9 @@ function Class:initialize()
 
 	self:debug("Initializing glew...")
 	land.initGlew()
+
+  local size=self:getCanvas():getGLCanvas():GetSize()
+  self:onResize(size:GetWidth(),size:GetHeight())
 
 	self:debug("assigning scheduler")
   local obj = resManager:loadResource("defaultScheduler")
@@ -54,14 +61,25 @@ function Class:initialize()
   self._controller = proland.TerrainViewController(manager:getCameraNode(), 2500.0);
 
   self:debug("Creating proland drawable:")
-  local pdraw = land.ProlandDrawable(manager, self._controller)
 
-  self._drawable = pdraw
+  self._drawable = osg.Drawable{
+    drawImplementation = function(tt,obj,renderinfo)
+      -- self:debug("Calling draw implementation.")
+      local state = renderinfo:getState()
+      -- state:applyModelViewMatrix(osg.Matrixd.rotate(-math.pi/2.0,osg.ZAXIS))
+      -- state:disableAllVertexArrays()
+      state:popAllStateSets()
+      self:onFrame()
+    end
+  }
+
+  -- local pdraw = land.ProlandDrawable(manager, self._controller)
+  -- self._drawable = pdraw
 
   self:debug("Creating render geode:")
   -- prepare the render geode:
   local geode = osg.Geode();
-  geode:addDrawable( pdraw );
+  geode:addDrawable( self._drawable );
   geode:setCullingActive(false); -- just disable culling here.
   self:getRoot():addChild(geode)
 
@@ -69,11 +87,12 @@ function Class:initialize()
 
   self:getViewer():addEventHandler( self._eventHandler );
 
-  self:home()
+  resManager:updateResources();
+
+  -- self:home()
 
   self:debug("App initialized.")
 end
-
 
 function Class:buildEventHandler()
   self._eventHandler = osgGA.GUIEventHandler{
@@ -101,23 +120,51 @@ function Class:buildEventHandler()
       -- end
       if etype == osgGA.GUIEventAdapter.RESIZE then
         self:debug("Should handle resize event here.")
-        self._drawable:reshape(ea:getWindowWidth(),ea:getWindowHeight())
+        self:onResize(ea:getWindowWidth(),ea:getWindowHeight())
       elseif etype == osgGA.GUIEventAdapter.SCROLL then
         local sm = ea:getScrollingMotion()
-        if sm == osgGA.GUIEventAdapter.SCROLL_UP then
-          self:debug("Scrolling up...")
-          -- self._controller:setD(self._controller:getD()/1.1)
-          self._drawable:mouseWheel(0,0,ea:getX(),ea:getY())
-        elseif sm == osgGA.GUIEventAdapter.SCROLL_DOWN then
-          self:debug("Scrolling down...")
-          -- self._controller:setD(self._controller:getD()*1.1)
-          self._drawable:mouseWheel(1,0,ea:getX(),ea:getY())
-        end
+        -- if sm == osgGA.GUIEventAdapter.SCROLL_UP then
+        --   self:debug("Scrolling up...")
+        --   -- self._controller:setD(self._controller:getD()/1.1)
+        --   self._drawable:mouseWheel(0,0,ea:getX(),ea:getY())
+        -- elseif sm == osgGA.GUIEventAdapter.SCROLL_DOWN then
+        --   self:debug("Scrolling down...")
+        --   -- self._controller:setD(self._controller:getD()*1.1)
+        --   self._drawable:mouseWheel(1,0,ea:getX(),ea:getY())
+        -- end
       end
 
       return false;
     end
   };
+end
+
+function Class:onFrame()
+  self:debug("Rendering frame.")
+  local newT = self._timer:elapsed();
+  self._dt = newT - self._t;
+  self._t = newT;
+
+  self._controller:update();
+  self._controller:setProjection();
+
+  local fb = ork.FrameBuffer.getDefault();
+  fb:clear(true, false, true);
+
+  self._manager:update(self._t, self._dt);
+  self._manager:draw();
+end
+
+function Class:onResize(x,y)
+  self:debug("Rescaling to ",x,"x",y)
+  local fb = ork.FrameBuffer.getDefault()
+  fb:setViewport(ork.vec4i(0, 0, x, y));
+end
+
+function Class:onMouseDown(b,x,y)
+  self._mouseX = x;
+  self._mouseY = y;
+  self._rotate = (b == osgGA.GUIEventAdapter.RIGHT_MOUSE_BUTTON)
 end
 
 local app = Class{}

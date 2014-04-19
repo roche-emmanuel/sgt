@@ -1,8 +1,8 @@
 #include <plug_common.h>
 
 #include <proland/util/mfs.h>
-#include <ork/math/pmath.h>
 #include <plug_extensions.h>
+#include <ork/math/pmath.h>
 #include <ork/math/half.h>
 #include <proland/math/color.h>
 #include <proland/math/noise.h>
@@ -135,6 +135,32 @@ inline static bool _lg_typecheck_mfs_close(lua_State *L) {
 	if( lua_gettop(L)!=1 ) return false;
 
 	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,83387491)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_createMeshVec2fUInt(lua_State *L) {
+	int luatop = lua_gettop(L);
+	if( luatop<2 || luatop>4 ) return false;
+
+	if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( luatop>2 && (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	if( luatop>3 && (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_createCPUBuffer(lua_State *L) {
+	if( lua_gettop(L)!=1 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	return true;
+}
+
+inline static bool _lg_typecheck_createFragmentModule(lua_State *L) {
+	if( lua_gettop(L)!=2 ) return false;
+
+	if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+	if( lua_type(L,2)!=LUA_TSTRING ) return false;
 	return true;
 }
 
@@ -457,6 +483,60 @@ static int _bind_mfs_close(lua_State *L) {
 
 	int lret = ::mfs_close(fd);
 	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// ork::Mesh< ork::vec2f, unsigned int > * createMeshVec2fUInt(ork::MeshMode m, ork::MeshUsage usage, int vertexCount = 4, int indiceCount = 4)
+static int _bind_createMeshVec2fUInt(lua_State *L) {
+	if (!_lg_typecheck_createMeshVec2fUInt(L)) {
+		luaL_error(L, "luna typecheck failed in ork::Mesh< ork::vec2f, unsigned int > * createMeshVec2fUInt(ork::MeshMode m, ork::MeshUsage usage, int vertexCount = 4, int indiceCount = 4) function, expected prototype:\nork::Mesh< ork::vec2f, unsigned int > * createMeshVec2fUInt(ork::MeshMode m, ork::MeshUsage usage, int vertexCount = 4, int indiceCount = 4)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	int luatop = lua_gettop(L);
+
+	ork::MeshMode m=(ork::MeshMode)lua_tointeger(L,1);
+	ork::MeshUsage usage=(ork::MeshUsage)lua_tointeger(L,2);
+	int vertexCount=luatop>2 ? (int)lua_tointeger(L,3) : (int)4;
+	int indiceCount=luatop>3 ? (int)lua_tointeger(L,4) : (int)4;
+
+	ork::Mesh< ork::vec2f, unsigned int > * lret = ::createMeshVec2fUInt(m, usage, vertexCount, indiceCount);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< ork::Mesh< ork::vec2f, unsigned int > >::push(L,lret,false);
+
+	return 1;
+}
+
+// ork::CPUBuffer * createCPUBuffer(const std::string & str)
+static int _bind_createCPUBuffer(lua_State *L) {
+	if (!_lg_typecheck_createCPUBuffer(L)) {
+		luaL_error(L, "luna typecheck failed in ork::CPUBuffer * createCPUBuffer(const std::string & str) function, expected prototype:\nork::CPUBuffer * createCPUBuffer(const std::string & str)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	std::string str(lua_tostring(L,1),lua_objlen(L,1));
+
+	ork::CPUBuffer * lret = ::createCPUBuffer(str);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< ork::CPUBuffer >::push(L,lret,false);
+
+	return 1;
+}
+
+// ork::Module * createFragmentModule(unsigned int version, const std::string & data)
+static int _bind_createFragmentModule(lua_State *L) {
+	if (!_lg_typecheck_createFragmentModule(L)) {
+		luaL_error(L, "luna typecheck failed in ork::Module * createFragmentModule(unsigned int version, const std::string & data) function, expected prototype:\nork::Module * createFragmentModule(unsigned int version, const std::string & data)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	unsigned int version=(unsigned int)lua_tointeger(L,1);
+	std::string data(lua_tostring(L,2),lua_objlen(L,2));
+
+	ork::Module * lret = ::createFragmentModule(version, data);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< ork::Module >::push(L,lret,false);
 
 	return 1;
 }
@@ -1285,6 +1365,9 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_mfs_size); lua_setfield(L,-2,"mfs_size");
 	lua_pushcfunction(L, _bind_mfs_unmap); lua_setfield(L,-2,"mfs_unmap");
 	lua_pushcfunction(L, _bind_mfs_close); lua_setfield(L,-2,"mfs_close");
+	lua_pushcfunction(L, _bind_createMeshVec2fUInt); lua_setfield(L,-2,"createMeshVec2fUInt");
+	lua_pushcfunction(L, _bind_createCPUBuffer); lua_setfield(L,-2,"createCPUBuffer");
+	lua_pushcfunction(L, _bind_createFragmentModule); lua_setfield(L,-2,"createFragmentModule");
 	lua_pushcfunction(L, _bind_isPointerAligned); lua_setfield(L,-2,"isPointerAligned");
 	lua_pushcfunction(L, _bind_alignPointer); lua_setfield(L,-2,"alignPointer");
 	lua_pushcfunction(L, _bind_degrees); lua_setfield(L,-2,"degrees");

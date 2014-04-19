@@ -142,7 +142,13 @@ public:
 		return true;
 	}
 
-	inline static bool _lg_typecheck_end(lua_State *L) {
+	inline static bool _lg_typecheck_elapsed_overload_1(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_elapsed_overload_2(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		return true;
@@ -209,12 +215,6 @@ public:
 	}
 
 	inline static bool _lg_typecheck_base_start(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		return true;
-	}
-
-	inline static bool _lg_typecheck_base_end(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		return true;
@@ -292,8 +292,8 @@ public:
 	}
 
 	// double ork::Timer::end()
-	static int _bind_end(lua_State *L) {
-		if (!_lg_typecheck_end(L)) {
+	static int _bind_elapsed_overload_1(lua_State *L) {
+		if (!_lg_typecheck_elapsed_overload_1(L)) {
 			luaL_error(L, "luna typecheck failed in double ork::Timer::end() function, expected prototype:\ndouble ork::Timer::end()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
 		}
 
@@ -306,6 +306,32 @@ public:
 		lua_pushnumber(L,lret);
 
 		return 1;
+	}
+
+	// double ork::Timer::base_end()
+	static int _bind_elapsed_overload_2(lua_State *L) {
+		if (!_lg_typecheck_elapsed_overload_2(L)) {
+			luaL_error(L, "luna typecheck failed in double ork::Timer::base_end() function, expected prototype:\ndouble ork::Timer::base_end()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		ork::Timer* self=(Luna< ork::Timer >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call double ork::Timer::base_end(). Got : '%s'\n%s",typeid(Luna< ork::Timer >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		double lret = self->Timer::end();
+		lua_pushnumber(L,lret);
+
+		return 1;
+	}
+
+	// Overload binder for ork::Timer::end
+	static int _bind_elapsed(lua_State *L) {
+		if (_lg_typecheck_elapsed_overload_1(L)) return _bind_elapsed_overload_1(L);
+		if (_lg_typecheck_elapsed_overload_2(L)) return _bind_elapsed_overload_2(L);
+
+		luaL_error(L, "error in function end, cannot match any of the overloads for function end:\n  end()\n  end()\n");
+		return 0;
 	}
 
 	// double ork::Timer::getTime()
@@ -468,23 +494,6 @@ public:
 		return 1;
 	}
 
-	// double ork::Timer::base_end()
-	static int _bind_base_end(lua_State *L) {
-		if (!_lg_typecheck_base_end(L)) {
-			luaL_error(L, "luna typecheck failed in double ork::Timer::base_end() function, expected prototype:\ndouble ork::Timer::base_end()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		ork::Timer* self=(Luna< ork::Timer >::check(L,1));
-		if(!self) {
-			luaL_error(L, "Invalid object in function call double ork::Timer::base_end(). Got : '%s'\n%s",typeid(Luna< ork::Timer >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		double lret = self->Timer::end();
-		lua_pushnumber(L,lret);
-
-		return 1;
-	}
-
 	// double ork::Timer::base_getTime()
 	static int _bind_base_getTime(lua_State *L) {
 		if (!_lg_typecheck_base_getTime(L)) {
@@ -557,7 +566,7 @@ const int LunaTraits< ork::Timer >::uniqueIDs[] = {50034893,0};
 
 luna_RegType LunaTraits< ork::Timer >::methods[] = {
 	{"start", &luna_wrapper_ork_Timer::_bind_start},
-	{"end", &luna_wrapper_ork_Timer::_bind_end},
+	{"elapsed", &luna_wrapper_ork_Timer::_bind_elapsed},
 	{"getTime", &luna_wrapper_ork_Timer::_bind_getTime},
 	{"getAvgTime", &luna_wrapper_ork_Timer::_bind_getAvgTime},
 	{"getNumCycles", &luna_wrapper_ork_Timer::_bind_getNumCycles},
@@ -568,7 +577,6 @@ luna_RegType LunaTraits< ork::Timer >::methods[] = {
 	{"getDateString", &luna_wrapper_ork_Timer::_bind_getDateString},
 	{"getTimeOfTheDayString", &luna_wrapper_ork_Timer::_bind_getTimeOfTheDayString},
 	{"base_start", &luna_wrapper_ork_Timer::_bind_base_start},
-	{"base_end", &luna_wrapper_ork_Timer::_bind_base_end},
 	{"base_getTime", &luna_wrapper_ork_Timer::_bind_base_getTime},
 	{"base_getAvgTime", &luna_wrapper_ork_Timer::_bind_base_getAvgTime},
 	{"base_reset", &luna_wrapper_ork_Timer::_bind_base_reset},

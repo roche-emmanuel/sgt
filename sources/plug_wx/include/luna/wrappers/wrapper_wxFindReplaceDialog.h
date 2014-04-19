@@ -1069,6 +1069,16 @@ public:
 		return wxFindReplaceDialog::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxFindReplaceDialog*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxFindReplaceDialog::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

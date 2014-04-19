@@ -53,7 +53,7 @@ public:
      * @param pixels the pixels to be written into this texture.
      */
     Texture2D(int w, int h, TextureInternalFormat tf, TextureFormat f, PixelType t,
-        const Parameters &params, const Buffer::Parameters &s, const Buffer &pixels);
+        const Texture::Parameters &params, const Buffer::Parameters &s, const Buffer &pixels);
 
     /**
      * Destroys this 2D texture.

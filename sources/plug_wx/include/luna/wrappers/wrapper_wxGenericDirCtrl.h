@@ -1141,6 +1141,16 @@ public:
 		return wxGenericDirCtrl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxGenericDirCtrl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxGenericDirCtrl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

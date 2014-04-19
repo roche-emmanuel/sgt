@@ -21,7 +21,7 @@ ADD_SUBDIRECTORY(plug_doxmlparser)
 ADD_SUBDIRECTORY(plug_lpeg)
 
 # ADD_SUBDIRECTORY(plug_osg)
-ADD_SUBDIRECTORY(plug_wx)
+# ADD_SUBDIRECTORY(plug_wx)
 
 ADD_SUBDIRECTORY(plug_iconv)
 

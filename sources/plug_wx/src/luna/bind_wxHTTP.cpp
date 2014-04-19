@@ -160,6 +160,13 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_SetPostBuffer(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_type(L,2)!=LUA_TSTRING ) return false;
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_GetClassInfo(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -439,6 +446,23 @@ public:
 		return 1;
 	}
 
+	// void wxHTTP::SetPostBuffer(const wxString & post_buf)
+	static int _bind_SetPostBuffer(lua_State *L) {
+		if (!_lg_typecheck_SetPostBuffer(L)) {
+			luaL_error(L, "luna typecheck failed in void wxHTTP::SetPostBuffer(const wxString & post_buf) function, expected prototype:\nvoid wxHTTP::SetPostBuffer(const wxString & post_buf)\nClass arguments details:\narg 1 ID = 88196105\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		wxString post_buf(lua_tostring(L,2),lua_objlen(L,2));
+
+		wxHTTP* self=Luna< wxObject >::checkSubType< wxHTTP >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void wxHTTP::SetPostBuffer(const wxString &). Got : '%s'\n%s",typeid(Luna< wxObject >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->SetPostBuffer(post_buf);
+
+		return 0;
+	}
+
 	// wxClassInfo * wxHTTP::base_GetClassInfo() const
 	static int _bind_base_GetClassInfo(lua_State *L) {
 		if (!_lg_typecheck_base_GetClassInfo(L)) {
@@ -714,6 +738,7 @@ luna_RegType LunaTraits< wxHTTP >::methods[] = {
 	{"SetHeader", &luna_wrapper_wxHTTP::_bind_SetHeader},
 	{"GetCookie", &luna_wrapper_wxHTTP::_bind_GetCookie},
 	{"HasCookies", &luna_wrapper_wxHTTP::_bind_HasCookies},
+	{"SetPostBuffer", &luna_wrapper_wxHTTP::_bind_SetPostBuffer},
 	{"base_GetClassInfo", &luna_wrapper_wxHTTP::_bind_base_GetClassInfo},
 	{"base_GetLocal", &luna_wrapper_wxHTTP::_bind_base_GetLocal},
 	{"base_GetPeer", &luna_wrapper_wxHTTP::_bind_base_GetPeer},

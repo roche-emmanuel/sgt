@@ -1162,6 +1162,16 @@ public:
 		return wxTreeListCtrl::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxTreeListCtrl*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxTreeListCtrl::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

@@ -1110,6 +1110,16 @@ public:
 		return wxMenuBar::InitDialog();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxMenuBar*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxMenuBar::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {

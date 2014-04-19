@@ -1114,6 +1114,16 @@ public:
 		return wxWizardPage::InheritAttributes();
 	};
 
+	// bool wxWindow::IsDoubleBuffered() const
+	bool IsDoubleBuffered() const {
+		if(_obj.pushFunction("IsDoubleBuffered")) {
+			_obj.pushArg((wxWizardPage*)this);
+			return (_obj.callFunction<bool>());
+		}
+
+		return wxWizardPage::IsDoubleBuffered();
+	};
+
 	// bool wxWindow::IsRetained() const
 	bool IsRetained() const {
 		if(_obj.pushFunction("IsRetained")) {
