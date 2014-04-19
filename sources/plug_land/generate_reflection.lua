@@ -19,6 +19,7 @@ tm:setTypeConstructor("^proland::LazyGraph::GraphCache<.->$","NULL;")
 tm:setHashAlias("ork::vec4< int >", "ork::vec4i")
 tm:setHashAlias("ork::vec4< float >", "ork::vec4f")
 tm:setHashAlias("ork::vec2< float >", "ork::vec2f")
+tm:setHashAlias("ork::vec3< double >", "ork::vec3d")
 
 local tc = require "bindings.TypeConverter"
 local utils = require "utils"

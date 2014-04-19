@@ -73,6 +73,10 @@ function Class:initialize()
     end
   }
 
+
+  self._drawable:setUseDisplayList(false);
+  self._drawable:setUseVertexBufferObjects(false);
+
   -- local pdraw = land.ProlandDrawable(manager, self._controller)
   -- self._drawable = pdraw
 
@@ -102,7 +106,7 @@ function Class:buildEventHandler()
       -- local yratio = self:getHeight()/ea:getWindowHeight()
       
       -- local x = math.floor(ea:getX()*xratio + 0.5);
-      -- local y = math.floor((ea:getWindowHeight() - ea:getY())*yratio + 0.5);
+      -- local y = math.floor(()*yratio + 0.5);
       
       -- self:focus();
       
@@ -118,20 +122,46 @@ function Class:buildEventHandler()
       -- elseif etype == osgGA.GUIEventAdapter.KEYDOWN or etype == osgGA.GUIEventAdapter.KEYUP then
       --   self:injectKeyboardEvent(self:createKeyEvent(ea));
       -- end
+      local x = ea:getX()
+      local y = ea:getWindowHeight() - ea:getY()
+
       if etype == osgGA.GUIEventAdapter.RESIZE then
-        self:debug("Should handle resize event here.")
+        -- self:debug("Should handle resize event here.")
         self:onResize(ea:getWindowWidth(),ea:getWindowHeight())
+        -- self._manager:getResourceManager():updateResources()
       elseif etype == osgGA.GUIEventAdapter.SCROLL then
         local sm = ea:getScrollingMotion()
-        -- if sm == osgGA.GUIEventAdapter.SCROLL_UP then
-        --   self:debug("Scrolling up...")
-        --   -- self._controller:setD(self._controller:getD()/1.1)
-        --   self._drawable:mouseWheel(0,0,ea:getX(),ea:getY())
-        -- elseif sm == osgGA.GUIEventAdapter.SCROLL_DOWN then
-        --   self:debug("Scrolling down...")
-        --   -- self._controller:setD(self._controller:getD()*1.1)
-        --   self._drawable:mouseWheel(1,0,ea:getX(),ea:getY())
-        -- end
+        if sm == osgGA.GUIEventAdapter.SCROLL_UP then
+          -- self:debug("Scrolling up...")
+          -- self._controller:setD(self._controller:getD()/1.1)
+          -- self._drawable:mouseWheel(0,0,x,y)
+          self._controller:setD(self._controller:getD()/1.1)
+        elseif sm == osgGA.GUIEventAdapter.SCROLL_DOWN then
+          -- self:debug("Scrolling down...")
+          -- self._controller:setD(self._controller:getD()*1.1)
+          -- self._drawable:mouseWheel(1,0,x,y)
+          self._controller:setD(self._controller:getD()*1.1)
+        end
+      elseif etype == osgGA.GUIEventAdapter.PUSH then
+        self._mouseX = x;
+        self._mouseY = y;
+        self._rotate = (bit.band(ea:getModKeyMask(),osgGA.GUIEventAdapter.MODKEY_CTRL)>0)
+      elseif etype == osgGA.GUIEventAdapter.DRAG then
+        -- self:debug("Mouse move")
+        if self._rotate then
+          -- self:debug("Handling rotate")
+          self._controller:setPhi(self._controller:getPhi() + (self._mouseX - x)/500.0)
+          self._controller:setTheta(self._controller:getTheta() + (self._mouseY - y)/500.0)
+        else
+          -- self:debug("Handling move")
+          local oldp = self._manager:getWorldCoordinates(self._mouseX,self._mouseY)
+          local p = self._manager:getWorldCoordinates(x,y)
+          if self:validPos(oldp) and self:validPos(p) then
+            self._controller:move(oldp, p)
+          end
+        end
+        self._mouseX = x
+        self._mouseY = y
       end
 
       return false;
@@ -139,8 +169,12 @@ function Class:buildEventHandler()
   };
 end
 
+function Class:validPos(pos)
+  return math.abs(pos:getX()) < 1000.0 and math.abs(pos:getY()) < 1000.0 and math.abs(pos:getZ()) < 1000.0;
+end
+
 function Class:onFrame()
-  self:debug("Rendering frame.")
+  -- self:debug("Rendering frame.")
   local newT = self._timer:elapsed();
   self._dt = newT - self._t;
   self._t = newT;
@@ -162,9 +196,7 @@ function Class:onResize(x,y)
 end
 
 function Class:onMouseDown(b,x,y)
-  self._mouseX = x;
-  self._mouseY = y;
-  self._rotate = (b == osgGA.GUIEventAdapter.RIGHT_MOUSE_BUTTON)
+
 end
 
 local app = Class{}
