@@ -91,3 +91,4 @@
 - Trying to rebuild wx plugin.
 - Rebuilt wx plug with swapbuffers support. built minimal ork sample with GL and OSG. Building minimal proland core sample with OSG.
 - Added support for rotation and move in proland_core test app.
+- Added Porland terrain1 sample in OSG.
