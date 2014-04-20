@@ -138,6 +138,14 @@ inline static bool _lg_typecheck_mfs_close(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_createBasicViewHandler(lua_State *L) {
+	if( lua_gettop(L)!=2 ) return false;
+
+	if( lua_isboolean(L,1)==0 ) return false;
+	if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,2915545)) ) return false;
+	return true;
+}
+
 inline static bool _lg_typecheck_createMeshVec2fUInt(lua_State *L) {
 	int luatop = lua_gettop(L);
 	if( luatop<2 || luatop>4 ) return false;
@@ -483,6 +491,23 @@ static int _bind_mfs_close(lua_State *L) {
 
 	int lret = ::mfs_close(fd);
 	lua_pushnumber(L,lret);
+
+	return 1;
+}
+
+// proland::BasicViewHandler * createBasicViewHandler(bool smooth, proland::ViewManager * view)
+static int _bind_createBasicViewHandler(lua_State *L) {
+	if (!_lg_typecheck_createBasicViewHandler(L)) {
+		luaL_error(L, "luna typecheck failed in proland::BasicViewHandler * createBasicViewHandler(bool smooth, proland::ViewManager * view) function, expected prototype:\nproland::BasicViewHandler * createBasicViewHandler(bool smooth, proland::ViewManager * view)\nClass arguments details:\narg 2 ID = 2915545\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	bool smooth=(bool)(lua_toboolean(L,1)==1);
+	proland::ViewManager* view=(Luna< proland::ViewManager >::check(L,2));
+
+	proland::BasicViewHandler * lret = ::createBasicViewHandler(smooth, view);
+	if(!lret) return 0; // Do not write NULL pointers.
+
+	Luna< proland::BasicViewHandler >::push(L,lret,false);
 
 	return 1;
 }
@@ -1365,6 +1390,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_mfs_size); lua_setfield(L,-2,"mfs_size");
 	lua_pushcfunction(L, _bind_mfs_unmap); lua_setfield(L,-2,"mfs_unmap");
 	lua_pushcfunction(L, _bind_mfs_close); lua_setfield(L,-2,"mfs_close");
+	lua_pushcfunction(L, _bind_createBasicViewHandler); lua_setfield(L,-2,"createBasicViewHandler");
 	lua_pushcfunction(L, _bind_createMeshVec2fUInt); lua_setfield(L,-2,"createMeshVec2fUInt");
 	lua_pushcfunction(L, _bind_createCPUBuffer); lua_setfield(L,-2,"createCPUBuffer");
 	lua_pushcfunction(L, _bind_createFragmentModule); lua_setfield(L,-2,"createFragmentModule");

@@ -29,6 +29,10 @@ typedef vec3<bool> vec3b;
 typedef vec4<bool> vec4b;
 }
 
+inline proland::BasicViewHandler* createBasicViewHandler(bool smooth, proland::ViewManager *view) {
+  return new proland::BasicViewHandler(smooth,view,NULL);
+}
+
 inline ork::Mesh< ork::vec2f, unsigned int >* createMeshVec2fUInt(MeshMode m, MeshUsage usage, int vertexCount = 4, int indiceCount = 4) {
   return new ork::Mesh< ork::vec2f, unsigned int >(m,usage,vertexCount,indiceCount);
 }
