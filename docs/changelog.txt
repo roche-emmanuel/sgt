@@ -93,3 +93,4 @@
 - Added support for rotation and move in proland_core test app.
 - Added Porland terrain1 sample in OSG.
 - Added terrain2 and terrain3 examples in OSG.
+- Added terrain4 and terrain5 examples in OSG.
