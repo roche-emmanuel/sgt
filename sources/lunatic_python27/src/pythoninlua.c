@@ -403,6 +403,40 @@ static int py_run(lua_State *L, int eval)
     return ret;
 }
 
+static int py_toint(lua_State *L)
+{
+    PyObject *ret = NULL;
+    int n = -1;
+
+    switch (lua_type(L, n)) {
+        case LUA_TNUMBER: {
+            lua_Number num = lua_tonumber(L, n);
+            ret = PyInt_FromLong((long)num);
+
+            break;
+        }
+
+        case LUA_TUSERDATA: {
+            py_object *obj = luaPy_to_pobject(L, n);
+
+            if (obj) {
+                long val = PyLong_AsLong(obj->o);
+                ret = PyInt_FromLong(val);
+                break;
+            }
+        }
+    }
+
+    if (ret) {
+        // now push this value back:
+        py_convert_custom(L,ret,0);
+        return 1;
+    }
+
+    return 0;
+}
+
+
 static int py_execute(lua_State *L)
 {
     return py_run(L, 0);
@@ -545,6 +579,7 @@ py_object* luaPy_to_pobject(lua_State *L, int n)
 
 static const luaL_Reg py_lib[] = {
     {"execute", py_execute},
+    {"int", py_toint},
     {"eval",    py_eval},
     {"asindx",  py_asindx},
     {"asattr",  py_asattr},
@@ -556,9 +591,12 @@ static const luaL_Reg py_lib[] = {
     {NULL, NULL}
 };
 
-LUA_API int luaopen_python(lua_State *L)
+static char phome[256];
+
+int luaopen_python(lua_State *L)
 {
     int rc;
+    const char* home_str;    
 
     /* Register module */
     luaL_register(L, "python", py_lib);
@@ -580,9 +618,22 @@ LUA_API int luaopen_python(lua_State *L)
         char *argv[] = {"<lua>", 0};
 #endif
         Py_SetProgramName(argv[0]);
+
+        // Retrieve the python home directly from the lua environment:
+        lua_getglobal(L,"python_home");
+        home_str = lua_tostring(L,-1);
+
+        if(home_str) {
+            strcpy (phome,home_str);
+            Py_SetPythonHome(phome);
+            // Py_SetPythonHome("W:\\Cloud\\Projects\\sgt\\software\\python27");
+        }
+        lua_pop(L,1); // remove the python home value.
+
         PyImport_AppendInittab("lua", PyInit_lua);
         Py_Initialize();
         PySys_SetArgv(1, argv);
+
         /* Import 'lua' automatically. */
         luam = PyImport_ImportModule("lua");
         if (!luam) {

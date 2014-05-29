@@ -96,3 +96,4 @@
 - Added terrain4 and terrain5 examples in OSG.
 - Built the terrain preprocess example. But it is not working for the moment: crashing on start. To be investigated.
 - Built lunatic_python27
+- Tested minimal integration of python in lua.

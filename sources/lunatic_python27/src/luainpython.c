@@ -52,7 +52,8 @@ PyObject *LuaConvert(lua_State *L, int n)
         case LUA_TSTRING: {
             const char *s = lua_tostring(L, n);
             int len = lua_strlen(L, n);
-            ret = PyUnicode_FromStringAndSize(s, len);
+            // ret = PyUnicode_FromStringAndSize(s, len);
+            ret = PyString_FromStringAndSize(s, len);
             break;
         }
 
@@ -268,33 +269,38 @@ static PyObject *LuaObject_str(PyObject *obj)
     if (luaL_callmeta(LuaState, -1, "__tostring")) {
         s = lua_tostring(LuaState, -1);
         lua_pop(LuaState, 1);
-        if (s) ret = PyUnicode_FromString(s);
+        if (s) ret = PyString_FromString(s);
+        // if (s) ret = PyUnicode_FromString(s);
     }
     if (!ret) {
         int type = lua_type(LuaState, -1);
         switch (type) {
             case LUA_TTABLE:
             case LUA_TFUNCTION:
-                ret = PyUnicode_FromFormat("<Lua %s at %p>",
+                // ret = PyUnicode_FromFormat("<Lua %s at %p>",
+                ret = PyString_FromFormat("<Lua %s at %p>",
                     lua_typename(LuaState, type),
                     lua_topointer(LuaState, -1));
                 break;
             
             case LUA_TUSERDATA:
             case LUA_TLIGHTUSERDATA:
-                ret = PyUnicode_FromFormat("<Lua %s at %p>",
+                // ret = PyUnicode_FromFormat("<Lua %s at %p>",
+                ret = PyString_FromFormat("<Lua %s at %p>",
                     lua_typename(LuaState, type),
                     lua_touserdata(LuaState, -1));
                 break;
 
             case LUA_TTHREAD:
-                ret = PyUnicode_FromFormat("<Lua %s at %p>",
+                // ret = PyUnicode_FromFormat("<Lua %s at %p>",
+                ret = PyString_FromFormat("<Lua %s at %p>",
                     lua_typename(LuaState, type),
                     (void*)lua_tothread(LuaState, -1));
                 break;
 
             default:
-                ret = PyUnicode_FromFormat("<Lua %s>",
+                // ret = PyUnicode_FromFormat("<Lua %s>",
+                ret = PyString_FromFormat("<Lua %s>",
                     lua_typename(LuaState, type));
                 break;
 

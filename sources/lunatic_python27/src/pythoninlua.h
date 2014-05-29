@@ -33,6 +33,6 @@ typedef struct {
 } py_object;
 
 py_object* luaPy_to_pobject(lua_State *L, int n);
-LUA_API int luaopen_python(lua_State *L);
+int luaopen_python(lua_State *L);
 
 #endif
