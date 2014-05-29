@@ -31,9 +31,13 @@ ADD_SUBDIRECTORY(plug_osgWX)
 
 ADD_SUBDIRECTORY(sgtLauncher)
 
-ADD_SUBDIRECTORY(ork)
-ADD_SUBDIRECTORY(proland)
+# ADD_SUBDIRECTORY(ork)
+# ADD_SUBDIRECTORY(proland)
 
-ADD_SUBDIRECTORY(plug_land)
+# ADD_SUBDIRECTORY(plug_land)
 
+ADD_SUBDIRECTORY(lunatic_python27)
+
+
+# Not sure why this template_launcher project is here ?
 # ADD_SUBDIRECTORY(template_launcher)

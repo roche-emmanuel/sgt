@@ -29,6 +29,8 @@ SET(DEP_PTHREADS ${DEPS_DIR}/${FLAVOR}/pthreads-w32-2.9.1 CACHE STRING "pthreads
 SET(DEP_ATB ${DEPS_DIR}/${FLAVOR}/AntTweakBar-1.15 CACHE STRING "AntTweakBar path")
 SET(DEP_TIFF ${DEPS_DIR}/${FLAVOR}/libtiff-3.8.2 CACHE STRING "TIFF path")
 
+SET(DEP_PYTHON27 ${DEPS_DIR}/${FLAVOR}/Python-2.7.6 CACHE STRING "Python path")
+
 # Include the macro definitions:
 INCLUDE(cmake/Macros.cmake)
 
@@ -89,3 +91,7 @@ SET(ATB_LIBS 			AntTweakBar.lib)
 SET(TIFF_INC_DIR 	${DEP_TIFF}/include)
 SET(TIFF_LIB_DIR 	${DEP_TIFF}/lib)
 SET(TIFF_LIBS 		libtiff.lib)
+
+SET(PYTHON27_INC_DIR 	${DEP_PYTHON27}/include)
+SET(PYTHON27_LIB_DIR 	${DEP_PYTHON27}/libs)
+SET(PYTHON27_LIBS 		python27.lib)
