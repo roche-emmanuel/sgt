@@ -275,9 +275,9 @@ void init()
     Logger::ERROR_LOGGER = new FileLogger("ERROR", out, Logger::ERROR_LOGGER);
 
     ptr<XMLResourceLoader> resLoader = new XMLResourceLoader();
-    resLoader->addPath(".");
-    resLoader->addArchive("helloworld.xml");
-    resLoader->addPath("e:/data");
+    resLoader->addPath("./proland_samples/terrain/preprocess");
+    resLoader->addArchive("./proland_samples/terrain/preprocess/helloworld.xml");
+    resLoader->addPath("./proland_samples/terrain/preprocess/data");
 
     ptr<ResourceManager> resManager = new ResourceManager(resLoader, 8);
 

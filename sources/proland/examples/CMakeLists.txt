@@ -46,6 +46,8 @@ ADD_SUBDIRECTORY(terrain/exercise3)
 ADD_SUBDIRECTORY(terrain/exercise4)
 ADD_SUBDIRECTORY(terrain/exercise5)
 
+ADD_SUBDIRECTORY(terrain/preprocess)
+
 ADD_SUBDIRECTORY(atmo/atmo)
 ADD_SUBDIRECTORY(ocean/ocean1)
 ADD_SUBDIRECTORY(ocean/ocean2)
