@@ -6,6 +6,24 @@ local assert = require "utils.assert"
 
 log:debug "Loading python module..."
 
+local osg = require "osg"
+local timer = osg.Timer.instance()
+local starttick = timer:tick()
+
+local res2 = 0
+
+for i=1,10000 do
+	local res = 0
+	for j=1,1000 do
+		res = res + j*j
+	end
+	res2 = res2+res
+end
+
+local elapsed = timer:delta_s(starttick,timer:tick())
+
+log:debug("Computation done in ", elapsed," seconds, res2 is ", res2)
+
 -- python_home="W:/Cloud/Projects/sgt/software/python27"
 python_home=root_path.."/python27"
 
@@ -37,6 +55,8 @@ log:debug("Matched group 1 = ",res2)
 log:debug("Match pos = ",match.pos)
 
 
+-- Nox execute the timing file:
+python.execute("execfile('".. root_path.."/python27/modules/numpy_timing.py')")
 
 log:info "Cleaning up"
 collectgarbage('collect')

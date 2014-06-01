@@ -97,3 +97,4 @@
 - Built the terrain preprocess example. But it is not working for the moment: crashing on start. To be investigated.
 - Built lunatic_python27
 - Tested minimal integration of python in lua.
+- Small addition to python minimal1 test to compare python and lua speed.
