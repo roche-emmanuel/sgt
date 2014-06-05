@@ -1273,6 +1273,9 @@ namespace proland {
 	class AtmoParameters {
 	};
 
+	class AtmoProcessor: public ork::Object {
+	};
+
 	class DrawOceanFFTTask: public ork::AbstractTask {
 	public:
 	};

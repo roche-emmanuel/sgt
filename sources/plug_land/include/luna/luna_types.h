@@ -6129,6 +6129,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: proland::AtmoProcessor
+template<>
+class LunaTraits< proland::AtmoProcessor > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::AtmoProcessor* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::AtmoProcessor* obj);
+	typedef ork::Object parent_t;
+	typedef proland::AtmoProcessor base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: proland::DrawOceanFFTTask
 template<>
 class LunaTraits< proland::DrawOceanFFTTask > {

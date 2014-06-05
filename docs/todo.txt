@@ -1,4 +1,7 @@
 TODO:
+
+- Check how to build atmosphere with the preprocessAtmo function from inside OSG.
+- http://jsbsim.sourceforge.net/ for Fhight dynamic model.
 - in lunagen add support to specify hashcode manually
 - in lunagen for methods with overloads, avoid calling the typechecker method twice.
 - remove luadoc if we dont need it anymore.

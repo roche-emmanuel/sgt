@@ -99,3 +99,4 @@
 - Tested minimal integration of python in lua.
 - Small addition to python minimal1 test to compare python and lua speed.
 - Removed data files for natural docs.
+- Added test script for proland terrain exercise 1.

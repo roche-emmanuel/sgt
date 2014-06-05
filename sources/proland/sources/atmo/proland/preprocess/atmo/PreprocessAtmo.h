@@ -32,6 +32,7 @@
 #define _PROLAND_PREPROCESS_ATMO_
 
 #include "ork/math/vec3.h"
+#include "ork/render/FrameBuffer.h"
 
 using namespace ork;
 
@@ -68,6 +69,49 @@ public:
 
     AtmoParameters();
 };
+
+/** Reimplementation of the Atmosphere generation system
+but without any dependency on glut. 
+Here we assume that the GL context will be valid when creating the AtmoProcessor
+and we will render the textures directly. */
+class PROLAND_API AtmoProcessor : public ork::Object
+{
+public:
+    AtmoParameters params;
+    const char *output;
+    ptr<Texture2D> transmittanceT;
+    ptr<Texture2D> irradianceT;
+    ptr<Texture3D> inscatterT;
+    ptr<Texture2D> deltaET;
+    ptr<Texture3D> deltaSRT;
+    ptr<Texture3D> deltaSMT;
+    ptr<Texture3D> deltaJT;
+    ptr<Program> copyInscatter1;
+    ptr<Program> copyInscatterN;
+    ptr<Program> copyIrradiance;
+    ptr<Program> inscatter1;
+    ptr<Program> inscatterN;
+    ptr<Program> inscatterS;
+    ptr<Program> irradiance1;
+    ptr<Program> irradianceN;
+    ptr<Program> transmittance;
+    ptr<FrameBuffer> fbo;
+    int step;
+    int order;
+     
+public:
+
+    virtual ~AtmoProcessor() {};
+
+    AtmoProcessor(const AtmoParameters &params, const char *output);
+
+    bool preprocess(); // returns true when preprocessing is done.
+
+protected:
+    void setParameters(ptr<Program> p);
+    void setLayer(ptr<Program> p, int layer);
+};
+
 
 /**
  * Precomputes the tables for the given atmosphere parameters.
