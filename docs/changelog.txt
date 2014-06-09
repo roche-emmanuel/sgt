@@ -100,3 +100,4 @@
 - Small addition to python minimal1 test to compare python and lua speed.
 - Removed data files for natural docs.
 - Added test script for proland terrain exercise 1.
+- Added GL canvas implementation to test Proland Terrain exercise 2. This is working as expected in this implementation (eg. proland_exercise2_gl)

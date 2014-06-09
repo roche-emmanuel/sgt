@@ -23,10 +23,11 @@ function Class:buildInterface(intf, options)
 	intf:pushPanel{prop=1,flags=wx.wxALL+wx.wxEXPAND}
 	options.prop = 3
 	options.onFrame = function() self:onFrame() end
-	options.onResize = function(x,y) self:onResize(x,y) end
-	options.onMouseDown = function(b,x,y) self:onMouseDown(b,x,y) end
-	options.onMouseUp	= function(b,x,y) self:onMouseUp(b,x,y) end
-	options.onMouseMotion = function(x,y) self:onMouseMotion(x,y) end
+	options.onResize = function(x,y,e) self:onResize(x,y,e) end
+	options.onMouseDown = function(b,x,y,e) self:onMouseDown(b,x,y,e) end
+	options.onMouseUp	= function(b,x,y,e) self:onMouseUp(b,x,y,e) end
+	options.onMouseMotion = function(x,y,e) self:onMouseMotion(x,y,e) end
+	options.onMouseWheel = function(wheel,e) self:onMouseWheel(wheel,e) end
 
 	local ctrl, canvas = intf:addGLCtrl(options)
 	self._outputPanel = intf:addOutputPanel{}

@@ -94,7 +94,7 @@ function Class:buildInstance()
 	local mouseDownHandler = function(intf,event)
     	--self:info("Sending mouse down event: X=",event:GetX(),", Y=",event:GetY(),", button=",event:GetButton())
 		if self._onMouseDown then
-			self._onMouseDown(event:GetButton(),event:GetX(), event:GetY())
+			self._onMouseDown(event:GetButton(),event:GetX(), event:GetY(), event)
 		end
 		event:Skip();
 	end
@@ -102,7 +102,7 @@ function Class:buildInstance()
 	local mouseUpHandler = function(intf,event)
     	--self:info("Sending mouse up event: X=",event:GetX(),", Y=",event:GetY(),", button=",event:GetButton())
 		if self._onMouseUp then
-			self._onMouseUp(event:GetButton(),event:GetX(), event:GetY())
+			self._onMouseUp(event:GetButton(),event:GetX(), event:GetY(), event)
 		end
 		event:Skip();
 	end
@@ -110,7 +110,7 @@ function Class:buildInstance()
 	local mouseWheelHandler = function(intf,event)
     	--self:info("Sending mouse wheel event: ",event:GetWheelRotation()>0.0 and "DOWN" or "UP")
 		if self._onMouseWheel then
-			self._onMouseWheel(event:GetWheelRotation())
+			self._onMouseWheel(event:GetWheelRotation(), event)
 		end
 		event:Skip();
 	end
@@ -118,14 +118,14 @@ function Class:buildInstance()
 	local mouseMotionHandler = function(intf,event)
     	--self:info("Sending mouse motion event: X=",event:GetX(),", Y=",event:GetY())
 		if self._onMouseMotion then
-			self._onMouseMotion(event:GetX(), event:GetY())
+			self._onMouseMotion(event:GetX(), event:GetY(), event)
 		end
 		event:Skip();
 	end
 
 	local keyUpHandler = function(intf,event)
 		if self._onKeyUp then
-			self._onKeyUp(self:adaptKeyCode(event:GetKeyCode()))
+			self._onKeyUp(self:adaptKeyCode(event:GetKeyCode()), event)
 		end
 		event:Skip();
 	end
@@ -133,7 +133,7 @@ function Class:buildInstance()
 	local keyDownHandler = function(intf,event)
 		if self._onKeyDown and forcedKeyDownMap[event:GetKeyCode()] then
 			-- self:info("Sending keydown:",event:GetKeyCode())
-			self._onKeyDown(self:adaptKeyCode(event:GetKeyCode()))
+			self._onKeyDown(self:adaptKeyCode(event:GetKeyCode()), event)
 		else
 			event:Skip();
 		end
@@ -143,7 +143,7 @@ function Class:buildInstance()
 		-- self:info("Sending char:",event:GetKeyCode())
 		if self._onChar then
 			-- self:info("Sending keydown:",event:GetKeyCode())
-			self._onChar(self:adaptKeyCode(event:GetKeyCode()))
+			self._onChar(self:adaptKeyCode(event:GetKeyCode()), event)
 		else
 			event:Skip();
 		end
@@ -212,6 +212,10 @@ end
 
 function Class:adaptKeyCode(key)
 	return keyMap[key] or key
+end
+
+function Class:swapBuffers()
+	self:check(self._window:SwapBuffers(),"Cannot Swap buffers.")
 end
 
 function Class:onFrame()
