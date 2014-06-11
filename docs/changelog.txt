@@ -104,3 +104,4 @@
 - Added support for proland terrain exercise3 rendering.
 - Added support for proland terrain exercise4 rendering.
 - Added support for proland terrain exercise5 rendering.
+- Moved proland tests in subfolder.
