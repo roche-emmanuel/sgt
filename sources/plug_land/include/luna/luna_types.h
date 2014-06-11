@@ -14,14 +14,16 @@
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/graph/proland/graph/Margin.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/HydroFlowProducer.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/edit/proland/edit/EditGraphOrthoLayer.h>
+#include <proland/preprocess/terrain/Preprocess.h>
+#include <SimpleInputMap.h>
 #include <ork/resource/ResourceDescriptor.h>
 #include <ork/resource/CompiledResourceLoader.h>
 #include <ork/scenegraph/SetTargetTask.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/river/proland/rivers/DrawRiversTask.h>
 #include <proland/preprocess/terrain/AbstractTileCache.h>
 #include <ork/resource/tinyxml.h>
-#include <ork/util/Font.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/forest/proland/preprocess/trees/PreprocessTree.h>
+#include <ork/util/Font.h>
 #include <plug_extensions.h>
 #include <ork/math/box2.h>
 #include <ork/math/box3.h>
@@ -139,7 +141,6 @@
 #include <proland/preprocess/terrain/ApertureMipmap.h>
 #include <proland/preprocess/terrain/ColorMipmap.h>
 #include <proland/preprocess/terrain/HeightMipmap.h>
-#include <proland/preprocess/terrain/Preprocess.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/atmo/proland/preprocess/atmo/PreprocessAtmo.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/ocean/proland/ocean/DrawOceanFFTTask.h>
 #include <W:/Cloud/Projects/sgt/sources/proland/sources/ocean/proland/ocean/DrawOceanTask.h>
@@ -407,6 +408,44 @@ public:
 	static void _bind_dtor(proland::EditGraphOrthoLayer::SelectionData* obj);
 	typedef proland::EditGraphOrthoLayer::SelectionData parent_t;
 	typedef proland::EditGraphOrthoLayer::SelectionData base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: proland::InputMap
+template<>
+class LunaTraits< proland::InputMap > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static proland::InputMap* _bind_ctor(lua_State *L);
+	static void _bind_dtor(proland::InputMap* obj);
+	typedef proland::InputMap parent_t;
+	typedef proland::InputMap base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: SimpleInputMap
+template<>
+class LunaTraits< SimpleInputMap > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static SimpleInputMap* _bind_ctor(lua_State *L);
+	static void _bind_dtor(SimpleInputMap* obj);
+	typedef proland::InputMap parent_t;
+	typedef SimpleInputMap base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -809,25 +848,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: ork::Font::Vertex
-template<>
-class LunaTraits< ork::Font::Vertex > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static ork::Font::Vertex* _bind_ctor(lua_State *L);
-	static void _bind_dtor(ork::Font::Vertex* obj);
-	typedef ork::Font::Vertex parent_t;
-	typedef ork::Font::Vertex base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: proland::TreeMesh::Vertex
 template<>
 class LunaTraits< proland::TreeMesh::Vertex > {
@@ -844,6 +864,25 @@ public:
 	static void _bind_dtor(proland::TreeMesh::Vertex* obj);
 	typedef proland::TreeMesh::Vertex parent_t;
 	typedef proland::TreeMesh::Vertex base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: ork::Font::Vertex
+template<>
+class LunaTraits< ork::Font::Vertex > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static ork::Font::Vertex* _bind_ctor(lua_State *L);
+	static void _bind_dtor(ork::Font::Vertex* obj);
+	typedef ork::Font::Vertex parent_t;
+	typedef ork::Font::Vertex base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -6091,25 +6130,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: proland::InputMap
-template<>
-class LunaTraits< proland::InputMap > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static proland::InputMap* _bind_ctor(lua_State *L);
-	static void _bind_dtor(proland::InputMap* obj);
-	typedef proland::InputMap parent_t;
-	typedef proland::InputMap base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: proland::AtmoParameters
 template<>
 class LunaTraits< proland::AtmoParameters > {
@@ -8670,6 +8690,13 @@ public:
 };
 
 template<>
+class LunaType< 3893247 > {
+public:
+	typedef proland::InputMap type;
+	
+};
+
+template<>
 class LunaType< 89018139 > {
 public:
 	typedef ork::SetTargetTask::Target type;
@@ -8740,16 +8767,16 @@ public:
 };
 
 template<>
-class LunaType< 35303943 > {
+class LunaType< 75726744 > {
 public:
-	typedef ork::Font::Vertex type;
+	typedef proland::TreeMesh::Vertex type;
 	
 };
 
 template<>
-class LunaType< 75726744 > {
+class LunaType< 35303943 > {
 public:
-	typedef proland::TreeMesh::Vertex type;
+	typedef ork::Font::Vertex type;
 	
 };
 
@@ -9856,13 +9883,6 @@ template<>
 class LunaType< 3347220 > {
 public:
 	typedef proland::HeightMipmap::HeightFunction type;
-	
-};
-
-template<>
-class LunaType< 3893247 > {
-public:
-	typedef proland::InputMap type;
 	
 };
 

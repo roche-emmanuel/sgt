@@ -970,6 +970,18 @@ inline static bool _lg_typecheck_initEditPlugin(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_preprocessSphericalOrtho(lua_State *L) {
+	if( lua_gettop(L)!=6 ) return false;
+
+	if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,3893247)) ) return false;
+	if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+	if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+	if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
+	if( lua_type(L,5)!=LUA_TSTRING ) return false;
+	if( lua_type(L,6)!=LUA_TSTRING ) return false;
+	return true;
+}
+
 
 // Function binds:
 // ork::vec3f proland::rgb2hsl(const ork::vec3f & rgb)
@@ -1373,6 +1385,24 @@ static int _bind_initEditPlugin(lua_State *L) {
 	return 0;
 }
 
+// void proland::preprocessSphericalOrthoSimple(proland::InputMap * src, int dstTileSize, int dstChannels, int dstMaxLevel, const string & dstFolder, const string & tmpFolder)
+static int _bind_preprocessSphericalOrtho(lua_State *L) {
+	if (!_lg_typecheck_preprocessSphericalOrtho(L)) {
+		luaL_error(L, "luna typecheck failed in void proland::preprocessSphericalOrthoSimple(proland::InputMap * src, int dstTileSize, int dstChannels, int dstMaxLevel, const string & dstFolder, const string & tmpFolder) function, expected prototype:\nvoid proland::preprocessSphericalOrthoSimple(proland::InputMap * src, int dstTileSize, int dstChannels, int dstMaxLevel, const string & dstFolder, const string & tmpFolder)\nClass arguments details:\narg 1 ID = 3893247\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	proland::InputMap* src=(Luna< proland::InputMap >::check(L,1));
+	int dstTileSize=(int)lua_tointeger(L,2);
+	int dstChannels=(int)lua_tointeger(L,3);
+	int dstMaxLevel=(int)lua_tointeger(L,4);
+	std::string dstFolder(lua_tostring(L,5),lua_objlen(L,5));
+	std::string tmpFolder(lua_tostring(L,6),lua_objlen(L,6));
+
+	proland::preprocessSphericalOrthoSimple(src, dstTileSize, dstChannels, dstMaxLevel, dstFolder, tmpFolder);
+
+	return 0;
+}
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -1425,6 +1455,7 @@ void register_global_functions(lua_State* L) {
 	lua_pushcfunction(L, _bind_initGraphPlugin); lua_setfield(L,-2,"initGraphPlugin");
 	lua_pushcfunction(L, _bind_initRiverPlugin); lua_setfield(L,-2,"initRiverPlugin");
 	lua_pushcfunction(L, _bind_initEditPlugin); lua_setfield(L,-2,"initEditPlugin");
+	lua_pushcfunction(L, _bind_preprocessSphericalOrtho); lua_setfield(L,-2,"preprocessSphericalOrtho");
 	luna_popModule(L);
 }
 

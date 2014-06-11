@@ -78,8 +78,8 @@ LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/graph")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/river")
 LIST(APPEND INTF_FILES "${PROJECT_SOURCE_DIR}/sources/proland/sources/edit")
 ADD_FILES(INTF_FILES "../include/plug_extensions.h")
+ADD_FILES(INTF_FILES "../include/SimpleInputMap.h")
 ADD_FILES(INTF_FILES "../interface/helpers.h")
-
 
 
 SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES 

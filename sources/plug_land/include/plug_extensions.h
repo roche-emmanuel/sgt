@@ -22,11 +22,22 @@
 #include "ork/render/CPUBuffer.h"
 #include "ork/render/Module.h"
 #include "ork/render/FrameBuffer.h"
+#include "proland/preprocess/terrain/Preprocess.h"
 
 namespace ork {
 typedef vec2<bool> vec2b;
 typedef vec3<bool> vec3b;
 typedef vec4<bool> vec4b;
+}
+
+namespace proland {
+
+/** LUNA_RENAME preprocessSphericalOrtho */
+inline void preprocessSphericalOrthoSimple(InputMap *src, int dstTileSize, int dstChannels, int dstMaxLevel,
+        const string &dstFolder, const string &tmpFolder) {
+  preprocessSphericalOrtho(src,dstTileSize, dstChannels,dstMaxLevel,dstFolder,tmpFolder);
+}
+
 }
 
 inline proland::BasicViewHandler* createBasicViewHandler(bool smooth, proland::ViewManager *view) {

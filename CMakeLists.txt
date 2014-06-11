@@ -11,12 +11,10 @@ ENDIF()
 # Include the config:
 INCLUDE(cmake/Config.cmake)
 
-
 SET(CMAKE_MODULE_PATH "cmake ${CMAKE_MODULE_PATH}")
 
 # Use the "d" postfix for debug binaries
 SET(CMAKE_DEBUG_POSTFIX "d")
-
 
 STRING(TOUPPER "${FLAVOR}" UPPER_FLAVOR)
 ADD_DEFINITIONS("-D${UPPER_FLAVOR}")

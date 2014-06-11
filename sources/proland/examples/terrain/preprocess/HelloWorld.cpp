@@ -277,7 +277,6 @@ void init()
     ptr<XMLResourceLoader> resLoader = new XMLResourceLoader();
     resLoader->addPath("./proland_samples/terrain/preprocess");
     resLoader->addArchive("./proland_samples/terrain/preprocess/helloworld.xml");
-    resLoader->addPath("./proland_samples/terrain/preprocess/data");
 
     ptr<ResourceManager> resManager = new ResourceManager(resLoader, 8);
 
@@ -286,9 +285,15 @@ void init()
 
 int main(int argc, char* argv[])
 {
-    preprocessSphericalDem(new MyMap("srtm.png", 10000.0 / 255.0), 24, 192, 2, "data/dem", "tmpDem", 1.0);
+    logDEBUG("Generating DEMs...")
+    preprocessSphericalDem(new MyMap("W:/Cloud/Projects/sgt/software/proland_samples/terrain/preprocess/srtm.png", 10000.0 / 255.0), 24, 192, 2, "W:/Cloud/Projects/sgt/software/proland_samples/terrain/preprocess/data/dem", "W:/Cloud/Projects/sgt/software/proland_samples/terrain/preprocess/temp/tmpDem", 1.0);
+    // logDEBUG("Generating spherical aperture...")    
     //preprocessSphericalAperture("data/dem", 3, 5, 3, "data/dem/aperture", "tmpAperture");
-    preprocessSphericalOrtho(new MyMap("bluemarble.png", 1.0), 192, 4, 2, "data/rgb", "tmpOrtho");
+
+    logDEBUG("Generating ortho imagery...")
+    preprocessSphericalOrtho(new MyMap("W:/Cloud/Projects/sgt/software/proland_samples/terrain/preprocess/bluemarble.png", 1.0), 192, 4, 2, "W:/Cloud/Projects/sgt/software/proland_samples/terrain/preprocess/data/rgb", "W:/Cloud/Projects/sgt/software/proland_samples/terrain/preprocess/temp/tmpOrtho");
+    logDEBUG("Generation done.")
+    
     atexit(Object::exit);
     init();
     app->start();

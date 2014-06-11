@@ -33,6 +33,10 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::Margin >::Register(L);
 	Luna< proland::HydroFlowProducer::RiverMargin >::Register(L);
 	Luna< proland::EditGraphOrthoLayer::SelectionData >::Register(L);
+	Luna< proland::InputMap >::Register(L);
+	luna_popModule(L);
+	luna_pushModule(L,"land");
+	Luna< SimpleInputMap >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::ResourceDescriptor >::Register(L);
@@ -62,12 +66,12 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
 	Luna< proland::DrawRiversTask::vecParticle >::Register(L);
+	Luna< proland::TreeMesh::Vertex >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"ork");
 	Luna< ork::Font::Vertex >::Register(L);
 	luna_popModule(L);
 	luna_pushModule(L,"proland");
-	Luna< proland::TreeMesh::Vertex >::Register(L);
 	Luna< proland::EditGraphOrthoLayer::VertexData >::Register(L);
 	Luna< proland::ViewManager >::Register(L);
 	luna_popModule(L);
@@ -362,7 +366,6 @@ int PLUG_EXPORT luaopen_land(lua_State* L) {
 	Luna< proland::ColorMipmap::ColorFunction >::Register(L);
 	Luna< proland::HeightMipmap >::Register(L);
 	Luna< proland::HeightMipmap::HeightFunction >::Register(L);
-	Luna< proland::InputMap >::Register(L);
 	Luna< proland::AtmoParameters >::Register(L);
 	Luna< proland::AtmoProcessor >::Register(L);
 	Luna< proland::DrawOceanFFTTask >::Register(L);

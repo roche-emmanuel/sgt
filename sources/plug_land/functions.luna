@@ -42,3 +42,4 @@ proland::preprocessMultisample
 proland::initGraphPlugin
 proland::initRiverPlugin
 proland::initEditPlugin
+proland::preprocessSphericalOrthoSimple

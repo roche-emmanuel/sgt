@@ -231,7 +231,10 @@
 
     <tweakScene name="editScene" scene="scene" active="false"/>
 
-    <tweakBarManager name="tweakBar" next="viewHandler">
+    <!-- Here we need to disable the viewHandler because we have to create our own view handler in the singularity framework. -->
+    <!-- This needs to be toggled in order to test the proland-terrain-preprocess.exe example. -->
+    <!-- <tweakBarManager name="tweakBar" next="viewHandler"> -->
+    <tweakBarManager name="tweakBar">
         <editor id="scene" bar="editScene" exclusive="false"/>
     </tweakBarManager>
 

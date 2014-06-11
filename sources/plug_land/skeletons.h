@@ -55,6 +55,9 @@ class RiverMargin: public proland::Margin {
 class SelectionData {
 };
 
+class SimpleInputMap: public proland::InputMap {
+};
+
 class StaticResourceDescriptor: public ork::ResourceDescriptor {
 };
 
