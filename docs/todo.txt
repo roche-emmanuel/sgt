@@ -1,6 +1,8 @@
 TODO:
 
 - find how to implement proland terrain exercise2 properly with OSG canvas.
+- test ocean2 implementation in GL canvas.
+
 
 - http://jsbsim.sourceforge.net/ for Fhight dynamic model.
 - in lunagen add support to specify hashcode manually

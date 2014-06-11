@@ -106,3 +106,4 @@
 - Added support for proland terrain exercise5 rendering.
 - Moved proland tests in subfolder.
 - Added support for terrain preprocess.
+- Added atmosphere and ocean1 and 2 examples.
