@@ -212,13 +212,13 @@ GPUBuffer::GPUBuffer() : size(0), mappedData(NULL), cpuData(NULL), isDirty(false
         trDEBUG("GPUBuffer","UniformBufferManager ready.")        
     }
 
-    trDEBUG("GPUBuffer","Generating gl buffer...")
+    // trDEBUG("GPUBuffer","Generating gl buffer...")
     glGenBuffers(1, &bufferId);
-    trDEBUG("GPUBuffer","Calling FrameBuffer::getError()")
+    // trDEBUG("GPUBuffer","Calling FrameBuffer::getError()")
     int err = FrameBuffer::getError();
-    trDEBUG("GPUBuffer","Checking assertion")
+    // trDEBUG("GPUBuffer","Checking assertion")
     assert(err == GL_NO_ERROR);
-    trDEBUG("GPUBuffer","Assertion checked.")
+    // trDEBUG("GPUBuffer","Assertion checked.")
 }
 
 GPUBuffer::~GPUBuffer()

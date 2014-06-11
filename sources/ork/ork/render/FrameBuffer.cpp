@@ -1509,7 +1509,7 @@ GLint FrameBuffer::getMinorVersion()
 
 GLenum FrameBuffer::getError()
 {
-    trDEBUG("FrameBuffer","Calling glGetError()")
+    // trDEBUG("FrameBuffer","Calling glGetError()")
     GLenum error = glGetError();
 
     if (error != GL_NO_ERROR) {

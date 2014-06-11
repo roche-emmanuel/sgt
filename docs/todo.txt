@@ -2,6 +2,7 @@ TODO:
 
 - find how to implement proland terrain exercise2 properly with OSG canvas.
 - test ocean2 implementation in GL canvas.
+- test graph1 implementation in GL canvas.
 
 
 - http://jsbsim.sourceforge.net/ for Fhight dynamic model.
