@@ -3,6 +3,7 @@ SET(TARGET_NAME "plug_${PLUG_NAME}")
 SET(TARGET_DIR "./modules")
 #SET(TARGET_DIR "bin/${FLAVOR}/modules")
 
+
 INCLUDE_DIRECTORIES (../include)
 INCLUDE_DIRECTORIES (../../sgtLuna/include)
 
