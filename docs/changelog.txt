@@ -102,3 +102,4 @@
 - Added test script for proland terrain exercise 1.
 - Added GL canvas implementation to test Proland Terrain exercise 2. This is working as expected in this implementation (eg. proland_exercise2_gl)
 - Added support for proland terrain exercise3 rendering.
+- Added support for proland terrain exercise4 rendering.
