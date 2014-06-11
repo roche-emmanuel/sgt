@@ -108,3 +108,4 @@
 - Added support for terrain preprocess.
 - Added atmosphere and ocean1 and 2 examples.
 - Added graph1 implementation in OSG Canvas (not working properly).
+- Added forest1 implementation in OSG Canvas.

@@ -18,7 +18,7 @@ function Class:initialize()
   self._timer = ork.Timer()
   self._timer:start()
 
-  local path = root_path.."/proland_samples/terrain/terrain4"
+  local path = root_path.."/proland_samples/forest/trees1"
   
 	self:debug("Using root path: ",root_path)
 	self:debug("Creating XMLResourceLoader...")
