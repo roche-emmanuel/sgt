@@ -38,6 +38,9 @@ CEFManager::CEFManager( void )
 
 CEFManager::~CEFManager( void )
 {
+    // ensure the update thread is stopped:
+    stopThread();
+
     // Remove all the views:
     _views.clear();
 
@@ -45,8 +48,20 @@ CEFManager::~CEFManager( void )
     logDEBUG("Unloaded CEF system.");
 }
 
+void CEFManager::startThread()
+{
+    _updateThread.setManager(this);
+}
+
+void CEFManager::stopThread()
+{
+    _updateThread.setManager(NULL);
+}
+
 void CEFManager::Update()
 {
+    sgtLock lock(_viewMutex);
+
     //Check if some views should be initialized:
     for(ViewList::iterator it = _views.begin(); it != _views.end(); ++it) {
         // logDEBUG("Checking if view is initialized.");
@@ -66,6 +81,8 @@ void CEFManager::Update()
 
 CEFViewBase* CEFManager::CreateView(const CEFViewBase::Traits& traits)
 {
+    sgtLock lock(_viewMutex);
+
     // logDEBUG("Adding view to CEF system.");
     CEFViewBase* view = DoCreateView(traits);
     CHECK_RET(view,NULL,"Invalid view created.")
@@ -76,6 +93,8 @@ CEFViewBase* CEFManager::CreateView(const CEFViewBase::Traits& traits)
 
 void CEFManager::DestroyView(CEFViewBase* view)
 {
+    sgtLock lock(_viewMutex);
+    
     CHECK(view,"Invalid view object.")  
     for(ViewList::iterator it = _views.begin(); it != _views.end(); ++it) {
         if(it->get() == view) {

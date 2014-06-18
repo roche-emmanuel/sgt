@@ -24,6 +24,9 @@ namespace cef {
 	class DX9RenderTarget: public cef::RenderTarget {
 	};
 
+	class DX9CEFManager: public cef::CEFManager {
+	};
+
 };
 
 

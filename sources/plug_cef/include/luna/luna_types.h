@@ -8,6 +8,7 @@
 #include <CEFManager.h>
 #include <RenderTarget.h>
 #include <DX9RenderTarget.h>
+#include <DX9CEFManager.h>
 
 // Class: CefBase
 template<>
@@ -142,6 +143,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: cef::DX9CEFManager
+template<>
+class LunaTraits< cef::DX9CEFManager > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static cef::DX9CEFManager* _bind_ctor(lua_State *L);
+	static void _bind_dtor(cef::DX9CEFManager* obj);
+	typedef CefBase parent_t;
+	typedef cef::DX9CEFManager base_t;
+	static luna_ConverterType converters[];
+};
+
 
 
 // Referenced external: void
@@ -160,6 +180,25 @@ public:
 	static void _bind_dtor(void* obj);
 	typedef void parent_t;
 	typedef void base_t;
+	static luna_ConverterType converters[];
+};
+
+// Referenced external: IDirect3DDevice9
+template<>
+class LunaTraits< IDirect3DDevice9 > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static IDirect3DDevice9* _bind_ctor(lua_State *L);
+	static void _bind_dtor(IDirect3DDevice9* obj);
+	typedef IDirect3DDevice9 parent_t;
+	typedef IDirect3DDevice9 base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -188,6 +227,13 @@ template<>
 class LunaType< 3625364 > {
 public:
 	typedef void type;
+	
+};
+
+template<>
+class LunaType< 44522754 > {
+public:
+	typedef IDirect3DDevice9 type;
 	
 };
 

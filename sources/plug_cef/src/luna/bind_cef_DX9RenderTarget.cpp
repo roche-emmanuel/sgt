@@ -87,19 +87,23 @@ public:
 
 	// Constructor checkers:
 	inline static bool _lg_typecheck_ctor_overload_1(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
+		if( lua_gettop(L)!=3 ) return false;
 
-		if( (lua_type(L,1)!=LUA_TNUMBER || lua_tointeger(L,1) != lua_tonumber(L,1)) ) return false;
+		if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,44522754)) ) return false;
+		if( (lua_isnil(L,1)==0 && !(Luna< IDirect3DDevice9 >::check(L,1)) ) ) return false;
 		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+		if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
 		return true;
 	}
 
 	inline static bool _lg_typecheck_ctor_overload_2(lua_State *L) {
-		if( lua_gettop(L)!=3 ) return false;
+		if( lua_gettop(L)!=4 ) return false;
 
 		if( lua_istable(L,1)==0 ) return false;
-		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
+		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,44522754)) ) return false;
+		if( (lua_isnil(L,2)==0 && !(Luna< IDirect3DDevice9 >::check(L,2)) ) ) return false;
 		if( (lua_type(L,3)!=LUA_TNUMBER || lua_tointeger(L,3) != lua_tonumber(L,3)) ) return false;
+		if( (lua_type(L,4)!=LUA_TNUMBER || lua_tointeger(L,4) != lua_tonumber(L,4)) ) return false;
 		return true;
 	}
 
@@ -118,6 +122,18 @@ public:
 	}
 
 	inline static bool _lg_typecheck_IsInitialized(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_IsUpdateNeeded(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_Update(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		return true;
@@ -176,28 +192,30 @@ public:
 	// (found 0 valid operators)
 
 	// Constructor binds:
-	// cef::DX9RenderTarget::DX9RenderTarget(int width, int height)
+	// cef::DX9RenderTarget::DX9RenderTarget(IDirect3DDevice9 * device, int width, int height)
 	static cef::DX9RenderTarget* _bind_ctor_overload_1(lua_State *L) {
 		if (!_lg_typecheck_ctor_overload_1(L)) {
-			luaL_error(L, "luna typecheck failed in cef::DX9RenderTarget::DX9RenderTarget(int width, int height) function, expected prototype:\ncef::DX9RenderTarget::DX9RenderTarget(int width, int height)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in cef::DX9RenderTarget::DX9RenderTarget(IDirect3DDevice9 * device, int width, int height) function, expected prototype:\ncef::DX9RenderTarget::DX9RenderTarget(IDirect3DDevice9 * device, int width, int height)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
 		}
 
-		int width=(int)lua_tointeger(L,1);
-		int height=(int)lua_tointeger(L,2);
-
-		return new cef::DX9RenderTarget(width, height);
-	}
-
-	// cef::DX9RenderTarget::DX9RenderTarget(lua_Table * data, int width, int height)
-	static cef::DX9RenderTarget* _bind_ctor_overload_2(lua_State *L) {
-		if (!_lg_typecheck_ctor_overload_2(L)) {
-			luaL_error(L, "luna typecheck failed in cef::DX9RenderTarget::DX9RenderTarget(lua_Table * data, int width, int height) function, expected prototype:\ncef::DX9RenderTarget::DX9RenderTarget(lua_Table * data, int width, int height)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
+		IDirect3DDevice9* device=(Luna< IDirect3DDevice9 >::check(L,1));
 		int width=(int)lua_tointeger(L,2);
 		int height=(int)lua_tointeger(L,3);
 
-		return new wrapper_cef_DX9RenderTarget(L,NULL, width, height);
+		return new cef::DX9RenderTarget(device, width, height);
+	}
+
+	// cef::DX9RenderTarget::DX9RenderTarget(lua_Table * data, IDirect3DDevice9 * device, int width, int height)
+	static cef::DX9RenderTarget* _bind_ctor_overload_2(lua_State *L) {
+		if (!_lg_typecheck_ctor_overload_2(L)) {
+			luaL_error(L, "luna typecheck failed in cef::DX9RenderTarget::DX9RenderTarget(lua_Table * data, IDirect3DDevice9 * device, int width, int height) function, expected prototype:\ncef::DX9RenderTarget::DX9RenderTarget(lua_Table * data, IDirect3DDevice9 * device, int width, int height)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		IDirect3DDevice9* device=(Luna< IDirect3DDevice9 >::check(L,2));
+		int width=(int)lua_tointeger(L,3);
+		int height=(int)lua_tointeger(L,4);
+
+		return new wrapper_cef_DX9RenderTarget(L,NULL, device, width, height);
 	}
 
 	// Overload binder for cef::DX9RenderTarget::DX9RenderTarget
@@ -205,7 +223,7 @@ public:
 		if (_lg_typecheck_ctor_overload_1(L)) return _bind_ctor_overload_1(L);
 		if (_lg_typecheck_ctor_overload_2(L)) return _bind_ctor_overload_2(L);
 
-		luaL_error(L, "error in function DX9RenderTarget, cannot match any of the overloads for function DX9RenderTarget:\n  DX9RenderTarget(int, int)\n  DX9RenderTarget(lua_Table *, int, int)\n");
+		luaL_error(L, "error in function DX9RenderTarget, cannot match any of the overloads for function DX9RenderTarget:\n  DX9RenderTarget(IDirect3DDevice9 *, int, int)\n  DX9RenderTarget(lua_Table *, IDirect3DDevice9 *, int, int)\n");
 		return NULL;
 	}
 
@@ -258,6 +276,39 @@ public:
 		lua_pushboolean(L,lret?1:0);
 
 		return 1;
+	}
+
+	// bool cef::DX9RenderTarget::IsUpdateNeeded()
+	static int _bind_IsUpdateNeeded(lua_State *L) {
+		if (!_lg_typecheck_IsUpdateNeeded(L)) {
+			luaL_error(L, "luna typecheck failed in bool cef::DX9RenderTarget::IsUpdateNeeded() function, expected prototype:\nbool cef::DX9RenderTarget::IsUpdateNeeded()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::DX9RenderTarget* self=Luna< CefBase >::checkSubType< cef::DX9RenderTarget >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool cef::DX9RenderTarget::IsUpdateNeeded(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->IsUpdateNeeded();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
+	// void cef::DX9RenderTarget::Update()
+	static int _bind_Update(lua_State *L) {
+		if (!_lg_typecheck_Update(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::DX9RenderTarget::Update() function, expected prototype:\nvoid cef::DX9RenderTarget::Update()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::DX9RenderTarget* self=Luna< CefBase >::checkSubType< cef::DX9RenderTarget >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::DX9RenderTarget::Update(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->Update();
+
+		return 0;
 	}
 
 	// int cef::DX9RenderTarget::base_GetWidth()
@@ -418,6 +469,8 @@ luna_RegType LunaTraits< cef::DX9RenderTarget >::methods[] = {
 	{"Initialize", &luna_wrapper_cef_DX9RenderTarget::_bind_Initialize},
 	{"Uninitialize", &luna_wrapper_cef_DX9RenderTarget::_bind_Uninitialize},
 	{"IsInitialized", &luna_wrapper_cef_DX9RenderTarget::_bind_IsInitialized},
+	{"IsUpdateNeeded", &luna_wrapper_cef_DX9RenderTarget::_bind_IsUpdateNeeded},
+	{"Update", &luna_wrapper_cef_DX9RenderTarget::_bind_Update},
 	{"base_GetWidth", &luna_wrapper_cef_DX9RenderTarget::_bind_base_GetWidth},
 	{"base_GetHeight", &luna_wrapper_cef_DX9RenderTarget::_bind_base_GetHeight},
 	{"base_AddRef", &luna_wrapper_cef_DX9RenderTarget::_bind_base_AddRef},

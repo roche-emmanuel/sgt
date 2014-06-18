@@ -115,6 +115,18 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_startThread(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_stopThread(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_AddRef(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -221,6 +233,38 @@ public:
 			luaL_error(L, "Invalid object in function call void cef::CEFManager::DestroyView(cef::CEFViewBase *). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		self->DestroyView(view);
+
+		return 0;
+	}
+
+	// void cef::CEFManager::startThread()
+	static int _bind_startThread(lua_State *L) {
+		if (!_lg_typecheck_startThread(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::CEFManager::startThread() function, expected prototype:\nvoid cef::CEFManager::startThread()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::CEFManager::startThread(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->startThread();
+
+		return 0;
+	}
+
+	// void cef::CEFManager::stopThread()
+	static int _bind_stopThread(lua_State *L) {
+		if (!_lg_typecheck_stopThread(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::CEFManager::stopThread() function, expected prototype:\nvoid cef::CEFManager::stopThread()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::CEFManager::stopThread(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->stopThread();
 
 		return 0;
 	}
@@ -354,6 +398,8 @@ luna_RegType LunaTraits< cef::CEFManager >::methods[] = {
 	{"Update", &luna_wrapper_cef_CEFManager::_bind_Update},
 	{"CreateView", &luna_wrapper_cef_CEFManager::_bind_CreateView},
 	{"DestroyView", &luna_wrapper_cef_CEFManager::_bind_DestroyView},
+	{"startThread", &luna_wrapper_cef_CEFManager::_bind_startThread},
+	{"stopThread", &luna_wrapper_cef_CEFManager::_bind_stopThread},
 	{"AddRef", &luna_wrapper_cef_CEFManager::_bind_AddRef},
 	{"Release", &luna_wrapper_cef_CEFManager::_bind_Release},
 	{"GetRefCt", &luna_wrapper_cef_CEFManager::_bind_GetRefCt},

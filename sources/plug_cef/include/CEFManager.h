@@ -3,6 +3,7 @@
 
 #include <cef_base.h>
 #include <CEFViewBase.h>
+#include <CEFManagerUpdateThread.h>
 
 namespace cef
 {
@@ -13,17 +14,22 @@ namespace cef
 
     public:
         CEFManager( void );
-        ~CEFManager( void );
+        virtual ~CEFManager( void );
 
         void Update();
 
         CEFViewBase* CreateView(const CEFViewBase::Traits& traits);
         void DestroyView(CEFViewBase* view);
 
+        void startThread();
+        void stopThread();
+        
     protected:
         virtual CEFViewBase* DoCreateView(const CEFViewBase::Traits& traits) = 0;
 
         ViewList _views;
+        sgtMutex _viewMutex;
+        CEFManagerUpdateThread _updateThread;
 
         IMPLEMENT_REFCOUNTING(CEFManager); 
     };

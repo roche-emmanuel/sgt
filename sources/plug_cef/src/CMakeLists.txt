@@ -30,7 +30,6 @@ INSTALL(TARGETS ${TARGET_NAME}
 	RUNTIME DESTINATION ${TARGET_DIR}
 	LIBRARY DESTINATION ${TARGET_DIR})
 
-
 # reflection settings:	
 SET(INTF_FILES)
 
@@ -40,6 +39,7 @@ ADD_FILES(INTF_FILES "../include/CEFManager.h")
 ADD_FILES(INTF_FILES "../include/CEFViewBase.h")
 ADD_FILES(INTF_FILES "../include/RenderTarget.h")
 ADD_FILES(INTF_FILES "../include/DX9RenderTarget.h")
+ADD_FILES(INTF_FILES "../include/DX9CEFManager.h")
 # ADD_FILES(INTF_FILES "../interface/helpers.h")
 
 SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES 

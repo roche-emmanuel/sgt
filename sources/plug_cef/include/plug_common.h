@@ -18,6 +18,10 @@
 #include <lua.hpp>
 
 // Insert your includes here.
+#include <d3d9.h>
+#include <d3dx9.h>
+#include <DxErr.h>
+
 #include <cef_base.h>
 #include "CEFViewBase.h"
 

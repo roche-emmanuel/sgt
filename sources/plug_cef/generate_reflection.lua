@@ -7,6 +7,9 @@ tm:registerExternalFunctions(root_project_path .. "sources/plug_core/functions.l
 tm:registerExternals(root_project_path .. "sources/plug_osg/classes.luna")
 tm:registerExternalFunctions(root_project_path .. "sources/plug_osg/functions.luna")
 
+-- Add dependency on DX9 bindings:
+tm:registerExternals(root_project_path .. "sources/plug_dx9/classes.luna")
+
 local tc = require "bindings.TypeConverter"
 local utils = require "utils"
 

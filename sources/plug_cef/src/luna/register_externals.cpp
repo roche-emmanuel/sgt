@@ -6,4 +6,10 @@ const char LunaTraits< void >::moduleName[] = "sgt";
 const int LunaTraits< void >::hash = 3625364;
 const int LunaTraits< void >::uniqueIDs[] = {3625364,0};
 
+const char LunaTraits< IDirect3DDevice9 >::className[] = "IDirect3DDevice9";
+const char LunaTraits< IDirect3DDevice9 >::fullName[] = "IDirect3DDevice9";
+const char LunaTraits< IDirect3DDevice9 >::moduleName[] = "dx9";
+const int LunaTraits< IDirect3DDevice9 >::hash = 44522754;
+const int LunaTraits< IDirect3DDevice9 >::uniqueIDs[] = {44522754,0};
+
 

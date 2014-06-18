@@ -52,7 +52,7 @@ CEFViewBase::~CEFViewBase() {
     Uninitialize();
 }
 
-void CEFViewBase::CreateBrowser(const Traits& traits, RenderTarget* tgt) {
+void CEFViewBase::InitializeBrowser(const Traits& traits, RenderTarget* tgt) {
   
   logDEBUG("Assigning render target...");
 

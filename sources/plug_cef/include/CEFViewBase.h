@@ -69,9 +69,10 @@ class CEFViewBase : public CefBase
     virtual void Initialize();
     virtual void Uninitialize();
 
+    /** LUNA_IGNORED */
+    void InitializeBrowser(const Traits& traits, RenderTarget* tgt);
+
   protected:
-    void CreateBrowser(const Traits& traits, RenderTarget* tgt);
-    
     int _width;
     int _height;
 

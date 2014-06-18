@@ -6,3 +6,4 @@ cef::CEFManager => CefBase
 cef::CEFViewBase => CefBase
 cef::RenderTarget => CefBase
 cef::DX9RenderTarget => CefBase
+cef::DX9CEFManager => CefBase
