@@ -72,6 +72,9 @@ class CEFViewBase : public CefBase
     /** LUNA_IGNORED */
     void InitializeBrowser(const Traits& traits, RenderTarget* tgt);
 
+    /** LUNA_IGNORED */
+    inline RenderTarget* GetRenderTarget() { return _renderTarget.get(); }
+        
   protected:
     int _width;
     int _height;

@@ -26,6 +26,8 @@ namespace cef
 		/** Perform the actual upload of the memtexture onto the GPU texture. */
 		void Update();
 
+		inline IDirect3DTexture9* GetGPUTexture() { return _gpuTexture.Get(); }
+		
 	protected:
 		volatile bool _updateNeeded;
 		sgtMutex _textureMutex;

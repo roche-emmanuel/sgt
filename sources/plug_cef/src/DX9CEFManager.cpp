@@ -28,4 +28,18 @@ CEFViewBase* DX9CEFManager::DoCreateView(const CEFViewBase::Traits& traits)
     return view;
 }
 
+IDirect3DTexture9* DX9CEFManager::GetOutputTexture(CEFViewBase* view)
+{
+	CHECK_RET(view,NULL,"Invalid CEFViewBase object.");
+	CHECK_RET(view->IsInitialized(),NULL,"CEFViewBase is not initialized.");
+
+	// retrieve the render target:
+	DX9RenderTarget* tgt = dynamic_cast<DX9RenderTarget*>(view->GetRenderTarget());
+	CHECK_RET(tgt,NULL,"Invalid DX9RenderTarget object");
+
+	// The render target is supposed to be initialized:
+	return tgt->GetGPUTexture();
+
+}
+
 }

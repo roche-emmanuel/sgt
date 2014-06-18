@@ -18,12 +18,6 @@ namespace cef {
 	public:
 	};
 
-	class RenderTarget: public CefBase {
-	};
-
-	class DX9RenderTarget: public cef::RenderTarget {
-	};
-
 	class DX9CEFManager: public cef::CEFManager {
 	};
 

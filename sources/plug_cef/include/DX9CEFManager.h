@@ -13,6 +13,8 @@ namespace cef
         DX9CEFManager(IDirect3DDevice9* device);
         ~DX9CEFManager();
 
+        IDirect3DTexture9* GetOutputTexture(CEFViewBase* view);
+        
     protected:
         virtual CEFViewBase* DoCreateView(const CEFViewBase::Traits& traits);
 

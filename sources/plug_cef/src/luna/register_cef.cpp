@@ -19,8 +19,6 @@ int PLUG_EXPORT luaopen_cef(lua_State* L) {
 	Luna< cef::CEFViewBase::Traits >::Register(L);
 	Luna< cef::CEFManager >::Register(L);
 	Luna< cef::CEFViewBase >::Register(L);
-	Luna< cef::RenderTarget >::Register(L);
-	Luna< cef::DX9RenderTarget >::Register(L);
 	Luna< cef::DX9CEFManager >::Register(L);
 	luna_popModule(L);
 

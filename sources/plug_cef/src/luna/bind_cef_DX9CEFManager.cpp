@@ -105,6 +105,13 @@ public:
 
 
 	// Function checkers:
+	inline static bool _lg_typecheck_GetOutputTexture(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,50549361)) ) return false;
+		return true;
+	}
+
 	inline static bool _lg_typecheck_base_AddRef(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -161,6 +168,26 @@ public:
 
 
 	// Function binds:
+	// IDirect3DTexture9 * cef::DX9CEFManager::GetOutputTexture(cef::CEFViewBase * view)
+	static int _bind_GetOutputTexture(lua_State *L) {
+		if (!_lg_typecheck_GetOutputTexture(L)) {
+			luaL_error(L, "luna typecheck failed in IDirect3DTexture9 * cef::DX9CEFManager::GetOutputTexture(cef::CEFViewBase * view) function, expected prototype:\nIDirect3DTexture9 * cef::DX9CEFManager::GetOutputTexture(cef::CEFViewBase * view)\nClass arguments details:\narg 1 ID = 50549361\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		cef::CEFViewBase* view=(Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,2));
+
+		cef::DX9CEFManager* self=Luna< CefBase >::checkSubType< cef::DX9CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call IDirect3DTexture9 * cef::DX9CEFManager::GetOutputTexture(cef::CEFViewBase *). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		IDirect3DTexture9 * lret = self->GetOutputTexture(view);
+		if(!lret) return 0; // Do not write NULL pointers.
+
+		Luna< IDirect3DTexture9 >::push(L,lret,false);
+
+		return 1;
+	}
+
 	// int cef::DX9CEFManager::base_AddRef()
 	static int _bind_base_AddRef(lua_State *L) {
 		if (!_lg_typecheck_base_AddRef(L)) {
@@ -233,6 +260,7 @@ const int LunaTraits< cef::DX9CEFManager >::hash = 95441683;
 const int LunaTraits< cef::DX9CEFManager >::uniqueIDs[] = {50549361,0};
 
 luna_RegType LunaTraits< cef::DX9CEFManager >::methods[] = {
+	{"GetOutputTexture", &luna_wrapper_cef_DX9CEFManager::_bind_GetOutputTexture},
 	{"base_AddRef", &luna_wrapper_cef_DX9CEFManager::_bind_base_AddRef},
 	{"base_Release", &luna_wrapper_cef_DX9CEFManager::_bind_base_Release},
 	{"base_GetRefCt", &luna_wrapper_cef_DX9CEFManager::_bind_base_GetRefCt},
