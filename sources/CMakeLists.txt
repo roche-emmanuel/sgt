@@ -31,12 +31,21 @@ ADD_SUBDIRECTORY(plug_osgWX)
 
 ADD_SUBDIRECTORY(sgtLauncher)
 
-ADD_SUBDIRECTORY(ork)
-ADD_SUBDIRECTORY(proland)
+# Proland support experiment:
+# ADD_SUBDIRECTORY(ork)
+# ADD_SUBDIRECTORY(proland)
+# ADD_SUBDIRECTORY(plug_land)
 
-ADD_SUBDIRECTORY(plug_land)
 
+# Python support experiment:
 # ADD_SUBDIRECTORY(lunatic_python27)
+
+# DIrectX 9 support:
+ADD_SUBDIRECTORY(plug_dx9)
+
+# CEF support experiment:
+ADD_SUBDIRECTORY(cef_process)
+ADD_SUBDIRECTORY(plug_cef)
 
 
 # Not sure why this template_launcher project is here ?

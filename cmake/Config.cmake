@@ -31,6 +31,9 @@ SET(DEP_TIFF ${DEPS_DIR}/${FLAVOR}/libtiff-3.8.2 CACHE STRING "TIFF path")
 
 SET(DEP_PYTHON27 ${DEPS_DIR}/${FLAVOR}/Python-2.7.6 CACHE STRING "Python path")
 
+SET(DEP_DX ${DEPS_DIR}/${FLAVOR}/DXSDK-June2010 CACHE STRING "directx path")
+SET(DEP_CEF ${DEPS_DIR}/${FLAVOR}/CEF-3.1921.1675 CACHE STRING "CEF path")
+
 # Include the macro definitions:
 INCLUDE(cmake/Macros.cmake)
 
@@ -95,3 +98,16 @@ SET(TIFF_LIBS 		libtiff.lib)
 SET(PYTHON27_INC_DIR 	${DEP_PYTHON27}/include)
 SET(PYTHON27_LIB_DIR 	${DEP_PYTHON27}/libs)
 SET(PYTHON27_LIBS 		python27.lib)
+
+SET(CEF_INC_DIR 	${DEP_CEF}/include ${DEP_CEF})
+SET(CEF_LIB_DIR 	${DEP_CEF}/Release)
+SET(CEF_LIBS 			libcef.lib libcef_dll_wrapper.lib)
+
+SET(DX_INC_DIR 	${DEP_DX}/Include)
+IF("${FLAVOR}" STREQUAL "win64")
+SET(DX_LIB_DIR 	${DEP_DX}/Lib/x64)
+ELSE()
+SET(DX_LIB_DIR 	${DEP_DX}/Lib/x86)
+ENDIF()
+SET(DX_LIBS 	d3dx11.lib d3dx9.lib DxErr.lib)
+

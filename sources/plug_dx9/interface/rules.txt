@@ -1,0 +1,6 @@
+in notepad++
+
+replace: STDMETHOD_\(([^,]+),
+with: \1
+replace: STDMETHOD(
+with: HRESULT 
