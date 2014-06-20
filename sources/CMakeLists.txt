@@ -47,6 +47,8 @@ ADD_SUBDIRECTORY(plug_dx9)
 ADD_SUBDIRECTORY(cef_process)
 ADD_SUBDIRECTORY(plug_cef)
 
+# CEF support for MXEngine:
+ADD_SUBDIRECTORY(lua_mxcef)
 
 # Not sure why this template_launcher project is here ?
 # ADD_SUBDIRECTORY(template_launcher)

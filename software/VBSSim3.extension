@@ -1,0 +1,21 @@
+local log = require "tracer" 
+
+log:info("extension","Hello from extension in SGT folder!")
+
+
+-- In this extension we will just override the default overlay class used to build the turrets.
+-- But first we most load the package containing lua module, except if a debugging path is provided:
+
+
+local mpath = os.getenv("MXENGINE_MODULE_PATH")
+if mpath then
+	-- just add the path:
+	mpath = mpath:gsub("\\","/") ..";"
+	mpath = mpath:gsub(";","/?.lua;")
+	log:debug("extension","Adding module paths: '"..mpath.."'");
+	package.path = mpath .. ";" .. package.path
+else
+	log:debug("extension","Loading mxcef package from " .. root_path .. "/packages/");
+	requirePackage("mxcef",root_path.."/packages/")
+end
+

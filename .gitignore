@@ -4,6 +4,9 @@ software/*.log
 software/*.html
 software/*.dll
 software/modules/*.sgp
+software/locales/*.pak
+software/*.pak
+software/*.dat
 software/packages/*.lpak
 software/tools/*.exe
 software/python27/*
