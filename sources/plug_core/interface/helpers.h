@@ -1,5 +1,6 @@
 
 bool hasModuleData(const std::string& name);
+bool loadModuleFromFile(const std::string& name, const std::string& filename);
 
 // int loadModuleFromMemory(const std::string& data, const std::string& mname, const std::string& entryname, lua_State* L);
 // int loadModuleFromMemory(const std::string& mname, const std::string& entryname, lua_State* L);

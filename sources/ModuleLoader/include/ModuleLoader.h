@@ -44,6 +44,7 @@ extern "C" {
 LOADER_EXPORT void setModuleData(const std::string& name, void* data);
 LOADER_EXPORT bool hasModuleData(const std::string& name);
 LOADER_EXPORT bool loadModule(const std::string& name, void* data = NULL);
+LOADER_EXPORT bool loadModuleFromFile(const std::string& name, const std::string& filename);
 LOADER_EXPORT void freeModule(const std::string& name);
 LOADER_EXPORT void setModule(const std::string& name, HCUSTOMMODULE handle);
 LOADER_EXPORT void* getModule(const std::string& name);
@@ -67,7 +68,8 @@ public:
 	void setModuleData(const std::string& name, void* data);
 	
 	HCUSTOMMODULE loadModule(const std::string& name, void* data = NULL);
-	
+	HCUSTOMMODULE loadModuleFromFile(const std::string& name, const std::string& filename);
+
 	void freeModule(const std::string& name);
 	
 	void setModule(const std::string& name, HCUSTOMMODULE handle);

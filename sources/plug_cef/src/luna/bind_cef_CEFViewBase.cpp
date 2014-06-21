@@ -123,6 +123,12 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_isBrowserReady(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
 	inline static bool _lg_typecheck_AddRef(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
@@ -270,6 +276,23 @@ public:
 		self->Uninitialize();
 
 		return 0;
+	}
+
+	// bool cef::CEFViewBase::isBrowserReady()
+	static int _bind_isBrowserReady(lua_State *L) {
+		if (!_lg_typecheck_isBrowserReady(L)) {
+			luaL_error(L, "luna typecheck failed in bool cef::CEFViewBase::isBrowserReady() function, expected prototype:\nbool cef::CEFViewBase::isBrowserReady()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFViewBase* self=Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool cef::CEFViewBase::isBrowserReady(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->isBrowserReady();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
 	}
 
 	// int cef::CEFViewBase::AddRef()
@@ -433,7 +456,7 @@ cef::CEFViewBase* LunaTraits< cef::CEFViewBase >::_bind_ctor(lua_State *L) {
 }
 
 void LunaTraits< cef::CEFViewBase >::_bind_dtor(cef::CEFViewBase* obj) {
-	delete obj;
+	CefRefPtr<CefBase> refptr = obj;
 }
 
 const char LunaTraits< cef::CEFViewBase >::className[] = "CEFViewBase";
@@ -447,6 +470,7 @@ luna_RegType LunaTraits< cef::CEFViewBase >::methods[] = {
 	{"IsInitialized", &luna_wrapper_cef_CEFViewBase::_bind_IsInitialized},
 	{"Initialize", &luna_wrapper_cef_CEFViewBase::_bind_Initialize},
 	{"Uninitialize", &luna_wrapper_cef_CEFViewBase::_bind_Uninitialize},
+	{"isBrowserReady", &luna_wrapper_cef_CEFViewBase::_bind_isBrowserReady},
 	{"AddRef", &luna_wrapper_cef_CEFViewBase::_bind_AddRef},
 	{"Release", &luna_wrapper_cef_CEFViewBase::_bind_Release},
 	{"GetRefCt", &luna_wrapper_cef_CEFViewBase::_bind_GetRefCt},

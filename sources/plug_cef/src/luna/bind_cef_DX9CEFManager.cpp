@@ -87,19 +87,23 @@ public:
 
 	// Constructor checkers:
 	inline static bool _lg_typecheck_ctor_overload_1(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
+		if( lua_gettop(L)!=2 ) return false;
 
-		if( (lua_isnil(L,1)==0 && !Luna<void>::has_uniqueid(L,1,44522754)) ) return false;
-		if( (lua_isnil(L,1)==0 && !(Luna< IDirect3DDevice9 >::check(L,1)) ) ) return false;
+		if( !Luna<void>::has_uniqueid(L,1,49043676) ) return false;
+		if( (!(Luna< cef::CEFManager::Traits >::check(L,1))) ) return false;
+		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,44522754)) ) return false;
+		if( (lua_isnil(L,2)==0 && !(Luna< IDirect3DDevice9 >::check(L,2)) ) ) return false;
 		return true;
 	}
 
 	inline static bool _lg_typecheck_ctor_overload_2(lua_State *L) {
-		if( lua_gettop(L)!=2 ) return false;
+		if( lua_gettop(L)!=3 ) return false;
 
 		if( lua_istable(L,1)==0 ) return false;
-		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,44522754)) ) return false;
-		if( (lua_isnil(L,2)==0 && !(Luna< IDirect3DDevice9 >::check(L,2)) ) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,49043676) ) return false;
+		if( (!(Luna< cef::CEFManager::Traits >::check(L,2))) ) return false;
+		if( (lua_isnil(L,3)==0 && !Luna<void>::has_uniqueid(L,3,44522754)) ) return false;
+		if( (lua_isnil(L,3)==0 && !(Luna< IDirect3DDevice9 >::check(L,3)) ) ) return false;
 		return true;
 	}
 
@@ -135,26 +139,36 @@ public:
 	// (found 0 valid operators)
 
 	// Constructor binds:
-	// cef::DX9CEFManager::DX9CEFManager(IDirect3DDevice9 * device)
+	// cef::DX9CEFManager::DX9CEFManager(const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device)
 	static cef::DX9CEFManager* _bind_ctor_overload_1(lua_State *L) {
 		if (!_lg_typecheck_ctor_overload_1(L)) {
-			luaL_error(L, "luna typecheck failed in cef::DX9CEFManager::DX9CEFManager(IDirect3DDevice9 * device) function, expected prototype:\ncef::DX9CEFManager::DX9CEFManager(IDirect3DDevice9 * device)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in cef::DX9CEFManager::DX9CEFManager(const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device) function, expected prototype:\ncef::DX9CEFManager::DX9CEFManager(const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device)\nClass arguments details:\narg 1 ID = 49043676\n\n%s",luna_dumpStack(L).c_str());
 		}
 
-		IDirect3DDevice9* device=(Luna< IDirect3DDevice9 >::check(L,1));
-
-		return new cef::DX9CEFManager(device);
-	}
-
-	// cef::DX9CEFManager::DX9CEFManager(lua_Table * data, IDirect3DDevice9 * device)
-	static cef::DX9CEFManager* _bind_ctor_overload_2(lua_State *L) {
-		if (!_lg_typecheck_ctor_overload_2(L)) {
-			luaL_error(L, "luna typecheck failed in cef::DX9CEFManager::DX9CEFManager(lua_Table * data, IDirect3DDevice9 * device) function, expected prototype:\ncef::DX9CEFManager::DX9CEFManager(lua_Table * data, IDirect3DDevice9 * device)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		const cef::CEFManager::Traits* traits_ptr=(Luna< cef::CEFManager::Traits >::check(L,1));
+		if( !traits_ptr ) {
+			luaL_error(L, "Dereferencing NULL pointer for arg traits in cef::DX9CEFManager::DX9CEFManager function");
 		}
-
+		const cef::CEFManager::Traits & traits=*traits_ptr;
 		IDirect3DDevice9* device=(Luna< IDirect3DDevice9 >::check(L,2));
 
-		return new wrapper_cef_DX9CEFManager(L,NULL, device);
+		return new cef::DX9CEFManager(traits, device);
+	}
+
+	// cef::DX9CEFManager::DX9CEFManager(lua_Table * data, const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device)
+	static cef::DX9CEFManager* _bind_ctor_overload_2(lua_State *L) {
+		if (!_lg_typecheck_ctor_overload_2(L)) {
+			luaL_error(L, "luna typecheck failed in cef::DX9CEFManager::DX9CEFManager(lua_Table * data, const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device) function, expected prototype:\ncef::DX9CEFManager::DX9CEFManager(lua_Table * data, const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device)\nClass arguments details:\narg 2 ID = 49043676\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		const cef::CEFManager::Traits* traits_ptr=(Luna< cef::CEFManager::Traits >::check(L,2));
+		if( !traits_ptr ) {
+			luaL_error(L, "Dereferencing NULL pointer for arg traits in cef::DX9CEFManager::DX9CEFManager function");
+		}
+		const cef::CEFManager::Traits & traits=*traits_ptr;
+		IDirect3DDevice9* device=(Luna< IDirect3DDevice9 >::check(L,3));
+
+		return new wrapper_cef_DX9CEFManager(L,NULL, traits, device);
 	}
 
 	// Overload binder for cef::DX9CEFManager::DX9CEFManager
@@ -162,7 +176,7 @@ public:
 		if (_lg_typecheck_ctor_overload_1(L)) return _bind_ctor_overload_1(L);
 		if (_lg_typecheck_ctor_overload_2(L)) return _bind_ctor_overload_2(L);
 
-		luaL_error(L, "error in function DX9CEFManager, cannot match any of the overloads for function DX9CEFManager:\n  DX9CEFManager(IDirect3DDevice9 *)\n  DX9CEFManager(lua_Table *, IDirect3DDevice9 *)\n");
+		luaL_error(L, "error in function DX9CEFManager, cannot match any of the overloads for function DX9CEFManager:\n  DX9CEFManager(const cef::CEFManager::Traits &, IDirect3DDevice9 *)\n  DX9CEFManager(lua_Table *, const cef::CEFManager::Traits &, IDirect3DDevice9 *)\n");
 		return NULL;
 	}
 
@@ -249,7 +263,7 @@ cef::DX9CEFManager* LunaTraits< cef::DX9CEFManager >::_bind_ctor(lua_State *L) {
 }
 
 void LunaTraits< cef::DX9CEFManager >::_bind_dtor(cef::DX9CEFManager* obj) {
-	delete obj;
+	CefRefPtr<CefBase> refptr = obj;
 }
 
 const char LunaTraits< cef::DX9CEFManager >::className[] = "DX9CEFManager";

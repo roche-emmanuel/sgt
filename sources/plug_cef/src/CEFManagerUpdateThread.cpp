@@ -40,10 +40,14 @@ void CEFManagerUpdateThread::run()
 {
 	logDEBUG("Entering CEFManagerUpdate thread");
 	
+	// first perform initialization:
+	_manager->Initialize();
+	logDEBUG("CEFManager init done.");
+
 	while (!_done)
 	{
 		// test cancel just in case:
-		testCancel();
+		// testCancel(); // we do not use this to avoid killing thread the hard way.
 		
 		CHECK(_manager,"Invalid render target");
 		
@@ -52,8 +56,11 @@ void CEFManagerUpdateThread::run()
 		// We just sleep for a few milliseconds:
 		microSleep(10000);
 	}
-   
-   logDEBUG("Finished CEFManagerUpdate thread.");
+	
+	logDEBUG("Shutting down CEFManager.")
+	_manager->Shutdown();
+
+  logDEBUG("Finished CEFManagerUpdate thread.");
 }
 
 }

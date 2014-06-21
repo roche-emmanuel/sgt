@@ -6,7 +6,6 @@ log:info("extension","Hello from extension in SGT folder!")
 -- In this extension we will just override the default overlay class used to build the turrets.
 -- But first we most load the package containing lua module, except if a debugging path is provided:
 
-
 local mpath = os.getenv("MXENGINE_MODULE_PATH")
 if mpath then
 	-- just add the path:
@@ -18,4 +17,12 @@ else
 	log:debug("extension","Loading mxcef package from " .. root_path .. "/packages/");
 	requirePackage("mxcef",root_path.."/packages/")
 end
+
+-- We also have to update the binary path to look for the additional module:
+package.cpath = root_path .. "/modules/?.sgp;" .. package.cpath
+
+-- Now we can replace the Overlay class in the turret common part:
+log:debug("extension","Assigning CEFOverlay as target implementation.");
+local cfg = require "models.turret.parts.Common"
+cfg:set("Overlay.class_name","CEFOverlay")
 

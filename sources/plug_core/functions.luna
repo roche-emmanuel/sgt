@@ -1,5 +1,6 @@
 module=sgt
 hasModuleData
+loadModuleFromFile
 doLog
 doLogV
 doTrace

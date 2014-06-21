@@ -133,6 +133,24 @@ void ModuleLoader::setModuleData(const std::string& name, void* data)
 	_data[name] = data;
 }
 
+HCUSTOMMODULE ModuleLoader::loadModuleFromFile(const std::string& name, const std::string& filename)
+{
+	HCUSTOMMODULE result;
+	result = getModule(name);
+	if(result) {
+		// This module was already loaded, so we return it directly:
+		refModule(result);
+		return result;
+	}
+	
+	// The module is not loaded yet, so we load it here:
+	result = (HCUSTOMMODULE)LoadLibraryA(filename.c_str());
+	CHECK_RET(result,NULL,"Cannot load library " << name << " from file " << filename);
+	// Now save the reference on the module in case it is needed at some point later:
+	setModule(name,result);		
+	return result;
+}
+
 HCUSTOMMODULE ModuleLoader::loadModule(const std::string& name, void* data)
 {
 	HCUSTOMMODULE result;
@@ -155,6 +173,8 @@ HCUSTOMMODULE ModuleLoader::loadModule(const std::string& name, void* data)
 	if(!data) {
 		result = (HCUSTOMMODULE)LoadLibraryA(name.c_str());
 		CHECK_RET(result,NULL,"Cannot load library " << name << " from regular file.");
+		// Here we should anyway save the reference on the module in case it is needed at some point later:
+		setModule(name,result);		
 		return result;
 	}
 	
@@ -240,6 +260,12 @@ bool loadModule(const std::string& name, void* data)
 {
 	boost::mutex::scoped_lock lock(gl_guard);
 	return ModuleLoader::instance().loadModule(name,data)!=NULL;
+}
+
+bool loadModuleFromFile(const std::string& name, const std::string& filename)
+{
+	boost::mutex::scoped_lock lock(gl_guard);
+	return ModuleLoader::instance().loadModuleFromFile(name,filename)!=NULL;
 }
 
 void freeModule(const std::string& name)

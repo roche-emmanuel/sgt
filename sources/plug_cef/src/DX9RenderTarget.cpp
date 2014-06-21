@@ -26,6 +26,8 @@ void DX9RenderTarget::PaintRects(const CefRenderHandler::RectList &dirtyRects, c
   for (CefRenderHandler::RectList::const_iterator it = dirtyRects.begin(); it!= dirtyRects.end(); ++it) {
     const CefRect& rect = *it;
 
+		logDEBUG("Painting rect x="<<rect.x<<", y="<<rect.y<<", width="<<rect.width<<", height="<<rect.height)
+
 		D3DLOCKED_RECT locked;
 		RECT dxrect;
 		dxrect.left = rect.x;
@@ -70,11 +72,11 @@ void DX9RenderTarget::Initialize()
 
 	// First we create the memory texture:
 	// We could also use the format D3DFMT_A8B8G8R8 instead of D3DFMT_A8R8G8B8
-	HRESULT result = _device->CreateTexture(_width, _height, 1, 0, D3DFMT_A8B8G8R8, D3DPOOL_SYSTEMMEM, _memTexture.AddressOf(), NULL);
+	HRESULT result = _device->CreateTexture(_width, _height, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_SYSTEMMEM, _memTexture.AddressOf(), NULL);
 	CHECK_RESULT(result,"Error while calling CreateTexture() for memory texture.");
 	
 	// Now create the GPU texture:
-	result = _device->CreateTexture(_width, _height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8B8G8R8, D3DPOOL_DEFAULT, _gpuTexture.AddressOf(), NULL);
+	result = _device->CreateTexture(_width, _height, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, _gpuTexture.AddressOf(), NULL);
 	CHECK_RESULT(result,"Error while calling CreateTexture() for gpu texture.");
 
 	// We may now start the update thread:

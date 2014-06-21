@@ -22,6 +22,7 @@
 #include <d3dx9.h>
 #include <DxErr.h>
 
+#include <cef_task.h>
 #include <cef_base.h>
 #include "CEFViewBase.h"
 
@@ -33,6 +34,9 @@ using namespace cef;
 #include <luna/luna.h>
 #include <luna/luna_types.h>
 
+#define REQUIRE_UI_THREAD()   CHECK(CefCurrentlyOn(TID_UI),"We are not currently on UI Thread");
+#define REQUIRE_IO_THREAD()   CHECK(CefCurrentlyOn(TID_IO),"We are not currently on IO Thread");
+#define REQUIRE_FILE_THREAD() CHECK(CefCurrentlyOn(TID_FILE),"We are not currently on FILE Thread");
 
 // Insert your specific caster definition here.
 // example: 
@@ -67,11 +71,15 @@ struct luna_container<CefBase> {
 	};
 
 	static inline void set(container_type& cont, CefBase* ptr) {
+		// logDEBUG("Assigning CEF container to "<<(const void*)ptr<<" initial refcount="<<ptr->GetRefCt());
 		cont = ptr;
+		// logDEBUG("RefCount after assignment: "<<" final refcount="<<ptr->GetRefCt());
 	};
 	
 	static inline void release(container_type& cont) {
-			cont = NULL;		
+		// logDEBUG("Releasing CEF container "<<(const void*)cont.get());
+		// logDEBUG("Initial ref count: "<<cont->GetRefCt());
+		cont = NULL;
 	};
 };
 

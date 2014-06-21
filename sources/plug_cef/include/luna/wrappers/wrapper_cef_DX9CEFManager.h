@@ -20,8 +20,8 @@ public:
 		}
 	};
 	
-	wrapper_cef_DX9CEFManager(lua_State* L, lua_Table* dum, IDirect3DDevice9 * device) 
-		: cef::DX9CEFManager(device), luna_wrapper_base(L) { 
+	wrapper_cef_DX9CEFManager(lua_State* L, lua_Table* dum, const cef::CEFManager::Traits & traits, IDirect3DDevice9 * device) 
+		: cef::DX9CEFManager(traits, device), luna_wrapper_base(L) { 
 		register_protected_methods(L);
 		if(_obj.pushFunction("buildInstance")) {
 			_obj.pushArg((cef::DX9CEFManager*)this);

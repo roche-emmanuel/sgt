@@ -87,20 +87,15 @@ public:
 
 	// Constructor checkers:
 	inline static bool _lg_typecheck_ctor(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
+		if( lua_gettop(L)!=2 ) return false;
 
 		if( lua_istable(L,1)==0 ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,49043676) ) return false;
 		return true;
 	}
 
 
 	// Function checkers:
-	inline static bool _lg_typecheck_Update(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		return true;
-	}
-
 	inline static bool _lg_typecheck_CreateView(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -122,6 +117,30 @@ public:
 	}
 
 	inline static bool _lg_typecheck_stopThread(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_Initialize(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_Shutdown(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_Update(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_IsInitialized(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
 		return true;
@@ -168,34 +187,23 @@ public:
 	// (found 0 valid operators)
 
 	// Constructor binds:
-	// cef::CEFManager::CEFManager(lua_Table * data)
+	// cef::CEFManager::CEFManager(lua_Table * data, const cef::CEFManager::Traits & traits)
 	static cef::CEFManager* _bind_ctor(lua_State *L) {
 		if (!_lg_typecheck_ctor(L)) {
-			luaL_error(L, "luna typecheck failed in cef::CEFManager::CEFManager(lua_Table * data) function, expected prototype:\ncef::CEFManager::CEFManager(lua_Table * data)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in cef::CEFManager::CEFManager(lua_Table * data, const cef::CEFManager::Traits & traits) function, expected prototype:\ncef::CEFManager::CEFManager(lua_Table * data, const cef::CEFManager::Traits & traits)\nClass arguments details:\narg 2 ID = 49043676\n\n%s",luna_dumpStack(L).c_str());
 		}
 
+		const cef::CEFManager::Traits* traits_ptr=(Luna< cef::CEFManager::Traits >::check(L,2));
+		if( !traits_ptr ) {
+			luaL_error(L, "Dereferencing NULL pointer for arg traits in cef::CEFManager::CEFManager function");
+		}
+		const cef::CEFManager::Traits & traits=*traits_ptr;
 
-		return new wrapper_cef_CEFManager(L,NULL);
+		return new wrapper_cef_CEFManager(L,NULL, traits);
 	}
 
 
 	// Function binds:
-	// void cef::CEFManager::Update()
-	static int _bind_Update(lua_State *L) {
-		if (!_lg_typecheck_Update(L)) {
-			luaL_error(L, "luna typecheck failed in void cef::CEFManager::Update() function, expected prototype:\nvoid cef::CEFManager::Update()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
-		if(!self) {
-			luaL_error(L, "Invalid object in function call void cef::CEFManager::Update(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
-		}
-		self->Update();
-
-		return 0;
-	}
-
 	// cef::CEFViewBase * cef::CEFManager::CreateView(const cef::CEFViewBase::Traits & traits)
 	static int _bind_CreateView(lua_State *L) {
 		if (!_lg_typecheck_CreateView(L)) {
@@ -267,6 +275,71 @@ public:
 		self->stopThread();
 
 		return 0;
+	}
+
+	// void cef::CEFManager::Initialize()
+	static int _bind_Initialize(lua_State *L) {
+		if (!_lg_typecheck_Initialize(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::CEFManager::Initialize() function, expected prototype:\nvoid cef::CEFManager::Initialize()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::CEFManager::Initialize(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->Initialize();
+
+		return 0;
+	}
+
+	// void cef::CEFManager::Shutdown()
+	static int _bind_Shutdown(lua_State *L) {
+		if (!_lg_typecheck_Shutdown(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::CEFManager::Shutdown() function, expected prototype:\nvoid cef::CEFManager::Shutdown()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::CEFManager::Shutdown(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->Shutdown();
+
+		return 0;
+	}
+
+	// void cef::CEFManager::Update()
+	static int _bind_Update(lua_State *L) {
+		if (!_lg_typecheck_Update(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::CEFManager::Update() function, expected prototype:\nvoid cef::CEFManager::Update()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::CEFManager::Update(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->Update();
+
+		return 0;
+	}
+
+	// bool cef::CEFManager::IsInitialized()
+	static int _bind_IsInitialized(lua_State *L) {
+		if (!_lg_typecheck_IsInitialized(L)) {
+			luaL_error(L, "luna typecheck failed in bool cef::CEFManager::IsInitialized() function, expected prototype:\nbool cef::CEFManager::IsInitialized()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFManager* self=Luna< CefBase >::checkSubType< cef::CEFManager >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool cef::CEFManager::IsInitialized(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->IsInitialized();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
 	}
 
 	// int cef::CEFManager::AddRef()
@@ -384,7 +457,7 @@ cef::CEFManager* LunaTraits< cef::CEFManager >::_bind_ctor(lua_State *L) {
 }
 
 void LunaTraits< cef::CEFManager >::_bind_dtor(cef::CEFManager* obj) {
-	delete obj;
+	CefRefPtr<CefBase> refptr = obj;
 }
 
 const char LunaTraits< cef::CEFManager >::className[] = "CEFManager";
@@ -395,11 +468,14 @@ const int LunaTraits< cef::CEFManager >::hash = 10351703;
 const int LunaTraits< cef::CEFManager >::uniqueIDs[] = {50549361,0};
 
 luna_RegType LunaTraits< cef::CEFManager >::methods[] = {
-	{"Update", &luna_wrapper_cef_CEFManager::_bind_Update},
 	{"CreateView", &luna_wrapper_cef_CEFManager::_bind_CreateView},
 	{"DestroyView", &luna_wrapper_cef_CEFManager::_bind_DestroyView},
 	{"startThread", &luna_wrapper_cef_CEFManager::_bind_startThread},
 	{"stopThread", &luna_wrapper_cef_CEFManager::_bind_stopThread},
+	{"Initialize", &luna_wrapper_cef_CEFManager::_bind_Initialize},
+	{"Shutdown", &luna_wrapper_cef_CEFManager::_bind_Shutdown},
+	{"Update", &luna_wrapper_cef_CEFManager::_bind_Update},
+	{"IsInitialized", &luna_wrapper_cef_CEFManager::_bind_IsInitialized},
 	{"AddRef", &luna_wrapper_cef_CEFManager::_bind_AddRef},
 	{"Release", &luna_wrapper_cef_CEFManager::_bind_Release},
 	{"GetRefCt", &luna_wrapper_cef_CEFManager::_bind_GetRefCt},

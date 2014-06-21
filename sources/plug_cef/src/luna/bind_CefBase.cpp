@@ -231,7 +231,7 @@ CefBase* LunaTraits< CefBase >::_bind_ctor(lua_State *L) {
 }
 
 void LunaTraits< CefBase >::_bind_dtor(CefBase* obj) {
-	//delete obj; // destructor protected.
+	CefRefPtr<CefBase> refptr = obj;
 }
 
 const char LunaTraits< CefBase >::className[] = "CefBase";

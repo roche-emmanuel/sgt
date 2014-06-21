@@ -10,8 +10,8 @@ namespace cef
     {
 
     public:
-        DX9CEFManager(IDirect3DDevice9* device);
-        ~DX9CEFManager();
+        DX9CEFManager(const CEFManager::Traits& traits, IDirect3DDevice9* device);
+        virtual ~DX9CEFManager();
 
         IDirect3DTexture9* GetOutputTexture(CEFViewBase* view);
         

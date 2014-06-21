@@ -4,8 +4,8 @@
 #include <plug_common.h>
 
 #include <cef_base.h>
-#include <CEFViewBase.h>
 #include <CEFManager.h>
+#include <CEFViewBase.h>
 #include <DX9CEFManager.h>
 
 // Class: CefBase
@@ -43,6 +43,25 @@ public:
 	static void _bind_dtor(CefRefCount* obj);
 	typedef CefRefCount parent_t;
 	typedef CefRefCount base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: cef::CEFManager::Traits
+template<>
+class LunaTraits< cef::CEFManager::Traits > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static cef::CEFManager::Traits* _bind_ctor(lua_State *L);
+	static void _bind_dtor(cef::CEFManager::Traits* obj);
+	typedef cef::CEFManager::Traits parent_t;
+	typedef cef::CEFManager::Traits base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -192,6 +211,13 @@ template<>
 class LunaType< 44309748 > {
 public:
 	typedef CefRefCount type;
+	
+};
+
+template<>
+class LunaType< 49043676 > {
+public:
+	typedef cef::CEFManager::Traits type;
 	
 };
 

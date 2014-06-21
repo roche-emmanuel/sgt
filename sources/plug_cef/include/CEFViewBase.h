@@ -1,9 +1,10 @@
 #ifndef _CEF_VIEW_BASE_H_
 #define _CEF_VIEW_BASE_H_
 
-#include "BrowserClient.h"
+#include "RenderHandler.h"
 #include "RenderTarget.h"
-#include <cef_base.h>
+#include <cef_client.h>
+#include <cef_life_span_handler.h>
 
 namespace cef
 {
@@ -12,7 +13,12 @@ namespace cef
   It is responsible for encapsulating/controlling the browser inputs and javascript commands
   as well as rendering. 
   */
-class CEFViewBase : public CefBase
+class CEFViewBase : 
+#ifdef __DOXYGEN__
+public CefBase // just pretend this is a CefBase object.
+#else
+public CefClient, public CefLifeSpanHandler
+#endif
 {
   public:
 
@@ -69,18 +75,41 @@ class CEFViewBase : public CefBase
     virtual void Initialize();
     virtual void Uninitialize();
 
+    inline bool isBrowserReady() { return _browser!=NULL; }
+
     /** LUNA_IGNORED */
     void InitializeBrowser(const Traits& traits, RenderTarget* tgt);
 
     /** LUNA_IGNORED */
+    void ReleaseBrowser();
+
+    /** LUNA_IGNORED */
     inline RenderTarget* GetRenderTarget() { return _renderTarget.get(); }
+
         
+    // methods from CefClient:
+
+    /** LUNA_IGNORED */
+    virtual CefRefPtr<CefRenderHandler> GetRenderHandler();
+
+    /** LUNA_IGNORED */
+    virtual CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() {
+        return this;
+    }
+
+    // methods from CefLifeSpanHandler:
+    /** LUNA_IGNORED*/
+    virtual void OnAfterCreated(CefRefPtr<CefBrowser> browser);   
+    /** LUNA_IGNORED*/ 
+    virtual void OnBeforeClose(CefRefPtr<CefBrowser> browser);
+
   protected:
     int _width;
     int _height;
 
     CefRefPtr<CefBrowser> _browser;
-    CefRefPtr<BrowserClient> _browserClient;
+
+    CefRefPtr<RenderHandler> _renderHandler;
     CefRefPtr<RenderTarget> _renderTarget;
 
   IMPLEMENT_REFCOUNTING(CEFViewBase);    

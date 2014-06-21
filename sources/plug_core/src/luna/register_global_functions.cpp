@@ -13,6 +13,14 @@ inline static bool _lg_typecheck_hasModuleData(lua_State *L) {
 	return true;
 }
 
+inline static bool _lg_typecheck_loadModuleFromFile(lua_State *L) {
+	if( lua_gettop(L)!=2 ) return false;
+
+	if( lua_type(L,1)!=LUA_TSTRING ) return false;
+	if( lua_type(L,2)!=LUA_TSTRING ) return false;
+	return true;
+}
+
 inline static bool _lg_typecheck_doLog(lua_State *L) {
 	if( lua_gettop(L)!=2 ) return false;
 
@@ -145,6 +153,21 @@ static int _bind_hasModuleData(lua_State *L) {
 	std::string name(lua_tostring(L,1),lua_objlen(L,1));
 
 	bool lret = ::hasModuleData(name);
+	lua_pushboolean(L,lret?1:0);
+
+	return 1;
+}
+
+// bool loadModuleFromFile(const std::string & name, const std::string & filename)
+static int _bind_loadModuleFromFile(lua_State *L) {
+	if (!_lg_typecheck_loadModuleFromFile(L)) {
+		luaL_error(L, "luna typecheck failed in bool loadModuleFromFile(const std::string & name, const std::string & filename) function, expected prototype:\nbool loadModuleFromFile(const std::string & name, const std::string & filename)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+	}
+
+	std::string name(lua_tostring(L,1),lua_objlen(L,1));
+	std::string filename(lua_tostring(L,2),lua_objlen(L,2));
+
+	bool lret = ::loadModuleFromFile(name, filename);
 	lua_pushboolean(L,lret?1:0);
 
 	return 1;
@@ -982,6 +1005,7 @@ extern "C" {
 void register_global_functions(lua_State* L) {
 	luna_pushModule(L,"sgt");
 	lua_pushcfunction(L, _bind_hasModuleData); lua_setfield(L,-2,"hasModuleData");
+	lua_pushcfunction(L, _bind_loadModuleFromFile); lua_setfield(L,-2,"loadModuleFromFile");
 	lua_pushcfunction(L, _bind_doLog); lua_setfield(L,-2,"doLog");
 	lua_pushcfunction(L, _bind_doLogV); lua_setfield(L,-2,"doLogV");
 	lua_pushcfunction(L, _bind_doTrace); lua_setfield(L,-2,"doTrace");

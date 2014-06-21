@@ -43,8 +43,8 @@ CEFViewBase::CEFViewBase(const Traits& traits) {
   _width = traits.width();
   _height = traits.height();
 
-  // We create the browser client interface:
-	_browserClient = new BrowserClient();
+  // We prepare the renderhandler:
+	_renderHandler = new RenderHandler();
 }
 
 CEFViewBase::~CEFViewBase() {
@@ -52,13 +52,18 @@ CEFViewBase::~CEFViewBase() {
     Uninitialize();
 }
 
+CefRefPtr<CefRenderHandler> CEFViewBase::GetRenderHandler() {
+    return _renderHandler.get();
+}
+
+
 void CEFViewBase::InitializeBrowser(const Traits& traits, RenderTarget* tgt) {
   
   logDEBUG("Assigning render target...");
 
   CHECK(tgt,"Invalid render target.");
   _renderTarget = tgt;
-  _browserClient->SetRenderTarget(_renderTarget.get());
+  _renderHandler->SetRenderTarget(tgt);
 
   std::string url = traits.url();
 
@@ -73,9 +78,8 @@ void CEFViewBase::InitializeBrowser(const Traits& traits, RenderTarget* tgt) {
   window_info.SetAsWindowless(NULL,true); // true for transparent.
 
   logDEBUG("Creating Browser with url=" << url);
-  _browser = CefBrowserHost::CreateBrowserSync(window_info, _browserClient.get(), url, browserSettings, NULL);
-  CHECK(_browser.get(),"Invalid browser object.")
-  logDEBUG("Browser created.");
+  CefBrowserHost::CreateBrowser(window_info, this, url, browserSettings, NULL);
+  logDEBUG("Browser creation request made.");
 
   // inject user-input by calling:
   // browser->GetHost()->SendKeyEvent(...);
@@ -101,6 +105,33 @@ void CEFViewBase::Uninitialize()
 bool CEFViewBase::IsInitialized() {
   CHECK_RET(_renderTarget.get(),false,"Invalid render target.");
   return _renderTarget->IsInitialized();
+}
+
+void CEFViewBase::OnAfterCreated(CefRefPtr<CefBrowser> browser)
+{
+  // Must be executed on the UI thread.
+  REQUIRE_UI_THREAD();
+
+  CHECK(browser.get(),"Invalid browser object");
+  logDEBUG("Got CefBrowser object in OnAfterCreated()");
+  _browser = browser;
+}
+
+void CEFViewBase::OnBeforeClose(CefRefPtr<CefBrowser> browser)
+{
+  // Must be executed on the UI thread.
+  REQUIRE_UI_THREAD();
+
+  //CHECK(_browser == browser,"The CefBrowser parameter doesn't match."); // Note that the browser received here will not match apparently!
+  logDEBUG("Releasing CefBrowser object in OnBeforeClose()");
+  _browser = NULL;
+}
+
+void CEFViewBase::ReleaseBrowser() 
+{
+  if(_browser.get()) {
+    _browser->GetHost()->CloseBrowser(false);
+  }
 }
 
 }

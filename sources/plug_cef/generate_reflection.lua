@@ -1,6 +1,7 @@
 local ReflectionGenerator = require "bindings.LunaReflectionGenerator"
 
 local tm = require "bindings.TypeManager"
+tm:registerDeleter("CefBase","CefRefPtr<CefBase> refptr = ${1};")
 tm:registerDeleter("osg::Referenced","osg::ref_ptr<osg::Referenced> refptr = ${1};")
 tm:registerExternals(root_project_path .. "sources/plug_core/classes.luna")
 tm:registerExternalFunctions(root_project_path .. "sources/plug_core/functions.luna")

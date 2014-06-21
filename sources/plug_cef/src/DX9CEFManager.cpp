@@ -5,7 +5,7 @@
 namespace cef
 {
 
-DX9CEFManager::DX9CEFManager(IDirect3DDevice9* device) : _device(device)
+DX9CEFManager::DX9CEFManager(const CEFManager::Traits& traits, IDirect3DDevice9* device) : CEFManager(traits), _device(device)
 {
     THROW_IF(!device,"Invalid DX9 device.");
 }

@@ -11,6 +11,13 @@ struct luna_caster<CefRefCount,dstType> {
 };
 
 template <typename dstType>
+struct luna_caster<cef::CEFManager::Traits,dstType> {
+	static inline dstType* cast(cef::CEFManager::Traits* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
+template <typename dstType>
 struct luna_caster<cef::CEFViewBase::Traits,dstType> {
 	static inline dstType* cast(cef::CEFViewBase::Traits* ptr) {
 		return static_cast<dstType*>(ptr);

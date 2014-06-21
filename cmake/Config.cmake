@@ -101,7 +101,9 @@ SET(PYTHON27_LIBS 		python27.lib)
 
 SET(CEF_INC_DIR 	${DEP_CEF}/include ${DEP_CEF})
 SET(CEF_LIB_DIR 	${DEP_CEF}/Release)
-SET(CEF_LIBS 			libcef.lib libcef_dll_wrapper.lib)
+SET(CEF_LIBS 			libcef.lib libcef_dll_wrapper_md.lib)
+SET(CEF_LIBS_MT 	libcef.lib libcef_dll_wrapper_mt.lib)
+
 
 SET(DX_INC_DIR 	${DEP_DX}/Include)
 IF("${FLAVOR}" STREQUAL "win64")

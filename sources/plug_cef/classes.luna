@@ -1,6 +1,7 @@
 module=cef
 CefBase => CefBase
 CefRefCount => CefRefCount
+cef::CEFManager::Traits => cef::CEFManager::Traits
 cef::CEFViewBase::Traits => cef::CEFViewBase::Traits
 cef::CEFManager => CefBase
 cef::CEFViewBase => CefBase

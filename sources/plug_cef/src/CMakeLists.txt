@@ -55,5 +55,6 @@ SET(INCLUDE_PATH "${DEP_CEF}/include;${DEP_CEF}")
 GENERATE_REFLECTION(${TARGET_NAME} INTF_FILES)
 
 # misc operations:
-COMPRESS_BINARY()
+# WARNING : No compression for compatibility with MXEngine memory module loading.
+# COMPRESS_BINARY()
 #INSTALL_PDB(${TARGET_NAME} "modules/")

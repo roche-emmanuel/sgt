@@ -43,7 +43,7 @@ void DX9TextureUpdateThread::run()
 	while (!_done)
 	{
 		// test cancel just in case:
-		testCancel();
+		// testCancel(); // we do not use this to avoid killing thread the hard way.
 		
 		CHECK(_renderTarget,"Invalid render target");
 		

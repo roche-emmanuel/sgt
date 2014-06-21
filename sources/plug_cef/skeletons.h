@@ -10,8 +10,12 @@ class CefRefCount {
 class Traits {
 };
 
+class Traits {
+};
+
 namespace cef {
 	class CEFManager: public CefBase {
+	public:
 	};
 
 	class CEFViewBase: public CefBase {

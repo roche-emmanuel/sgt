@@ -20,9 +20,9 @@ public:
 		}
 	};
 	
-	wrapper_cef_CEFManager(lua_State* L, lua_Table* dum) 
-		: cef::CEFManager(), luna_wrapper_base(L) { 
-		register_protected_methods(L); 
+	wrapper_cef_CEFManager(lua_State* L, lua_Table* dum, const cef::CEFManager::Traits & traits) 
+		: cef::CEFManager(traits), luna_wrapper_base(L) { 
+		register_protected_methods(L);
 		if(_obj.pushFunction("buildInstance")) {
 			_obj.pushArg((cef::CEFManager*)this);
 			_obj.callFunction<void>();
