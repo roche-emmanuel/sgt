@@ -77,6 +77,49 @@ tc:setTypeChecker("^const CefRefPtr<",ptrChecker)
 tc:setWrapperConverter("^CefRefPtr<",toWrapper)
 tc:setWrapperConverter("^const CefRefPtr<",toWrapper)
 
+-- CefString integration:
+
+function cefStringFromLua(buf,index,type,argname)
+	buf:writeSubLine("CefString ${2}; std::string ${2}_str(lua_tostring(L,${1}),lua_objlen(L,${1}));",index,argname)
+	buf:writeSubLine("${1}.FromString(${1}_str);",argname)
+end
+
+function cefStringToLua(buf,type,argname)
+	local access = type:isPointer() and "->" or "."
+	buf:writeSubLine("std::string ${1}_str = ${1}${2}ToString();",argname,access)
+	buf:writeSubLine("lua_pushlstring(L,${1}_str.data(),${1}_str.size());",argname)
+end
+
+function cefStringChecker(buf,index,type,defStr)
+    buf:writeSubLine("if( ${2}(lua_type(L,${1})!=LUA_TSTRING) ) return false;",index,defStr)
+end
+
+-- function cefStringWrapper(type,argName)
+-- 	local tname = type:getBaseName();
+-- 	tname = tname:match("CefRefPtr< (.+) >")
+	
+-- 	if argName then
+-- 		-- this is a regular argument:
+-- 		local access = type:isPointer() and "->" or ".";
+-- 		return "(".. tname .."*)"..argName.. access .. "get()";
+-- 	else
+-- 		-- This is a function return type:
+-- 		return "return _obj.callFunction< " .. tname .."* >();"
+-- 	end
+-- end
+
+tc:setFromLuaConverter("^CefString",cefStringFromLua)
+tc:setFromLuaConverter("^const CefString",cefStringFromLua)
+
+tc:setToLuaConverter("^CefString",cefStringToLua)
+tc:setToLuaConverter("^const CefString",cefStringToLua)
+
+tc:setTypeChecker("^CefString",cefStringChecker)
+tc:setTypeChecker("^const CefString",cefStringChecker)
+
+-- tc:setWrapperConverter("^CefString",cefStringWrapper)
+-- tc:setWrapperConverter("^const CefString",cefStringWrapper)
+
 ReflectionGenerator.generate{
 	xmlpath=xml_path,
 	luaOpenName=project,

@@ -4,6 +4,7 @@
 #include <plug_common.h>
 
 #include <cef_base.h>
+#include <cef_values.h>
 #include <CEFManager.h>
 #include <CEFViewBase.h>
 #include <DX9CEFManager.h>
@@ -24,6 +25,82 @@ public:
 	static void _bind_dtor(CefBase* obj);
 	typedef CefBase parent_t;
 	typedef CefBase base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: CefBinaryValue
+template<>
+class LunaTraits< CefBinaryValue > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static CefBinaryValue* _bind_ctor(lua_State *L);
+	static void _bind_dtor(CefBinaryValue* obj);
+	typedef CefBase parent_t;
+	typedef CefBinaryValue base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: CefDictionaryValue
+template<>
+class LunaTraits< CefDictionaryValue > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static CefDictionaryValue* _bind_ctor(lua_State *L);
+	static void _bind_dtor(CefDictionaryValue* obj);
+	typedef CefBase parent_t;
+	typedef CefDictionaryValue base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: std::vector< CefString >
+template<>
+class LunaTraits< std::vector< CefString > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< CefString >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< CefString >* obj);
+	typedef std::vector< CefString > parent_t;
+	typedef std::vector< CefString > base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: CefListValue
+template<>
+class LunaTraits< CefListValue > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static CefListValue* _bind_ctor(lua_State *L);
+	static void _bind_dtor(CefListValue* obj);
+	typedef CefBase parent_t;
+	typedef CefListValue base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -208,6 +285,13 @@ public:
 };
 
 template<>
+class LunaType< 39311454 > {
+public:
+	typedef CefDictionaryValue::KeyList type;
+	
+};
+
+template<>
 class LunaType< 44309748 > {
 public:
 	typedef CefRefCount type;
@@ -225,6 +309,13 @@ template<>
 class LunaType< 59758032 > {
 public:
 	typedef cef::CEFViewBase::Traits type;
+	
+};
+
+template<>
+class LunaType< 64498953 > {
+public:
+	typedef std::vector< CefString > type;
 	
 };
 

@@ -15,6 +15,10 @@ int PLUG_EXPORT luaopen_cef(lua_State* L) {
 
 	luna_pushModule(L,"cef");
 	Luna< CefBase >::Register(L);
+	Luna< CefBinaryValue >::Register(L);
+	Luna< CefDictionaryValue >::Register(L);
+	Luna< std::vector< CefString > >::Register(L);
+	Luna< CefListValue >::Register(L);
 	Luna< CefRefCount >::Register(L);
 	Luna< cef::CEFManager::Traits >::Register(L);
 	Luna< cef::CEFViewBase::Traits >::Register(L);

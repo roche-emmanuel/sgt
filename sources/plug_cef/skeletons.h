@@ -4,6 +4,19 @@
 class CefBase {
 };
 
+class CefBinaryValue: public CefBase {
+};
+
+class CefDictionaryValue: public CefBase {
+public:
+	class KeyList {
+	};
+
+};
+
+class CefListValue: public CefBase {
+};
+
 class CefRefCount {
 };
 

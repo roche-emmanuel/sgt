@@ -24,6 +24,7 @@
 
 #include <cef_task.h>
 #include <cef_base.h>
+#include <cef_browser.h>
 #include "CEFViewBase.h"
 
 // Insert your using namespace commands here.
@@ -49,17 +50,19 @@ LUNA_DEFINE_DIRECT_CAST(MyNamespace::MyNonPolymorphicBaseClass)
 // - use "L" as lua state
 // - use "index" as current stack index
 // examples:
-/*
-LUNA_BEGIN_SETTER(MyClass)
-	std::string lret_str = arg->asString();
-	lua_pushlstring(L,lret_str.data(),lret_str.size());
-LUNA_END_SETTER(MyClass)
 
-LUNA_BEGIN_GETTER(MyClass)
-	std::string str = lua_tostring(L,index);
-	return MyClass(str);
-LUNA_END_GETTER(MyClass)
-*/
+LUNA_BEGIN_SETTER(CefString)
+	std::string lret_str = arg->ToString();
+	lua_pushlstring(L,lret_str.data(),lret_str.size());
+LUNA_END_SETTER(CefString)
+
+LUNA_BEGIN_GETTER(CefString)
+	std::string str(lua_tostring(L,index),lua_objlen(L,index));
+	CefString cefstr;
+	cefstr.FromString(str);
+	return cefstr;
+LUNA_END_GETTER(CefString)
+
 
 // container specialization for CefBase
 template <>

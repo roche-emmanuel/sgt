@@ -43,7 +43,7 @@ inline void pushValue(lua_State* L, const MyClass* arg) { \
 
 #define LUNA_END_SETTER(MyClass) } \
 \
-inline void pushValue(lua_State* L, const WebString& arg) { \
+inline void pushValue(lua_State* L, const MyClass& arg) { \
 	return pushValue(L,&arg); \
 } \
 };

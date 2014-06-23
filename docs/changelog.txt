@@ -114,3 +114,4 @@
 - Removed bindings for RenderTarget classes (not needed) and retrieving GPU texture from DX9CEFManager.
 - Addinig initial cef project
 - Added first working implementation of mxcef module.
+- Build minimal bindings for CEF process message support.

@@ -88,7 +88,8 @@ function Class:initialize(options)
 	traits:size(size:x(),size:y());
 
 	-- Also set the target URL for the view:
-	traits:url("http://www.google.fr")
+	-- traits:url("http://www.google.fr")
+	traits:url("W:/Cloud/Projects/mxjs/app/index.html")
 
 	-- Now we may create the web view from those traits:
 	self._view = cefman:CreateView(traits);

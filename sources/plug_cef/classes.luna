@@ -1,5 +1,9 @@
 module=cef
 CefBase => CefBase
+CefBinaryValue => CefBase
+CefDictionaryValue => CefBase
+std::vector< CefString > => std::vector< CefString >
+CefListValue => CefBase
 CefRefCount => CefRefCount
 cef::CEFManager::Traits => cef::CEFManager::Traits
 cef::CEFViewBase::Traits => cef::CEFViewBase::Traits

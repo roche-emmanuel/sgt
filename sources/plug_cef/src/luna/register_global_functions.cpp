@@ -1,6 +1,10 @@
 #include <plug_common.h>
 
 
+// Function checkers:
+
+// Function binds:
+
 #ifdef __cplusplus
 extern "C" {
 #endif
