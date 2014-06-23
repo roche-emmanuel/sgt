@@ -5,8 +5,9 @@
 
 #include <cef_base.h>
 #include <cef_values.h>
-#include <CEFManager.h>
+#include <cef_process_message.h>
 #include <CEFViewBase.h>
+#include <CEFManager.h>
 #include <DX9CEFManager.h>
 
 // Class: CefBase
@@ -104,6 +105,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: CefProcessMessage
+template<>
+class LunaTraits< CefProcessMessage > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static CefProcessMessage* _bind_ctor(lua_State *L);
+	static void _bind_dtor(CefProcessMessage* obj);
+	typedef CefBase parent_t;
+	typedef CefProcessMessage base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: CefRefCount
 template<>
 class LunaTraits< CefRefCount > {
@@ -123,25 +143,6 @@ public:
 	static luna_ConverterType converters[];
 };
 
-// Class: cef::CEFManager::Traits
-template<>
-class LunaTraits< cef::CEFManager::Traits > {
-public:
-	static const char className[];
-	static const char fullName[];
-	static const char moduleName[];
-	static const char* parents[];
-	static const int uniqueIDs[];
-	static const int hash;
-	static luna_RegType methods[];
-	static luna_RegEnumType enumValues[];
-	static cef::CEFManager::Traits* _bind_ctor(lua_State *L);
-	static void _bind_dtor(cef::CEFManager::Traits* obj);
-	typedef cef::CEFManager::Traits parent_t;
-	typedef cef::CEFManager::Traits base_t;
-	static luna_ConverterType converters[];
-};
-
 // Class: cef::CEFViewBase::Traits
 template<>
 class LunaTraits< cef::CEFViewBase::Traits > {
@@ -158,6 +159,25 @@ public:
 	static void _bind_dtor(cef::CEFViewBase::Traits* obj);
 	typedef cef::CEFViewBase::Traits parent_t;
 	typedef cef::CEFViewBase::Traits base_t;
+	static luna_ConverterType converters[];
+};
+
+// Class: cef::CEFManager::Traits
+template<>
+class LunaTraits< cef::CEFManager::Traits > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static cef::CEFManager::Traits* _bind_ctor(lua_State *L);
+	static void _bind_dtor(cef::CEFManager::Traits* obj);
+	typedef cef::CEFManager::Traits parent_t;
+	typedef cef::CEFManager::Traits base_t;
 	static luna_ConverterType converters[];
 };
 
@@ -299,16 +319,16 @@ public:
 };
 
 template<>
-class LunaType< 49043676 > {
+class LunaType< 59758032 > {
 public:
-	typedef cef::CEFManager::Traits type;
+	typedef cef::CEFViewBase::Traits type;
 	
 };
 
 template<>
-class LunaType< 59758032 > {
+class LunaType< 49043676 > {
 public:
-	typedef cef::CEFViewBase::Traits type;
+	typedef cef::CEFManager::Traits type;
 	
 };
 

@@ -19,9 +19,10 @@ int PLUG_EXPORT luaopen_cef(lua_State* L) {
 	Luna< CefDictionaryValue >::Register(L);
 	Luna< std::vector< CefString > >::Register(L);
 	Luna< CefListValue >::Register(L);
+	Luna< CefProcessMessage >::Register(L);
 	Luna< CefRefCount >::Register(L);
-	Luna< cef::CEFManager::Traits >::Register(L);
 	Luna< cef::CEFViewBase::Traits >::Register(L);
+	Luna< cef::CEFManager::Traits >::Register(L);
 	Luna< cef::CEFManager >::Register(L);
 	Luna< cef::CEFViewBase >::Register(L);
 	Luna< cef::DX9CEFManager >::Register(L);

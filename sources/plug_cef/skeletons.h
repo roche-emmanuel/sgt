@@ -17,6 +17,9 @@ public:
 class CefListValue: public CefBase {
 };
 
+class CefProcessMessage: public CefBase {
+};
+
 class CefRefCount {
 };
 
