@@ -134,4 +134,51 @@ void CEFViewBase::ReleaseBrowser()
   }
 }
 
+void CEFViewBase::PostMessage(CefRefPtr<CefProcessMessage> message)
+{
+  // when we receive a message to send, we simply forward this message to the renderer process:
+  CHECK(isBrowserReady(),"Cannot send message when browser is not ready.");
+  _browser->SendProcessMessage(PID_RENDERER,message);
+}
+
+int CEFViewBase::CollectMessages(MessageList& list)
+{
+  sgtLock lock(_messageMutex);
+
+  if(_messages.empty())
+    return 0;
+
+  int num = _messages.size();
+
+  // Inject the new messages in the provided list:
+  list.insert(list.end(),_messages.begin(),_messages.end());
+
+  // remove the messages from the internal list:
+  _messages.clear();
+  return num;
+}
+
+bool CEFViewBase::OnProcessMessageReceived( CefRefPtr< CefBrowser > browser, CefProcessId source_process, CefRefPtr< CefProcessMessage > message )
+{
+  // first check the message is valid:
+  if(!message->IsValid()) {
+    logERROR("Received invalid ProcessMessage in browser process.");
+    return false;
+  }
+
+  logDEBUG("Received ProcessMessage '"<< message->GetName().ToString() <<"' in browser process.");
+
+  // accodrding to docs: http://magpcss.org/ceforum/apidocs3/projects/(default)/CefClient.html#OnProcessMessageReceived(CefRefPtr<CefBrowser>,CefProcessId,CefRefPtr<CefProcessMessage>)
+  // we should not keep a reference or attempt to access the message outside of the callback, so we have to make a copy of it:
+  CefRefPtr<CefProcessMessage> copy = message->Copy();
+
+  sgtLock lock(_messageMutex);
+
+  // push the message on the internal list:
+  _messages.push_back(copy);
+
+  // Notify that the message was handled properly:
+  return true;
+}
+
 }

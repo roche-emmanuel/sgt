@@ -31,6 +31,13 @@ struct luna_caster<cef::CEFManager::Traits,dstType> {
 	};
 };
 
+template <typename dstType>
+struct luna_caster<std::vector< CefRefPtr< CefProcessMessage > >,dstType> {
+	static inline dstType* cast(std::vector< CefRefPtr< CefProcessMessage > >* ptr) {
+		return static_cast<dstType*>(ptr);
+	};
+};
+
 
 #endif
 

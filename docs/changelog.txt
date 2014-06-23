@@ -116,3 +116,4 @@
 - Added first working implementation of mxcef module.
 - Build minimal bindings for CEF process message support.
 - Added support for Process message lua bindings.
+- Added support for browser process handling of ProcessMessages.

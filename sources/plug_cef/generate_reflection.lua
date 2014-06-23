@@ -94,20 +94,6 @@ function cefStringChecker(buf,index,type,defStr)
     buf:writeSubLine("if( ${2}(lua_type(L,${1})!=LUA_TSTRING) ) return false;",index,defStr)
 end
 
--- function cefStringWrapper(type,argName)
--- 	local tname = type:getBaseName();
--- 	tname = tname:match("CefRefPtr< (.+) >")
-	
--- 	if argName then
--- 		-- this is a regular argument:
--- 		local access = type:isPointer() and "->" or ".";
--- 		return "(".. tname .."*)"..argName.. access .. "get()";
--- 	else
--- 		-- This is a function return type:
--- 		return "return _obj.callFunction< " .. tname .."* >();"
--- 	end
--- end
-
 tc:setFromLuaConverter("^CefString",cefStringFromLua)
 tc:setFromLuaConverter("^const CefString",cefStringFromLua)
 
@@ -116,9 +102,6 @@ tc:setToLuaConverter("^const CefString",cefStringToLua)
 
 tc:setTypeChecker("^CefString",cefStringChecker)
 tc:setTypeChecker("^const CefString",cefStringChecker)
-
--- tc:setWrapperConverter("^CefString",cefStringWrapper)
--- tc:setWrapperConverter("^const CefString",cefStringWrapper)
 
 ReflectionGenerator.generate{
 	xmlpath=xml_path,

@@ -10,4 +10,5 @@ cef::CEFViewBase::Traits => cef::CEFViewBase::Traits
 cef::CEFManager::Traits => cef::CEFManager::Traits
 cef::CEFManager => CefBase
 cef::CEFViewBase => CefBase
+std::vector< CefRefPtr< CefProcessMessage > > => std::vector< CefRefPtr< CefProcessMessage > >
 cef::DX9CEFManager => CefBase

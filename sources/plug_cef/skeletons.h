@@ -36,6 +36,9 @@ namespace cef {
 
 	class CEFViewBase: public CefBase {
 	public:
+		class MessageList {
+		};
+
 	};
 
 	class DX9CEFManager: public cef::CEFManager {

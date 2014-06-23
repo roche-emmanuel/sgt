@@ -219,6 +219,25 @@ public:
 	static luna_ConverterType converters[];
 };
 
+// Class: std::vector< CefRefPtr< CefProcessMessage > >
+template<>
+class LunaTraits< std::vector< CefRefPtr< CefProcessMessage > > > {
+public:
+	static const char className[];
+	static const char fullName[];
+	static const char moduleName[];
+	static const char* parents[];
+	static const int uniqueIDs[];
+	static const int hash;
+	static luna_RegType methods[];
+	static luna_RegEnumType enumValues[];
+	static std::vector< CefRefPtr< CefProcessMessage > >* _bind_ctor(lua_State *L);
+	static void _bind_dtor(std::vector< CefRefPtr< CefProcessMessage > >* obj);
+	typedef std::vector< CefRefPtr< CefProcessMessage > > parent_t;
+	typedef std::vector< CefRefPtr< CefProcessMessage > > base_t;
+	static luna_ConverterType converters[];
+};
+
 // Class: cef::DX9CEFManager
 template<>
 class LunaTraits< cef::DX9CEFManager > {
@@ -333,9 +352,23 @@ public:
 };
 
 template<>
+class LunaType< 9597126 > {
+public:
+	typedef cef::CEFViewBase::MessageList type;
+	
+};
+
+template<>
 class LunaType< 64498953 > {
 public:
 	typedef std::vector< CefString > type;
+	
+};
+
+template<>
+class LunaType< 82505097 > {
+public:
+	typedef std::vector< CefRefPtr< CefProcessMessage > > type;
 	
 };
 

@@ -22,6 +22,8 @@ public CefClient, public CefLifeSpanHandler
 {
   public:
 
+  typedef std::vector< CefRefPtr<CefProcessMessage> > MessageList;
+
   class Traits {
     public:
         /**
@@ -77,6 +79,20 @@ public CefClient, public CefLifeSpanHandler
 
     inline bool isBrowserReady() { return _browser!=NULL; }
 
+    void PostMessage(CefRefPtr<CefProcessMessage> message);
+
+    // Used to retrieve the list of messages received until the latest
+    // call of this function.
+    // When receiving a message, it will simply be pushed on the internal message list
+    // and left for later processing (maybe in another thread.)
+    // This method also return the number of messages that were collected.
+    int CollectMessages(MessageList& list);
+
+    /** LUNA_IGNORED 
+    The following method is called when a process message is received.
+    */
+    virtual bool OnProcessMessageReceived( CefRefPtr< CefBrowser > browser, CefProcessId source_process, CefRefPtr< CefProcessMessage > message );
+
     /** LUNA_IGNORED */
     void InitializeBrowser(const Traits& traits, RenderTarget* tgt);
 
@@ -106,6 +122,9 @@ public CefClient, public CefLifeSpanHandler
   protected:
     int _width;
     int _height;
+
+    MessageList _messages; // The messages received on the Browser process.
+    sgtMutex _messageMutex;
 
     CefRefPtr<CefBrowser> _browser;
 

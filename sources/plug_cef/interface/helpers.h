@@ -12,3 +12,4 @@ typedef enum {
 } cef_value_type_t;
 
 LUNA_IMPLEMENT_VECTOR(CefString);
+LUNA_IMPLEMENT_VECTOR(CefRefPtr<CefProcessMessage>);
