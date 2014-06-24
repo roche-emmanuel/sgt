@@ -118,3 +118,4 @@
 - Added support for Process message lua bindings.
 - Added support for browser process handling of ProcessMessages.
 - Preparing message handling on lua side.
+- Adding implementation for post message from javascript.
