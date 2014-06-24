@@ -3,6 +3,7 @@
 
 #include <cef_app.h>
 
+#include <vector>
 #include <sstream>
 
 #define DEBUG_MSG(msg) { std::ostringstream os; os << msg; MessageBox(NULL,os.str().c_str(),"DEBUG",MB_OK); }
@@ -13,6 +14,8 @@
 
 namespace cef
 {
+    typedef std::vector<CefString> KeyList;
+
     class App : public CefApp, public CefRenderProcessHandler
     {
 

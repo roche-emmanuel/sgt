@@ -3,8 +3,6 @@
 namespace cef
 {
 
-typedef std::vector<CefString> KeyList;
-
 PostMessageHandler::PostMessageHandler(CefRefPtr<CefBrowser> browser) : _browser(browser)
 {
 }
@@ -71,6 +69,10 @@ void setListValue(CefRefPtr<ListType> list, IndexType index, CefRefPtr<CefV8Valu
     }
     else if(item->IsFunction()) {
         ERROR_MSG("Unsupported Value type 'Function' in setListValue()");
+        list->SetNull(index);
+    }
+    else if(item->IsUserCreated()) {
+        ERROR_MSG("Unsupported Value type 'UserCreated' in setListValue()");
         list->SetNull(index);
     }
 }
