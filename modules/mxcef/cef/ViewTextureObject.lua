@@ -1,5 +1,7 @@
 local Class = require("classBuilder"){name="ViewTextureObject",bases="dx.TextureObject"};
 
+-- This is the DX9 Manager
+local manager = require "cef.Manager"
 local rs = require "dx.RenderState"
 
 function Class:new(options)
@@ -9,31 +11,26 @@ function Class:new(options)
 end
 
 function Class:initialize(options)
-	-- This kind of TextureObject will receive the dx9 cef manager and the target view as argument, 
-	-- it will the handle initialization/uninitialization/application of the DX texture.
-	self:check(options and options.manager,"Invalid CEFManager argument.")
-	self:check(options and options.view,"Invalid CEFView argument.")
-	self._manager = options.manager
-	self._view = options.view
+	-- The base class assumes that the children class will provide the _viewbase members.
 end
 
 function Class:doInvalidate()
 	-- request invalidation of the CEFView:
-	if(self._view:IsInitialized()) then
-		self._view:Uninitialize()
+	if(self._viewbase:IsInitialized()) then
+		self._viewbase:Uninitialize()
 	end
 end
 
 function Class:doCreate(device)
-	if not self._view:IsInitialized() then
-		self._view:Initialize()
+	if not self._viewbase:IsInitialized() then
+		self._viewbase:Initialize()
 	end
 	return true
 end
 
 function Class:doApply(slot,cbi)
-	self:check(self._view:IsInitialized(),"CEF View not initialized.")
-	local tex = self._manager:GetOutputTexture(self._view)
+	self:check(self._viewbase:IsInitialized(),"CEF View not initialized.")
+	local tex = manager:GetOutputTexture(self._viewbase)
 	cbi:SetTexture(slot,tex:asBaseTexture())
 	rs.textures[slot] = nil
 end
