@@ -4,6 +4,44 @@
 namespace cef
 {
 
+void App::OnWebKitInitialized()
+{
+  // Define the extension contents.
+  std::string extensionCode =
+    "var cef;"
+    "if (!cef)"
+    "  cef = {};"
+    "(function() {"
+    "  var listeners = {};"
+    "  cef.addListener = function(ename,func) {"
+    "    listeners[ename] = listeners[ename] || [];"
+    "    listeners[ename].push(func);"
+    "  }"
+    "  cef.removeListener = function(ename,func) {"
+    "    var list = listeners[ename];"    
+    "    if(!list) return;"
+    "    var num = list.length;"
+    "    for(var i=0;i<num;++i) {"
+    "       if(list[i] == func) {"
+    "         list.splice(i, 1);"
+    "         break;"
+    "       }"
+    "    }"
+    "  }"
+    "  cef.handleMessage = function(ename) {"
+    "    var list = listeners[ename];"
+    "    if(!list) return;"
+    "    var num = list.length;"
+    "    for(var i=0;i<num;++i) {"
+    "       list[i]();"
+    "    }"
+    "  }"
+    "})();";
+
+  // Register the extension.
+  CefRegisterExtension("cef_extension", extensionCode, NULL);    
+}
+
 void App::OnContextCreated(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
@@ -19,11 +57,15 @@ void App::OnContextCreated(
     // Retrieve the context's window object.
     CefRefPtr<CefV8Value> window = context->GetGlobal();
     
-    // Now create a new "cef" object:
-    CefRefPtr<CefV8Value> cef = CefV8Value::CreateObject(NULL);
+    CefRefPtr<CefV8Value> cef = window->HasValue("cef") ? window->GetValue("cef") : NULL;
 
-    // Assign this new object to the window:
-    window->SetValue("cef", cef, V8_PROPERTY_ATTRIBUTE_NONE);
+    if(!cef.get()) {
+        // Now create a new "cef" object:
+        cef = CefV8Value::CreateObject(NULL);
+
+        // Assign this new object to the window:
+        window->SetValue("cef", cef, V8_PROPERTY_ATTRIBUTE_NONE);
+    }
 
     // Next we need to add the handler to post new messages from javascript:
     CefRefPtr<CefV8Handler> handler = new PostMessageHandler(browser);
@@ -33,7 +75,6 @@ void App::OnContextCreated(
 
     // Add the "postMessage" function to the "cef" object.
     cef->SetValue("postMessage", func, V8_PROPERTY_ATTRIBUTE_NONE);
-
 }
 
 void App::OnContextReleased(
@@ -50,7 +91,7 @@ void App::OnContextReleased(
 }
 
 template <class ListType, class IndexType>
-CefRefPtr<CefV8Value> getValue(CefRefPtr<ListType> list, IndexType index)
+CefRefPtr<CefV8Value> getListValue(CefRefPtr<ListType> list, IndexType index)
 {
     int vtype = list->GetType(index);
 
@@ -78,7 +119,7 @@ CefRefPtr<CefV8Value> getValue(CefRefPtr<ListType> list, IndexType index)
         int num = keys.size();
         for(int i=0;i<num;++i) {
             CefString key = keys[i];
-            CefRefPtr<CefV8Value> val = getValue<CefDictionaryValue,CefString>(dict,key);
+            CefRefPtr<CefV8Value> val = getListValue<CefDictionaryValue,CefString>(dict,key);
             obj->SetValue(key,val,V8_PROPERTY_ATTRIBUTE_NONE);
         }
 
@@ -93,7 +134,7 @@ CefRefPtr<CefV8Value> getValue(CefRefPtr<ListType> list, IndexType index)
         CefRefPtr<CefV8Value> obj = CefV8Value::CreateArray(num);
 
         for(int i=0;i<num;++i) {
-            CefRefPtr<CefV8Value> val = getValue<CefListValue,int>(sublist,i);
+            CefRefPtr<CefV8Value> val = getListValue<CefListValue,int>(sublist,i);
             obj->SetValue(i,val);
         }
 
@@ -154,7 +195,7 @@ bool App::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefProcessId s
     int num = list->GetSize();
 
     for(int i=0;i<num;++i) {
-       CefRefPtr<CefV8Value> val = getValue<CefListValue,int>(list,i);
+       CefRefPtr<CefV8Value> val = getListValue<CefListValue,int>(list,i);
        args.push_back(val); 
     }
 

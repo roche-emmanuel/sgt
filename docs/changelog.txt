@@ -120,3 +120,4 @@
 - Preparing message handling on lua side.
 - Adding implementation for post message from javascript.
 - Added initial implementation for bi directional message handling system.
+- Prepared extension for cef.

@@ -43,6 +43,7 @@ namespace cef
             CefProcessId source_process,
             CefRefPtr<CefProcessMessage> message);
 
+        virtual void OnWebKitInitialized();
 
         IMPLEMENT_REFCOUNTING(App);
 
