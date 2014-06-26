@@ -129,6 +129,14 @@ public:
 		return true;
 	}
 
+	inline static bool _lg_typecheck_Reload(lua_State *L) {
+		int luatop = lua_gettop(L);
+		if( luatop<1 || luatop>2 ) return false;
+
+		if( luatop>1 && lua_isboolean(L,2)==0 ) return false;
+		return true;
+	}
+
 	inline static bool _lg_typecheck_PostMessage(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
@@ -320,6 +328,25 @@ public:
 		lua_pushboolean(L,lret?1:0);
 
 		return 1;
+	}
+
+	// void cef::CEFViewBase::Reload(bool nocache = false)
+	static int _bind_Reload(lua_State *L) {
+		if (!_lg_typecheck_Reload(L)) {
+			luaL_error(L, "luna typecheck failed in void cef::CEFViewBase::Reload(bool nocache = false) function, expected prototype:\nvoid cef::CEFViewBase::Reload(bool nocache = false)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+		int luatop = lua_gettop(L);
+
+		bool nocache=luatop>1 ? (bool)(lua_toboolean(L,2)==1) : (bool)false;
+
+		cef::CEFViewBase* self=Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call void cef::CEFViewBase::Reload(bool). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		self->Reload(nocache);
+
+		return 0;
 	}
 
 	// void cef::CEFViewBase::PostMessage(CefRefPtr< CefProcessMessage > message)
@@ -571,6 +598,7 @@ luna_RegType LunaTraits< cef::CEFViewBase >::methods[] = {
 	{"Initialize", &luna_wrapper_cef_CEFViewBase::_bind_Initialize},
 	{"Uninitialize", &luna_wrapper_cef_CEFViewBase::_bind_Uninitialize},
 	{"isBrowserReady", &luna_wrapper_cef_CEFViewBase::_bind_isBrowserReady},
+	{"Reload", &luna_wrapper_cef_CEFViewBase::_bind_Reload},
 	{"PostMessage", &luna_wrapper_cef_CEFViewBase::_bind_PostMessage},
 	{"CollectMessages", &luna_wrapper_cef_CEFViewBase::_bind_CollectMessages},
 	{"HasPendingMessage", &luna_wrapper_cef_CEFViewBase::_bind_HasPendingMessage},

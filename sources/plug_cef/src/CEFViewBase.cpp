@@ -209,4 +209,17 @@ bool CEFViewBase::OnProcessMessageReceived( CefRefPtr< CefBrowser > browser, Cef
   return true;
 }
 
+void CEFViewBase::Reload(bool nocache)
+{
+  CHECK(isBrowserReady(),"Browser is not ready.");
+
+  if(nocache) {
+    _browser->ReloadIgnoreCache();
+  }
+  else {
+    _browser->Reload();
+  }
+
+}
+
 }

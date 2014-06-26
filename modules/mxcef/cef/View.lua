@@ -31,7 +31,8 @@ function Class:initialize(options)
 end
 
 -- helper method used to convert from lua values to CEf values:
-local setListValue = function(list,index,item)
+local setListValue; -- forwad declaration fo support recursive calls.
+setListValue = function(list,index,item)
 	if type(item)=="null" then
 		-- add a null element:
 		list:SetNull(index)
@@ -83,7 +84,8 @@ local setListValue = function(list,index,item)
 	end	
 end
 
-local getListValue = function(list, index)
+local getListValue; -- forwad declaration fo support recursive calls.
+getListValue = function(list, index)
 	local vtype = list:GetType(index)
 	if vtype == cef.VTYPE_INVALID or vtype == cef.VTYPE_NULL or vtype == cef.VTYPE_BINARY then
 		log:error("Invalid or NULL or binary value received.")
@@ -294,6 +296,12 @@ function Class:removeAllListeners(ename)
 	else
 		self._listeners = {}
 	end
+end
+
+function Class:reload(nocache)
+	self:debug("Reloading CEFView...")
+	self._viewbase:Reload(nocache or false)
+	self:debug("Done reloading CEFView.")
 end
 
 return Class

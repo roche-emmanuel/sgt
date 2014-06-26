@@ -43,7 +43,7 @@ function Class:initialize(options)
 	fx:setTextureObject(self._view,1)
 
 	self._view:addListener('overlay_ready',function()
-		core2.showMessageBox("Received ready message!","Debug");
+		-- core2.showMessageBox("Received ready message!","Debug");
 	end)
 
 	self._view:addListener('logInfo',function(msg)
@@ -57,6 +57,10 @@ end
 
 function Class:postMessage(...)
 	self._view:postMessage(...)
+end
+
+function Class:reload(nocache)
+	self._view:reload(nocache)
 end
 
 function Class:update()

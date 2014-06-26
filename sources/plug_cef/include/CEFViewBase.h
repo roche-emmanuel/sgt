@@ -79,6 +79,9 @@ public CefClient, public CefLifeSpanHandler
 
     inline bool isBrowserReady() { return _browser!=NULL; }
 
+    // Reload the current page:
+    void Reload(bool nocache = false);
+
     void PostMessage(CefRefPtr<CefProcessMessage> message);
 
     // Used to retrieve the list of messages received until the latest
