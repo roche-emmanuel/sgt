@@ -122,3 +122,4 @@
 - Added initial implementation for bi directional message handling system.
 - Prepared extension for cef.
 - Working state for CEF integration on MX15HDi.
+- Added overlay_ready message.
