@@ -222,4 +222,10 @@ void CEFViewBase::Reload(bool nocache)
 
 }
 
+bool CEFViewBase::OnConsoleMessage( CefRefPtr< CefBrowser > browser, const CefString& message, const CefString& source, int line )
+{
+  logDEBUG("JavaScript: " << message.ToString() << " (" << source.ToString() << ":" << line << ")");
+  return false; // also display the message on the console.
+}
+
 }

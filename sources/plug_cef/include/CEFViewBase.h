@@ -17,7 +17,7 @@ class CEFViewBase :
 #ifdef __DOXYGEN__
 public CefBase // just pretend this is a CefBase object.
 #else
-public CefClient, public CefLifeSpanHandler
+public CefClient, public CefLifeSpanHandler, public CefDisplayHandler
 #endif
 {
   public:
@@ -115,6 +115,11 @@ public CefClient, public CefLifeSpanHandler
     virtual CefRefPtr<CefRenderHandler> GetRenderHandler();
 
     /** LUNA_IGNORED */
+    virtual CefRefPtr<CefDisplayHandler> GetDisplayHandler() {
+        return this;
+    }
+
+    /** LUNA_IGNORED */
     virtual CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() {
         return this;
     }
@@ -124,6 +129,10 @@ public CefClient, public CefLifeSpanHandler
     virtual void OnAfterCreated(CefRefPtr<CefBrowser> browser);   
     /** LUNA_IGNORED*/ 
     virtual void OnBeforeClose(CefRefPtr<CefBrowser> browser);
+
+    // methods from CefDisplayHandler:
+    /** LUNA_IGNORED*/ 
+    virtual bool OnConsoleMessage( CefRefPtr< CefBrowser > browser, const CefString& message, const CefString& source, int line );
 
   protected:
     int _width;

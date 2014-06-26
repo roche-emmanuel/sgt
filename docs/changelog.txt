@@ -124,3 +124,4 @@
 - Working state for CEF integration on MX15HDi.
 - Added overlay_ready message.
 - Added support to reload cef overlays.
+- Added support to retrieve console messages from CEF browsers.
