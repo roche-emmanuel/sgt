@@ -125,3 +125,4 @@
 - Added overlay_ready message.
 - Added support to reload cef overlays.
 - Added support to retrieve console messages from CEF browsers.
+- Added support for assign menu map and layout in CEFOverlay.

@@ -44,11 +44,13 @@ function Class:initialize(options)
 
 	self._view:addListener('overlay_ready',function()
 		-- core2.showMessageBox("Received ready message!","Debug");
+		self:assignMenuMap()
+		self:assignLayout()
 	end)
 
-	self._view:addListener('logInfo',function(msg)
-		log:info("JavaScript",msg)
-	end)
+	-- self._view:addListener('logInfo',function(msg)
+	-- 	log:info("JavaScript",msg)
+	-- end)
 end
 
 function Class:addListener(ename,func)
@@ -59,6 +61,10 @@ function Class:postMessage(...)
 	self._view:postMessage(...)
 end
 
+function Class:postCommand(...)
+	self._view:postMessage("mxcmd",...)
+end
+
 function Class:reload(nocache)
 	self._view:reload(nocache)
 end
@@ -66,6 +72,39 @@ end
 function Class:update()
 	-- self:debug("Performing CEF update...")
 	self._view:collectMessages()
+end
+
+function Class:assignMenuMap()
+	self:debug("Assigning menu map to CEFView...")
+	
+	-- Now fill the array:
+	-- if we have a valid turret at this point, then we should retrieve the menu map from it:				
+	local mm = self._turret:getMenuManager():getMainMenu()
+	local map = mm:getChildrenMap()
+
+	self:postCommand("setMenuMap",map)
+end
+
+local res_map = {
+	[Class.RESOLUTION_1080P] = "HD",
+	[Class.RESOLUTION_720P] = "HD",
+	[Class.RESOLUTION_576I] = "SD",
+	[Class.RESOLUTION_480I] = "SD",
+	[Class.RESOLUTION_NTSC] = "NTSC",
+	[Class.RESOLUTION_PAL] = "PAL",
+}
+
+function Class:assignLayout()
+	-- Now fill the array:
+	local otype = self:getOverlayType()
+	local res = self:getProcessor():getResolution()
+	local rname = res_map[res]
+	self:check(rname,"Invalid resolution name for index: ",res)
+
+	local flavor = self:getConfig():get("Overlay.flavor")
+
+	self:debug("Setting layout to type=",otype,", res=",rname,", flavor=",flavor)
+	self:postCommand("setLayout",otype,rname,flavor or "")
 end
 
 return Class
