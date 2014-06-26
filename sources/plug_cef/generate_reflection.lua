@@ -2,6 +2,10 @@ local ReflectionGenerator = require "bindings.LunaReflectionGenerator"
 
 local tm = require "bindings.TypeManager"
 tm:registerDeleter("CefBase","CefRefPtr<CefBase> refptr = ${1};")
+tm:registerDeleter("CefProcessMessage","CefRefPtr<CefProcessMessage> refptr = ${1};")
+tm:registerDeleter("CefBinaryValue","CefRefPtr<CefBinaryValue> refptr = ${1};")
+tm:registerDeleter("CefListValue","CefRefPtr<CefListValue> refptr = ${1};")
+tm:registerDeleter("CefDictionaryValue","CefRefPtr<CefDictionaryValue> refptr = ${1};")
 tm:registerDeleter("osg::Referenced","osg::ref_ptr<osg::Referenced> refptr = ${1};")
 tm:registerExternals(root_project_path .. "sources/plug_core/classes.luna")
 tm:registerExternalFunctions(root_project_path .. "sources/plug_core/functions.luna")
@@ -20,7 +24,7 @@ local fromLua = function(buf,index,type,argname)
 	tname = tname:match("CefRefPtr< (.+) >")
 	--log:warn("Converter","Got extracted osg ref ", tname)
 	
-	buf:writeSubLine("CefRefPtr< ${1} > ${2} = Luna< CefBase >::checkSubType< ${1} >(L,${3});",tname,argname,index)
+	buf:writeSubLine("CefRefPtr< ${1} > ${2} = Luna< LunaTraits< ${1} >::parent_t >::checkSubType< ${1} >(L,${3});",tname,argname,index)
 	
 	return false -- this is not a pointer result.
 end
@@ -31,7 +35,7 @@ local toLua = function(buf,type,argname)
 	tname = tname:match("CefRefPtr< (.+) >")
 	--log:warn("Converter","Got extracted osg ref ", tname)
 	
-	buf:writeSubLine("Luna< ${1} >::push(L,${2},false);",tname,argname.. (type:isPointer() and "->get()" or ".get()"));
+	buf:writeSubLine("if(${2}) { \n\tLuna< ${1} >::push(L,${2},false);\n} else { \n\tlua_pushnil(L);\n }",tname,argname.. (type:isPointer() and "->get()" or ".get()"));
 	
 	-- here we have a problem: because the class referenced with tname might not be registered at all!
 end
@@ -43,8 +47,8 @@ local ptrChecker = function(buf,index,type,defStr)
 	tname = tname:match("CefRefPtr< (.+) >") --,"%1")
 	-- log:warn("Converter","extracted ref is '", tname, "'")
 	
-	local bfname = "CefBase"
-	local bhash = utils.getHash(bfname)
+	local bfname = "LunaTraits< ".. tname .." >::parent_t"
+	local bhash = "LunaTraits< ".. bfname .." >::hash" --utils.getHash(bfname)
 	
 	buf:writeSubLine("if( !Luna<void>::has_uniqueid(L,${1},${2}) ) return false;",index,bhash);
 	buf:writeSubLine("if( !Luna< ${3} >::checkSubType< ${2} >(L,${1}) ) return false;",index,tname,bfname);

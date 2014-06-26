@@ -90,9 +90,12 @@ bool PostMessageHandler::Execute(const CefString& name,
         return false;
     }
 
+    //DEBUG_MSG("Executing postMessage from javascript.");
+
     // We should have at list one argument, and the first arg should be the name to use for this message:
     size_t num = arguments.size();
     CHECK_RET(num>0,false,"Invalid number of arguments.");
+    //DEBUG_MSG("Got num="<<num<< "arguments.");
 
     CefRefPtr<CefV8Value> arg1 = arguments[0];
     CHECK_RET(arg1->IsString(),false,"The argument 1 is not a string.");
@@ -101,10 +104,12 @@ bool PostMessageHandler::Execute(const CefString& name,
     CefString mname = arg1->GetStringValue();
 
     // So now we prepare a ProcessMessage for it:
+    //DEBUG_MSG("Creating process message.");
     CefRefPtr<CefProcessMessage> msg = CefProcessMessage::Create(mname);
 
     // check if we need to populate the argument list:
     if(num>1) {
+        //DEBUG_MSG("assigning additional arguments.");
         // Prepare the list of arguments:
         CefRefPtr<CefListValue> list = msg->GetArgumentList();
         list->SetSize(num-1);
@@ -116,7 +121,9 @@ bool PostMessageHandler::Execute(const CefString& name,
     }
 
     // Send the Process message:
+    //DEBUG_MSG("Sending process message.");
     _browser->SendProcessMessage(PID_BROWSER,msg);
+    //DEBUG_MSG("Process message sent.");
 
     // function was handled properly:
     return true;

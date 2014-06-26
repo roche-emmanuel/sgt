@@ -4,20 +4,20 @@
 class CefBase {
 };
 
-class CefBinaryValue: public CefBase {
+class CefBinaryValue {
 };
 
-class CefDictionaryValue: public CefBase {
+class CefDictionaryValue {
 public:
 	class KeyList {
 	};
 
 };
 
-class CefListValue: public CefBase {
+class CefListValue {
 };
 
-class CefProcessMessage: public CefBase {
+class CefProcessMessage {
 };
 
 class CefRefCount {

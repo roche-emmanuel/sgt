@@ -121,3 +121,4 @@
 - Adding implementation for post message from javascript.
 - Added initial implementation for bi directional message handling system.
 - Prepared extension for cef.
+- Working state for CEF integration on MX15HDi.

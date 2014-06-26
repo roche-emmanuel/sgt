@@ -1,5 +1,7 @@
 local Class = require("classBuilder"){name="CEFOverlay",bases={"mx.overlays.BasicOverlay","mx.overlays.OverlayListener","mx.menus.MenuListener"}};
 
+local log = require "tracer"
+
 --[[
 Class: display.effects.CEFOverlay
 
@@ -39,6 +41,22 @@ function Class:initialize(options)
 	-- tobj:setLinearFiltering()
 	self._view:setPointFiltering()
 	fx:setTextureObject(self._view,1)
+
+	self._view:addListener('overlay_ready',function()
+		core2.showMessageBox("Received ready message!","Debug");
+	end)
+
+	self._view:addListener('logInfo',function(msg)
+		log:info("JavaScript",msg)
+	end)
+end
+
+function Class:addListener(ename,func)
+	self._view:addListener(ename,func)
+end
+
+function Class:postMessage(...)
+	self._view:postMessage(...)
 end
 
 function Class:update()

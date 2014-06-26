@@ -161,7 +161,6 @@ function Class:postMessage(mname,...)
 	self._viewbase:PostMessage(msg)
 end
 
-
 --[[
 Function: collectMessages
 
@@ -174,27 +173,47 @@ function Class:collectMessages()
 	-- first we retrieve all the pending messages in our local list.
 	-- at the same time, this will clear the list on the CEFViewBase object.
 	-- note that this method will also return the number of messages received:
+	-- self:debug("Collecting messages...")
+	self._viewbase:CollectMessages(self._messages)
 
-	local num = self._viewbase:CollectMessages(self._messages)
-
-	self:check(num==self._messages:size(),"Invalid number of messages in vector: ",num,"!=",self._messages:size())
+	-- self:check(num==messages:size(),"Invalid number of messages in vector: ",num,"!=",messages:size())
+	local num = self._messages:size()
 
 	-- now we try to process each message we received (if any)
 	for i=1,num do
+		self:debug("Processing message ",i,"...")
 		local msg = self._messages:at(i-1) -- note that the vector uses 0-based indices.
+		
+		self:debug("Checking if process message is valid.")
+		if(not msg or not msg:IsValid()) then
+			log:error("Received invalid process message.")
+			return;
+		end
+		self:debug("Process message is valid.")
 
 		-- extract the arguments from the message argument list object:
 		local args = {}
 
+		self:debug("Retrieving argument list.")
 		local list = msg:GetArgumentList()
 		
-		-- This is a List value:
-		local num = list:GetSize()
-		for i=1,num do
-			tt[i] = getListValue(list,i-1)
+		self:debug("Checking if arg list is valid.")
+		if list:IsValid() then
+			-- This is a List value:
+			self:debug("Retrieving arg list size.")
+			local num = list:GetSize()
+			self:debug("Process message contains ", num, " arguments.")
+			for j=1,num do
+				self:debug("Retrieving argument ",j-1)
+				args[j] = getListValue(list,j-1)
+			end
+		else
+			self:debug("Found arg list to be invalid.")
 		end
 
+		self:debug("Calling onMessageReceived for message ",msg:GetName())
 		self:onMessageReceived(msg:GetName(),unpack(args))
+		self:debug("Message handled properly.")
 	end
 
 	-- when done processing the messages, we can clear the local list:

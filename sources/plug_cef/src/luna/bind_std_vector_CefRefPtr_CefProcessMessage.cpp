@@ -56,8 +56,8 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( (lua_type(L,2)!=LUA_TNUMBER || lua_tointeger(L,2) != lua_tonumber(L,2)) ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,50549361) ) return false;
-		if( !Luna< CefBase >::checkSubType< CefProcessMessage >(L,3) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,LunaTraits< LunaTraits< CefProcessMessage >::parent_t >::hash) ) return false;
+		if( !Luna< LunaTraits< CefProcessMessage >::parent_t >::checkSubType< CefProcessMessage >(L,3) ) return false;
 		return true;
 	}
 
@@ -114,8 +114,8 @@ public:
 	inline static bool _lg_typecheck_push_back(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,50549361) ) return false;
-		if( !Luna< CefBase >::checkSubType< CefProcessMessage >(L,2) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,LunaTraits< LunaTraits< CefProcessMessage >::parent_t >::hash) ) return false;
+		if( !Luna< LunaTraits< CefProcessMessage >::parent_t >::checkSubType< CefProcessMessage >(L,2) ) return false;
 		return true;
 	}
 
@@ -134,7 +134,7 @@ public:
 		}
 
 		unsigned int arg1=(unsigned int)lua_tointeger(L,2);
-		CefRefPtr< CefProcessMessage > arg2 = Luna< CefBase >::checkSubType< CefProcessMessage >(L,3);
+		CefRefPtr< CefProcessMessage > arg2 = Luna< LunaTraits< CefProcessMessage >::parent_t >::checkSubType< CefProcessMessage >(L,3);
 
 		std::vector< CefRefPtr< CefProcessMessage > >* self=(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::check(L,1));
 		if(!self) {
@@ -158,7 +158,11 @@ public:
 			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > std::vector< CefRefPtr< CefProcessMessage > >::at(unsigned int). Got : '%s'\n%s",typeid(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefProcessMessage > lret = self->at(arg1);
-		Luna< CefProcessMessage >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -175,7 +179,11 @@ public:
 			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > std::vector< CefRefPtr< CefProcessMessage > >::back(). Got : '%s'\n%s",typeid(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefProcessMessage > lret = self->back();
-		Luna< CefProcessMessage >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -192,7 +200,11 @@ public:
 			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > std::vector< CefRefPtr< CefProcessMessage > >::front(). Got : '%s'\n%s",typeid(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefProcessMessage > lret = self->front();
-		Luna< CefProcessMessage >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -286,7 +298,7 @@ public:
 			luaL_error(L, "luna typecheck failed in void std::vector< CefRefPtr< CefProcessMessage > >::push_back(CefRefPtr< CefProcessMessage > arg1) function, expected prototype:\nvoid std::vector< CefRefPtr< CefProcessMessage > >::push_back(CefRefPtr< CefProcessMessage > arg1)\nClass arguments details:\narg 1 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
 		}
 
-		CefRefPtr< CefProcessMessage > arg1 = Luna< CefBase >::checkSubType< CefProcessMessage >(L,2);
+		CefRefPtr< CefProcessMessage > arg1 = Luna< LunaTraits< CefProcessMessage >::parent_t >::checkSubType< CefProcessMessage >(L,2);
 
 		std::vector< CefRefPtr< CefProcessMessage > >* self=(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::check(L,1));
 		if(!self) {
@@ -310,7 +322,11 @@ public:
 			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > std::vector< CefRefPtr< CefProcessMessage > >::operator[](unsigned int). Got : '%s'\n%s",typeid(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefProcessMessage > lret = self->operator[](arg1);
-		Luna< CefProcessMessage >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}

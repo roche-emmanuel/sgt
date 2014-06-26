@@ -1,3 +1,4 @@
+
 // Copyright (c) 2012 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -47,7 +48,15 @@ typedef cef_process_id_t CefProcessId;
 // Class representing a message. Can be used on any process and thread.
 ///
 /*--cef(source=library)--*/
-class CefProcessMessage : public virtual CefBase {
+class CefProcessMessage 
+#ifdef __DOXYGEN__
+{
+protected:
+  CefProcessMessage(); // prevent instanciation.
+#else
+: public virtual CefBase {  
+#endif
+
  public:
   ///
   // Create a new CefProcessMessage object with the specified name.

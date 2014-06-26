@@ -132,15 +132,27 @@ public:
 	inline static bool _lg_typecheck_PostMessage(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,50549361) ) return false;
-		if( !Luna< CefBase >::checkSubType< CefProcessMessage >(L,2) ) return false;
+		if( !Luna<void>::has_uniqueid(L,2,LunaTraits< LunaTraits< CefProcessMessage >::parent_t >::hash) ) return false;
+		if( !Luna< LunaTraits< CefProcessMessage >::parent_t >::checkSubType< CefProcessMessage >(L,2) ) return false;
 		return true;
 	}
 
 	inline static bool _lg_typecheck_CollectMessages(lua_State *L) {
 		if( lua_gettop(L)!=2 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,2,82505097) ) return false;
+		if( (lua_isnil(L,2)==0 && !Luna<void>::has_uniqueid(L,2,82505097)) ) return false;
+		return true;
+	}
+
+	inline static bool _lg_typecheck_HasPendingMessage(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
+		return true;
+	}
+
+	inline static bool _lg_typecheck_GetPendingMessage(lua_State *L) {
+		if( lua_gettop(L)!=1 ) return false;
+
 		return true;
 	}
 
@@ -316,7 +328,7 @@ public:
 			luaL_error(L, "luna typecheck failed in void cef::CEFViewBase::PostMessage(CefRefPtr< CefProcessMessage > message) function, expected prototype:\nvoid cef::CEFViewBase::PostMessage(CefRefPtr< CefProcessMessage > message)\nClass arguments details:\narg 1 ID = [unknown]\n\n%s",luna_dumpStack(L).c_str());
 		}
 
-		CefRefPtr< CefProcessMessage > message = Luna< CefBase >::checkSubType< CefProcessMessage >(L,2);
+		CefRefPtr< CefProcessMessage > message = Luna< LunaTraits< CefProcessMessage >::parent_t >::checkSubType< CefProcessMessage >(L,2);
 
 		cef::CEFViewBase* self=Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,1);
 		if(!self) {
@@ -327,24 +339,58 @@ public:
 		return 0;
 	}
 
-	// int cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList & list)
+	// int cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList * list)
 	static int _bind_CollectMessages(lua_State *L) {
 		if (!_lg_typecheck_CollectMessages(L)) {
-			luaL_error(L, "luna typecheck failed in int cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList & list) function, expected prototype:\nint cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList & list)\nClass arguments details:\narg 1 ID = 9597126\n\n%s",luna_dumpStack(L).c_str());
+			luaL_error(L, "luna typecheck failed in int cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList * list) function, expected prototype:\nint cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList * list)\nClass arguments details:\narg 1 ID = 9597126\n\n%s",luna_dumpStack(L).c_str());
 		}
 
-		cef::CEFViewBase::MessageList* list_ptr=(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::checkSubType< cef::CEFViewBase::MessageList >(L,2));
-		if( !list_ptr ) {
-			luaL_error(L, "Dereferencing NULL pointer for arg list in cef::CEFViewBase::CollectMessages function");
-		}
-		cef::CEFViewBase::MessageList & list=*list_ptr;
+		cef::CEFViewBase::MessageList* list=(Luna< std::vector< CefRefPtr< CefProcessMessage > > >::checkSubType< cef::CEFViewBase::MessageList >(L,2));
 
 		cef::CEFViewBase* self=Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,1);
 		if(!self) {
-			luaL_error(L, "Invalid object in function call int cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call int cef::CEFViewBase::CollectMessages(cef::CEFViewBase::MessageList *). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		int lret = self->CollectMessages(list);
 		lua_pushnumber(L,lret);
+
+		return 1;
+	}
+
+	// bool cef::CEFViewBase::HasPendingMessage()
+	static int _bind_HasPendingMessage(lua_State *L) {
+		if (!_lg_typecheck_HasPendingMessage(L)) {
+			luaL_error(L, "luna typecheck failed in bool cef::CEFViewBase::HasPendingMessage() function, expected prototype:\nbool cef::CEFViewBase::HasPendingMessage()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFViewBase* self=Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call bool cef::CEFViewBase::HasPendingMessage(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		bool lret = self->HasPendingMessage();
+		lua_pushboolean(L,lret?1:0);
+
+		return 1;
+	}
+
+	// CefRefPtr< CefProcessMessage > cef::CEFViewBase::GetPendingMessage()
+	static int _bind_GetPendingMessage(lua_State *L) {
+		if (!_lg_typecheck_GetPendingMessage(L)) {
+			luaL_error(L, "luna typecheck failed in CefRefPtr< CefProcessMessage > cef::CEFViewBase::GetPendingMessage() function, expected prototype:\nCefRefPtr< CefProcessMessage > cef::CEFViewBase::GetPendingMessage()\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
+		}
+
+
+		cef::CEFViewBase* self=Luna< CefBase >::checkSubType< cef::CEFViewBase >(L,1);
+		if(!self) {
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > cef::CEFViewBase::GetPendingMessage(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+		}
+		CefRefPtr< CefProcessMessage > lret = self->GetPendingMessage();
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -527,6 +573,8 @@ luna_RegType LunaTraits< cef::CEFViewBase >::methods[] = {
 	{"isBrowserReady", &luna_wrapper_cef_CEFViewBase::_bind_isBrowserReady},
 	{"PostMessage", &luna_wrapper_cef_CEFViewBase::_bind_PostMessage},
 	{"CollectMessages", &luna_wrapper_cef_CEFViewBase::_bind_CollectMessages},
+	{"HasPendingMessage", &luna_wrapper_cef_CEFViewBase::_bind_HasPendingMessage},
+	{"GetPendingMessage", &luna_wrapper_cef_CEFViewBase::_bind_GetPendingMessage},
 	{"AddRef", &luna_wrapper_cef_CEFViewBase::_bind_AddRef},
 	{"Release", &luna_wrapper_cef_CEFViewBase::_bind_Release},
 	{"GetRefCt", &luna_wrapper_cef_CEFViewBase::_bind_GetRefCt},

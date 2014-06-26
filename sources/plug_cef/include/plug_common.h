@@ -67,25 +67,28 @@ LUNA_END_GETTER(CefString)
 
 
 // container specialization for CefBase
-template <>
-struct luna_container<CefBase> {
-	typedef CefRefPtr<CefBase> container_type;
-	
-	static inline CefBase* get(const container_type& cont) {
-		return cont.get();
-	};
 
-	static inline void set(container_type& cont, CefBase* ptr) {
-		// logDEBUG("Assigning CEF container to "<<(const void*)ptr<<" initial refcount="<<ptr->GetRefCt());
-		cont = ptr;
-		// logDEBUG("RefCount after assignment: "<<" final refcount="<<ptr->GetRefCt());
-	};
-	
-	static inline void release(container_type& cont) {
-		// logDEBUG("Releasing CEF container "<<(const void*)cont.get());
-		// logDEBUG("Initial ref count: "<<cont->GetRefCt());
-		cont = NULL;
-	};
+#define REGISTER_CONTAINER(tname) template <> \
+struct luna_container<tname> { \
+	typedef CefRefPtr<tname> container_type; \
+	 \
+	static inline tname* get(const container_type& cont) { \
+		return cont.get(); \
+	}; \
+ \
+	static inline void set(container_type& cont, tname* ptr) { \
+		cont = ptr; \
+	}; \
+	 \
+	static inline void release(container_type& cont) { \
+		cont = NULL; \
+	}; \
 };
+
+REGISTER_CONTAINER(CefBase);
+REGISTER_CONTAINER(CefProcessMessage);
+REGISTER_CONTAINER(CefBinaryValue);
+REGISTER_CONTAINER(CefListValue);
+REGISTER_CONTAINER(CefDictionaryValue);
 
 #endif

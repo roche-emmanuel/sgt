@@ -13,42 +13,46 @@ void App::OnWebKitInitialized()
     "  cef = {};"
     "(function() {"
     "  var listeners = {};"
+    "  var shift = [].shift;"
     "  cef.addListener = function(ename,func) {"
     "    listeners[ename] = listeners[ename] || [];"
     "    listeners[ename].push(func);"
-    "  }"
+    "  };"
     "  cef.removeListener = function(ename,func) {"
     "    var list = listeners[ename];"    
     "    if(!list) return;"
     "    var num = list.length;"
-    "    for(var i=0;i<num;++i) {"
+    "    for(var i=0;i<num;i++) {"
     "       if(list[i] == func) {"
     "         list.splice(i, 1);"
-    "         break;"
+    "         return true;"
     "       }"
     "    }"
-    "  }"
+    "  };"
     "  cef.handleMessage = function(ename) {"
     "    var list = listeners[ename];"
     "    if(!list) return;"
     "    var num = list.length;"
+    "    shift.apply(arguments);"
     "    for(var i=0;i<num;++i) {"
-    "       list[i]();"
+    "       list[i].apply(this,arguments);"
     "    }"
-    "  }"
+    "  };"
     "})();";
 
   // Register the extension.
-  CefRegisterExtension("cef_extension", extensionCode, NULL);    
+  CHECK(CefRegisterExtension("cef_extension", extensionCode, NULL),"Cannot register cef extension");
 }
 
 void App::OnContextCreated(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefV8Context> context) {
-    if(browser->GetMainFrame() != frame) {
-        return;
-    }
+    // For now we assume only single frame behavior.
+    // TODO: find out how to use multiple frames.
+    // if(browser->GetMainFrame() != frame) {
+    //     return;
+    // }
 
     CHECK(!_context.get(),"Main context was already created.");
     _context = context;        
@@ -82,9 +86,11 @@ void App::OnContextReleased(
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefV8Context> context) {
 
-    if(browser->GetMainFrame() != frame) {
-        return;
-    }
+    // For now we assume only single frame behavior.
+    // TODO: find out how to use multiple frames.
+    // if(browser->GetMainFrame() != frame) {
+    //     return;
+    // }
 
     CHECK(_context.get(),"Main context was not created before release.");
     _context = NULL;

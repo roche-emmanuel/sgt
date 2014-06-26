@@ -86,7 +86,10 @@ public CefClient, public CefLifeSpanHandler
     // When receiving a message, it will simply be pushed on the internal message list
     // and left for later processing (maybe in another thread.)
     // This method also return the number of messages that were collected.
-    int CollectMessages(MessageList& list);
+    int CollectMessages(MessageList* list);
+
+    bool HasPendingMessage() { return !_messages.empty(); }
+    CefRefPtr<CefProcessMessage> GetPendingMessage();
 
     /** LUNA_IGNORED 
     The following method is called when a process message is received.

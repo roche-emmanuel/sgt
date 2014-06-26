@@ -16,17 +16,40 @@ public:
 			luaL_error(L, "luna typecheck failed in getTable function, expected prototype:\ngetTable(). Got arguments:\n%s",luna_dumpStack(L).c_str());
 		}
 
-		CefBase* self=(Luna< CefBase >::check(L,1));
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
 			luaL_error(L, "Invalid object in function call getTable()");
 		}
 		
-		luna_wrapper_base* wrapper = luna_caster<CefBase,luna_wrapper_base>::cast(self); //dynamic_cast<luna_wrapper_base*>(self);
+		luna_wrapper_base* wrapper = luna_caster<CefProcessMessage,luna_wrapper_base>::cast(self); //dynamic_cast<luna_wrapper_base*>(self);
 		if(wrapper) {
 			CHECK_RET(wrapper->pushTable(),0,"Cannot push table from value wrapper.");
 			return 1;
 		}
 		return 0;
+	}
+
+	inline static bool _lg_typecheck___eq(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( !Luna<void>::has_uniqueid(L,1,11478285) ) return false;
+		return true;
+	}
+	
+	static int _bind___eq(lua_State *L) {
+		if (!_lg_typecheck___eq(L)) {
+			luaL_error(L, "luna typecheck failed in __eq function, expected prototype:\n__eq(CefProcessMessage*). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		CefProcessMessage* rhs =(Luna< CefProcessMessage >::check(L,2));
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call __eq(...)");
+		}
+		
+		lua_pushboolean(L,self==rhs?1:0);
+
+		return 1;
 	}
 
 	inline static bool _lg_typecheck_fromVoid(lua_State *L) {
@@ -53,7 +76,7 @@ public:
 	inline static bool _lg_typecheck_asVoid(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,1,50549361) ) return false;
+		if( !Luna<void>::has_uniqueid(L,1,11478285) ) return false;
 		return true;
 	}
 	
@@ -62,7 +85,7 @@ public:
 			luaL_error(L, "luna typecheck failed in fromVoid function, expected prototype:\nasVoid(). Got arguments:\n%s",luna_dumpStack(L).c_str());
 		}
 
-		void* self= (void*)(Luna< CefBase >::check(L,1));
+		void* self= (void*)(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
 			luaL_error(L, "Invalid object in function call asVoid(...)");
 		}
@@ -71,28 +94,33 @@ public:
 		return 1;
 	}	
 
-	// Derived class converters:
-	static int _cast_from_CefBase(lua_State *L) {
-		// all checked are already performed before reaching this point.
-		//CefProcessMessage* ptr= dynamic_cast< CefProcessMessage* >(Luna< CefBase >::check(L,1));
-		CefProcessMessage* ptr= luna_caster< CefBase, CefProcessMessage >::cast(Luna< CefBase >::check(L,1));
-		if(!ptr)
-			return 0;
+	// Base class dynamic cast support:
+	inline static bool _lg_typecheck_dynCast(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_type(L,2)!=LUA_TSTRING ) return false;
+		return true;
+	}
+	
+	static int _bind_dynCast(lua_State *L) {
+		if (!_lg_typecheck_dynCast(L)) {
+			luaL_error(L, "luna typecheck failed in dynCast function, expected prototype:\ndynCast(const std::string &). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		std::string name(lua_tostring(L,2),lua_objlen(L,2));
+
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call dynCast(...)");
+		}
 		
-		// Otherwise push the pointer:
-		Luna< CefProcessMessage >::push(L,ptr,false);
-		return 1;
-	};
+		static LunaConverterMap& converters = luna_getConverterMap("CefProcessMessage");
+		
+		return luna_dynamicCast(L,converters,"CefProcessMessage",name);
+	}
 
 
 	// Constructor checkers:
-	inline static bool _lg_typecheck_ctor(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		if( lua_istable(L,1)==0 ) return false;
-		return true;
-	}
-
 
 	// Function checkers:
 	inline static bool _lg_typecheck_Create(lua_State *L) {
@@ -137,16 +165,6 @@ public:
 	// (found 0 valid operators)
 
 	// Constructor binds:
-	// CefProcessMessage::CefProcessMessage(lua_Table * data)
-	static CefProcessMessage* _bind_ctor(lua_State *L) {
-		if (!_lg_typecheck_ctor(L)) {
-			luaL_error(L, "luna typecheck failed in CefProcessMessage::CefProcessMessage(lua_Table * data) function, expected prototype:\nCefProcessMessage::CefProcessMessage(lua_Table * data)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		return new wrapper_CefProcessMessage(L,NULL);
-	}
-
 
 	// Function binds:
 	// static CefRefPtr< CefProcessMessage > CefProcessMessage::Create(const CefString & name)
@@ -159,7 +177,11 @@ public:
 		name.FromString(name_str);
 
 		CefRefPtr< CefProcessMessage > lret = CefProcessMessage::Create(name);
-		Luna< CefProcessMessage >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -171,9 +193,9 @@ public:
 		}
 
 
-		CefProcessMessage* self=Luna< CefBase >::checkSubType< CefProcessMessage >(L,1);
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefProcessMessage::IsValid(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefProcessMessage::IsValid(). Got : '%s'\n%s",typeid(Luna< CefProcessMessage >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->IsValid();
 		lua_pushboolean(L,lret?1:0);
@@ -188,9 +210,9 @@ public:
 		}
 
 
-		CefProcessMessage* self=Luna< CefBase >::checkSubType< CefProcessMessage >(L,1);
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefProcessMessage::IsReadOnly(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefProcessMessage::IsReadOnly(). Got : '%s'\n%s",typeid(Luna< CefProcessMessage >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->IsReadOnly();
 		lua_pushboolean(L,lret?1:0);
@@ -205,12 +227,16 @@ public:
 		}
 
 
-		CefProcessMessage* self=Luna< CefBase >::checkSubType< CefProcessMessage >(L,1);
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > CefProcessMessage::Copy(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefProcessMessage > CefProcessMessage::Copy(). Got : '%s'\n%s",typeid(Luna< CefProcessMessage >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefProcessMessage > lret = self->Copy();
-		Luna< CefProcessMessage >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefProcessMessage >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -222,9 +248,9 @@ public:
 		}
 
 
-		CefProcessMessage* self=Luna< CefBase >::checkSubType< CefProcessMessage >(L,1);
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefString CefProcessMessage::GetName(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefString CefProcessMessage::GetName(). Got : '%s'\n%s",typeid(Luna< CefProcessMessage >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefString lret = self->GetName();
 		std::string lret_str = lret.ToString();
@@ -240,12 +266,16 @@ public:
 		}
 
 
-		CefProcessMessage* self=Luna< CefBase >::checkSubType< CefProcessMessage >(L,1);
+		CefProcessMessage* self=(Luna< CefProcessMessage >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefRefPtr< CefListValue > CefProcessMessage::GetArgumentList(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefListValue > CefProcessMessage::GetArgumentList(). Got : '%s'\n%s",typeid(Luna< CefProcessMessage >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefListValue > lret = self->GetArgumentList();
-		Luna< CefListValue >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefListValue >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -256,7 +286,7 @@ public:
 };
 
 CefProcessMessage* LunaTraits< CefProcessMessage >::_bind_ctor(lua_State *L) {
-	return luna_wrapper_CefProcessMessage::_bind_ctor(L);
+	return NULL; // No valid default constructor.
 	// Note that this class is abstract (only lua wrappers can be created).
 	// Abstract methods:
 	// bool CefProcessMessage::IsValid()
@@ -264,21 +294,18 @@ CefProcessMessage* LunaTraits< CefProcessMessage >::_bind_ctor(lua_State *L) {
 	// CefRefPtr< CefProcessMessage > CefProcessMessage::Copy()
 	// CefString CefProcessMessage::GetName()
 	// CefRefPtr< CefListValue > CefProcessMessage::GetArgumentList()
-	// int CefBase::AddRef()
-	// int CefBase::Release()
-	// int CefBase::GetRefCt()
 }
 
 void LunaTraits< CefProcessMessage >::_bind_dtor(CefProcessMessage* obj) {
-	CefRefPtr<CefBase> refptr = obj;
+	CefRefPtr<CefProcessMessage> refptr = obj;
 }
 
 const char LunaTraits< CefProcessMessage >::className[] = "CefProcessMessage";
 const char LunaTraits< CefProcessMessage >::fullName[] = "CefProcessMessage";
 const char LunaTraits< CefProcessMessage >::moduleName[] = "cef";
-const char* LunaTraits< CefProcessMessage >::parents[] = {"cef.CefBase", 0};
+const char* LunaTraits< CefProcessMessage >::parents[] = {0};
 const int LunaTraits< CefProcessMessage >::hash = 11478285;
-const int LunaTraits< CefProcessMessage >::uniqueIDs[] = {50549361,0};
+const int LunaTraits< CefProcessMessage >::uniqueIDs[] = {11478285,0};
 
 luna_RegType LunaTraits< CefProcessMessage >::methods[] = {
 	{"Create", &luna_wrapper_CefProcessMessage::_bind_Create},
@@ -287,6 +314,8 @@ luna_RegType LunaTraits< CefProcessMessage >::methods[] = {
 	{"Copy", &luna_wrapper_CefProcessMessage::_bind_Copy},
 	{"GetName", &luna_wrapper_CefProcessMessage::_bind_GetName},
 	{"GetArgumentList", &luna_wrapper_CefProcessMessage::_bind_GetArgumentList},
+	{"dynCast", &luna_wrapper_CefProcessMessage::_bind_dynCast},
+	{"__eq", &luna_wrapper_CefProcessMessage::_bind___eq},
 	{"fromVoid", &luna_wrapper_CefProcessMessage::_bind_fromVoid},
 	{"asVoid", &luna_wrapper_CefProcessMessage::_bind_asVoid},
 	{"getTable", &luna_wrapper_CefProcessMessage::_bind_getTable},
@@ -294,7 +323,6 @@ luna_RegType LunaTraits< CefProcessMessage >::methods[] = {
 };
 
 luna_ConverterType LunaTraits< CefProcessMessage >::converters[] = {
-	{"CefBase", &luna_wrapper_CefProcessMessage::_cast_from_CefBase},
 	{0,0}
 };
 

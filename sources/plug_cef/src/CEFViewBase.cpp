@@ -141,7 +141,7 @@ void CEFViewBase::PostMessage(CefRefPtr<CefProcessMessage> message)
   _browser->SendProcessMessage(PID_RENDERER,message);
 }
 
-int CEFViewBase::CollectMessages(MessageList& list)
+int CEFViewBase::CollectMessages(MessageList* list)
 {
   sgtLock lock(_messageMutex);
 
@@ -151,11 +151,31 @@ int CEFViewBase::CollectMessages(MessageList& list)
   int num = _messages.size();
 
   // Inject the new messages in the provided list:
-  list.insert(list.end(),_messages.begin(),_messages.end());
+  list->insert(list->end(),_messages.begin(),_messages.end());
 
   // remove the messages from the internal list:
   _messages.clear();
+
+  // ensure that all messages are valid:
+  // for(MessageList::iterator it = list->begin(); it!=list->end(); ++it) {
+  //   CHECK_RET((*it)->IsValid(),0,"Found invalid message in MessageList.");
+  //   logDEBUG("List contains valid process message with name: '" << (*it)->GetName().ToString()<<"'");
+  // }
+
   return num;
+}
+
+CefRefPtr<CefProcessMessage> CEFViewBase::GetPendingMessage()
+{
+  sgtLock lock(_messageMutex);
+
+  if(_messages.empty())
+    return NULL;
+
+  CefRefPtr<CefProcessMessage> result = _messages.front();
+  _messages.erase(_messages.begin());
+
+  return result;
 }
 
 bool CEFViewBase::OnProcessMessageReceived( CefRefPtr< CefBrowser > browser, CefProcessId source_process, CefRefPtr< CefProcessMessage > message )
@@ -166,17 +186,25 @@ bool CEFViewBase::OnProcessMessageReceived( CefRefPtr< CefBrowser > browser, Cef
     return false;
   }
 
+  // DEBUG_MSG("Received ProcessMessage '"<< message->GetName().ToString() <<"' in browser process.");
   logDEBUG("Received ProcessMessage '"<< message->GetName().ToString() <<"' in browser process.");
 
   // accodrding to docs: http://magpcss.org/ceforum/apidocs3/projects/(default)/CefClient.html#OnProcessMessageReceived(CefRefPtr<CefBrowser>,CefProcessId,CefRefPtr<CefProcessMessage>)
   // we should not keep a reference or attempt to access the message outside of the callback, so we have to make a copy of it:
+  // logDEBUG("making copy of process message.");
   CefRefPtr<CefProcessMessage> copy = message->Copy();
 
+  // check that the newly create message is valid:
+  CHECK_RET(copy->IsValid(),false,"Invalid message copy.");
+
+  // logDEBUG("locking message mutex");
   sgtLock lock(_messageMutex);
 
   // push the message on the internal list:
+  // logDEBUG("pushing message on stack.");
   _messages.push_back(copy);
 
+  // logDEBUG("Done handling process message.");
   // Notify that the message was handled properly:
   return true;
 }

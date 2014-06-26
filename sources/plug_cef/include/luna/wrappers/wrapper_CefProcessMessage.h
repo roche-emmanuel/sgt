@@ -35,27 +35,6 @@ public:
 	// Protected virtual methods:
 
 	// Public virtual methods:
-	// int CefBase::AddRef()
-	int AddRef() {
-		THROW_IF(!_obj.pushFunction("AddRef"),"No implementation for abstract function CefBase::AddRef");
-		_obj.pushArg((CefProcessMessage*)this);
-		return (_obj.callFunction<int>());
-	};
-
-	// int CefBase::Release()
-	int Release() {
-		THROW_IF(!_obj.pushFunction("Release"),"No implementation for abstract function CefBase::Release");
-		_obj.pushArg((CefProcessMessage*)this);
-		return (_obj.callFunction<int>());
-	};
-
-	// int CefBase::GetRefCt()
-	int GetRefCt() {
-		THROW_IF(!_obj.pushFunction("GetRefCt"),"No implementation for abstract function CefBase::GetRefCt");
-		_obj.pushArg((CefProcessMessage*)this);
-		return (_obj.callFunction<int>());
-	};
-
 	// bool CefProcessMessage::IsValid()
 	bool IsValid() {
 		THROW_IF(!_obj.pushFunction("IsValid"),"No implementation for abstract function CefProcessMessage::IsValid");

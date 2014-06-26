@@ -43,7 +43,7 @@ public:
 	static luna_RegEnumType enumValues[];
 	static CefBinaryValue* _bind_ctor(lua_State *L);
 	static void _bind_dtor(CefBinaryValue* obj);
-	typedef CefBase parent_t;
+	typedef CefBinaryValue parent_t;
 	typedef CefBinaryValue base_t;
 	static luna_ConverterType converters[];
 };
@@ -62,7 +62,7 @@ public:
 	static luna_RegEnumType enumValues[];
 	static CefDictionaryValue* _bind_ctor(lua_State *L);
 	static void _bind_dtor(CefDictionaryValue* obj);
-	typedef CefBase parent_t;
+	typedef CefDictionaryValue parent_t;
 	typedef CefDictionaryValue base_t;
 	static luna_ConverterType converters[];
 };
@@ -100,7 +100,7 @@ public:
 	static luna_RegEnumType enumValues[];
 	static CefListValue* _bind_ctor(lua_State *L);
 	static void _bind_dtor(CefListValue* obj);
-	typedef CefBase parent_t;
+	typedef CefListValue parent_t;
 	typedef CefListValue base_t;
 	static luna_ConverterType converters[];
 };
@@ -119,7 +119,7 @@ public:
 	static luna_RegEnumType enumValues[];
 	static CefProcessMessage* _bind_ctor(lua_State *L);
 	static void _bind_dtor(CefProcessMessage* obj);
-	typedef CefBase parent_t;
+	typedef CefProcessMessage parent_t;
 	typedef CefProcessMessage base_t;
 	static luna_ConverterType converters[];
 };
@@ -324,9 +324,37 @@ public:
 };
 
 template<>
+class LunaType< 46328183 > {
+public:
+	typedef CefBinaryValue type;
+	
+};
+
+template<>
+class LunaType< 46486223 > {
+public:
+	typedef CefDictionaryValue type;
+	
+};
+
+template<>
 class LunaType< 39311454 > {
 public:
 	typedef CefDictionaryValue::KeyList type;
+	
+};
+
+template<>
+class LunaType< 94964280 > {
+public:
+	typedef CefListValue type;
+	
+};
+
+template<>
+class LunaType< 11478285 > {
+public:
+	typedef CefProcessMessage type;
 	
 };
 

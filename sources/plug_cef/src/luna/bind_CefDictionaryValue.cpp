@@ -16,17 +16,40 @@ public:
 			luaL_error(L, "luna typecheck failed in getTable function, expected prototype:\ngetTable(). Got arguments:\n%s",luna_dumpStack(L).c_str());
 		}
 
-		CefBase* self=(Luna< CefBase >::check(L,1));
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
 			luaL_error(L, "Invalid object in function call getTable()");
 		}
 		
-		luna_wrapper_base* wrapper = luna_caster<CefBase,luna_wrapper_base>::cast(self); //dynamic_cast<luna_wrapper_base*>(self);
+		luna_wrapper_base* wrapper = luna_caster<CefDictionaryValue,luna_wrapper_base>::cast(self); //dynamic_cast<luna_wrapper_base*>(self);
 		if(wrapper) {
 			CHECK_RET(wrapper->pushTable(),0,"Cannot push table from value wrapper.");
 			return 1;
 		}
 		return 0;
+	}
+
+	inline static bool _lg_typecheck___eq(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( !Luna<void>::has_uniqueid(L,1,46486223) ) return false;
+		return true;
+	}
+	
+	static int _bind___eq(lua_State *L) {
+		if (!_lg_typecheck___eq(L)) {
+			luaL_error(L, "luna typecheck failed in __eq function, expected prototype:\n__eq(CefDictionaryValue*). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		CefDictionaryValue* rhs =(Luna< CefDictionaryValue >::check(L,2));
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call __eq(...)");
+		}
+		
+		lua_pushboolean(L,self==rhs?1:0);
+
+		return 1;
 	}
 
 	inline static bool _lg_typecheck_fromVoid(lua_State *L) {
@@ -53,7 +76,7 @@ public:
 	inline static bool _lg_typecheck_asVoid(lua_State *L) {
 		if( lua_gettop(L)!=1 ) return false;
 
-		if( !Luna<void>::has_uniqueid(L,1,50549361) ) return false;
+		if( !Luna<void>::has_uniqueid(L,1,46486223) ) return false;
 		return true;
 	}
 	
@@ -62,7 +85,7 @@ public:
 			luaL_error(L, "luna typecheck failed in fromVoid function, expected prototype:\nasVoid(). Got arguments:\n%s",luna_dumpStack(L).c_str());
 		}
 
-		void* self= (void*)(Luna< CefBase >::check(L,1));
+		void* self= (void*)(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
 			luaL_error(L, "Invalid object in function call asVoid(...)");
 		}
@@ -71,28 +94,33 @@ public:
 		return 1;
 	}	
 
-	// Derived class converters:
-	static int _cast_from_CefBase(lua_State *L) {
-		// all checked are already performed before reaching this point.
-		//CefDictionaryValue* ptr= dynamic_cast< CefDictionaryValue* >(Luna< CefBase >::check(L,1));
-		CefDictionaryValue* ptr= luna_caster< CefBase, CefDictionaryValue >::cast(Luna< CefBase >::check(L,1));
-		if(!ptr)
-			return 0;
+	// Base class dynamic cast support:
+	inline static bool _lg_typecheck_dynCast(lua_State *L) {
+		if( lua_gettop(L)!=2 ) return false;
+
+		if( lua_type(L,2)!=LUA_TSTRING ) return false;
+		return true;
+	}
+	
+	static int _bind_dynCast(lua_State *L) {
+		if (!_lg_typecheck_dynCast(L)) {
+			luaL_error(L, "luna typecheck failed in dynCast function, expected prototype:\ndynCast(const std::string &). Got arguments:\n%s",luna_dumpStack(L).c_str());
+		}
+
+		std::string name(lua_tostring(L,2),lua_objlen(L,2));
+
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
+		if(!self) {
+			luaL_error(L, "Invalid object in function call dynCast(...)");
+		}
 		
-		// Otherwise push the pointer:
-		Luna< CefDictionaryValue >::push(L,ptr,false);
-		return 1;
-	};
+		static LunaConverterMap& converters = luna_getConverterMap("CefDictionaryValue");
+		
+		return luna_dynamicCast(L,converters,"CefDictionaryValue",name);
+	}
 
 
 	// Constructor checkers:
-	inline static bool _lg_typecheck_ctor(lua_State *L) {
-		if( lua_gettop(L)!=1 ) return false;
-
-		if( lua_istable(L,1)==0 ) return false;
-		return true;
-	}
-
 
 	// Function checkers:
 	inline static bool _lg_typecheck_Create(lua_State *L) {
@@ -258,8 +286,8 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( (lua_type(L,2)!=LUA_TSTRING) ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,50549361) ) return false;
-		if( !Luna< CefBase >::checkSubType< CefBinaryValue >(L,3) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,LunaTraits< LunaTraits< CefBinaryValue >::parent_t >::hash) ) return false;
+		if( !Luna< LunaTraits< CefBinaryValue >::parent_t >::checkSubType< CefBinaryValue >(L,3) ) return false;
 		return true;
 	}
 
@@ -267,8 +295,8 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( (lua_type(L,2)!=LUA_TSTRING) ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,50549361) ) return false;
-		if( !Luna< CefBase >::checkSubType< CefDictionaryValue >(L,3) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,LunaTraits< LunaTraits< CefDictionaryValue >::parent_t >::hash) ) return false;
+		if( !Luna< LunaTraits< CefDictionaryValue >::parent_t >::checkSubType< CefDictionaryValue >(L,3) ) return false;
 		return true;
 	}
 
@@ -276,8 +304,8 @@ public:
 		if( lua_gettop(L)!=3 ) return false;
 
 		if( (lua_type(L,2)!=LUA_TSTRING) ) return false;
-		if( !Luna<void>::has_uniqueid(L,3,50549361) ) return false;
-		if( !Luna< CefBase >::checkSubType< CefListValue >(L,3) ) return false;
+		if( !Luna<void>::has_uniqueid(L,3,LunaTraits< LunaTraits< CefListValue >::parent_t >::hash) ) return false;
+		if( !Luna< LunaTraits< CefListValue >::parent_t >::checkSubType< CefListValue >(L,3) ) return false;
 		return true;
 	}
 
@@ -286,16 +314,6 @@ public:
 	// (found 0 valid operators)
 
 	// Constructor binds:
-	// CefDictionaryValue::CefDictionaryValue(lua_Table * data)
-	static CefDictionaryValue* _bind_ctor(lua_State *L) {
-		if (!_lg_typecheck_ctor(L)) {
-			luaL_error(L, "luna typecheck failed in CefDictionaryValue::CefDictionaryValue(lua_Table * data) function, expected prototype:\nCefDictionaryValue::CefDictionaryValue(lua_Table * data)\nClass arguments details:\n\n%s",luna_dumpStack(L).c_str());
-		}
-
-
-		return new wrapper_CefDictionaryValue(L,NULL);
-	}
-
 
 	// Function binds:
 	// static CefRefPtr< CefDictionaryValue > CefDictionaryValue::Create()
@@ -306,7 +324,11 @@ public:
 
 
 		CefRefPtr< CefDictionaryValue > lret = CefDictionaryValue::Create();
-		Luna< CefDictionaryValue >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefDictionaryValue >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -318,9 +340,9 @@ public:
 		}
 
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::IsValid(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::IsValid(). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->IsValid();
 		lua_pushboolean(L,lret?1:0);
@@ -335,9 +357,9 @@ public:
 		}
 
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::IsOwned(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::IsOwned(). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->IsOwned();
 		lua_pushboolean(L,lret?1:0);
@@ -352,9 +374,9 @@ public:
 		}
 
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::IsReadOnly(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::IsReadOnly(). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->IsReadOnly();
 		lua_pushboolean(L,lret?1:0);
@@ -370,12 +392,16 @@ public:
 
 		bool exclude_empty_children=(bool)(lua_toboolean(L,2)==1);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefRefPtr< CefDictionaryValue > CefDictionaryValue::Copy(bool). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefDictionaryValue > CefDictionaryValue::Copy(bool). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefDictionaryValue > lret = self->Copy(exclude_empty_children);
-		Luna< CefDictionaryValue >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefDictionaryValue >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -387,9 +413,9 @@ public:
 		}
 
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call size_t CefDictionaryValue::GetSize(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call size_t CefDictionaryValue::GetSize(). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		size_t lret = self->GetSize();
 		lua_pushnumber(L,lret);
@@ -404,9 +430,9 @@ public:
 		}
 
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::Clear(). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::Clear(). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->Clear();
 		lua_pushboolean(L,lret?1:0);
@@ -423,9 +449,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::HasKey(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::HasKey(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->HasKey(key);
 		lua_pushboolean(L,lret?1:0);
@@ -445,9 +471,9 @@ public:
 		}
 		CefDictionaryValue::KeyList & keys=*keys_ptr;
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::GetKeys(CefDictionaryValue::KeyList &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::GetKeys(CefDictionaryValue::KeyList &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->GetKeys(keys);
 		lua_pushboolean(L,lret?1:0);
@@ -464,9 +490,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::Remove(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::Remove(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->Remove(key);
 		lua_pushboolean(L,lret?1:0);
@@ -483,9 +509,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call cef_value_type_t CefDictionaryValue::GetType(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call cef_value_type_t CefDictionaryValue::GetType(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		cef_value_type_t lret = self->GetType(key);
 		lua_pushnumber(L,lret);
@@ -502,9 +528,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::GetBool(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::GetBool(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->GetBool(key);
 		lua_pushboolean(L,lret?1:0);
@@ -521,9 +547,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call int CefDictionaryValue::GetInt(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call int CefDictionaryValue::GetInt(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		int lret = self->GetInt(key);
 		lua_pushnumber(L,lret);
@@ -540,9 +566,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call double CefDictionaryValue::GetDouble(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call double CefDictionaryValue::GetDouble(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		double lret = self->GetDouble(key);
 		lua_pushnumber(L,lret);
@@ -559,9 +585,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefString CefDictionaryValue::GetString(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefString CefDictionaryValue::GetString(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefString lret = self->GetString(key);
 		std::string lret_str = lret.ToString();
@@ -579,12 +605,16 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefRefPtr< CefBinaryValue > CefDictionaryValue::GetBinary(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefBinaryValue > CefDictionaryValue::GetBinary(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefBinaryValue > lret = self->GetBinary(key);
-		Luna< CefBinaryValue >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefBinaryValue >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -598,12 +628,16 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefRefPtr< CefDictionaryValue > CefDictionaryValue::GetDictionary(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefDictionaryValue > CefDictionaryValue::GetDictionary(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefDictionaryValue > lret = self->GetDictionary(key);
-		Luna< CefDictionaryValue >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefDictionaryValue >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -617,12 +651,16 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call CefRefPtr< CefListValue > CefDictionaryValue::GetList(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call CefRefPtr< CefListValue > CefDictionaryValue::GetList(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		CefRefPtr< CefListValue > lret = self->GetList(key);
-		Luna< CefListValue >::push(L,lret.get(),false);
+		if(lret.get()) { 
+	Luna< CefListValue >::push(L,lret.get(),false);
+} else { 
+	lua_pushnil(L);
+ }
 
 		return 1;
 	}
@@ -636,9 +674,9 @@ public:
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetNull(const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetNull(const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetNull(key);
 		lua_pushboolean(L,lret?1:0);
@@ -656,9 +694,9 @@ public:
 		key.FromString(key_str);
 		bool value=(bool)(lua_toboolean(L,3)==1);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetBool(const CefString &, bool). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetBool(const CefString &, bool). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetBool(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -676,9 +714,9 @@ public:
 		key.FromString(key_str);
 		int value=(int)lua_tointeger(L,3);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetInt(const CefString &, int). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetInt(const CefString &, int). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetInt(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -696,9 +734,9 @@ public:
 		key.FromString(key_str);
 		double value=(double)lua_tonumber(L,3);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetDouble(const CefString &, double). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetDouble(const CefString &, double). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetDouble(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -717,9 +755,9 @@ public:
 		CefString value; std::string value_str(lua_tostring(L,3),lua_objlen(L,3));
 		value.FromString(value_str);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetString(const CefString &, const CefString &). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetString(const CefString &, const CefString &). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetString(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -735,11 +773,11 @@ public:
 
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
-		CefRefPtr< CefBinaryValue > value = Luna< CefBase >::checkSubType< CefBinaryValue >(L,3);
+		CefRefPtr< CefBinaryValue > value = Luna< LunaTraits< CefBinaryValue >::parent_t >::checkSubType< CefBinaryValue >(L,3);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetBinary(const CefString &, CefRefPtr< CefBinaryValue >). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetBinary(const CefString &, CefRefPtr< CefBinaryValue >). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetBinary(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -755,11 +793,11 @@ public:
 
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
-		CefRefPtr< CefDictionaryValue > value = Luna< CefBase >::checkSubType< CefDictionaryValue >(L,3);
+		CefRefPtr< CefDictionaryValue > value = Luna< LunaTraits< CefDictionaryValue >::parent_t >::checkSubType< CefDictionaryValue >(L,3);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetDictionary(const CefString &, CefRefPtr< CefDictionaryValue >). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetDictionary(const CefString &, CefRefPtr< CefDictionaryValue >). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetDictionary(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -775,11 +813,11 @@ public:
 
 		CefString key; std::string key_str(lua_tostring(L,2),lua_objlen(L,2));
 		key.FromString(key_str);
-		CefRefPtr< CefListValue > value = Luna< CefBase >::checkSubType< CefListValue >(L,3);
+		CefRefPtr< CefListValue > value = Luna< LunaTraits< CefListValue >::parent_t >::checkSubType< CefListValue >(L,3);
 
-		CefDictionaryValue* self=Luna< CefBase >::checkSubType< CefDictionaryValue >(L,1);
+		CefDictionaryValue* self=(Luna< CefDictionaryValue >::check(L,1));
 		if(!self) {
-			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetList(const CefString &, CefRefPtr< CefListValue >). Got : '%s'\n%s",typeid(Luna< CefBase >::check(L,1)).name(),luna_dumpStack(L).c_str());
+			luaL_error(L, "Invalid object in function call bool CefDictionaryValue::SetList(const CefString &, CefRefPtr< CefListValue >). Got : '%s'\n%s",typeid(Luna< CefDictionaryValue >::check(L,1)).name(),luna_dumpStack(L).c_str());
 		}
 		bool lret = self->SetList(key, value);
 		lua_pushboolean(L,lret?1:0);
@@ -793,7 +831,7 @@ public:
 };
 
 CefDictionaryValue* LunaTraits< CefDictionaryValue >::_bind_ctor(lua_State *L) {
-	return luna_wrapper_CefDictionaryValue::_bind_ctor(L);
+	return NULL; // No valid default constructor.
 	// Note that this class is abstract (only lua wrappers can be created).
 	// Abstract methods:
 	// bool CefDictionaryValue::IsValid()
@@ -821,21 +859,18 @@ CefDictionaryValue* LunaTraits< CefDictionaryValue >::_bind_ctor(lua_State *L) {
 	// bool CefDictionaryValue::SetBinary(const CefString & key, CefRefPtr< CefBinaryValue > value)
 	// bool CefDictionaryValue::SetDictionary(const CefString & key, CefRefPtr< CefDictionaryValue > value)
 	// bool CefDictionaryValue::SetList(const CefString & key, CefRefPtr< CefListValue > value)
-	// int CefBase::AddRef()
-	// int CefBase::Release()
-	// int CefBase::GetRefCt()
 }
 
 void LunaTraits< CefDictionaryValue >::_bind_dtor(CefDictionaryValue* obj) {
-	CefRefPtr<CefBase> refptr = obj;
+	CefRefPtr<CefDictionaryValue> refptr = obj;
 }
 
 const char LunaTraits< CefDictionaryValue >::className[] = "CefDictionaryValue";
 const char LunaTraits< CefDictionaryValue >::fullName[] = "CefDictionaryValue";
 const char LunaTraits< CefDictionaryValue >::moduleName[] = "cef";
-const char* LunaTraits< CefDictionaryValue >::parents[] = {"cef.CefBase", 0};
+const char* LunaTraits< CefDictionaryValue >::parents[] = {0};
 const int LunaTraits< CefDictionaryValue >::hash = 46486223;
-const int LunaTraits< CefDictionaryValue >::uniqueIDs[] = {50549361,0};
+const int LunaTraits< CefDictionaryValue >::uniqueIDs[] = {46486223,0};
 
 luna_RegType LunaTraits< CefDictionaryValue >::methods[] = {
 	{"Create", &luna_wrapper_CefDictionaryValue::_bind_Create},
@@ -864,6 +899,8 @@ luna_RegType LunaTraits< CefDictionaryValue >::methods[] = {
 	{"SetBinary", &luna_wrapper_CefDictionaryValue::_bind_SetBinary},
 	{"SetDictionary", &luna_wrapper_CefDictionaryValue::_bind_SetDictionary},
 	{"SetList", &luna_wrapper_CefDictionaryValue::_bind_SetList},
+	{"dynCast", &luna_wrapper_CefDictionaryValue::_bind_dynCast},
+	{"__eq", &luna_wrapper_CefDictionaryValue::_bind___eq},
 	{"fromVoid", &luna_wrapper_CefDictionaryValue::_bind_fromVoid},
 	{"asVoid", &luna_wrapper_CefDictionaryValue::_bind_asVoid},
 	{"getTable", &luna_wrapper_CefDictionaryValue::_bind_getTable},
@@ -871,7 +908,6 @@ luna_RegType LunaTraits< CefDictionaryValue >::methods[] = {
 };
 
 luna_ConverterType LunaTraits< CefDictionaryValue >::converters[] = {
-	{"CefBase", &luna_wrapper_CefDictionaryValue::_cast_from_CefBase},
 	{0,0}
 };
 
