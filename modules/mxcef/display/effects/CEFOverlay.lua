@@ -351,19 +351,22 @@ function Class:onCurrentStreamUpdated(sname)
 	-- When this method is called it means we should update all the stream dependent text slots:
 	local list = self._streamFields[sname] or {}
 	
-	-- TODO: Note that instead of sending multiple commands, we can send a single command pack:
-	-- local cmds = {}
+	-- Note that instead of sending multiple commands, we can send a single command pack:
+	local cmds = {}
 
 	for fname,val in pairs(list) do
-		self:onFieldUpdated(fname,val)
+		table.insert(cmds,{"setTextValue", fname, val})
+		-- self:onFieldUpdated(fname,val)
 	end
 
 	local list = self._streamHighlights[sname] or {}
 	for fname,val in pairs(list) do
-		self:onHighlightUpdated(fname,val,false)
+		table.insert(cmds,{"setTextHighlight", fname, val, false})
+		-- self:onHighlightUpdated(fname,val,false)
 	end
 
-
+	-- now send the pack of commands:
+	self:postMessage("mxcmdpack",cmds)
 end
 
 function Class:onStreamFieldUpdated(sname, item_name, value)
