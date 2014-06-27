@@ -26,3 +26,32 @@ log:debug("extension","Assigning CEFOverlay as target implementation.");
 local cfg = require "models.turret.parts.Common"
 cfg:set("Overlay.class_name","CEFOverlay")
 
+-- also override the method from OutputChannel to build the overlay:
+local OutputChannel = require "mx.OutputChannel"
+
+OutputChannel.buildOverlay = function(self)
+	self:debug("Calling overrided OutputChannel buildOverlay method.")
+
+	-- Check if we have an overlay class specified:
+	local className = self:getConfig():get("Overlay.class_name")
+	if className and className~="" and self:getID()==1 and self:isDigital() then
+		-- check if we have build options:
+		local options = self:getConfig():get("Overlay.build_options",{})
+		
+		-- add the overlay class as an effect for this processor:
+		self._overlayFx = self:addEffect(className,options)
+
+		-- once we have an overlay class, we can already decide here if the outlines should be enabled or not:
+		-- for now we just assume that only digital outputs use the advanced outline effect, or analog outputs
+		-- but only when on RCS15
+		self._overlayFx:setOutlineState(self:isDigital() or self:isRCS(15))
+
+		-- disable by default:
+		self._overlayFx:setEnabled(false)
+
+		-- prepare the udpate callback for later usage:
+		self._overlayUpdateCB = function()
+			self._overlayFx:update()
+		end
+	end
+end

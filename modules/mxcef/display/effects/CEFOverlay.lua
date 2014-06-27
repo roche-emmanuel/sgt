@@ -44,8 +44,10 @@ function Class:initialize(options)
 
 	self._view:addListener('overlay_ready',function()
 		-- core2.showMessageBox("Received ready message!","Debug");
+		
 		self:assignMenuMap()
 		self:assignLayout()
+		self._overlayReady = true
 	end)
 
 	-- self._view:addListener('logInfo',function(msg)
@@ -58,6 +60,11 @@ function Class:addListener(ename,func)
 end
 
 function Class:postMessage(...)
+	if not self._overlayReady then
+		self:debug("Overlay not ready yet, discarding message :",...)
+		return
+	end
+
 	self._view:postMessage(...)
 end
 
@@ -105,6 +112,13 @@ function Class:assignLayout()
 
 	self:debug("Setting layout to type=",otype,", res=",rname,", flavor=",flavor)
 	self:postCommand("setLayout",otype,rname,flavor or "")
+end
+
+function Class:onNorthIndicatorUpdated(value)
+	if(self._prevNorth and math.abs(self._prevNorth - value) < 0.01) then return end
+
+	self._prevNorth = value
+	self:postCommand("setNorthIndicatorAngle",value)
 end
 
 return Class
