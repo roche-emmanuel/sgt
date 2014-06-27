@@ -127,3 +127,4 @@
 - Added support to retrieve console messages from CEF browsers.
 - Added support for assign menu map and layout in CEFOverlay.
 - Added support for north pointer control.
+- Added support for complete CEFOverlay loading.

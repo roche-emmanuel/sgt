@@ -54,6 +54,8 @@ void App::OnContextCreated(
     //     return;
     // }
 
+    // DEBUG_MSG("In OnContextCreated()");
+
     CHECK(!_context.get(),"Main context was already created.");
     _context = context;        
 
@@ -92,6 +94,8 @@ void App::OnContextReleased(
     //     return;
     // }
 
+    // DEBUG_MSG("In OnContextReleased()");
+
     CHECK(_context.get(),"Main context was not created before release.");
     _context = NULL;
 }
@@ -103,6 +107,9 @@ CefRefPtr<CefV8Value> getListValue(CefRefPtr<ListType> list, IndexType index)
 
     if(vtype==VTYPE_NULL) {
         return CefV8Value::CreateNull();
+    }
+    else if(vtype==VTYPE_BOOL) {
+        return CefV8Value::CreateBool(list->GetBool(index));
     }
     else if(vtype==VTYPE_INT) {
         return CefV8Value::CreateInt(list->GetInt(index));
@@ -147,7 +154,7 @@ CefRefPtr<CefV8Value> getListValue(CefRefPtr<ListType> list, IndexType index)
         return obj;
     }
 
-    ERROR_MSG("Invalid or N binary value received.");
+    ERROR_MSG("Invalid or binary value received.");
     return CefV8Value::CreateUndefined(); 
 }
 
@@ -159,11 +166,12 @@ bool App::OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefProcessId s
         return false;
     }
 
-    CHECK_RET(_context.get() && _context->IsValid(),false,"Invalid context in OnProcessMessageReceived.");
-
     // Once we received this message, we need to convert it into arguments for a call of the message handling
     // method in javascript.
     CHECK_RET(message->IsValid(),false,"Received invalid process message.");
+
+    CHECK_RET(_context.get(),false,"NULL context in OnProcessMessageReceived for message " << message->GetName().ToString());
+    CHECK_RET(_context->IsValid(),false,"Invalid context in OnProcessMessageReceived for message " << message->GetName().ToString());
 
     // Note that here we need to call a javascript function.
     // So first we try to retrieve the function object:
