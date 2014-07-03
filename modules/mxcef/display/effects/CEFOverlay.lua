@@ -21,9 +21,17 @@ Create a new instance of the class.
 function CEFOverlay(options)
 ]=]
 function Class:initialize(options)
-	self:debug("Loading CEF Overlay!")
+	self:debug("Loading CEF Overlay")
 
 	-- when creating the overlay, we need to build a new CEFViewBase:
+	-- Now we build the effect pipeline by just merging the Overlay on top of the background imagery:
+	local fx = self:addFilter{"AddLayer"}
+
+	self._overlayReady = false;
+	-- values that should be displayed per stream will be saved here:
+	self._streamFields = {}
+	self._streamHighlights = {}
+	self._currentStreamName = nil -- start uninitialized.
 
 	-- Retrieve the appropriate dimensions for the rendering of this view:
 	-- The dimensions can be retrieved from the parent OutputChannel.
@@ -35,19 +43,9 @@ function Class:initialize(options)
 	-- Now we prepare the TextureObject to hold the DirectX texture for this CEFView:
 	self._view = require "cef.View" {size=size,url="W:/Cloud/Projects/mxjs/app/index.html"}
 
-	-- Now we build the effect pipeline by just merging the Overlay on top of the background imagery:
-	local fx = self:addFilter{"AddLayer"}
-
-	-- tobj:setLinearFiltering()
+	-- self._view:setLinearFiltering()
 	self._view:setPointFiltering()
 	fx:setTextureObject(self._view,1)
-
-	self._overlayReady = false;
-
-	-- values that should be displayed per stream will be saved here:
-	self._streamFields = {}
-	self._streamHighlights = {}
-	self._currentStreamName = nil -- start uninitialized.
 
 	-- Add a listener on the output channel to always get the current stream in use:
 	self:getTurret():addListener{Class.EVT_OUTPUT_SOURCE_UPDATED,function(output)
@@ -61,8 +59,16 @@ function Class:initialize(options)
 		self._overlayReady = true		
 		self:assignMenuMap()
 		self:assignLayout()
+		self:assignTitle()
 		self:performFullRefresh()
 	end)
+
+-- if false then
+-- else
+-- 	self:debug("Using simple noise texture for CEFOverlay")
+-- 	local TextureObject = require "dx.TextureObject"	
+--   fx:setTextureObject(TextureObject{type="noise",width=512,height=512},1)
+-- end
 
 	-- self._view:addListener('logInfo',function(msg)
 	-- 	log:info("JavaScript",msg)
@@ -74,6 +80,11 @@ function Class:addListener(ename,func)
 end
 
 function Class:postMessage(...)
+	local output = self:getProcessor()
+	if not output:isEnabled() then
+		return -- do not post anything in that case.
+	end
+
 	if not self._overlayReady then
 		self:debug("Overlay not ready yet, discarding message :",...)
 		return
@@ -92,7 +103,23 @@ end
 
 function Class:update()
 	-- self:debug("Performing CEF update...")
-	self._view:collectMessages()
+	if self._view then
+		self._view:collectMessages()
+	end
+end
+
+function Class:assignTitle()
+	
+	-- Now fill the array:
+	-- if we have a valid turret at this point, then we should retrieve the menu map from it:				
+	local tname = self._turret:getName()
+	local output = self:getProcessor()
+	local oname = output:isDigital() and "Digital" or "Analog"
+
+	local title = tname .. " - " .. oname .. " " .. output:getID()
+
+	self:debug("Assigning title to CEFView: ",title)
+	self:postCommand("setTitle",title)
 end
 
 function Class:assignMenuMap()

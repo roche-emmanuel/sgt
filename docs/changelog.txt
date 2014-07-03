@@ -129,3 +129,4 @@
 - Added support for north pointer control.
 - Added support for complete CEFOverlay loading.
 - Added support for mx command pack usage.
+- Preparing suport for CEF Moving map implementation. First fixed crash error in VBSSim auxilliary windows.

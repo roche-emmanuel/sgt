@@ -26,7 +26,7 @@ void DX9RenderTarget::PaintRects(const CefRenderHandler::RectList &dirtyRects, c
   for (CefRenderHandler::RectList::const_iterator it = dirtyRects.begin(); it!= dirtyRects.end(); ++it) {
     const CefRect& rect = *it;
 
-		logDEBUG("Painting rect x="<<rect.x<<", y="<<rect.y<<", width="<<rect.width<<", height="<<rect.height)
+		// logDEBUG("Painting rect x="<<rect.x<<", y="<<rect.y<<", width="<<rect.width<<", height="<<rect.height)
 
 		D3DLOCKED_RECT locked;
 		RECT dxrect;
@@ -102,10 +102,12 @@ bool DX9RenderTarget::IsInitialized()
 void DX9RenderTarget::Update()
 {
 	sgtLock lock(_textureMutex);
+
 	CHECK(_updateNeeded,"Should not be updating if update is not needed.");
 
 	// perform the udpate operation:
 	HRESULT result = _device->UpdateTexture(_memTexture.Get(),_gpuTexture.Get());	
+
 	CHECK_RESULT(result,"Error while calling UpdateTexture()");
 	
 	// Mark the update as done:
