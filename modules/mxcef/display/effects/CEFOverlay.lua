@@ -41,6 +41,7 @@ function Class:initialize(options)
 	local size = self.overlayResolutionSizeMap[res] or self.resolutionSizeMap[res]
 
 	-- Now we prepare the TextureObject to hold the DirectX texture for this CEFView:
+	-- self._view = require "cef.View" {size=size,url="http://www.google.fr"}
 	self._view = require "cef.View" {size=size,url="W:/Cloud/Projects/mxjs/app/index.html"}
 
 	-- self._view:setLinearFiltering()

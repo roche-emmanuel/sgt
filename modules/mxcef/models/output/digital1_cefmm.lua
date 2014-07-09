@@ -8,7 +8,8 @@ cfg:set("windows",{
 
 cfg:set("outputs",{
 	{type="output",channel=1,analog=false,rect=Rect.normLTWH(0.0,0.0,1.0,1.0)},
-	{class="cef.MovingMap",rect=Rect.normLTWH(0.0,0.0,1.0,1.0),window="win1"},
+	-- {type="output",channel=1,analog=false,rect=Rect.normLTWH(0.0,0.0,1.0,1.0),window="win1"},
+	{class="cef.MovingMap",rect=Rect.normLTWH(0.0,0.0,1.0,1.0),window="win1",zoffset=0.5},
 })
 
 return cfg

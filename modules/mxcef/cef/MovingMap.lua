@@ -23,13 +23,17 @@ function Class:initialize(options)
 
 	-- Now we prepare the TextureObject to hold the DirectX texture for this CEFView:
 	-- self._view = require "cef.View" {size=size,url="http://www.google.fr"}
+	self._view = require "cef.View" {size=size,url="http://wiki.singularityworld.net/"}
+	-- self._view = require "cef.View" {size=size,url="W:/Cloud/Projects/index.html"}
+	self._view:setPointFiltering()
 
-	-- self:setTextureObject(self._view)
+	-- local TextureObject = require "dx.TextureObject"	
+ -- 	self:setTextureObject(TextureObject{type="noise",width=128,height=128},0)
+	self:setTextureObject(self._view)
 
-
-	-- self:getTurret():addListener{Class.EVT_PRE_UPDATE,function()
-	-- 	self._view:collectMessages()
-	-- end}
+	self:getTurret():addListener{Class.EVT_PRE_UPDATE,function()
+		self._view:collectMessages()
+	end}
 
 	-- self._overlayReady = false;
 	-- self._view:addListener('overlay_ready',function()
@@ -41,6 +45,11 @@ end
 function Class:addListener(ename,func)
 	self._view:addListener(ename,func)
 end
+
+-- function Class:getProgram()
+-- 	local Program = require "dx.Program"
+-- 	return Program.createProgram("CopyImage")
+-- end
 
 function Class:supportsEvents()
 	return true;
