@@ -251,8 +251,8 @@ function Class:generateEVB()
 
 	self:openTag("Files")
 	self:writeTag("Enabled",true)
-	self:writeTag("DeleteExtractedOnExit",false)
-	self:writeTag("CompressFiles",false)
+	self:writeTag("DeleteExtractedOnExit",self._desc.delete_extracted_on_exit or false)
+	self:writeTag("CompressFiles",self._desc.compress_files or false)
 
 	-- write all the files for this project:
 	self:openTag("Files")

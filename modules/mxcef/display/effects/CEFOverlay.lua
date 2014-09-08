@@ -490,4 +490,12 @@ function Class:doSetOverlayReverseIntensity(intensity)
 	self:warn("old overlay intensity control not implemented")
 end
 
+function Class:isDisplayEnabled()
+	return self._displayEnabled
+end
+
+function Class:setDisplayEnabled(enable)
+	self._displayEnabled = enable
+end
+
 return Class

@@ -26,6 +26,12 @@ log:debug("extension","Assigning CEFOverlay as target implementation.");
 local cfg = require "models.turret.parts.Common"
 cfg:set("Overlay.class_name","CEFOverlay")
 
+-- we also add the support for the auto disable overlay feature:
+-- this is desactivated by default because the regular overlays will not work properly if the display for Digital1 is desactivated.
+log:debug("extension","Activating auto-disable overlays...");
+local Object = require "base.Object"
+Object.cfg.auto_disable_overlay = true
+
 -- -- also override the method from OutputChannel to build the overlay:
 -- local OutputChannel = require "mx.OutputChannel"
 

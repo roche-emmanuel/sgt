@@ -129,6 +129,8 @@ void CEFManager::startThread()
         logDEBUG("Waiting for CEFManager to be initialized...");
         Sleep(50); // wait 50 ms.
     }
+
+    logDEBUG("CEFManager is now ready.");
 }
 
 void CEFManager::stopThread()
